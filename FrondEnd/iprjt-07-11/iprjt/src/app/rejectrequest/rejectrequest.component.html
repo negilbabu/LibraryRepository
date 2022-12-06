@@ -1,0 +1,23 @@
+<router-outlet></router-outlet>
+<p>
+    <br><input type="button" style = "position:absolute; left:1200px; top:20px;" class="btnhome" name="HomE" value="HomE" (click)="home()"><br><br>
+</p>    
+
+  
+  <div class="text-center"> 
+      <form [formGroup]="ObjSampleForm" (ngSubmit)="onSubmit()">
+              
+              <div style="width: 120px; margin:0 auto;" class="example-container" >
+                  <label><h1><u>Reject_Request</u></h1></label><br><br>
+
+                  <div>Return Date<input  type="text" class="text-danger1" placeholder="reason" formControlName="reason" name="reason"  required></div><br>
+
+
+
+
+                  <input class="btn" type="submit" name="onSubmit" value="Submit"><br><br><br>
+
+
+                </div>       
+            </form>         
+            </div>

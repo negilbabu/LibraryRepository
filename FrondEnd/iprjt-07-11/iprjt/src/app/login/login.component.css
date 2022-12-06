@@ -1,0 +1,32 @@
+.text-danger1{
+
+    width: 17%;
+    padding: 14px 4px;
+    margin: 0px;
+    border-radius: 25px;
+    border: 1px solid rgba(114, 114, 114, 0.482);
+  
+   
+    background-color: #4f636752;
+    color: rgb(0, 0, 0);
+  
+}
+.btn{
+    width: 6%;
+    padding: 9px 2px;
+    margin: 5px ;
+
+
+    border-radius: 25px;
+    border: 2px solid rgb(0, 0, 0);
+
+    background-color:rgba(76, 253, 70, 0.752);
+    color: rgb(0, 0, 0);
+}
+.text-center{
+    background-image: url('../../../c.jpg');
+}
+.name{
+    
+    color: rgba(255, 255, 255, 0.993);
+}
