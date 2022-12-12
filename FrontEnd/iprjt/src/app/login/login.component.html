@@ -1,0 +1,31 @@
+<div class="body"></div>
+<div class="grad"></div>
+<div class="header">
+    <div>Lib<span>rary</span></div>
+</div>
+<br>
+  <!-- <span><mat-icon>eco</mat-icon> <Label>LIBRARY</Label></span> -->
+<form [formGroup]="loginForm" class="login">
+    <span><mat-icon style="color:#c99f14">library_books</mat-icon> <Label style="color: #dddbd5">LIB</Label><Label style="color: #c99f14">RARY</Label></span> 
+   
+   
+    <input type="text" placeholder="email" formControlName="email"><br>
+
+    <span class="text-danger"   class="text-danger" *ngIf="loginForm.controls['email'].touched && loginForm.hasError('required','email')"><small>Email is required</small>
+    </span>
+    
+
+    <input type="password" placeholder="password" formControlName="password"
+        pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"><br>
+
+        <span class="text-danger"   class="text-danger" *ngIf="loginForm.controls['password'].touched && loginForm.hasError('required','password')"><small>password is required<br>use (uppercase ,lowercase and numbers)<br>minimum 8 character</small>
+            </span>
+    <!-- <span class="text-danger" 
+    *ngIf="this.login && loginForm.get('password')?.invalid"><small>
+            password is required <br>use (uppercase ,lowercase and numbers)<br>minimum 8 character    
+               </small>   
+    </span> -->
+    <input type="button" value="Login" (click)="login()">
+    <input type="button" value="Register" routerLink="/user-reg">
+</form>
+<!--  pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" -->

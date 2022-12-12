@@ -1,0 +1,22 @@
+<!-- <router-outlet></router-outlet> -->
+<p>
+    <br><input type="button" style = "position:absolute; left:1200px; top:10px;" class="btnhome" name="HomE" value="HomE" (click)="home()"><br>
+</p>    
+
+  
+  <div class="text-center"> 
+      <form [formGroup]="ObjSampleForm" (ngSubmit)="onSubmit()">
+              
+              <div ><br>
+                  <label><h2>Reject Request</h2></label><br><br>
+
+                  <div><input style=" text-align: center; width: 350px; height: 175px; margin:0 auto;" type="textarea" class="text-danger1" placeholder="Mention the reason here " formControlName="reason" name="reason"  required></div>
+                  <span class="text-danger"   class="text-danger" *ngIf="ObjSampleForm.controls['reason'].touched && ObjSampleForm.hasError('required','reason')"><small>Reason is required</small>
+                  </span>
+                <div><br>
+                  <input class="btn" style="width: 120px; ;"   type="submit" name="onSubmit" value="Submit" [disabled]="!ObjSampleForm.valid"><br><br><br>
+
+                </div>
+                </div>       
+            </form>         
+            </div>

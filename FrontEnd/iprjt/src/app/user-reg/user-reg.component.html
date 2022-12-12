@@ -1,0 +1,80 @@
+<p > <br>
+    <input type="button" style = "position:absolute; left:1200px; top:20px;" class="btnhome" name="LogIn" value="LogIn" (click)="Login()">
+    <br><br>
+     </p>
+
+
+
+<router-outlet></router-outlet>
+
+<div class="text-center"> 
+    <form [formGroup]="ObjSampleForm" (ngSubmit)="onSubmit()">
+            
+            <div style="width: 160px; margin:0 auto;" class="example-container" ><br>
+               <div style="width: 50px; margin:0 auto;"> <label ><h2>SignUp</h2></label></div>
+                <br>                
+                            
+                <div>
+                <input  type="text" class="text-danger1" placeholder="First Name" formControlName="firstName" name="firstName" maxlength="100" required> 
+                <span class="text-danger"   class="text-danger" *ngIf="ObjSampleForm.controls['firstName'].touched && ObjSampleForm.hasError('required','firstName')"><small>Firstname is required</small>
+                </span>
+                </div> <br>
+
+                <div>
+                    <input  type="text" class="text-danger1" placeholder="Last Name" formControlName="lastName" name="lastName" maxlength="100" required> 
+                    <span class="text-danger"   class="text-danger" *ngIf="ObjSampleForm.controls['lastName'].touched && ObjSampleForm.hasError('required','lastName')"><small>Lastname is required</small>
+                    </span>
+                    </div> <br>
+
+                <div>
+                    <input  type="date" class="text-danger1" placeholder="DOB" formControlName="dob" name="dob" max="{{date | date :'yyyy-MM-dd' }}"  required>    
+                    <span class="text-danger"   class="text-danger" *ngIf="ObjSampleForm.controls['dob'].touched && ObjSampleForm.hasError('required','dob')"><small>Date-of-birth is required</small>
+                    </span>   
+                </div> <br>
+                <div>
+                    <input  type="text" class="text-danger1" placeholder="Address" formControlName="address" name="address" maxlength="100" required>
+                    <span class="text-danger"   class="text-danger" *ngIf="ObjSampleForm.controls['address'].touched && ObjSampleForm.hasError('required','address')"><small>Address is required</small>
+                    </span>     
+                     </div> <br>
+                <div>
+                    <input  type="text" class="text-danger1" placeholder="phone" formControlName="phone" name="phone" maxlength="10" required> 
+                    <span class="text-danger"   class="text-danger" *ngIf="ObjSampleForm.controls['phone'].touched && ObjSampleForm.hasError('required','phone')"><small>Phone n.o is required</small>
+                    </span>
+                    </div> <br>
+                <!-- <div>
+                    <input  type="number" class="text-danger1" placeholder="role" formControlName="role" name="role" maxlength="20" required>    
+                    </div> <br><br> -->
+            <div>
+                <input type="password" class="text-danger1" placeholder="password" formControlName="password" name="password" pattern='(?=.*\d)(?=.*[a-z])(?=.*[#$@!%&*?])(?=.*[A-Z]).{8,}' minlength="8" required> 
+                <span class="text-danger"   class="text-danger" *ngIf="ObjSampleForm.controls['password'].touched && ObjSampleForm.hasError('required','password')"><small>pswd is required<br>use (uppercase,lowercase & numbers)<br>minimum 8 character</small>
+                </span>            
+                    <br><br>                
+            </div>
+            <div>
+            <input  type="text" class="text-danger1" placeholder="email" formControlName="email" name="email" pattern='[a-zA-z0-9]+' maxlength="100" required>
+           
+    <span class="text-danger"   class="text-danger" *ngIf="ObjSampleForm.controls['email'].touched && ObjSampleForm.hasError('required','email')"><small>Email is required</small>
+    </span>
+                  
+            </div> <br><br>            
+            
+
+            
+            <input class="btn" type="submit" name="onSubmit" value="Submit" ><br><br><br><br>
+            <br>    
+            <br><br>
+            <br>
+            <br>
+            <br>    
+            <br><br>
+            <br>    
+            <br>
+            </div>
+            <br>    
+            <br><br>
+            <br>    
+            <br>
+    </form>     
+    
+    </div>
+    

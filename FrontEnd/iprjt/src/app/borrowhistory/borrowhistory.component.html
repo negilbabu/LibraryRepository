@@ -1,0 +1,61 @@
+<router-outlet></router-outlet>
+<p>
+    <br><input type="button" style = "position:absolute; left:1200px; top:20px;" class="btnhome" name="HomE" value="HomE" (click)="home()"><br><br>
+</p>    
+
+  
+  <div class="text-center"> 
+      <form>
+
+        <div class="card-box">
+          
+        
+            <div class="row">
+                      <div class="table-responsive">
+                        <h1 style="text-align:center ;">Borrow Details</h1>
+
+
+                            <table align="center" class="table-bordered" id="datatable" role="grid" >
+                             
+                              <thead class="bg-primary text-white">
+                                  <tr role="row">
+                                   
+                                   
+                                    <th>Book Name</th>                                
+                                    <th>Issued Date</th>
+                                    <th>Return Date</th>                                  
+                                    <th>Due date</th>
+                                    <th>Status</th>
+                                    <th>Reason</th>
+                                    <th>DueDays</th>
+                                    <th>Fine(INR)</th>
+                                   
+                                    </tr>
+                              </thead>
+                              <tbody>
+        <tr *ngFor="let borrow of  borrowdata">
+
+            <!-- <td>{{borrow.user.firstName}}</td> -->
+            <td>{{borrow.books.booksName}}</td>
+            
+            <td>{{borrow.issueDate| date:'dd/MM/yyyy'}}</td>                 
+            <td>{{borrow.returnDate| date:'dd/MM/yyyy'}}</td>
+            <td>{{borrow.dueDate| date:'dd/MM/yyyy'}}</td>
+            <td>{{borrow.status}}</td>
+            <td>{{borrow.reason}}</td>
+            <td>{{borrow.dueDays}}</td>
+            <td>{{borrow.fine}}</td>
+          
+       
+ 
+    <!-- <td>
+     <button type ="button" class="btnAction" (click)="delete(books)">delete</button>&nbsp;&nbsp;
+    <button type ="button" class="btnAction" (click)="edit(books)">edit</button></td>
+        </tr> -->
+        
+                              </tbody>
+                          </table>
+                        
+                      </div>
+                  </div>
+                </div>
