@@ -83,19 +83,15 @@ p{
 th {
     background-color: #232524;
     color: white;
-    width: 10%;
+    width: 15%;
     text-align: center;
-    margin-left: 5px;
-    margin-right: 5px;
   }
   td {
     background-color: #a7bdb08f;
     color: rgb(0, 0, 0);
-    width: 10%;
+    width: 15%;
     text-align: center;
     margin-top: auto;
-    margin-left: 5px;
-    margin-right: 5px;
     padding: auto;
   }
 

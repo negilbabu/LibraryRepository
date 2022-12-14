@@ -7,9 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class BorrowService {
 
-  // update(id: any, data: any) {
-  //   return this.http.put(this.apiurl + "/borrow/" + sessionStorage.getItem('borrowId'), data);
-  // }
+
   
 
   apiurl='http://localhost:8080';
@@ -31,6 +29,9 @@ export class BorrowService {
   }
   LoadDue(){
     return this.http.get('http://localhost:8080/borrow/due');
+  }
+  LoadFine(){
+    return this.http.get('http://localhost:8080/borrow/fine');
   }
   LoadDueByUser(){
     return this.http.get('http://localhost:8080/borrow/dueByUser');

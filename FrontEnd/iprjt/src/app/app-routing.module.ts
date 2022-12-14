@@ -20,6 +20,7 @@ import { NotificationComponent } from './notification/notification.component';
 import { BookreturnComponent } from './bookreturn/bookreturn.component';
 import { ViewAdminprofileComponent } from './view-adminprofile/view-adminprofile.component';
 import { ImageuploadComponent } from './imageupload/imageupload.component';
+import { FineComponent } from './fine/fine.component';
 
 
 const routes: Routes = [
@@ -41,8 +42,8 @@ const routes: Routes = [
   {path : 'notification',component:NotificationComponent},
   {path : 'bookreturn',component:BookreturnComponent},
   {path : 'view-adminprofile',component:ViewAdminprofileComponent},
-  {path : 'imageupload',component:ImageuploadComponent}
-
+  {path : 'imageupload',component:ImageuploadComponent},
+  {path : 'fine',component:FineComponent}
 
 ];
 

@@ -16,7 +16,7 @@ import com.innovature.Library.exception.BadRequestException;
 
 
 public class FileUtil {
-    public static final String PATH = "/home/negilbabu/Desktop/project/LibraryRepository/FrondEnd/iprjt-07-11/iprjt/src/assets/BooksImage/";
+    public static final String PATH = "/home/negilbabu/Desktop/project/LibraryRepository/FrontEnd/iprjt/src/assets/BooksImage/";
     //public static final String PATH = "/home/arun/Library@dec9@12PM/Library/iprjt-07-11/iprjt/src/assets/BooksImage/";
 
     public static final String PROFILE_PIC_DIR = "item_pics/";

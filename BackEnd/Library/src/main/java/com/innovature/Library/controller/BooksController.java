@@ -3,11 +3,15 @@ package com.innovature.Library.controller;
 import java.io.IOException;
 //import java.security.Principal;
 import java.util.Collection;
+import java.util.List;
 
 import javax.validation.Valid;
 
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
+import org.springframework.http.ResponseEntity;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,6 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.innovature.Library.entity.Books;
+import com.innovature.Library.entity.Borrow;
 //import com.innovature.Library.entity.Category;
 import com.innovature.Library.form.BooksForm;
 import com.innovature.Library.repository.BooksRepository;
@@ -82,6 +87,21 @@ public class BooksController {
     ) {
         return service.updates(booksId, form);
     }
+
+
+
+    @GetMapping("/pagenated/")
+    public ResponseEntity<List<Books>>getAllBooks(
+                        @RequestParam(defaultValue = "0") Integer pageNo,
+                        @RequestParam(defaultValue = "10") Integer pageSize,
+                        @RequestParam(defaultValue = "id") String sortBy)
+    {
+        List<Books> list = service.getAllBooks(pageNo, pageSize, sortBy);
+        return new ResponseEntity<List<Books>>(list,new HttpHeaders(),
+        HttpStatus.OK);
+
+    }
+
 
 
 

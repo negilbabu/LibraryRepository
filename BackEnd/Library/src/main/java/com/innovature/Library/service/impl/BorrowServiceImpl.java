@@ -76,10 +76,20 @@ public class BorrowServiceImpl implements BorrowService {
     }
 
 
+    @Override
+    public Collection<Borrow> listDue() {
+        return borrowRepository.findbyBorrowIdandStatus();                
+    }
+
 
     @Override
     public Collection<Borrow> listDueByUser() {
         return borrowRepository.findbyUserIdandStatus(SecurityUtil.getCurrentUserId());                
+    }
+
+    @Override
+    public Collection<Borrow> fine() {
+        return borrowRepository.findbyBorrowIdandDueDateandStatus();                
     }
 
 
@@ -89,9 +99,6 @@ public class BorrowServiceImpl implements BorrowService {
         Borrow borrow=borrowRepository.findByBorrowId(borrowId);
         return new BorrowDetailView(borrow);
     }
-
-
-
 
 
     @Override
@@ -200,7 +207,7 @@ public class BorrowServiceImpl implements BorrowService {
 
 
 
-
+///pagenation and sort///
 
     public List<Borrow>getAllBorrow(Integer pageNo, Integer pageSize, String sortBy){
         
@@ -216,10 +223,26 @@ public class BorrowServiceImpl implements BorrowService {
     }
 
 
-    @Override
-    public Collection<Borrow> listDue() {
-        return borrowRepository.findbyBorrowIdandStatus();                
+    public List<Borrow>getBorrowHistory(Integer pageNo, Integer pageSize, String sortBy){
+        
+        Pageable paging = PageRequest.of(pageNo, pageSize, Sort.by(sortBy));
+
+        Page<Borrow> pagedResult = borrowRepository.findAllByUserUserId(SecurityUtil.getCurrentUserId(),paging);
+
+        if(pagedResult.hasContent()){
+            return pagedResult.getContent();
+        } else {
+            return new ArrayList<Borrow>();
+        }
     }
+
+    // @Override
+    // public Collection<BorrowListView> list1() {
+    //     return borrowRepository.findAllByUserUserId(SecurityUtil.getCurrentUserId());
+    // }
+
+
+   
 //mail//
     // @Override
     // @Transactional
@@ -275,7 +298,7 @@ public class BorrowServiceImpl implements BorrowService {
     @Override
     @Transactional
    // @Scheduled(cron="* */1 * * * * ")
-   @Scheduled(cron="0 0 12 * * ?")
+   @Scheduled(cron="0 0 9 * * ?")
     public void fineGeneration() {
        System.out.println("reachllllllllllllll");
        
@@ -290,8 +313,7 @@ public class BorrowServiceImpl implements BorrowService {
             due=due/86400000; //time conversion to date
             bor.setDueDays(due);
 
-            bor.setFine(due*5);
-                    
+            bor.setFine(due*5);                    
         }
         
     }
