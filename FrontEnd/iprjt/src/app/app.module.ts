@@ -36,6 +36,8 @@ import { ViewAdminprofileComponent } from './view-adminprofile/view-adminprofile
 import {MatIconModule} from '@angular/material/icon';
 import { ImageuploadComponent } from './imageupload/imageupload.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { FineComponent } from './fine/fine.component';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 //  import {MatIconModule} from '@angular/material/icon';
 // import { MatToolbarModule } from '@angular/material';
@@ -65,6 +67,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     BookreturnComponent,
     ViewAdminprofileComponent,
     ImageuploadComponent,
+    FineComponent,
     
 
   ],
@@ -77,6 +80,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     NgToastModule,
     MatIconModule,
     NgbModule,
+    NgxPaginationModule
    ///MatIconModule,
     // MatToolbarModule,
     // MatTooltipModule,

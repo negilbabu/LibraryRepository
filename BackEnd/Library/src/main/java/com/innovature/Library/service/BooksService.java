@@ -2,6 +2,8 @@ package com.innovature.Library.service;
 
 import java.io.IOException;
 import java.util.Collection;
+import java.util.List;
+
 import org.springframework.http.HttpEntity;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.view.RedirectView;
@@ -30,6 +32,8 @@ public interface BooksService {
     HttpEntity<byte[]> getImagePic(Integer booksId);
 
     RedirectView uploadImage(MultipartFile multipartFile) throws IOException;
+
+    List<Books> getAllBooks(Integer pageNo, Integer pageSize, String sortBy);
 
 
 

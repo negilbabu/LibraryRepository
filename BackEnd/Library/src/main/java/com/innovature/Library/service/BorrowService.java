@@ -30,6 +30,7 @@ public interface BorrowService {
     BorrowDetailView updatereject(Integer borrowId,BorrowForm form);
     
     List<Borrow> getAllBorrow(Integer pageNo, Integer pageSize, String sortBy);
+    List<Borrow> getBorrowHistory(Integer pageNo, Integer pageSize, String sortBy);
 
     BorrowDetailView updateReturn(Integer borrowId, BorrowForm form);
 
@@ -44,6 +45,8 @@ public interface BorrowService {
     void sendMails();
 
     void fineGeneration();
+
+    Collection<Borrow> fine();
 
 
 

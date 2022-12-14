@@ -40,7 +40,7 @@ public class BorrowController {
 
 
 
-
+//borrow list @admin
     @GetMapping("/pagenated/")
     public ResponseEntity<List<Borrow>>getAllBorrow(
                         @RequestParam(defaultValue = "0") Integer pageNo,
@@ -48,6 +48,18 @@ public class BorrowController {
                         @RequestParam(defaultValue = "id") String sortBy)
     {
         List<Borrow> list = bService.getAllBorrow(pageNo, pageSize, sortBy);
+        return new ResponseEntity<List<Borrow>>(list,new HttpHeaders(),
+        HttpStatus.OK);
+
+    }
+
+    @GetMapping("/user/pagenated/")
+    public ResponseEntity<List<Borrow>>getBorrowHistory(
+                        @RequestParam(defaultValue = "0") Integer pageNo,
+                        @RequestParam(defaultValue = "10") Integer pageSize,
+                        @RequestParam(defaultValue = "id") String sortBy)
+    {
+        List<Borrow> list = bService.getBorrowHistory(pageNo, pageSize, sortBy);
         return new ResponseEntity<List<Borrow>>(list,new HttpHeaders(),
         HttpStatus.OK);
 
@@ -62,15 +74,17 @@ public class BorrowController {
 
 
 
+
     @PostMapping
     public BorrowDetailView add(@Valid @RequestBody BorrowForm form) {
         return bService.add(form);
     }
-
+//borrow history @user
     @GetMapping("/list/user")
     public Collection<BorrowListView> list1(Principal p) {
         return bService.list1();
     }
+
     @GetMapping("/user/notification")
     public Collection<Borrow> listNotification(Principal p) {
         return bService.listNotification();
@@ -88,6 +102,12 @@ public class BorrowController {
     @GetMapping("/due")
     public Collection<Borrow> listDue() {
         return bService.listDue();
+    }
+
+
+    @GetMapping("/fine")
+    public Collection<Borrow> listfine() {
+        return bService.fine();
     }
 
     @GetMapping("/dueByUser")

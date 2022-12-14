@@ -22,14 +22,16 @@
                                     <th>Issue Date</th>                                  
                                     <th>Return Date</th>                             
                                     <th>Due Date</th>
+                                    <th>DueDays</th>                                  
+                                    <th>Fine(INR)</th>
                                     <th>Returned Date</th>
                                     <th>Status</th>
                                     <th>Reason</th>
                                     <th>Action</th>
                                     </tr>
                               </thead>
-                              <tbody>
-        <tr *ngFor="let borrow of  borrowdata">
+          <tbody>
+        <!-- <tr *ngFor="let borrow of  borrowdata">
 
             <td>{{borrow.user.firstName}}</td>
             <td>{{borrow.books.booksName}}</td>
@@ -46,10 +48,47 @@
     <button type ="button" class="btnn" *ngIf="borrow.status!='RETURNED' && borrow.status=='APPROVED' " (click)="bookReturn(borrow)" >Return</button>
     <button type ="button" class="btnn1" *ngIf="borrow.status=='RETURNED'  "  (click)="undo(borrow)" >Undo</button><br><br>
   </td>
-        </tr>
+        </tr> -->
+
+        <tr *ngFor="let post of  POSTS
+        | paginate
+         :{
+          itemsPerPage: tableSize,
+          currentPage: page,
+          totalItems: count
+        };
+        let i = index
+        " >
+        <td scope="row">{{ post.user.firstName }}</td>
+
+          <!-- <td>{{post.user.firstName}}</td> -->
+          <td>{{post.books.booksName}}</td>
+          <td>{{post.issueDate| date:'dd/MM/yyyy'}}</td>                 
+          <td>{{post.returnDate| date:'dd/MM/yyyy'}}</td>
+          <td>{{post.dueDate| date:'dd/MM/yyyy'}}</td>
+          <td>{{post.dueDays}}</td>
+          <td>{{post.fine}}</td>
+          
+          <td>{{post.bookReturnedDate| date:'dd/MM/yyyy'}}</td>
+          <td>{{post.status}}</td>
+          <td>{{post.reason}}</td>
+
+  <td>
+  <button type ="button" style = "margin-top: 20px;" class="btnn0" *ngIf="post.status!='APPROVED' && post.status!='RETURNED'"  (click)="acceptRequest(post)">Accept</button>&nbsp;&nbsp;
+  <button type ="button" class="btnn2" *ngIf="post.status=='REQUESTED' "  (click)="rejectRequest(post)">Reject</button>&nbsp;&nbsp;<br>
+  <button type ="button" class="btnn" *ngIf="post.status!='RETURNED' && post.status=='APPROVED' " (click)="bookReturn(post)" >Return</button>
+  <button type ="button" class="btnn1" *ngIf="post.status=='RETURNED'  "  (click)="undo(post)" >Undo</button><br><br>
+</td>
+      </tr>
         
                               </tbody>
                           </table>
+
+   <pagination-controls
+        previousLabel="Prev"
+        nextLabel="Next"
+        (pageChange)="onTableDataChange($event)" >
+   </pagination-controls>
                         
                       </div>
                   </div>

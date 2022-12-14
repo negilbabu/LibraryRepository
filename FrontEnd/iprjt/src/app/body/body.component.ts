@@ -29,6 +29,11 @@ export class BodyComponent implements OnInit {
   }
 
 
+  onClickDue()
+  {
+    this.router.navigate(['/fine'])
+  }
+
   onClickCategory()
   {
     this.router.navigate(['/category'])

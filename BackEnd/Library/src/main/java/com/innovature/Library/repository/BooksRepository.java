@@ -3,6 +3,8 @@ import java.util.Collection;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.Repository;
 import com.innovature.Library.entity.Books;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 
 public interface BooksRepository extends Repository <Books, Integer> {
@@ -24,6 +26,9 @@ public interface BooksRepository extends Repository <Books, Integer> {
 
    @Query(value = "select * from books where books_id in(select books_id from books where category_id=?1)",nativeQuery = true)
    Collection<Books> findbyCategoryId(Integer categoryId);
+
+
+   public Page<Books> findAll(Pageable paging);
 
    
 }

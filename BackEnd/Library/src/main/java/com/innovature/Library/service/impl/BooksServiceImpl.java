@@ -1,8 +1,11 @@
 package com.innovature.Library.service.impl;
 
 import java.io.IOException;
+import java.util.ArrayList;
 // import java.net.http.HttpHeaders;
 import java.util.Collection;
+import java.util.List;
+
 //import java.util.ArrayList;
 import javax.transaction.Transactional;
 //import java.util.Collection;
@@ -14,6 +17,12 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.view.RedirectView;
+
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 
 import com.innovature.Library.entity.Books;
 import com.innovature.Library.entity.Category;
@@ -106,6 +115,22 @@ public class BooksServiceImpl implements BooksService{
         // TODO Auto-generated method stub
         return null;
     }
+
+
+
+    public List<Books>getAllBooks(Integer pageNo, Integer pageSize, String sortBy){
+        
+        Pageable paging = PageRequest.of(pageNo, pageSize, Sort.by(sortBy));
+
+        Page<Books> pagedResult = booksRepository.findAll(paging);
+
+        if(pagedResult.hasContent()){
+            return pagedResult.getContent();
+        } else {
+            return new ArrayList<Books>();
+        }
+    }
+
 
 }
 

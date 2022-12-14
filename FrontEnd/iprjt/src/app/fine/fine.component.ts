@@ -2,26 +2,19 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { BooksService } from '../books.service';
 import { BorrowService } from '../borrow.service';
-import { CategoryService } from '../category.service';
 
 @Component({
-  selector: 'app-borrow',
-  templateUrl: './borrow.component.html',
-  styleUrls: ['./borrow.component.css']
+  selector: 'app-fine',
+  templateUrl: './fine.component.html',
+  styleUrls: ['./fine.component.css']
 })
-export class BorrowComponent implements OnInit {
+export class FineComponent implements OnInit {
 
 
   borrowList: any[];
   borrowId:any;
   borrowdata:any;
   booksdata:any;
-
-  POSTS: any;
-  page: number = 1;
-  count: number = 0;
-  tableSize: number = 5;
-  tableSizes: any = [3, 6, 9, 12];
 
     constructor(private router:Router ,private service:BorrowService,private booksService:BooksService) {
  
@@ -37,39 +30,11 @@ export class BorrowComponent implements OnInit {
 
 
       LoadBorrow(){
-        // this.service.Load().subscribe((data: any)=>{
-        // this.borrowdata=data;
-        // console.log(data);});
-        this.service.Load().subscribe(
-          (response) => {
-            this.POSTS = response;
-            this.borrowdata=response;
-            console.log(response);
-          },
-          (error) => {
-            console.log(error);
-          }
-        );
-      }
-
-      onTableDataChange(event: any) {
-        this.page = event;
-        this.LoadBorrow();
-      }
-      // onTableSizeChange(event: any): void {
-      //   this.tableSize = event.target.value;
-      //   this.page = 1;
-      //   this.LoadBorrow();
-      // }
-
-
-
-
-
-
-
-
-
+        this.service.LoadFine().subscribe((data: any)=>{
+        this.borrowdata=data;
+        console.log(data);});
+        
+  }
     
       home()
       {

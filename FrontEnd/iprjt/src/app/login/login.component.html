@@ -25,7 +25,7 @@
             password is required <br>use (uppercase ,lowercase and numbers)<br>minimum 8 character    
                </small>   
     </span> -->
-    <input type="button" value="Login" (click)="login()">
+    <input type="button" value="Login" (click)="login()" [disabled]="!loginForm.valid">
     <input type="button" value="Register" routerLink="/user-reg">
 </form>
 <!--  pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" -->

@@ -22,7 +22,10 @@ public interface BorrowRepository extends PagingAndSortingRepository<Borrow, Int
 
     Collection<BorrowListView> findAllByUserUserId(Integer userId);
 
+    
+
     public Page<Borrow> findAll(Pageable paging);
+    public Page<Borrow> findAllByUserUserId(Integer userId,Pageable paging);
 
     // public Page<Borrow> findAll(org.springframework.data.domain.Pageable paging);
     
@@ -39,13 +42,13 @@ public interface BorrowRepository extends PagingAndSortingRepository<Borrow, Int
 
 
     //To select all user(without used_id) by due date expired(@admin side)
-    @Query(value = "select * from borrow where borrow_id in(select borrow_id  from borrow where due_date<curdate() and status='APPROVED' )", nativeQuery = true)
+    @Query(value = "select * from borrow where borrow_id in(select borrow_id  from borrow where due_date<curdate() and status='APPROVED')", nativeQuery = true)
     Collection<Borrow> findbyBorrowIdandStatus();
 
 
 
-    // @Query(value = "select * from borrow where borrow_id in(select borrow_id  from borrow where due_date<curdate() and status='APPROVED' )", nativeQuery = true)
-    // Collection <Borrow> findbyBorrowIdandStat();
+    @Query(value = "select * from borrow where borrow_id in(select borrow_id  from borrow where due_date<curdate() and status!='RETURNED')", nativeQuery = true)
+    Collection <Borrow> findbyBorrowIdandDueDateandStatus();
 
 
 
@@ -66,7 +69,10 @@ public interface BorrowRepository extends PagingAndSortingRepository<Borrow, Int
     void findDueDays(Integer borrowId);
 
     //public Borrow save(Collection<Borrow> borrow);
-    
+
+   //total sum of fine /user
+    // @Query(value=" select sum(fine) from borrow where user_id=?",nativeQuery=true)
+    // void findFineByUserId(Integer userId);
 
 
 }

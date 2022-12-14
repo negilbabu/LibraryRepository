@@ -32,17 +32,9 @@ export class ViewAdminprofileComponent implements OnInit {
   
   
       home()
-      {
-        
-        this.role=sessionStorage.getItem('role.value')|| '';
-        console.log(this.role)
-        // if(role!=2){
-        //   this.router.navigate(['/body'])
-        // }
-        // else{
-          this.router.navigate(['/body'])
+      {        
 
-        // }
+          this.router.navigate(['/body'])
       
       }
   
