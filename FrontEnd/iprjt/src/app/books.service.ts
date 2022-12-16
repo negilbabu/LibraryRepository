@@ -31,6 +31,11 @@ export class BooksService {
     return this.http.delete(this.apiurl+'/books/'+booksId,{headers:head_obj});
   }
   
+
+  pagination1(page:any,tableSize:any,sort:any){
+    return this.http.get("http://localhost:8080/books/pagenated/?pageNo="+page+"&pageSize="+tableSize+"&sortBy="+sort)
+  }
+
   
   update(id: any, data: any) {
     // console.log(id)

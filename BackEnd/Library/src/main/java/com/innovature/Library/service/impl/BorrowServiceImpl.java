@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 // import java.util.Date;
 import java.util.Date;
+//import java.sql.Date;
 
 import javax.transaction.Transactional;
 
@@ -208,8 +209,30 @@ public class BorrowServiceImpl implements BorrowService {
 
 
 ///pagenation and sort///
+    @Override
+    @Transactional
+    public List<Borrow>getAllBorrow( java.sql.Date date1, java.sql.Date date2,Integer pageNo, Integer pageSize, String sortBy){
+        
+        Pageable paging = PageRequest.of(pageNo, pageSize, Sort.by(sortBy));
 
-    public List<Borrow>getAllBorrow(Integer pageNo, Integer pageSize, String sortBy){
+        Page<Borrow> pagedResult = borrowRepository.findbyIssuDate(date1,date2,paging);
+
+        if(pagedResult.hasContent()){
+            return pagedResult.getContent();
+        } else {
+            return new ArrayList<Borrow>();
+        }
+
+
+//         @Override
+//   public Collection<BookingView> listinguserdropdown(String string, java.sql.Date date1, java.sql.Date date2) {
+//     return bookingRepository.findAll(string, date1, date2).stream().map(BookingView::new).collect(Collectors.toList());
+//   }
+    }
+
+    @Override
+    @Transactional
+    public List<Borrow>getAllBorrows(Integer pageNo, Integer pageSize, String sortBy){
         
         Pageable paging = PageRequest.of(pageNo, pageSize, Sort.by(sortBy));
 
@@ -223,6 +246,9 @@ public class BorrowServiceImpl implements BorrowService {
     }
 
 
+
+    @Override
+    @Transactional
     public List<Borrow>getBorrowHistory(Integer pageNo, Integer pageSize, String sortBy){
         
         Pageable paging = PageRequest.of(pageNo, pageSize, Sort.by(sortBy));

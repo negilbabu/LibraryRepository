@@ -5,28 +5,32 @@
 </p>    
 
     <div class="text-center"> 
-      <form>
+      <form [formGroup]="ObjSampleForm">
         <div class="card-box">         
                     <div class="row">
                       <div class="table-responsive"><br>
                         <h2 style="text-align:center ;">Borrow Details</h2>
 
+<div><input type="date" formControlName="date1" value="date1" max="{{date| date:'yyyy/MM/dd' }}" ></div>
+<div><input type="date" formControlName="date2" value="date2" max="{{date| date:'yyyy/MM/dd' }}"></div>
+
+<div><input type="button" (click)="getFilter()" value="FILTER"></div>
 
                             <table align="center" class="table-bordered" id="datatable" role="grid" >
                              
                               <thead class="bg-primary text-white">
                                   <tr role="row">
                                    
-                                    <th>User Name</th>
-                                    <th>Book Name</th>
-                                    <th>Issue Date</th>                                  
-                                    <th>Return Date</th>                             
-                                    <th>Due Date</th>
-                                    <th>DueDays</th>                                  
-                                    <th>Fine(INR)</th>
-                                    <th>Returned Date</th>
-                                    <th>Status</th>
-                                    <th>Reason</th>
+                                    <th (click)="sortfn('user.firstName')">User Name</th>
+                                    <th (click)="sortfn('books.booksName')">Book Name</th>
+                                    <th (click)="sortfn('issueDate')">Issue Date</th>                                  
+                                    <th (click)="sortfn('returnDate')">Return Date</th>                             
+                                    <th (click)="sortfn('dueDate')">Due Date</th>
+                                    <th (click)="sortfn('dueDays')">DueDays</th>                                  
+                                    <th (click)="sortfn('fine')">Fine(INR)</th>
+                                    <th (click)="sortfn('bookReturnedDate')">Returned Date</th>
+                                    <th (click)="sortfn('status')">Status</th>
+                                    <th (click)="sortfn('reason')">Reason</th>
                                     <th>Action</th>
                                     </tr>
                               </thead>
@@ -50,7 +54,7 @@
   </td>
         </tr> -->
 
-        <tr *ngFor="let post of  POSTS
+        <tr *ngFor="let post of  data
         | paginate
          :{
           itemsPerPage: tableSize,
@@ -84,11 +88,9 @@
                               </tbody>
                           </table>
 
-   <pagination-controls
-        previousLabel="Prev"
-        nextLabel="Next"
-        (pageChange)="onTableDataChange($event)" >
-   </pagination-controls>
+                          <div class="d-flex justify-content-center">
+                            <pagination-controls (pageChange)="onTableDataChange(page=$event)">
+                            </pagination-controls>
                         
                       </div>
                   </div>

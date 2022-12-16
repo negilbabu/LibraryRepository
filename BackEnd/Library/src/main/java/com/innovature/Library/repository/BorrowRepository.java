@@ -1,5 +1,6 @@
 package com.innovature.Library.repository;
 
+import java.sql.Date;
 import java.util.Collection;
 
 //import org.springframework.data.repository.Repository;
@@ -72,7 +73,22 @@ public interface BorrowRepository extends PagingAndSortingRepository<Borrow, Int
 
    //total sum of fine /user
     // @Query(value=" select sum(fine) from borrow where user_id=?",nativeQuery=true)
-    // void findFineByUserId(Integer userId);
+    // void findFineByUserId(Integer userId); public Page<Borrow> findAll(Pageable paging);
+
+    // @Query(value = "select * from borrow where issue_date between '2022-12-12' and '2022-12-20' ", nativeQuery = true)
+    // public Page<Borrow> findbyIssuDate(Pageable paging);
+
+    
+
+    @Query(value = "select * from borrow where issue_date between DATE(?1) and DATE(?2) and status!='REQUESTED'", nativeQuery = true)
+    public Page<Borrow> findbyIssuDate( java.sql.Date date1,java.sql.Date date2,Pageable paging);
+
+  //  public Page<Borrow> findbyIssuDate(java.util.Date date1, java.util.Date date2, Pageable paging);
+
+
+    // @Query(value = "select * from booking where booked_date BETWEEN DATE(?2) AND DATE(?3) and vaccine_id in(select vaccine_id from vaccine where vaccine_type=?1);",nativeQuery = true)
+    // Collection<Booking> findAll(String string, Date date1, Date date2);
+    
 
 
 }

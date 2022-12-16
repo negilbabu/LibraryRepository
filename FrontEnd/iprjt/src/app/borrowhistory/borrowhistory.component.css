@@ -53,12 +53,19 @@ p{
 .table-bordered{
     border: 1px solid;
 }
+
+
+th.mat-sort-header-sorted {
+    color: rgb(255, 255, 255);
+  }
+  
 th {
     background-color: #232524;
     color: white;
     width: 15%;
     text-align: center;
      padding: 12px;
+     
   }
   td {
     background-color: #a7bdb08f;

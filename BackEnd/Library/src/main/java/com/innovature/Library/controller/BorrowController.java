@@ -2,6 +2,7 @@ package com.innovature.Library.controller;
 
  import java.security.Principal;
 import java.util.Collection;
+import java.sql.Date;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -41,25 +42,58 @@ public class BorrowController {
 
 
 //borrow list @admin
-    @GetMapping("/pagenated/")
-    public ResponseEntity<List<Borrow>>getAllBorrow(
-                        @RequestParam(defaultValue = "0") Integer pageNo,
-                        @RequestParam(defaultValue = "10") Integer pageSize,
+
+
+// @GetMapping("/fetching/{string}/{date1}/{date2}")
+//     public Collection<BookingView> listinguserdropdown(@PathVariable String string,@PathVariable Date date1, @PathVariable Date date2) {
+//         return bookingService.listinguserdropdown(string,date1, date2);
+//     }
+
+@GetMapping("/pagenated/")
+public ResponseEntity<List<Borrow>>getAllBorrows(
+                    @RequestParam(defaultValue = "1") Integer pageNo,
+                    @RequestParam(defaultValue = "5") Integer pageSize,
+                    @RequestParam(defaultValue = "id") String sortBy)
+{
+    List<Borrow> list = bService.getAllBorrows(pageNo-1, pageSize, sortBy);
+    return new ResponseEntity<List<Borrow>>(list,new HttpHeaders(),
+    HttpStatus.OK);
+
+}
+
+
+    @GetMapping("/{date1}/{date2}")
+    public ResponseEntity<List<Borrow>>getFilterBorrow(
+                        // @PathVariable Date date1, @PathVariable Date date2,
+                        @PathVariable("date1") Date date1,
+                        @PathVariable("date2") Date date2,
+                        @RequestParam(defaultValue = "1") Integer pageNo,
+                        @RequestParam(defaultValue = "5") Integer pageSize,
                         @RequestParam(defaultValue = "id") String sortBy)
     {
-        List<Borrow> list = bService.getAllBorrow(pageNo, pageSize, sortBy);
+   
+        List<Borrow> list = bService.getAllBorrow(date1, date2,pageNo-1, pageSize, sortBy);
         return new ResponseEntity<List<Borrow>>(list,new HttpHeaders(),
         HttpStatus.OK);
 
     }
 
-    @GetMapping("/user/pagenated/")
+    // @PutMapping("/{borrowId}")
+    // public BorrowDetailView updateApprove(
+    //         @PathVariable("borrowId") Integer borrowId,
+    //         @Valid @RequestBody BorrowForm form
+    // ) {
+    //     return bService.updates(borrowId, form);
+    // }
+
+
+    @GetMapping("/userBorrow/pagenated/")
     public ResponseEntity<List<Borrow>>getBorrowHistory(
-                        @RequestParam(defaultValue = "0") Integer pageNo,
-                        @RequestParam(defaultValue = "10") Integer pageSize,
+                        @RequestParam(defaultValue = "1") Integer pageNo,
+                        @RequestParam(defaultValue = "2") Integer pageSize,
                         @RequestParam(defaultValue = "id") String sortBy)
     {
-        List<Borrow> list = bService.getBorrowHistory(pageNo, pageSize, sortBy);
+        List<Borrow> list = bService.getBorrowHistory(pageNo-1, pageSize, sortBy);
         return new ResponseEntity<List<Borrow>>(list,new HttpHeaders(),
         HttpStatus.OK);
 
