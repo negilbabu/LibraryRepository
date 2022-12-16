@@ -67,6 +67,8 @@ export class UserbodyComponent implements OnInit {
         this.borrowdata=data;
         console.log(data)
 
+
+
       var isFirstView1 = localStorage.getItem('isFirstView1') || '';
       if (isFirstView1 !== 'Yes') {
                 localStorage.setItem('isFirstView1', 'Yes'); }
@@ -77,6 +79,10 @@ export class UserbodyComponent implements OnInit {
       }}
      
 
+
+
+
+      
 
       }); 
      }  

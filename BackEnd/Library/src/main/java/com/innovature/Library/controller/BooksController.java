@@ -96,7 +96,7 @@ public class BooksController {
                         @RequestParam(defaultValue = "10") Integer pageSize,
                         @RequestParam(defaultValue = "id") String sortBy)
     {
-        List<Books> list = service.getAllBooks(pageNo, pageSize, sortBy);
+        List<Books> list = service.getAllBooks(pageNo-1, pageSize, sortBy);
         return new ResponseEntity<List<Books>>(list,new HttpHeaders(),
         HttpStatus.OK);
 

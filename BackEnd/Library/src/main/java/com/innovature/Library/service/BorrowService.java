@@ -1,5 +1,6 @@
 package com.innovature.Library.service;
 import java.util.Collection;
+import java.sql.Date;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -29,7 +30,8 @@ public interface BorrowService {
 
     BorrowDetailView updatereject(Integer borrowId,BorrowForm form);
     
-    List<Borrow> getAllBorrow(Integer pageNo, Integer pageSize, String sortBy);
+    List<Borrow> getAllBorrows(Integer pageNo, Integer pageSize, String sortBy);
+    List<Borrow> getAllBorrow(Date date1, Date date2, Integer pageNo, Integer pageSize, String sortBy);
     List<Borrow> getBorrowHistory(Integer pageNo, Integer pageSize, String sortBy);
 
     BorrowDetailView updateReturn(Integer borrowId, BorrowForm form);
@@ -47,6 +49,8 @@ public interface BorrowService {
     void fineGeneration();
 
     Collection<Borrow> fine();
+
+  
 
 
 

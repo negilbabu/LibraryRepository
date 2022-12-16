@@ -16,18 +16,26 @@
                               <thead class="bg-primary text-white">
                                   <tr role="row">
                                    
-                                    <th>Book Name</th>
-                                    <th>Category-Name</th>
-                                    <th>Publication</th>                                  
-                                    <th>Auther</th>
-                                    <th>Book Copies</th>
+                                    <th (click)="sortfn('booksName')">Book Name</th>
+                                    <th (click)="sortfn('category.categoryName')">Category-Name</th>
+                                    <th (click)="sortfn('publication')">Publication</th>                                  
+                                    <th (click)="sortfn('auther')">Auther</th>
+                                    <th (click)="sortfn('booksCopies')">Book Copies</th>
                                     <th>Book Cover</th>
                                     <th>Action</th>
 
                                     </tr>
                               </thead>
                               <tbody>
-        <tr *ngFor="let books of  booksdata">
+        <tr *ngFor="let books of  data | paginate 
+        : {
+            itemsPerPage: tableSize,
+            currentPage: page,
+            totalItems: count
+          };
+        
+        
+        ">
 
             <td>{{books.booksName}}</td>
             <td>{{books.category.categoryName}}</td>
@@ -48,7 +56,10 @@
         
                               </tbody>
                           </table>
-                        
+                          <div class="d-flex justify-content-center">
+                            <pagination-controls (pageChange)="onTableDataChange(page=$event)">
+                            </pagination-controls>
+                        </div>
                       </div>
                   </div>
                 </div>
