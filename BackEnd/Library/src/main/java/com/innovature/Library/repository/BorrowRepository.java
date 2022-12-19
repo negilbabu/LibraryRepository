@@ -2,6 +2,7 @@ package com.innovature.Library.repository;
 
 import java.sql.Date;
 import java.util.Collection;
+import java.util.List;
 
 //import org.springframework.data.repository.Repository;
 import org.springframework.data.repository.PagingAndSortingRepository;
@@ -24,11 +25,13 @@ public interface BorrowRepository extends PagingAndSortingRepository<Borrow, Int
     Collection<BorrowListView> findAllByUserUserId(Integer userId);
 
     
-
+//load all @ pagenation
     public Page<Borrow> findAll(Pageable paging);
+
+//load all with userId(in user-login)
     public Page<Borrow> findAllByUserUserId(Integer userId,Pageable paging);
 
-    // public Page<Borrow> findAll(org.springframework.data.domain.Pageable paging);
+
     
     //To select borrow details with user_id,a day before due day
     @Query(value = "select * from borrow where borrow_id in(select borrow_id  from borrow where due_date=date_add(curdate(),interval 1 day)  and status='APPROVED' and user_id=?1)", nativeQuery = true)
@@ -69,25 +72,23 @@ public interface BorrowRepository extends PagingAndSortingRepository<Borrow, Int
     @Query(value="update borrow set due_days=DATEDIFF(curdate(),due_date) WHERE borrow_id=?",nativeQuery=true)
     void findDueDays(Integer borrowId);
 
-    //public Borrow save(Collection<Borrow> borrow);
-
    //total sum of fine /user
     // @Query(value=" select sum(fine) from borrow where user_id=?",nativeQuery=true)
     // void findFineByUserId(Integer userId); public Page<Borrow> findAll(Pageable paging);
 
-    // @Query(value = "select * from borrow where issue_date between '2022-12-12' and '2022-12-20' ", nativeQuery = true)
-    // public Page<Borrow> findbyIssuDate(Pageable paging);
 
+    //Load Filterd results
+    @Query(value = "select * from borrow where issue_date between DATE(?1) and DATE(?2) and status!='REQUESTED'", nativeQuery = true)
+   List<Borrow> findbyIssuDate(java.sql.Date date1,java.sql.Date date2);
     
-
+//pagenated filtered results
     @Query(value = "select * from borrow where issue_date between DATE(?1) and DATE(?2) and status!='REQUESTED'", nativeQuery = true)
     public Page<Borrow> findbyIssuDate( java.sql.Date date1,java.sql.Date date2,Pageable paging);
 
   //  public Page<Borrow> findbyIssuDate(java.util.Date date1, java.util.Date date2, Pageable paging);
 
 
-    // @Query(value = "select * from booking where booked_date BETWEEN DATE(?2) AND DATE(?3) and vaccine_id in(select vaccine_id from vaccine where vaccine_type=?1);",nativeQuery = true)
-    // Collection<Booking> findAll(String string, Date date1, Date date2);
+ 
     
 
 

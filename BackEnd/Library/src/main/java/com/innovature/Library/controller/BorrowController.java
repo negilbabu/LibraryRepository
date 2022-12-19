@@ -33,22 +33,20 @@ import com.innovature.Library.view.BorrowListView;
 
 @RestController
 @RequestMapping("/borrow")
-public class BorrowController {
-    
+public class BorrowController {    
 
     @Autowired
     private BorrowService bService;
 
 
+    //load all borrow list
+    @GetMapping
+    public Collection<Borrow> list() {
+        return bService.listAll();
+    }
 
-//borrow list @admin
 
-
-// @GetMapping("/fetching/{string}/{date1}/{date2}")
-//     public Collection<BookingView> listinguserdropdown(@PathVariable String string,@PathVariable Date date1, @PathVariable Date date2) {
-//         return bookingService.listinguserdropdown(string,date1, date2);
-//     }
-
+//pagenated borrow list at admin borrow
 @GetMapping("/pagenated/")
 public ResponseEntity<List<Borrow>>getAllBorrows(
                     @RequestParam(defaultValue = "1") Integer pageNo,
@@ -62,6 +60,26 @@ public ResponseEntity<List<Borrow>>getAllBorrows(
 }
 
 
+//load results of issuedate filter
+@GetMapping("/loadByIssueDate/{date1}/{date2}")
+public ResponseEntity<List<Borrow>> loadByIssueDate( 
+@PathVariable("date1") Date date1,
+ @PathVariable("date2") Date date2)
+// {
+//     return bService.loadtAllByIssueDate(Date date1, Date date2);
+// }
+{   
+    List<Borrow> list = bService.loadtAllByIssueDate(date1, date2);
+    return new ResponseEntity<List<Borrow>>(list,new HttpHeaders(),
+    HttpStatus.OK);
+}
+
+
+
+
+
+
+//Load filtered pagenated borrow list [on filtering]
     @GetMapping("/{date1}/{date2}")
     public ResponseEntity<List<Borrow>>getFilterBorrow(
                         // @PathVariable Date date1, @PathVariable Date date2,
@@ -78,19 +96,13 @@ public ResponseEntity<List<Borrow>>getAllBorrows(
 
     }
 
-    // @PutMapping("/{borrowId}")
-    // public BorrowDetailView updateApprove(
-    //         @PathVariable("borrowId") Integer borrowId,
-    //         @Valid @RequestBody BorrowForm form
-    // ) {
-    //     return bService.updates(borrowId, form);
-    // }
 
 
+//pagenation+sort at user borrow history
     @GetMapping("/userBorrow/pagenated/")
     public ResponseEntity<List<Borrow>>getBorrowHistory(
                         @RequestParam(defaultValue = "1") Integer pageNo,
-                        @RequestParam(defaultValue = "2") Integer pageSize,
+                        @RequestParam(defaultValue = "5") Integer pageSize,
                         @RequestParam(defaultValue = "id") String sortBy)
     {
         List<Borrow> list = bService.getBorrowHistory(pageNo-1, pageSize, sortBy);
@@ -98,11 +110,6 @@ public ResponseEntity<List<Borrow>>getAllBorrows(
         HttpStatus.OK);
 
     }
-
-
-
-
-
 
 
 
@@ -128,10 +135,7 @@ public ResponseEntity<List<Borrow>>getAllBorrows(
         return bService.listNotification();
     }
 
-    @GetMapping
-    public Collection<Borrow> list() {
-        return bService.listAll();
-    }
+   
 
     @GetMapping("/due")
     public Collection<Borrow> listDue() {

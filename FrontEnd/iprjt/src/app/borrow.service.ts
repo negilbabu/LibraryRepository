@@ -32,13 +32,14 @@ export class BorrowService {
     return this.http.get("http://localhost:8080/borrow/pagenated/?pageNo="+page+"&pageSize="+tableSize+"&sortBy="+sort)
   }
 
-    filterBorrowPagination(date1:any,date2:any,page:any,tableSize:any,sort:any){
-    // return this.http.get("http://localhost:8080/borrow/"+date1+"/"+date2+"?page="+page+"&pageSize="+tableSize+"&sortBy="+sort)
+  filterBorrowPagination(date1:any,date2:any,page:any,tableSize:any,sort:any){
     console.log(date1)
     return this.http.get(this.apiurl + "/borrow/"+date1+"/"+date2+"/?pageNo="+page+"&pageSize="+tableSize+"&sortBy="+sort)
   }
   // return this.http.get(this.apiurl + `/users/fetching/${type}/${date1}/${date2}`, httpOptions)
-  
+  LoadByIssueDate(date1:any,date2:any){
+    return this.http.get(this.apiurl + "/borrow/loadByIssueDate/"+date1+"/"+date2);
+  }
   
   Load(){
     return this.http.get('http://localhost:8080/borrow');
