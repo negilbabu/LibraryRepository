@@ -14,7 +14,9 @@
 <div><input type="date" formControlName="date1" value="date1" max="{{date| date:'yyyy/MM/dd' }}" ></div>
 <div><input type="date" formControlName="date2" value="date2" max="{{date| date:'yyyy/MM/dd' }}"></div>
 
-<div><input type="button" (click)="getFilter()" value="FILTER"></div>
+<div><input type="button" (click)="getFilter()" value="FILTER">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <input type="button" (click)="clearFilter()" value="CLEAR FILTER">
+</div>
 
                             <table align="center" class="table-bordered" id="datatable" role="grid" >
                              

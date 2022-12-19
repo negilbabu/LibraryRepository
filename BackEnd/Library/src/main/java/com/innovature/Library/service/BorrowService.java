@@ -15,6 +15,7 @@ public interface BorrowService {
     BorrowDetailView add(BorrowForm form);
 
     Collection<Borrow> listAll();
+    List<Borrow> loadtAllByIssueDate(Date date1, Date date2);
 
     BorrowDetailView list(Integer borrowId);
 

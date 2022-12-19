@@ -36,6 +36,7 @@ export class BorrowComponent implements OnInit {
   searchData:any
   sort:string="status";
   len: any;
+  flag:number=0;
   //borrow_id:any;
     constructor(private router:Router ,private service:BorrowService,private booksService:BooksService) {
  
@@ -51,7 +52,6 @@ export class BorrowComponent implements OnInit {
       this.len=result; 
       console.log(result)
       this.count=this.len.length;
-      console.log(this.count)
       //this.data=result;
       
     })
@@ -84,96 +84,69 @@ export class BorrowComponent implements OnInit {
       this.sort=a;      
       this.page=this.page;
       this.tableSize;
-      this.ngOnInit();        
-  
+       this.ngOnInit();        
+     // this.getFilter();
     }
     getFilter() {
       
       console.log(this.ObjSampleForm)
-        // this.page=1
-   
+        // this.page=1  
+        this.flag=1; 
+        this.service.LoadByIssueDate(this.ObjSampleForm.controls['date1'].value,this.ObjSampleForm.controls['date2'].value).subscribe(result=>{
+          this.len=result; 
+          console.log(result)
+          this.count=this.len.length;
+        })
+    
+        if(this.searchData==null || this.searchData==""){
+
         this.sort="borrow_id";
          this.service.filterBorrowPagination(this.ObjSampleForm.controls['date1'].value,this.ObjSampleForm.controls['date2'].value,this.page,this.tableSize,this.sort).subscribe({
           next: (res: any) => {
-            console.log("infilter")
-            console.log(res);
-            console.log("endfilter")
-            this.len=res;      
-            this.count=this.len.length;
-            this.data=res;
-       
-          },
-          error: (error: any) => {
-            console.log(error);
-          }
-        })
-      // }
-      // this.service.Load().subscribe(result=>{
-      //   this.len=result; 
-      //   console.log(result)
-      //   this.count=this.len.length;
-      // //  console.log(this.count)
-      //   //this.data=result;
+          //console.log("--------")
+            console.log(res);             
+            this.data=res;       
+          },         
+        });
         
-      // })
-      //this.onTableDataChange(this.page);
-     
-      // if(this.searchData==null || this.searchData==""){
-      //   this.service.borrowPagination(this.page,this.tableSize,this.sort).subscribe((result=>{
-      //     this.data=result; 
-      //     console.log('OnloadPagenation')  
-      //     console.log(this.data)         
-      //   }));        
-      // }
-      // else{
-  
-      //   this.data=this.searchData
-      // } 
-  
-      
+      }
+      else{
+
+        this.data=this.searchData
+      } 
+      }
+
+      clearFilter(){
+        this.flag=0;
+        window.location.reload();
       }
       
 
-
-      // LoadBorrow(){
-      //   // this.service.Load().subscribe((data: any)=>{
-      //   // this.borrowdata=data;
-      //   // console.log(data);});
-      //   this.service.Load().subscribe(
-      //     (response) => {
-      //       //this.POSTS = response;
-      //       this.borrowdata=response;
-      //       console.log(response);
-      //     },
-      //     (error) => {
-      //       console.log(error);
-      //     }
-      //   );
-      // }
-
       onTableDataChange(event: any) {
-        console.log(event)
+        console.log(event)   
+        if(this.flag==0){         
+          console.log('flag=',this.flag)
         this.service.borrowPagination(event,this.tableSize,this.sort).subscribe((result=>{
           this.data=result;
           console.log('sorted')
         }),
         );  
+         }   
+        else if(this.flag==1){
+          console.log('flag=',this.flag)
+        this.service.filterBorrowPagination(this.ObjSampleForm.controls['date1'].value,this.ObjSampleForm.controls['date2'].value,this.page,this.tableSize,this.sort).subscribe({
+          next: (res: any) => {
+            console.log("--------")
+            console.log(res);             
+            this.data=res;       
+          },         
+        });
       }
-      // onTableSizeChange(event: any): void {
-      //   this.tableSize = event.target.value;
-      //   this.page = 1;
-      //   this.LoadBorrow();
-      // }
+      }
 
 
-
-
-
-
-
-
-
-    
+      ///////////////////////////////////////////////- C R U D -////////////////////////////////////////////////////
+      
       home()
       {
         this.router.navigate(['/body'])

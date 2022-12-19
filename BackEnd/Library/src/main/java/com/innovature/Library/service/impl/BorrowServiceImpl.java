@@ -72,8 +72,13 @@ public class BorrowServiceImpl implements BorrowService {
 
     @Override
     public Collection<Borrow> listAll() {
-        return borrowRepository.findAll();
-        
+        return borrowRepository.findAll();              
+    }
+
+
+    @Override
+    public List<Borrow> loadtAllByIssueDate(java.sql.Date date1, java.sql.Date date2) {
+        return borrowRepository.findbyIssuDate(date1,date2);              
     }
 
 
@@ -213,7 +218,7 @@ public class BorrowServiceImpl implements BorrowService {
     @Transactional
     public List<Borrow>getAllBorrow( java.sql.Date date1, java.sql.Date date2,Integer pageNo, Integer pageSize, String sortBy){
         
-        Pageable paging = PageRequest.of(pageNo, pageSize, Sort.by(sortBy));
+        Pageable paging = PageRequest.of(pageNo, pageSize, Sort .by(sortBy));
 
         Page<Borrow> pagedResult = borrowRepository.findbyIssuDate(date1,date2,paging);
 
