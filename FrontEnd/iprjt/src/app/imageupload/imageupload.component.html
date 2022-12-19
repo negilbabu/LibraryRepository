@@ -1,0 +1,56 @@
+<p>
+    <br><input type="button" style = "position:absolute; left:1200px; top:20px;" class="btnhome" name="HomE" value="HomE" (click)="home()"><br><br>
+</p>    
+
+  <!-- notification -->
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+.alert {
+  padding: 20px;
+  background-color: #58f842a8;;
+  color: white;
+}
+
+.closebtn {
+  margin-left: 15px;
+  color: white;
+  font-weight: bold;
+  float: right;
+  font-size: 22px;
+  line-height: 20px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.closebtn:hover {
+  color: black;
+}
+</style>
+</head>
+<body>
+
+
+
+<div class="alert">
+  <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+  <strong>Note!</strong>Please Select a book cover to upload
+</div>
+
+</body>
+</html>
+<tbody>
+    <br><br>
+    <tr>
+        <td><input type="file" style="text-align: center; margin-left: 500px;" (change)="selectFile($event)"></td>
+   
+        
+            
+            <button [disabled]="!selectedFiles" (click)="upload() " style="text-align: center; margin-left: 10px;">Upload</button>
+    
+        
+        
+    </tr>
+</tbody>

@@ -7,24 +7,28 @@ import com.innovature.Library.entity.Books;
 import com.innovature.Library.entity.User;
 // import com.innovature.Library.form.BooksForm;
 
+//import Json.DateFormat;
+
 public class BorrowListView {
 
     private final int borrowId;
     private final UserDetailView user;
     private final BooksDetailView books;
 
-    @Json.DateTimeFormat
+    @Json.DateFormat
     private final Date issueDate;
-    @Json.DateTimeFormat
+    @Json.DateFormat
     private final Date returnDate;
-    @Json.DateTimeFormat
+    @Json.DateFormat
     private final Date dueDate;
-    @Json.DateTimeFormat
+    @Json.DateFormat
     private final Date bookReturnedDate;
     private String status;
     private String reason;
+    public Long fine;
+    public Long dueDays;
 
-    public BorrowListView(int borrowId, User user, Books books, Date issueDate, Date returnDate, Date dueDate,Date bookReturnedDate, String status,String reason) {
+    public BorrowListView(int borrowId, User user, Books books, Date issueDate, Date returnDate, Date dueDate,Date bookReturnedDate, String status,String reason,Long dueDays,Long fine) {
         this.borrowId = borrowId;
         this.user = new UserDetailView(user);
         this.books = new BooksDetailView(books);
@@ -35,6 +39,8 @@ public class BorrowListView {
         this.status = status;
         this.dueDate = dueDate;
         this.reason = reason;
+        this.dueDays=dueDays;
+        this.fine=fine;
 
 
     }
@@ -75,6 +81,14 @@ public class BorrowListView {
 
     public Date getBookReturnedDate() {
         return bookReturnedDate;
+    }
+
+    public Long getFine() {
+        return fine;
+    }
+
+    public Long getDueDays() {
+        return dueDays;
     }
 
 

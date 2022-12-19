@@ -31,14 +31,14 @@ public class Borrow {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer borrowId;
 
-    @Temporal(TemporalType.TIMESTAMP)
+    @Temporal(TemporalType.DATE)
     private Date issueDate;
-    @Temporal(TemporalType.TIMESTAMP)
+    @Temporal(TemporalType.DATE)
     private Date returnDate;
-    @Temporal(TemporalType.TIMESTAMP)
+    @Temporal(TemporalType.DATE)
     private Date dueDate;
 
-    @Temporal(TemporalType.TIMESTAMP)
+    @Temporal(TemporalType.DATE)
     private Date bookReturnedDate;
 
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
@@ -46,8 +46,16 @@ public class Borrow {
 
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private User user;
+
     private String status;
     private String reason;
+    public Long fine;
+    public Long dueDays;
+    
+
+
+
+    
 
     public Borrow() {
     }
@@ -57,26 +65,27 @@ public class Borrow {
     }
 
     public Borrow(BorrowForm form, Books books, User user2) {
-        
+
         // Date dt = new Date();
         // this.issueDate= dt;
         // this.user = new User(user2);
         // this.booksId=form.getBooksId();
-       
-        //this.issueDate = form.getIssueDate();
+
+        // this.issueDate = form.getIssueDate();
         this.returnDate = form.getReturnDate();
         this.dueDate = form.getDueDate();
         this.books = books;
         this.user = user2;
         this.status = getStatus();
-        this.reason=form.getReason();
+        this.reason = form.getReason();
+        
         Date dt = new Date();
         this.issueDate = dt;
 
         Date date = new Date();
         this.bookReturnedDate = date;
-        
-        
+        this.dueDays=0L;
+        this.fine=0L;
 
     }
 
@@ -84,6 +93,8 @@ public class Borrow {
         this.books = book;
         this.user = user;
         this.status = "REQUESTED";
+        this.dueDays=(long) 0;
+        this.fine=(long) 0;
     }
 
     public Integer getBorrowId() {
@@ -101,7 +112,7 @@ public class Borrow {
     public void setIssueDate(Date issueDate) {
         this.issueDate = issueDate;
     }
-  
+
     public Date getReturnDate() {
         return returnDate;
     }
@@ -157,6 +168,20 @@ public class Borrow {
     public void setBookReturnedDate(Date bookReturnedDate) {
         this.bookReturnedDate = bookReturnedDate;
     }
-    
+
+    public Long getDueDays() {
+        return dueDays;
+    }
+    public void setDueDays(Long dueDays) {
+        this.dueDays = dueDays;
+    }
+
+
+    public Long getFine() {
+        return fine;
+    }
+    public void setFine(Long fine) {
+        this.fine = fine;
+    }
 
 }

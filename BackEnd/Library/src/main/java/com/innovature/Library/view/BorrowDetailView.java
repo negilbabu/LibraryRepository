@@ -16,7 +16,9 @@ public class BorrowDetailView extends BorrowListView {
         borrow.getBookReturnedDate(),
         borrow.getDueDate(),
         borrow.getStatus(),
-        borrow.getReason() 
+        borrow.getReason(),
+        borrow.getDueDays(),
+        borrow.getFine() 
          );
     
 }

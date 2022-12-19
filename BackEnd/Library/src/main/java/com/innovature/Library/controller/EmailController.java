@@ -25,26 +25,12 @@ import com.innovature.Library.view.BorrowDetailView;
 @RequestMapping("/email")
 public class EmailController {
 
-
     // @Autowired
     // private EmailService emailService;
 
     @Autowired
     private BorrowService service;
-
-
-    //     @PostMapping("/emailsent")
-    // public ResponseEntity<?>sendEmail(@RequestBody EmailForm form){
-
-    //     boolean result = this.emailService.sendEmail("Due date expired","please return the book asap", form.getSentto());
-    //     // "OTP Verification", "Your OTP to change your password is "+"otp"+"use it to create a new password."
-    //     if(result){
-    //         return  ResponseEntity.ok("Email Sent!");
-    //     }else{
-    //         return  ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Email not sent.");
-    //     }
-    // }
-
+ 
     @PostMapping("emailsent/{userId}")
     public String sendMail(@PathVariable("userId") Integer userId) {
         System.out.println(userId);
@@ -56,16 +42,5 @@ public class EmailController {
         // return service.sendMail(userId);
     }
 
-    // @PostMapping("/emailsent/{email}")
 
-    // public ResponseEntity<?>sendEmail(@PathVariable("email") String email) {
-
-    //     boolean result = this.emailService.sendEmail("Due date expired","please return the book asap", form.getSentto());
-    //     // "OTP Verification", "Your OTP to change your password is "+"otp"+"use it to create a new password."
-    //     if(result){
-    //         return  ResponseEntity.ok("Email Sent!");
-    //     }else{
-    //         return  ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Email not sent.");
-    //     }
-    // }
 }

@@ -1,0 +1,65 @@
+
+<router-outlet></router-outlet>
+<p>
+    <br><input type="button" style = "position:absolute; left:1200px; top:20px;" class="btnhome" name="HomE" value="HomE" (click)="home()"><br><br>
+</p> 
+    <div class="text-center"> 
+      <form>
+        <div class="card-box">         
+                    <div class="row">
+                      <div class="table-responsive"><br>
+                        <h1 style="text-align:center ;">Books Details</h1>
+
+
+                            <table class="table table-striped" align="center" class="table-bordered" id="datatable" role="grid" >
+                             
+                              <thead class="bg-primary text-white">
+                                  <tr role="row">
+                                   
+                                    <th (click)="sortfn('booksName')">Book Name</th>
+                                    <th (click)="sortfn('category.categoryName')">Category-Name</th>
+                                    <th (click)="sortfn('publication')">Publication</th>                                  
+                                    <th (click)="sortfn('auther')">Auther</th>
+                                    <th (click)="sortfn('booksCopies')">Book Copies</th>
+                                    <th>Book Cover</th>
+                                    <th>Action</th>
+
+                                    </tr>
+                              </thead>
+                              <tbody>
+        <tr *ngFor="let books of  data | paginate 
+        : {
+            itemsPerPage: tableSize,
+            currentPage: page,
+            totalItems: count
+          };
+        
+        
+        ">
+
+            <td>{{books.booksName}}</td>
+            <td>{{books.category.categoryName}}</td>
+            <td>{{books.publication}}</td>                 
+            <td>{{books.auther}}</td>
+            <td>{{books.booksCopies}}</td>
+            <td align="right"><img src="../../assets/BooksImage/item_pics/{{books.image}}" width="70" height="100"></td>
+ 
+    <td>
+   
+    <button type ="button" class="btnn2" (click)="requestBook(books)">Request Book</button>
+    <!-- <button mat-icon-button>
+      <i class="material-icons" style="color:rgb(18, 52, 247)" (click)="requestBook(books)">done</i>
+    
+    </button> -->
+  </td>
+        </tr>
+        
+                              </tbody>
+                          </table>
+                          <div class="d-flex justify-content-center">
+                            <pagination-controls (pageChange)="onTableDataChange(page=$event)">
+                            </pagination-controls>
+                        </div>
+                      </div>
+                  </div>
+                </div>

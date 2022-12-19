@@ -2,6 +2,7 @@ package com.innovature.Library.controller;
 
  import java.security.Principal;
 import java.util.Collection;
+import java.sql.Date;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -32,22 +33,79 @@ import com.innovature.Library.view.BorrowListView;
 
 @RestController
 @RequestMapping("/borrow")
-public class BorrowController {
-    
+public class BorrowController {    
 
     @Autowired
     private BorrowService bService;
 
 
+    //load all borrow list
+    @GetMapping
+    public Collection<Borrow> list() {
+        return bService.listAll();
+    }
 
 
-    @GetMapping("/pagenated/")
-    public ResponseEntity<List<Borrow>>getAllBorrow(
-                        @RequestParam(defaultValue = "0") Integer pageNo,
-                        @RequestParam(defaultValue = "10") Integer pageSize,
+//pagenated borrow list at admin borrow
+@GetMapping("/pagenated/")
+public ResponseEntity<List<Borrow>>getAllBorrows(
+                    @RequestParam(defaultValue = "1") Integer pageNo,
+                    @RequestParam(defaultValue = "5") Integer pageSize,
+                    @RequestParam(defaultValue = "id") String sortBy)
+{
+    List<Borrow> list = bService.getAllBorrows(pageNo-1, pageSize, sortBy);
+    return new ResponseEntity<List<Borrow>>(list,new HttpHeaders(),
+    HttpStatus.OK);
+
+}
+
+
+//load results of issuedate filter
+@GetMapping("/loadByIssueDate/{date1}/{date2}")
+public ResponseEntity<List<Borrow>> loadByIssueDate( 
+@PathVariable("date1") Date date1,
+ @PathVariable("date2") Date date2)
+// {
+//     return bService.loadtAllByIssueDate(Date date1, Date date2);
+// }
+{   
+    List<Borrow> list = bService.loadtAllByIssueDate(date1, date2);
+    return new ResponseEntity<List<Borrow>>(list,new HttpHeaders(),
+    HttpStatus.OK);
+}
+
+
+
+
+
+
+//Load filtered pagenated borrow list [on filtering]
+    @GetMapping("/{date1}/{date2}")
+    public ResponseEntity<List<Borrow>>getFilterBorrow(
+                        // @PathVariable Date date1, @PathVariable Date date2,
+                        @PathVariable("date1") Date date1,
+                        @PathVariable("date2") Date date2,
+                        @RequestParam(defaultValue = "1") Integer pageNo,
+                        @RequestParam(defaultValue = "5") Integer pageSize,
                         @RequestParam(defaultValue = "id") String sortBy)
     {
-        List<Borrow> list = bService.getAllBorrow(pageNo, pageSize, sortBy);
+   
+        List<Borrow> list = bService.getAllBorrow(date1, date2,pageNo-1, pageSize, sortBy);
+        return new ResponseEntity<List<Borrow>>(list,new HttpHeaders(),
+        HttpStatus.OK);
+
+    }
+
+
+
+//pagenation+sort at user borrow history
+    @GetMapping("/userBorrow/pagenated/")
+    public ResponseEntity<List<Borrow>>getBorrowHistory(
+                        @RequestParam(defaultValue = "1") Integer pageNo,
+                        @RequestParam(defaultValue = "5") Integer pageSize,
+                        @RequestParam(defaultValue = "id") String sortBy)
+    {
+        List<Borrow> list = bService.getBorrowHistory(pageNo-1, pageSize, sortBy);
         return new ResponseEntity<List<Borrow>>(list,new HttpHeaders(),
         HttpStatus.OK);
 
@@ -58,29 +116,26 @@ public class BorrowController {
 
 
 
-
-
-
-
     @PostMapping
     public BorrowDetailView add(@Valid @RequestBody BorrowForm form) {
         return bService.add(form);
     }
-
+//borrow history @user
     @GetMapping("/list/user")
     public Collection<BorrowListView> list1(Principal p) {
         return bService.list1();
     }
+
     @GetMapping("/user/notification")
     public Collection<Borrow> listNotification(Principal p) {
         return bService.listNotification();
     }
-
-
-    @GetMapping
-    public Collection<Borrow> list() {
-        return bService.listAll();
+    @GetMapping("/user/UserNotification")
+    public Collection<Borrow> listUserNotification(Principal p) {
+        return bService.listNotification();
     }
+
+   
 
     @GetMapping("/due")
     public Collection<Borrow> listDue() {
@@ -88,17 +143,15 @@ public class BorrowController {
     }
 
 
-    // @PostMapping("/emailsent")
-    // public String sendMail(@RequestBody Integer userId) {
-    //     System.out.println("Inside mail controller");
-    //     this.bService.sendMail(userId,
-    //     "Due date expired",
-    //     "Please return the books"
-    //     );
-    //     return "message sent";
-    //     // return service.sendMail(userId);
-    // }
+    @GetMapping("/fine")
+    public Collection<Borrow> listfine() {
+        return bService.fine();
+    }
 
+    @GetMapping("/dueByUser")
+    public Collection<Borrow> listDueByUser() {
+        return bService.listDueByUser();
+    }
 
 
     @GetMapping("/{borrowId}")
