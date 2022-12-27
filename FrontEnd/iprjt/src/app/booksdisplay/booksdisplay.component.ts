@@ -37,6 +37,7 @@ searchData:any
 sort:string="booksId";
 len: any;
 result: any;
+  booksCount: any;
 
 
   constructor(private router:Router ,private booksservice:BooksService,private service:CategoryService,private borrowservice:BorrowService) {
@@ -49,21 +50,42 @@ result: any;
 this.booksservice.Load().subscribe(result=>{
   this.len=result;  
   this.count=this.len.length;
-  console.log(result)
+ // console.log(result)
 })
 
 if(this.searchData==null || this.searchData==""){
   this.booksservice.pagination1(this.page,this.tableSize,this.sort).subscribe((result=>{
     this.data=result; 
-    console.log("thisata") 
+    console.log("thisLoadedata") 
     console.log(this.data)  
-    console.log(result)       
+   // console.log(result)       
   }));        
 }
 else{
 
   this.data=this.searchData
 }
+
+
+this.borrowservice.borrowBlock().subscribe({    
+  next:(res)=>{
+  this.booksCount=res;
+  console.log("blk"); 
+  console.log(res); 
+  }})
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 }
 
@@ -99,6 +121,12 @@ onTableDataChange(event:any) {
         this.router.navigate(['/booksdisplay'])
       }
       else{
+
+        if(this.booksCount>=3){
+          alert("you cannot request any book, please return the current in hand books, thank you")
+        }
+
+        else{
       let data=booksId
         this.borrowservice.add(data).subscribe({    
         next:(res)=>{
@@ -109,7 +137,7 @@ onTableDataChange(event:any) {
         },
         error:(msg)=>{}
       })
-      }
+      }}
     }
 
 

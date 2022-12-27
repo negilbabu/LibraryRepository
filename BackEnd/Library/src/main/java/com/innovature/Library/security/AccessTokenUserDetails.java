@@ -15,8 +15,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 public class AccessTokenUserDetails implements UserDetails {
 
-    private static final List<GrantedAuthority> ROLES = AuthorityUtils.createAuthorityList("ROLE_USER");
-
+    private List<GrantedAuthority> ROLES = AuthorityUtils.createAuthorityList("ROLE_USER","ROLE_ADMIN");
+    // AuthorityUtils.createAuthorityList("ROLE_ADMIN");
+    
     public final int userId;
 
     public AccessTokenUserDetails(int userId) {

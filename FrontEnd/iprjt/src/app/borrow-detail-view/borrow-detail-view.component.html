@@ -1,0 +1,56 @@
+<app-sidenav></app-sidenav>    
+<div class="text-center"> 
+    <form>
+      <div class="card-box">         
+                  <div class="row">
+                    <div class="table-responsive"><br>
+                      <h2 style="text-align:center ;">Borrow Details</h2>
+
+
+                          <table align="center" class="table-bordered" id="datatable" role="grid" >
+                           
+                            <thead class="bg-primary text-white">
+                                <tr role="row">
+                                 
+                                  <th>User Name</th>
+                                  <th>Book Name</th>
+                                  <th>Issue Date</th>                                  
+                                  <th>Return Date</th>                             
+                                  <th>Due Date</th>
+                                  <th>Due Days</th>
+                                  <th>Fine</th>
+                                  <th>Returned Date</th>
+                                  <th>Status</th>
+                                  <th>Reason</th>
+                                  <!-- <th>Action</th> -->
+                                  </tr>
+                            </thead>
+                            <tbody>
+      <!-- <tr *ngFor="let borrow of borrowdata"> -->
+        <tr>
+
+          <td>{{this.borrowdata.user.firstName}}</td>
+          <td>{{this.borrowdata.books.booksName}}</td>
+          <td>{{this.borrowdata.issueDate| date:'dd/MM/yyyy'}}</td>                 
+          <td>{{this.borrowdata.returnDate| date:'dd/MM/yyyy'}}</td>
+          <td>{{this.borrowdata.dueDate| date:'dd/MM/yyyy'}}</td>
+          <td>{{this.borrowdata.dueDays}}</td>
+          <td>{{this.borrowdata.fine}}</td>
+          <td>{{this.borrowdata.bookReturnedDate| date:'dd/MM/yyyy'}}</td>
+          <td>{{this.borrowdata.status}}</td>
+          <td>{{this.borrowdata.reason}}</td>
+
+  <!-- <td>
+  <button type ="button" style = "margin-top: 20px;" class="btnn0" *ngIf="borrow.status!='APPROVED' && borrow.status!='RETURNED'"  (click)="acceptRequest(borrow)">Accept</button>&nbsp;&nbsp;
+  <button type ="button" class="btnn2" *ngIf="borrow.status!='REJECTED' && borrow.status!='RETURNED'"  (click)="rejectRequest(borrow)">Reject</button>&nbsp;&nbsp;<br>
+  <button type ="button" class="btnn" *ngIf="borrow.status!='RETURNED' && borrow.status=='APPROVED' " (click)="bookReturn(borrow)" >Return</button>
+  <button type ="button" class="btnn1" *ngIf="borrow.status=='RETURNED'  "  (click)="undo(borrow)" >Undo</button><br><br>
+</td> -->
+      </tr>
+      
+                            </tbody>
+                        </table>
+                      
+                    </div>
+                </div>
+              </div>

@@ -38,7 +38,7 @@ export class FineComponent implements OnInit {
     
       home()
       {
-        this.router.navigate(['/body'])
+        this.router.navigate(['/sidenav'])
       }      
 
       

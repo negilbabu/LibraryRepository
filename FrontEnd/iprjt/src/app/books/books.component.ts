@@ -5,6 +5,7 @@ import { CategoryService } from '../category.service';
 import { BooksService } from '../books.service';
 import { ImageuploadService } from '../imageupload.service';
 
+
 @Component({
   selector: 'app-books',
   templateUrl: './books.component.html',
@@ -12,7 +13,7 @@ import { ImageuploadService } from '../imageupload.service';
 })
 export class BooksComponent implements OnInit {
 
-  
+
 
 
   categoryList: any[];
@@ -26,50 +27,61 @@ export class BooksComponent implements OnInit {
   categorydata:any;
   booksdata:any;
   catdata: any;
-
+  ObjSampleForm:FormGroup;
 
   constructor(private router:Router ,private booksService:BooksService,private service:CategoryService,private imageService:ImageuploadService) {  
   this.booksList=[];
   this.categoryList=[];
+
+  this.ObjSampleForm=new FormGroup(
+    { 
+      categoryId:new FormControl('',[Validators.required]), 
+      publication:new FormControl('',[Validators.required]), 
+      booksName:new FormControl('',[Validators.required]), 
+      auther:new FormControl('',[Validators.required]), 
+      booksCopies:new FormControl('',[Validators.required]) ,
+      // categoryId:new FormControl('',[Validators.required]) ,
+    }
+  );
  }
 
 
  ngOnInit(): void {
+  
 
+  this.LoadCategory();
+  this.loadEdit();
+
+
+} 
+
+   
+
+disp(categoryId:any){
+  console.log(categoryId)
+}
+
+LoadCategory() {
+  
   this.service.LoadCategory().subscribe((data: any)=>{
     this.catdata=data;
-    console.log(this.catdata)
+    console.log('catadata=',this.catdata)
     });
-
- this.Load();
+  }  
   
-}
-   
-ObjSampleForm:FormGroup=new FormGroup(
-  { 
-    categoryId:new FormControl('',[Validators.required]), 
-    publication:new FormControl('',[Validators.required]), 
-    booksName:new FormControl('',[Validators.required]), 
-    auther:new FormControl('',[Validators.required]), 
-    booksCopies:new FormControl('',[Validators.required]) ,
-    // categoryId:new FormControl('',[Validators.required]) ,
+  clear() {
+    localStorage.removeItem('categoryId');
+    window.location.reload()
   }
-)
-disp(){
-  console.log(this.categoryId)
-}
-
-Load() {
-  this.booksService.Load().subscribe((data: any)=>{
-    console.log(data)
-  this.booksdata=data;
-  });  }  
   
-
 onSubmit(){
+
+  // let booksId=localStorage.getItem("booksId") 
+
   if(this.booksId!=undefined){
     this.update(this.booksId)
-  }else{
+  }else
+  {
 
 
     this.booksService.add(this.ObjSampleForm.value).subscribe(result=>{
@@ -92,37 +104,19 @@ onSubmit(){
 }
 
 
- delete(booksId:any): void{
-  if(confirm('Are you sure want to delete?'))
-  {
- console.log(booksId);
-  this.booksService.delete(booksId.booksId).subscribe({next:(res)=>{
-    console.log(res);
-    alert("Books deleted");
-    window.location.reload();
-  },
-  error:(msg)=>{}      
-  })
- }
- else{
-  this.router.navigate(['/books'])
- }
-}
+loadEdit(): void{
 
-
-
-
-edit(booksId:any): void{
- 
-  this.booksService.edit(booksId.booksId).subscribe({    
+  let booksId=localStorage.getItem("booksId")  
+  this.booksService.edit(booksId).subscribe({    
     next:(res)=>{
       this.booksId=res.booksId;
-      this.ObjSampleForm.controls['categoryId'].setValue(res.categoryName)
+      this.ObjSampleForm.controls['categoryId'].setValue(res.category.categoryId)
       this.ObjSampleForm.controls['publication'].setValue(res.publication)
       this.ObjSampleForm.controls['booksName'].setValue(res.booksName)
       this.ObjSampleForm.controls['auther'].setValue(res.auther)
       this.ObjSampleForm.controls['booksCopies'].setValue(res.booksCopies)
-      console.log(res);      
+      console.log("edit",res);   
+      //console.log(res);      
        
     },
     error:(msg)=>{}
@@ -155,13 +149,9 @@ update(booksId:any){
       alert("invalid Book Details")
     }
   })
-
+  localStorage.removeItem('booksId');
  }
 
- home()
- {
-   this.router.navigate(['/body'])
- }
 
  
 }

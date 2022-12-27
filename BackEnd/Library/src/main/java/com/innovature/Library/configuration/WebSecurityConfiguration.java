@@ -55,10 +55,16 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers(OPTIONS, "/login").anonymous()
                 .antMatchers(POST, "/login").anonymous()
                 .antMatchers(PUT, "/login").anonymous()
-                .antMatchers(OPTIONS, "/**").anonymous()
+                .antMatchers(OPTIONS, "/**").anonymous() 
                 
-         
+                
+                 .antMatchers("/sidenav").access("hasRole('ROLE_USER')")
+                // .antMatchers("/adminPage").access("hasRole('ROLE_ADMIN')")
+
                 .anyRequest().authenticated();
+
+
+               
     }
 
     @Bean

@@ -98,6 +98,17 @@ public class BorrowServiceImpl implements BorrowService {
         return borrowRepository.findbyBorrowIdandDueDateandStatus();                
     }
 
+    @Override
+    public Borrow BorrowDetail(Integer borrowId) {
+        
+        return borrowRepository.findByBorrowId(borrowId);                
+    }
+/////////////////////////////////////////////////////////////////////////////////////////////
+    @Override
+    public Integer BorrowBlock() {
+        
+        return borrowRepository.findbyUserIdAndStatus(SecurityUtil.getCurrentUserId());                
+    }
 
 
     @Override

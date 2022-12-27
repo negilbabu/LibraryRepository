@@ -60,19 +60,30 @@ public ResponseEntity<List<Borrow>>getAllBorrows(
 }
 
 
-//load results of issuedate filter
+//load results of issuedate filter at Admin Borrow
 @GetMapping("/loadByIssueDate/{date1}/{date2}")
 public ResponseEntity<List<Borrow>> loadByIssueDate( 
 @PathVariable("date1") Date date1,
  @PathVariable("date2") Date date2)
-// {
-//     return bService.loadtAllByIssueDate(Date date1, Date date2);
-// }
+
 {   
     List<Borrow> list = bService.loadtAllByIssueDate(date1, date2);
     return new ResponseEntity<List<Borrow>>(list,new HttpHeaders(),
     HttpStatus.OK);
 }
+
+//load results of issuedate filter at User BorrowHistory
+@GetMapping("user/loadByIssueDate/{date1}/{date2}")
+public ResponseEntity<List<Borrow>> loadByIssueDateUser( 
+@PathVariable("date1") Date date1,
+ @PathVariable("date2") Date date2)
+
+{   
+    List<Borrow> list = bService.loadtAllByIssueDate(date1, date2);
+    return new ResponseEntity<List<Borrow>>(list,new HttpHeaders(),
+    HttpStatus.OK);
+}
+
 
 
 
@@ -146,6 +157,16 @@ public ResponseEntity<List<Borrow>> loadByIssueDate(
     @GetMapping("/fine")
     public Collection<Borrow> listfine() {
         return bService.fine();
+    }
+
+    @GetMapping("/borrowDetailView")
+    public Borrow BorrowDetail(Integer borrowId) {
+        return bService.BorrowDetail(borrowId);
+    }
+
+    @GetMapping("/borrowBlock")
+    public Integer BorrowBlock() {
+        return bService.BorrowBlock();
     }
 
     @GetMapping("/dueByUser")

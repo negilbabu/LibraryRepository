@@ -1,0 +1,18 @@
+
+.table-bordered{
+    border: 1px solid;
+}
+th {
+    background-color: #232524;
+    color: white;
+    width: 125px;
+    text-align: center;
+  }
+  td {
+    background-color: #a7bdb08f;
+    color: rgb(0, 0, 0);
+    width: 125px;
+    text-align: center;
+    margin-top: auto;
+    /* padding: auto; */
+  }

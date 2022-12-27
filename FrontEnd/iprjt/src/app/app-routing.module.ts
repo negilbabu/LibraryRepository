@@ -21,6 +21,12 @@ import { BookreturnComponent } from './bookreturn/bookreturn.component';
 import { ViewAdminprofileComponent } from './view-adminprofile/view-adminprofile.component';
 import { ImageuploadComponent } from './imageupload/imageupload.component';
 import { FineComponent } from './fine/fine.component';
+import { SidenavComponent } from './sidenav/sidenav.component';
+import { UserSidenavComponent } from './user-sidenav/user-sidenav.component';
+import { AddcategoryComponent } from './addcategory/addcategory.component';
+import { DemoComponent } from './demo/demo.component';
+import { AddbooksComponent } from './addbooks/addbooks.component';
+import { BorrowDetailViewComponent } from './borrow-detail-view/borrow-detail-view.component';
 
 
 const routes: Routes = [
@@ -41,10 +47,15 @@ const routes: Routes = [
   {path : 'findby-category',component:FindbyCategoryComponent},
   {path : 'notification',component:NotificationComponent},
   {path : 'bookreturn',component:BookreturnComponent},
-  {path : 'view-adminprofile',component:ViewAdminprofileComponent},
-  {path : 'imageupload',component:ImageuploadComponent},
-  {path : 'fine',component:FineComponent}
-
+  {path : 'view-adminprofile',component:ViewAdminprofileComponent,canActivate: [HomeguardGuard]},
+  {path : 'imageupload',component:ImageuploadComponent,canActivate: [HomeguardGuard]},
+  {path : 'fine',component:FineComponent,canActivate: [HomeguardGuard]},
+  {path : 'sidenav',component:SidenavComponent,canActivate: [HomeguardGuard]},
+  {path : 'user-sidenav',component:UserSidenavComponent},
+  {path : 'addcategory',component:AddcategoryComponent,canActivate: [HomeguardGuard]},
+  {path:'demo',component:DemoComponent},
+  {path:'addbooks',component:AddbooksComponent,canActivate: [HomeguardGuard]},
+  {path:'borrow-detail-view',component:BorrowDetailViewComponent},
 ];
 
 @NgModule({

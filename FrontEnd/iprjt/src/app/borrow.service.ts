@@ -44,6 +44,16 @@ export class BorrowService {
   Load(){
     return this.http.get('http://localhost:8080/borrow');
   }
+
+  LoadBorrowDetailView(id: any){
+    return this.http.get('http://localhost:8080/borrow/'+ sessionStorage.getItem('borrowId'));
+  }
+
+  borrowBlock(){
+    return this.http.get('http://localhost:8080/borrow/borrowBlock');
+  }
+
+
   LoadDue(){
     return this.http.get('http://localhost:8080/borrow/due');
   }

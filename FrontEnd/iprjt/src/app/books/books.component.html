@@ -1,11 +1,84 @@
-<router-outlet></router-outlet>
-<p>
-    <br><input type="button" style = "position:absolute; left:1200px; top:10px;" class="btnhome" name="HomE" value="HomE" (click)="home()"><br>
-</p>    
 
-  
+
+ <form [formGroup]="ObjSampleForm" class="dialog-form"> 
+  <div mat-dialog-content>
+   <p>ADD BOOKS</p></div>
+   <mat-dialog-content>
+ 
+    <mat-form-field appearance="fill">
+      <mat-select formControlName="categoryId"  placeholder="Select Category">
+         <ng-container>
+     
+        <mat-option  *ngFor="let category of catdata"   [value]="category.categoryId" (click)="disp(category.categoryId)" >   
+           {{category.categoryName}} </mat-option>
+        </ng-container> 
+        <!-- <mat-option value="html"> HTML </mat-option> -->
+      </mat-select>
+    </mat-form-field>
+    
+    <br>
+
+     <mat-form-field>
+       <input formControlName="publication" matInput placeholder="publication" />
+       <mat-error>This field is mandatory.</mat-error>
+     </mat-form-field>
+<br>
+     <mat-form-field>
+      <input formControlName="booksName" matInput placeholder="booksName" />
+      <mat-error>This field is mandatory.</mat-error>
+    </mat-form-field>
+    <br>
+    <mat-form-field>
+      <input formControlName="auther" matInput placeholder="auther" />
+      <mat-error>This field is mandatory.</mat-error>
+    </mat-form-field>
+    <br>
+    <mat-form-field>
+      <input formControlName="booksCopies" matInput placeholder="booksCopies" />
+      <mat-error>This field is mandatory.</mat-error>
+    </mat-form-field>
+    <br>
+ </mat-dialog-content>
+ 
+ <div mat-dialog-actions>
+   <button mat-button color="warn" (click)="clear()">Clear</button> &nbsp;&nbsp;
+   <button mat-raised-button (click)="onSubmit()" color="warn" >Submit</button>
+    
+ </div>
+ 
+  </form>
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--  
+
   <div class="text-center"> 
-      <form [formGroup]="ObjSampleForm" (ngSubmit)="onSubmit()">
+      <form [formGroup]="ObjSampleForm" class="dialog-form" >
               <br>
               <div style="width: 200px; margin:0 auto;" class="example-container" >
                   <label><h1>ADD BOOKS</h1></label>
@@ -37,77 +110,12 @@
               <span class="text-danger"   class="text-danger" *ngIf="ObjSampleForm.controls['booksCopies'].touched && ObjSampleForm.hasError('required','booksCopies')"><small>booksCopies is required</small>
                </span>
 
-                                  <!-- upload image
-                                  <div class="card-container">
-                                    <img src="" alt="" style="border-radius: 50%;" id="profilePic" height="100px" width="100px">
-                                    <br>
-                                    <br>
-                                    <!-- <mat-icon style="size-adjust: 2px ;" matTooltip="Change book picture" type="button" (click)="fileInput.click()">
-                                       <input type="file" name="files[]" multiple id="jsonFile" #fileInput
-                                          (change)="onFileChange($event)" style="display: none;" />
-                                       edit
-                                    </mat-icon> 
 
-                  <!-- upload image ends -->
-                                    <!-- </div>  --> 
-
-                  <input class="btn" type="submit" name="onSubmit" value="Submit" [disabled]="!ObjSampleForm.valid"><br><br><br>
+                  <input class="btn" type="submit" name="onSubmit" value="Submit" ><br><br><br>
                 
                 </table> 
           </div>       
           </form>         
           </div>
           
-
-          <div class="card-box">
-          
-        
-            <div class="row">
-                      <div class="table-responsive">
-                          
-                            <table align="center" class="table-bordered" id="datatable" role="grid" >
-                              <thead class="bg-primary text-white">
-                                  <tr role="row">
-                                   
-                                    <th>Category-Name</th>
-                                    <th>Publication</th>
-                                    <th>Book Name</th>
-                                    <th>Auther</th>
-                                    <th>Book Copies</th>
-                                    <th>Book image</th>
-
-                                    <th>Action</th>
-                                    </tr>
-                              </thead>
-                              <tbody>
-        <tr *ngFor="let books of  booksdata">
-    
-        <td>{{books.category.categoryName}}</td>
-        <td>{{books.publication}}</td>
-        <td>{{books.booksName}}</td>
-        <td>{{books.auther}}</td>
-        <td>{{books.booksCopies}}</td>
-        <td align="right"><img src="../../assets/BooksImage/item_pics/{{books.image}}" width="90" height="110"  ></td>
-  
- 
-    <td>
-     
-      <button mat-icon-button>
-        <i class="material-icons" style="color:red" (click)="delete(books)">delete</i>
-      
-      </button>
-      <button mat-icon-button>
-        <i class="material-icons" style="color:green" (click)="edit(books)">edit</i>
-      
-      </button>
-      
-     <!-- <button type ="button" class="btnList" (click)="delete(books)">delete</button>&nbsp;&nbsp; -->
-    <!-- <button type ="button" class="btnList" (click)="edit(books)">edit</button></td> -->
-        </tr>
-        
-                              </tbody>
-                          </table>
-                        
-                      </div>
-                  </div>
-                </div>
+ -->

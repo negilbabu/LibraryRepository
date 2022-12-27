@@ -47,7 +47,7 @@ export class ImageuploadComponent implements OnInit {
       this.service.imageUpload(this.currentFile,this.service.getId()).subscribe(
       response =>{
         this.toast.success({detail:'Success',summary:'Book cover uploaded',duration:5000});
-        this.router.navigate(['/books'])
+        this.router.navigate(['/addbooks'])
 
 
         console.log(response)
@@ -64,7 +64,7 @@ export class ImageuploadComponent implements OnInit {
   
   home()
   {
-    this.router.navigate(['/body'])
+    this.router.navigate(['/sidenav'])
   }
 
 }
