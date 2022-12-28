@@ -33,6 +33,11 @@ home()
   this.router.navigate(['/sidenav'])
 }
 
+profile()
+{
+  this.router.navigate(['/view-adminprofile'])
+}
+
 dash()
 {
   this.router.navigate(['/sidenav'])

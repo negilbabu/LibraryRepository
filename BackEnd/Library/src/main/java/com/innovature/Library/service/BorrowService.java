@@ -6,6 +6,8 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import org.springframework.data.domain.Page;
+
 import com.innovature.Library.entity.Borrow;
 import com.innovature.Library.form.BorrowForm;
 import com.innovature.Library.view.BorrowDetailView;
@@ -34,8 +36,11 @@ public interface BorrowService {
     BorrowDetailView updatereject(Integer borrowId, BorrowForm form);
 
     List<Borrow> getAllBorrows(Integer pageNo, Integer pageSize, String sortBy);
+    Page<Borrow> getAllBorr(Integer pageNo, Integer pageSize, String sortBy,Integer direction);
 
     List<Borrow> getAllBorrow(Date date1, Date date2, Integer pageNo, Integer pageSize, String sortBy);
+    Page<Borrow> getAllBor(Date date1, Date date2, Integer pageNo, Integer pageSize, String sortBy,Integer direction);
+
 
     List<Borrow> getBorrowHistory(Integer pageNo, Integer pageSize, String sortBy);
 

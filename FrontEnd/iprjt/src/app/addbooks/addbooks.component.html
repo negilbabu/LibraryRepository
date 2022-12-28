@@ -16,19 +16,43 @@
                       <table align="center" class="table-bordered" id="datatable" role="grid" >
                         <thead class="bg-primary text-white">
                             <tr role="row">
-                             
-                              <th>Category-Name</th>
-                              <th>Publication</th>
-                              <th>Book Name</th>
-                              <th>Auther</th>
-                              <th>Book Copies</th>
-                              <th>Book image</th>
+                             <th (click)="sortfn('category.categoryName')">Category-Name
+                              <button mat-icon-button *ngIf="this.direction==1"> <i class="material-icons" style="color:rgb(255, 255, 255)" >arrow_upward</i></button>
+                              <button mat-icon-button *ngIf="this.direction==-1"> <i class="material-icons" style="color:rgb(255, 255, 255)" >arrow_downward</i></button>                            
+                             </th>                                                    
+                                                        
+                              <th (click)="sortfn('publication')">Publication
+                                <button mat-icon-button *ngIf="this.direction==1"> <i class="material-icons" style="color:rgb(255, 255, 255)" >arrow_upward</i></button>
+                                <button mat-icon-button *ngIf="this.direction==-1"> <i class="material-icons" style="color:rgb(255, 255, 255)" >arrow_downward</i></button>                                                    
+                              </th>    
 
+                              <th (click)="sortfn('booksName')">Book Name
+                                <button mat-icon-button *ngIf="this.direction==1"> <i class="material-icons" style="color:rgb(255, 255, 255)" >arrow_upward</i></button>
+                                <button mat-icon-button *ngIf="this.direction==-1"> <i class="material-icons" style="color:rgb(255, 255, 255)" >arrow_downward</i></button> 
+                              </th>                                
+                              <th (click)="sortfn('auther')">Auther
+                                <button mat-icon-button *ngIf="this.direction==1"> <i class="material-icons" style="color:rgb(255, 255, 255)" >arrow_upward</i></button>
+                                <button mat-icon-button *ngIf="this.direction==-1"> <i class="material-icons" style="color:rgb(255, 255, 255)" >arrow_downward</i></button>
+                              </th>
+                              <th (click)="sortfn('booksCopies')">Book Copies
+                                <button mat-icon-button *ngIf="this.direction==1"> <i class="material-icons" style="color:rgb(255, 255, 255)" >arrow_upward</i></button>
+                                <button mat-icon-button *ngIf="this.direction==-1"> <i class="material-icons" style="color:rgb(255, 255, 255)" >arrow_downward</i></button>
+                              </th>
+                              <th>Book Cover</th>
                               <th>Action</th>
                               </tr>
                         </thead>
                         <tbody>
-  <tr *ngFor="let books of  booksdata">
+
+                          <tr *ngFor="let books of  data | paginate 
+                          : {
+                              itemsPerPage: tableSize,
+                              currentPage: page,
+                              totalItems: count
+                            };
+                          
+                          
+                          ">
 
   <td>{{books.category.categoryName}}</td>
   <td>{{books.publication}}</td>
@@ -40,22 +64,17 @@
 
 <td>
 
-<button mat-icon-button>
-  <i class="material-icons" style="color:red" (click)="delete(books)">delete</i>
-
-</button>
-<button mat-icon-button>
-  <i class="material-icons" style="color:green" (click)="edit(books.booksId)">edit</i>
-
-</button>
-
-<!-- <button type ="button" class="btnList" (click)="delete(books)">delete</button>&nbsp;&nbsp; -->
-<!-- <button type ="button" class="btnList" (click)="edit(books)">edit</button></td> -->
-  </tr>
-  
+<button mat-icon-button> <i class="material-icons" style="color:red" (click)="delete(books)">delete</i></button>
+<button mat-icon-button> <i class="material-icons" style="color:green" (click)="edit(books.booksId)">edit</i></button>
+  </tr> 
                         </tbody>
                     </table>
-                  
+                <!-- unfold_more -->
+                  </div>
                 </div>
-            </div>
-          </div>
+              </div>
+                          <!-- Pagenation Controler -->
+                          <div class="d-flex justify-content-center">
+                            <pagination-controls (pageChange)="onTableDataChange(page=$event)">
+                            </pagination-controls>
+                  </div>

@@ -9,6 +9,9 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+
+import static org.springframework.http.HttpMethod.DELETE;
+import static org.springframework.http.HttpMethod.GET;
 import static org.springframework.http.HttpMethod.OPTIONS;
 import static org.springframework.http.HttpMethod.POST;
 import static org.springframework.http.HttpMethod.PUT;
@@ -57,9 +60,28 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers(PUT, "/login").anonymous()
                 .antMatchers(OPTIONS, "/**").anonymous() 
                 
+                //category
+                 .antMatchers(GET,"/category/admin").access("hasRole('ROLE_ADMIN')")
+                 .antMatchers(POST,"/category").access("hasRole('ROLE_ADMIN')")
+                 .antMatchers(DELETE,"/category").access("hasRole('ROLE_ADMIN')")
+                 .antMatchers(PUT,"/category/{catogoryId}").access("hasRole('ROLE_ADMIN')")
+
+                 //books
+                 .antMatchers(GET,"/books/admin/pagenated/").access("hasRole('ROLE_ADMIN')")
+                 .antMatchers(GET,"/books/user/**/").access("hasRole('ROLE_USER')")
+                 .antMatchers(POST,"/books").access("hasRole('ROLE_ADMIN')")
+                 .antMatchers(DELETE,"/books/{booksId}").access("hasRole('ROLE_ADMIN')")
+                 .antMatchers(PUT,"/books/{booksId}").access("hasRole('ROLE_ADMIN')")
                 
-                 .antMatchers("/sidenav").access("hasRole('ROLE_USER')")
-                // .antMatchers("/adminPage").access("hasRole('ROLE_ADMIN')")
+                 //borrow
+                 .antMatchers(GET,"/borrow/admin/**").access("hasRole('ROLE_ADMIN')")
+                 .antMatchers(GET,"/borrow/user/**/").access("hasRole('ROLE_USER')")
+                 .antMatchers(POST,"/borrow/").access("hasRole('ROLE_USER')")
+                 .antMatchers(PUT,"/borrow/admin/**").access("hasRole('ROLE_ADMIN')")
+
+
+
+
 
                 .anyRequest().authenticated();
 

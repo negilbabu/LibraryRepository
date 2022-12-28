@@ -77,13 +77,18 @@ public interface BorrowRepository extends PagingAndSortingRepository<Borrow, Int
     // void findFineByUserId(Integer userId); public Page<Borrow> findAll(Pageable paging);
 
 
-    //Load Filterd results
+    //LOAD-FILTER @ADMIN ### ON-Load Filterd results
     @Query(value = "select * from borrow where issue_date between DATE(?1) and DATE(?2) and status!='REQUESTED'", nativeQuery = true)
    List<Borrow> findbyIssuDate(java.sql.Date date1,java.sql.Date date2);
     
-//pagenated filtered results
+//GET FILTER-RSLT @ADMIN- filtered results
     @Query(value = "select * from borrow where issue_date between DATE(?1) and DATE(?2) and status!='REQUESTED'", nativeQuery = true)
     public Page<Borrow> findbyIssuDate( java.sql.Date date1,java.sql.Date date2,Pageable paging);
+
+
+    //test
+    @Query(value = "select * from borrow where issue_date between DATE(?1) and DATE(?2) and status!='REQUESTED'", nativeQuery = true)
+    public Page<Borrow> findbyIssuDat( java.sql.Date date1,java.sql.Date date2,Pageable paging);
 
   //  public Page<Borrow> findbyIssuDate(java.util.Date date1, java.util.Date date2, Pageable paging);
 

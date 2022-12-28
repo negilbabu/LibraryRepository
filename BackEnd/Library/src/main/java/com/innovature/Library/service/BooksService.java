@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.Collection;
 import java.util.List;
 
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpEntity;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.view.RedirectView;
@@ -33,7 +34,7 @@ public interface BooksService {
 
     RedirectView uploadImage(MultipartFile multipartFile) throws IOException;
 
-    List<Books> getAllBooks(Integer pageNo, Integer pageSize, String sortBy);
+    Page<Books> getAllBooks(Integer pageNo, Integer pageSize, String sortBy,Integer direction);
 
 
 

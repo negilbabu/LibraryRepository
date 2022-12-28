@@ -24,10 +24,27 @@ export class AddbooksComponent implements OnInit {
   categorydata:any;
   booksdata:any;
   catdata: any;
+
+data: any;
+page:number=1;
+count: any;
+tableSize: number = 10;
+ProdData: any;
+sortedData: any;
+a:any;
+b:any;
+searchResult:any
+searchData:any
+sort:string="auther";
+len: any;
+result: any;
+  booksCount: any;
+  direction=-1;
   // ObjSampleForm:FormGroup;
   constructor(private router:Router ,private booksService:BooksService,private service:CategoryService,private imageService:ImageuploadService,private dialog: MatDialog) { 
     this.booksList=[];
     this.categoryList=[];
+    
     
   }
 
@@ -37,10 +54,49 @@ export class AddbooksComponent implements OnInit {
   }
 
 Load() {
-  this.booksService.Load().subscribe((data: any)=>{
-    console.log(data)
-  this.booksdata=data;
-  });  }  
+  this.booksService.pagination1(this.page,this.tableSize,this.sort,this.direction).subscribe(result=>{
+    this.result=result.content;
+    this.count=result.totalElements
+    console.log("loaded books=",this.result);   
+    console.log("page=",this.page);  
+    this.data=this.result; 
+    this.booksdata=this.result;                   
+      });
+}  
+
+
+sortfn(a:any){    
+  this.sort=a;      
+  this.page=this.page;
+  this.tableSize;
+
+  if(this.direction==1){
+    this.direction=-1;
+    console.log("from desc to :",this.direction)
+    this.ngOnInit();       
+  }
+
+  else{
+    this.direction=1;
+    console.log("from asc to desc",this.direction)
+  this.ngOnInit(); 
+  }
+  
+}
+
+onTableDataChange(event:any) {
+  
+  console.log("page=",event)
+    this.booksService.pagination1(this.page,this.tableSize,this.sort,this.direction).subscribe(result=>{
+      this.result=result.content;
+      this.count=result.totalElements
+      console.log("loaded books=",this.result);   
+      this.data=this.result;   
+      this.booksdata=this.result;                     
+        })       
+  }
+
+
   openDialog() {
 
     const dialogConfig = new MatDialogConfig();

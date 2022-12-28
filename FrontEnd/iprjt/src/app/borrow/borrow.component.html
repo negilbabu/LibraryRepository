@@ -23,17 +23,33 @@ END DATE&nbsp;&nbsp; <input type="date" formControlName="date2" value="date2" ma
                               <thead class="bg-primary text-white">
                                   <tr role="row">
                                    
-                                    <th (click)="sortfn('user.firstName')">User Name</th>
-                                    <th (click)="sortfn('books.booksName')">Book Name</th>
-                                    <th (click)="sortfn('issueDate')">Issue Date</th>                                  
-                                    <!-- <th (click)="sortfn('returnDate')">Return Date</th>                              -->
-                                    <th (click)="sortfn('dueDate')">Due Date</th>
-                                    <!-- <th (click)="sortfn('dueDays')">DueDays</th>                                   -->
-                                    <th (click)="sortfn('fine')">Fine(INR)</th>
-                                    <!-- <th (click)="sortfn('bookReturnedDate')">Returned Date</th> -->
-                                    <th (click)="sortfn('status')">Status</th>
-                                    <!-- <th (click)="sortfn('reason')">Reason</th> -->
-                                    <th>Action</th>
+                                    <th (click)="sortfn('user.firstName')">User Name
+                                      <button mat-icon-button *ngIf="this.direction==1"> <i class="material-icons" style="color:rgb(255, 255, 255)" >arrow_upward</i></button>
+                                      <button mat-icon-button *ngIf="this.direction==-1"> <i class="material-icons" style="color:rgb(255, 255, 255)" >arrow_downward</i></button>
+                                    </th>
+                                    <th (click)="sortfn('books.booksName')">Book Name
+                                      <button mat-icon-button *ngIf="this.direction==1"> <i class="material-icons" style="color:rgb(255, 255, 255)" >arrow_upward</i></button>
+                                      <button mat-icon-button *ngIf="this.direction==-1"> <i class="material-icons" style="color:rgb(255, 255, 255)" >arrow_downward</i></button>
+                                    </th>
+                                    <th (click)="sortfn('issueDate')">Issue Date 
+                                      <button mat-icon-button *ngIf="this.direction==1"> <i class="material-icons" style="color:rgb(255, 255, 255)" >arrow_upward</i></button>
+                                      <button mat-icon-button *ngIf="this.direction==-1"> <i class="material-icons" style="color:rgb(255, 255, 255)" >arrow_downward</i></button>
+                                    </th>                                  
+                                              
+                                    <th (click)="sortfn('dueDate')">Due Date 
+                                      <button mat-icon-button *ngIf="this.direction==1"> <i class="material-icons" style="color:rgb(255, 255, 255)" >arrow_upward</i></button>
+                                      <button mat-icon-button *ngIf="this.direction==-1"> <i class="material-icons" style="color:rgb(255, 255, 255)" >arrow_downward</i></button>
+                                    </th>
+                            
+                                      <th (click)="sortfn('fine')">Fine(INR) 
+                                        <button mat-icon-button *ngIf="this.direction==1"> <i class="material-icons" style="color:rgb(255, 255, 255)" >arrow_upward</i></button>
+                                        <button mat-icon-button *ngIf="this.direction==-1"> <i class="material-icons" style="color:rgb(255, 255, 255)" >arrow_downward</i></button>
+                                      </th>
+                                      <th (click)="sortfn('status')">Status 
+                                        <button mat-icon-button *ngIf="this.direction==1"> <i class="material-icons" style="color:rgb(255, 255, 255)" >arrow_upward</i></button>
+                                        <button mat-icon-button *ngIf="this.direction==-1"> <i class="material-icons" style="color:rgb(255, 255, 255)" >arrow_downward</i></button>
+                                      </th>
+                                      <th>Action</th>
                                     </tr>
                               </thead>
           <tbody>
@@ -62,13 +78,13 @@ END DATE&nbsp;&nbsp; <input type="date" formControlName="date2" value="date2" ma
           <!-- <td>{{post.reason}}</td> -->
 
   <td>
-  <button type ="button" style = "margin-top: 20px;" class="btnn0" *ngIf="post.status!='APPROVED' && post.status!='RETURNED'"  (click)="acceptRequest(post)">Accept</button>&nbsp;&nbsp;
-  <button type ="button" class="btnn2" *ngIf="post.status=='REQUESTED' "  (click)="rejectRequest(post)">Reject</button>&nbsp;&nbsp;<br>
-  <button type ="button" class="btnn" *ngIf="post.status!='RETURNED' && post.status=='APPROVED' " (click)="bookReturn(post)" >Return</button>
-  <button type ="button" class="btnn1" *ngIf="post.status=='RETURNED'  "  (click)="undo(post)" >Undo</button><br><br>
+  <button type ="button"  class="btnn0" *ngIf="post.status!='APPROVED' && post.status!='RETURNED'"  (click)="acceptRequest(post)">Accept</button>
+  <button type ="button" class="btnn2" *ngIf="post.status=='REQUESTED' "  (click)="rejectRequest(post)">Reject</button>&nbsp;&nbsp;
+  <button type ="button" class="btnn" *ngIf="post.status!='RETURNED' && post.status=='APPROVED' " (click)="bookReturn(post)" >Return</button>&nbsp;&nbsp;
+  <button type ="button" class="btnn1" *ngIf="post.status=='RETURNED'  "  (click)="undo(post)" >Undo</button>&nbsp;&nbsp;
   <!-- <button type ="button" class="btnn1" *ngIf="post.status!='REQUESTED'  "  (click)="DetailView(post)" >View More</button><br><br> -->
   <button mat-icon-button>
-    <i class="material-icons" *ngIf="post.status!='REQUESTED'  "  style="color:rgb(14, 155, 216)" (click)="DetailView(post)">visibility</i>  
+    <i class="material-icons" *ngIf="post.status!='REQUESTED'  "  style="color:rgb(14, 155, 216)" (click)="DetailView(post)">visibility</i>  &nbsp;
   </button>
 </td>
       </tr>
@@ -76,7 +92,7 @@ END DATE&nbsp;&nbsp; <input type="date" formControlName="date2" value="date2" ma
                               </tbody>
                           </table>
 
-                          <table *ngIf="flag==1"  align="center" class="table-bordered" id="datatable" role="grid" matSort (matSortChange)="sortData($event)">
+                          <table *ngIf="flag==1"  align="center" class="table-bordered" id="datatable" role="grid" >
                             <!-- matSort (matSortChange)="sortData($event)" -->
                             <thead class="bg-primary text-white">
                                 <tr role="row">

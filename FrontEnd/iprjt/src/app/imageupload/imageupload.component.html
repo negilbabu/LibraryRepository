@@ -36,18 +36,16 @@
   <strong>Note!</strong>Please Select a book cover to upload
 </div>
 
-</body>
-</html>
-<tbody>
+
     <br><br>
     <tr>
-        <td><input type="file" style="text-align: center; margin-left: 500px;" (change)="selectFile($event)"></td>
+        <td><input type="file" style="position:absolute; left:450px; top:150px;" (change)="selectFile($event)"></td>
    
         
             
-            <button [disabled]="!selectedFiles" (click)="upload() " style="text-align: center; margin-left: 10px;">Upload</button>
+            <button [disabled]="!selectedFiles" (click)="upload() " style="position:absolute; left:750px; top:150px;">Upload</button>
     
         
         
     </tr>
-</tbody>
+</body>

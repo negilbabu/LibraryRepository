@@ -40,22 +40,27 @@ ObjSampleForm:FormGroup;
     }
   ngOnInit(): void {
 
+this.LoadEdit()
 
-    let categoryId=localStorage.getItem("categoryId")  
-
-    //set edit data to fields
-    this.service.editCategory(categoryId).subscribe({    
-      next:(res)=>{
-        this.categoryId=res.categoryId;
-        this.ObjSampleForm.controls['categoryName'].setValue(res.categoryName)
-        console.log(res);      
-         
-      },
-      error:(msg)=>{}
-    })
   }
    
+LoadEdit(){
+  let categoryId=localStorage.getItem("categoryId")  
+  //set edit data to fields
 
+  if(categoryId!=null){
+  this.service.editCategory(categoryId).subscribe({    
+    next:(res)=>{
+      this.categoryId=res.categoryId;
+      this.ObjSampleForm.controls['categoryName'].setValue(res.categoryName)
+      console.log(res);      
+       
+    },
+    error:(msg)=>{}
+  })
+}
+
+}
 
  categorydata:any;
 

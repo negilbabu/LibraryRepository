@@ -35,7 +35,7 @@ export class FindbyCategoryComponent implements OnInit {
   ngOnInit(): void {
 
     
-     this.service.LoadCategory().subscribe((data: any)=>{
+     this.service.LoadCategoryForUser().subscribe((data: any)=>{
     this.catdata=data;
     console.log(this.catdata)
     });

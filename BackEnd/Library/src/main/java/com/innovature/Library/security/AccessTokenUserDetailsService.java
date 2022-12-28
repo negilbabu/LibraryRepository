@@ -16,6 +16,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationToken;
 
+import com.innovature.Library.entity.User;
+import com.innovature.Library.repository.UserRepository;
 import com.innovature.Library.security.util.InvalidTokenException;
 import com.innovature.Library.security.util.TokenExpiredException;
 import com.innovature.Library.security.util.TokenGenerator;
@@ -31,6 +33,9 @@ public class AccessTokenUserDetailsService implements AuthenticationUserDetailsS
 
     @Autowired
     private TokenGenerator tokenGenerator;
+    
+    @Autowired
+    private UserRepository userRepository;
 
     @Override
     public UserDetails loadUserDetails(PreAuthenticatedAuthenticationToken token) throws UsernameNotFoundException {
@@ -47,6 +52,11 @@ public class AccessTokenUserDetailsService implements AuthenticationUserDetailsS
             throw new UsernameNotFoundException("Access token expired", e);
         }
 
-        return new AccessTokenUserDetails(Integer.parseInt(status.data));
+         int userId = Integer.parseInt(status.data);
+         User user = userRepository.findById(userId);
+
+         return new AccessTokenUserDetails(userId, user.getRole());
+
+       // return new AccessTokenUserDetails(Integer.parseInt(status.data), 1);
     }
 }

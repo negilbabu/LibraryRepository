@@ -34,10 +34,11 @@ a:any;
 b:any;
 searchResult:any
 searchData:any
-sort:string="booksId";
+sort:string="auther";
 len: any;
 result: any;
   booksCount: any;
+  direction=-1;
 
 
   constructor(private router:Router ,private booksservice:BooksService,private service:CategoryService,private borrowservice:BorrowService) {
@@ -46,72 +47,70 @@ result: any;
    }
 
   ngOnInit(): void {
-//    this.Load();
-this.booksservice.Load().subscribe(result=>{
-  this.len=result;  
-  this.count=this.len.length;
- // console.log(result)
-})
-
-if(this.searchData==null || this.searchData==""){
-  this.booksservice.pagination1(this.page,this.tableSize,this.sort).subscribe((result=>{
-    this.data=result; 
-    console.log("thisLoadedata") 
-    console.log(this.data)  
-   // console.log(result)       
-  }));        
-}
-else{
-
-  this.data=this.searchData
-}
 
 
+this.LoadData();
+this.borrowBlock();
+
+
+
+  }
+
+  LoadData(){
+    this.booksservice.paginationForUser(this.page,this.tableSize,this.sort,this.direction).subscribe(result=>{
+      this.result=result.content;
+      this.count=result.totalElements
+      console.log("loaded books=",this.result);   
+      this.data=this.result;                     
+        });
+  }
+
+
+  borrowBlock(){
 this.borrowservice.borrowBlock().subscribe({    
   next:(res)=>{
   this.booksCount=res;
-  console.log("blk"); 
-  console.log(res); 
+  // console.log("blk"); 
+  console.log("block rslt=",res); 
   }})
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }
 
-sortfn(a:any){
-    
+borrowStockEmpty(){
+  
+}
+
+sortfn(a:any){    
   this.sort=a;      
   this.page=this.page;
   this.tableSize;
-  this.ngOnInit();        
 
+  if(this.direction==1){
+    this.direction=-1;
+    console.log("from desc to :",this.direction)
+    this.ngOnInit();       
+  }
+
+  else{
+    this.direction=1;
+    console.log("from asc to desc",this.direction)
+  this.ngOnInit(); 
+  }
+  
 }
 
 
 
 onTableDataChange(event:any) {
   
-  console.log(event)
-    this.booksservice.pagination1(event,this.tableSize,this.sort).subscribe((result=>{
-      this.data=result;
-    }),
-    );        
+  console.log("page no=",event)
+    this.booksservice.paginationForUser(this.page,this.tableSize,this.sort,this.direction).subscribe(result=>{
+      this.result=result.content;
+      this.count=result.totalElements
+      console.log("loaded books=",this.result);   
+      this.data=this.result;                     
+        })       
   }
-  // Load() {
-  //   this.booksservice.Load().subscribe((data: any)=>{
-  //   this.len=data;
-  //   });  }  
+
 
 
     requestBook(booksId: any) {
@@ -121,11 +120,9 @@ onTableDataChange(event:any) {
         this.router.navigate(['/booksdisplay'])
       }
       else{
-
         if(this.booksCount>=3){
           alert("you cannot request any book, please return the current in hand books, thank you")
         }
-
         else{
       let data=booksId
         this.borrowservice.add(data).subscribe({    

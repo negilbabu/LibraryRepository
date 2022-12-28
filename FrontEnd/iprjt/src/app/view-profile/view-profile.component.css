@@ -40,7 +40,7 @@ p{
     border-radius: 7px;
 } */
 .table-bordered{
-    border: 1px solid;
+    border: 3px solid;
 }
 th {
     background-color: #232524;
@@ -50,12 +50,13 @@ th {
     padding: 12px;
   }
   td {
+    border-color: rgb(22, 133, 133);
     background-color: #a7bdb08f;
     color: rgb(0, 0, 0);
-    width: 5%;
-    text-align: center;
-    margin-top: auto;
-    padding: auto;
+    width: 220px;    
+    /* text-align: center; */
+    /* margin-top: auto; */
+    /* padding: auto; */
     padding: 8px;
   }
 

@@ -25,8 +25,13 @@ public class CategoryController {
     @Autowired
     private CategoryService service;
 
-    @GetMapping
+    @GetMapping("/admin")
     public Collection<Category> list(Principal p) {
+        return service.listAll();
+    }
+
+    @GetMapping("/user")
+    public Collection<Category> listforUser(Principal p) {
         return service.listAll();
     }
 

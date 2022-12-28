@@ -4,6 +4,8 @@ import { MatDialog,MatDialogRef, MatDialogModule} from '@angular/material/dialog
 import { MatDialogConfig } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { CategoryService } from '../category.service';
+import { HttpErrorResponse } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-addcategory',
@@ -22,7 +24,9 @@ export class AddcategoryComponent implements OnInit  {
    }
 
    ngOnInit(): void {
-    this.LoadCategory();   
+    this.LoadCategory();  
+
+   // this.handleError(HttpErrorResponse)
     localStorage.removeItem('categoryId'); 
   }
 
@@ -30,7 +34,16 @@ export class AddcategoryComponent implements OnInit  {
     this.service.LoadCategory().subscribe((data: any)=>{
     this.categorydata=data;
     console.log(data)
-    });  }  
+    })
+    ;  }  
+
+
+     handleError(err: HttpErrorResponse){
+      console.log('hhhii',err);
+      if ( err.status === 403) {
+        alert("UNAUTHORIZED ACCESS DETECTED")
+          this.router.navigateByUrl(`/login`);    }
+      }
 
 openDialog() {
 

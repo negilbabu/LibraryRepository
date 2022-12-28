@@ -90,7 +90,9 @@ onSubmit(){
         console.log(result);
         alert(" The Book "+result.booksName+" Added");
         this.imageService.setId(result.booksId)
+        console.log("bid=",result.booksId)
         this.router.navigate(['/imageupload'])
+
        // window.location.reload();
       }
       else{
@@ -107,6 +109,7 @@ onSubmit(){
 loadEdit(): void{
 
   let booksId=localStorage.getItem("booksId")  
+  if(booksId!=null){
   this.booksService.edit(booksId).subscribe({    
     next:(res)=>{
       this.booksId=res.booksId;
@@ -121,6 +124,7 @@ loadEdit(): void{
     },
     error:(msg)=>{}
   })
+}
 }
 
 
