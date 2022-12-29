@@ -29,6 +29,8 @@ public interface UserRepository extends Repository<User, Integer> {
     Collection<User> findAll();
 
     Collection<User> findByUserId(Integer userId);
+
+
     
 
   //  User findById(User userId);

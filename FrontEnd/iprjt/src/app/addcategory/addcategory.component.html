@@ -11,36 +11,43 @@
       <table align="center" class="table-bordered" id="datatable" role="grid" style="position:relative;">
         <thead class="bg-primary text-white">
           <tr role="row">
-            <th>Category Name</th>
+
+            <th (click)="sortfn('categoryName')">Category Name
+              <!-- <button mat-icon-button *ngIf="this.direction==1"> <i class="material-icons" style="color:rgb(255, 255, 255)" >keyboard_arrow_up</i></button>
+              <button mat-icon-button *ngIf="this.direction==-1"> <i class="material-icons" style="color:rgb(255, 255, 255)" >keyboard_arrow_down</i></button>                            
+          -->
+            </th>
             <th>Action</th>
           </tr>
         </thead>
+
         <tbody>
-          <tr *ngFor="let category of  categorydata">
+          <tr *ngFor="let category of  categorydata| paginate 
+          : {
+              itemsPerPage: tableSize,
+              currentPage: page,
+              totalItems: count
+            };
+          
+          
+          ">
 
             <td>{{category.categoryName}}</td>
 
             <td>
-              <button mat-icon-button>
-                <i class="material-icons" style="color:red" (click)="deleteCategory(category)">delete</i>
-              </button>
-              <!-- <i class="material-icons" (click)="deleteCategory(category)">delete</i> -->
-            
-            <!-- <button type="button" class="btnList" (click)="deleteCategory(category)">delete</button>&nbsp;&nbsp; -->
-            <button mat-icon-button>
-              <i class="material-icons" style="color:green" (click)="editCategory(category.categoryId)">edit</i>
-            
-            </button>
-            <!-- <span class="material-icons"(click)="editCategory(category)">edit</span> -->
-              <!-- <button type="button" class="btnList" (click)="editCategory(category)">edit</button> -->
-     
-
+              <button mat-icon-button><i class="material-icons" style="color:red" (click)="deleteCategory(category)">delete</i> </button>
+              
+            <button mat-icon-button> <i class="material-icons" style="color:green" (click)="editCategory(category.categoryId)">edit</i></button>
+          
             </td>
           </tr>
 
         </tbody>
       </table>
-
+      <div class="d-flex justify-content-center">
+        <pagination-controls (pageChange)="onTableDataChange(page=$event)">
+        </pagination-controls>
+</div>
     </div>
   </div>
 </div>

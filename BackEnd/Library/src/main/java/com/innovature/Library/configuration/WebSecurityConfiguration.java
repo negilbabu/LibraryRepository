@@ -67,7 +67,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                  .antMatchers(PUT,"/category/{catogoryId}").access("hasRole('ROLE_ADMIN')")
 
                  //books
-                 .antMatchers(GET,"/books/admin/pagenated/").access("hasRole('ROLE_ADMIN')")
+                 .antMatchers(GET,"/books/admin/**/").access("hasRole('ROLE_ADMIN')")
                  .antMatchers(GET,"/books/user/**/").access("hasRole('ROLE_USER')")
                  .antMatchers(POST,"/books").access("hasRole('ROLE_ADMIN')")
                  .antMatchers(DELETE,"/books/{booksId}").access("hasRole('ROLE_ADMIN')")

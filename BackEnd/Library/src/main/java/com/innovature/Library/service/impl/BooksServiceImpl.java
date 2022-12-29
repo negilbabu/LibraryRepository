@@ -117,12 +117,10 @@ public class BooksServiceImpl implements BooksService{
     }
 
 
-
+    @Override
+    @Transactional
     public Page<Books>getAllBooks(Integer pageNo, Integer pageSize, String sortBy,Integer direction){
-        
-        // Pageable paging = PageRequest.of(pageNo, pageSize, Sort.by(sortBy));
-        // Page<Books> pagedResult = booksRepository.findAll(paging);
-
+  
         var sortByDescending=Sort.by(sortBy).descending();
         var sortByAscending=Sort.by(sortBy).ascending();
 

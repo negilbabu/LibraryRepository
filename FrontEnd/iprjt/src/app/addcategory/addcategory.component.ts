@@ -17,33 +17,82 @@ export class AddcategoryComponent implements OnInit  {
   categoryList: any[];
   categoryId:any;
   categorydata:any;
-  flag:string="ONE";
+  // flag:string="ONE";
+
+
+  data: any;
+page:number=1;
+count: any;
+tableSize: number = 5;
+ProdData: any;
+sortedData: any;
+a:any;
+b:any;
+searchResult:any
+searchData:any
+sort:string="categoryId";
+sort1:string="categoryName";
+len: any;
+result: any;
+  booksCount: any;
+  direction=-1;
+  category_id: any;
+  categoryName: any;
+  category_name: any;
   constructor(private dialog: MatDialog,private router:Router ,private service:CategoryService) {
     this.categoryList=[];
     
    }
 
    ngOnInit(): void {
-    this.LoadCategory();  
 
-   // this.handleError(HttpErrorResponse)
+    this.LoadCategory();  
     localStorage.removeItem('categoryId'); 
   }
 
   LoadCategory() {
-    this.service.LoadCategory().subscribe((data: any)=>{
-    this.categorydata=data;
-    console.log(data)
-    })
-    ;  }  
+    this.service.CatPageAdmin(this.page,this.tableSize,this.sort,this.direction).subscribe(result=>{
+      this.result=result.content;
+      this.count=result.totalElements
+      console.log("loaded cat=",this.result);   
+      console.log("page=",this.page);  
+      this.data=this.result; 
+      this.categorydata=this.result;                   
+        }); }  
 
 
-     handleError(err: HttpErrorResponse){
-      console.log('hhhii',err);
-      if ( err.status === 403) {
-        alert("UNAUTHORIZED ACCESS DETECTED")
-          this.router.navigateByUrl(`/login`);    }
-      }
+  sortfn(a:any){    
+    this.sort=a;
+    console.log("sortbyname",a)    
+    this.page=this.page;
+    this.tableSize;
+  
+    if(this.direction==1){
+      this.direction=-1;
+      console.log("from desc to :",this.direction)
+      this.ngOnInit();       
+    }
+  
+    else{
+      this.direction=1;
+      console.log("from asc to desc",this.direction)
+    this.LoadCategory(); 
+    }
+    
+  }
+
+  onTableDataChange(event:any) {
+  
+    console.log("page=",event)
+      this.service.CatPageAdmin(this.page,this.tableSize,this.sort,this.direction).subscribe(result=>{
+        this.result=result.content;
+        this.count=result.totalElements
+        console.log("loaded books=",this.result);   
+        this.data=this.result;   
+        this.categorydata=this.result;                     
+          })       
+    }
+  
 
 openDialog() {
 

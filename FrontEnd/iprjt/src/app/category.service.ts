@@ -22,6 +22,9 @@ export class CategoryService {
       localStorage.clear()
       this.router.navigateByUrl(`/login`);    }    
   }
+////////////////////////////////////////////////////////
+
+
 
   addCategory(data:any):Observable<any>{
     return this.http.post('http://localhost:8080/category',data).pipe((catchError(err => this.handleError(err))));
@@ -32,11 +35,13 @@ export class CategoryService {
     return this.http.get('http://localhost:8080/category/admin').pipe((catchError(err => this.handleError(err))));
   }
 
+  CatPageAdmin(page:any,tableSize:any,sort:any,direction:any):Observable<any>{
+    return this.http.get("http://localhost:8080/category/admin/pagenated/?pageNo="+page+"&pageSize="+tableSize+"&sortBy="+sort+"&direction="+direction).pipe((catchError(err => this.handleError(err))))
+  }
+
   LoadCategoryForUser(){
     return this.http.get('http://localhost:8080/category/user').pipe((catchError(err => this.handleError(err))));
   }
-
-
   
   
   delete(categoryId:any):Observable<any>{

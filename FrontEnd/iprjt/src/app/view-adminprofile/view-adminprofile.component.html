@@ -1,59 +1,18 @@
 <app-sidenav></app-sidenav>   
-  
-  <div class="text-center"> 
+
       <form>
+      <br><br>      <br><br>
+         <h2 style="text-align:center;position:absolute; left:580px; top:78px;"> <button mat-icon-button > <i class="material-icons" style="color:rgb(142, 179, 137);"  >account_circle</i></button> PROFILE</h2>
 
-        <div class="card-box">
-          
-        
-            <div class="row">
-                      <div class="table-responsive"><br>
-                        <h2 style="text-align:center ;">User Details</h2>
+          <table align="center" style="border-collapse: collapse; border: none;"  >
 
-
-                            <table align="center" class="table-bordered" id="datatable" role="grid" >
-                             
-                              <thead class="bg-primary text-white">
-                                  <tr role="row">
-                                   
-                                    <!-- <th>User Id</th> -->
-                                    <th>First Name</th>
-                                    <th>Last Name</th>
-                                    <th>Address</th>
-                                    <th>Phone</th>
-                                    <th>Email</th>
-                                    <!-- <th>Password</th> -->
-                                    <!-- <th>Status</th> -->
-                                    <!-- <th>role</th> -->
-                                    <th>DOB</th>
-                                    <th>CreateDate</th>
-                                    <th>UpdateDate</th>
-                                    </tr>
-                              </thead>
-                              <tbody>
-        <tr *ngFor="let user of  userdata">
-    
-        <!-- <td>{{user.userId}}</td> -->
-        <td>{{user.firstName}}</td>
-        <td>{{user.lastName}}</td>
-        <td>{{user.address}}</td>
-        <td>{{user.phone}}</td>
-        <td>{{user.email}}</td>
-        <!-- <td>{{user.password}}</td> -->
-        <!-- <td>{{user.status}}</td> -->
-         <!-- <td>{{user.role}}</td> -->
-        <td>{{user.dob}}</td>
-        <td>{{user.createDate| date:'dd/MM/yyyy'}}</td>
-        <td>{{user.updateDate| date:'dd/MM/yyyy'}}</td>
- 
-    <!-- <td>
-     <button type ="button" class="btnAction" (click)="delete(books)">delete</button>&nbsp;&nbsp;
-    <button type ="button" class="btnAction" (click)="edit(books)">edit</button></td>
-        </tr> -->
-        
-                              </tbody>
-                          </table>
-                        
-                      </div>
-                  </div>
-                </div>
+        <tr> <td>NAME </td><td>:</td><td>{{userdata[0].firstName}} {{userdata.lastName}}</td></tr>
+        <tr><td>ADDRESS </td> <td>:</td><td>{{userdata[0].address}}</td></tr>
+        <tr> <td>PHONE </td><td>:</td><td>{{userdata[0].phone}}</td></tr>
+        <tr><td>EMAIL </td><td>:</td><td>{{userdata[0].email}}</td></tr>
+        <tr> <td>DOB </td><td>:</td><td>{{userdata[0].dob| date:'dd/MM/yyyy'}}</td></tr>
+        <tr> <td>CREATED DATE </td><td>:</td><td>{{userdata[0].createDate| date:'dd/MM/yyyy'}}</td></tr>
+        <tr><td>UPDATE DATE </td><td>:</td><td>{{userdata[0].updateDate| date:'dd/MM/yyyy'}}</td></tr>
+                                    
+          </table>
+                     
