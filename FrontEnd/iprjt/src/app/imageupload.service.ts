@@ -12,6 +12,7 @@ export class ImageuploadService {
   }
     getId(){
       return this.id;
+      console.log(this.id)
   }
   
     private baseUrl="http://localhost:8080";

@@ -60,7 +60,7 @@ public class BorrowController {
 
 // }
 
-//BORROW @ADMIN //pagenated borrow list at admin VIEW borrow
+//BORROW @ADMIN //pagenated borrow list at admin VIEW borrow single api
 @GetMapping("/admin/pagenated/")
 public ResponseEntity<Page<Borrow>>getAllBorTest(
                     @RequestParam(defaultValue = "1") Integer pageNo,
@@ -105,7 +105,7 @@ public ResponseEntity<Page<Borrow>>getAllBorTest(
 
 // }
 
-//GET FILTER RESULT@ADMIN//filtered
+//GET FILTER RESULT@ADMIN//filtered single api
 @GetMapping("/admin/{date1}/{date2}")
 public ResponseEntity<Page<Borrow>>getTestFilterBorrow(
                     // @PathVariable Date date1, @PathVariable Date date2,

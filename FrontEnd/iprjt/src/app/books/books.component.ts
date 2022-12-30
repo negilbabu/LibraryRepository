@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { CategoryService } from '../category.service';
 import { BooksService } from '../books.service';
 import { ImageuploadService } from '../imageupload.service';
+import { NgToastService } from 'ng-angular-popup';
 
 
 @Component({
@@ -29,7 +30,11 @@ export class BooksComponent implements OnInit {
   catdata: any;
   ObjSampleForm:FormGroup;
 
-  constructor(private router:Router ,private booksService:BooksService,private service:CategoryService,private imageService:ImageuploadService) {  
+  constructor(private router:Router ,
+    private booksService:BooksService,
+    private service:CategoryService,
+    private imageService:ImageuploadService,
+    private toast : NgToastService) {  
   this.booksList=[];
   this.categoryList=[];
 
@@ -89,6 +94,7 @@ onSubmit(){
       if(result.booksId){  
         console.log(result);
         alert(" The Book "+result.booksName+" Added");
+        this.toast.success({detail:'Success',summary:'The Book'+result.booksName+'Added',duration:5000});
         this.imageService.setId(result.booksId)
         console.log("bid=",result.booksId)
         this.router.navigate(['/imageupload'])
@@ -96,7 +102,7 @@ onSubmit(){
        // window.location.reload();
       }
       else{
-        alert("Books Not added");
+        this.toast.success({detail:'Invalid',summary:'Add new Book Failed',duration:5000});
       }
     })
 
@@ -141,16 +147,27 @@ update(booksId:any){
     }
 
   console.log(body)
-  // console.log(body.categoryName)
+
   this.booksService.update(booksId, body).subscribe({
     next: (Response: any) => {
       console.log(Response);
-      alert(" Edited successfully")
+      this.toast.success({detail:'Success',summary:Response.booksName+' Edited Successfully',duration:5000});      
+     // window.location.reload()
+     if (confirm('Do you want to change Book cover?')) { 
+      this.imageService.setId(Response.booksId)
+      console.log("bookId=",Response.booksId)
+      this.router.navigate(['/imageupload'])
+    } else {
+      
+      this.router.navigate(['/addbooks'])
       window.location.reload()
+    } 
+
+
     },
     error: (Response: any) => {
       console.log(Response)
-      alert("invalid Book Details")
+      this.toast.success({detail:'Invalid',summary:'Enter valid details ',duration:5000});  
     }
   })
   localStorage.removeItem('booksId');

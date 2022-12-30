@@ -11,6 +11,7 @@ import { UserserviceService } from '../userservice.service';
 export class UserRegComponent implements OnInit {
 [x: string]: any;
 date: any;
+var:any;
   constructor(private router:Router ,private service:UserserviceService) { }
   
   
@@ -37,9 +38,9 @@ date: any;
 
   onSubmit(){
     console.log("aaaa");
-    //debugger
-   //if(this.ObjSampleForm.valid){
-     
+
+  //  if(this.ObjSampleForm.valid){
+     this.var=this.ObjSampleForm.value
       this.service.add(this.ObjSampleForm.value).subscribe(result=>{
         if(result.userId){  
           console.log("bbb");
@@ -51,7 +52,7 @@ date: any;
           alert("User Not added");
         }
       })
-   // }
+    // }
    }
 
 

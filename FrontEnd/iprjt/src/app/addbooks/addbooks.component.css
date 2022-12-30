@@ -1,18 +1,21 @@
-
+/* 
 .table-bordered{
     border: 1px solid;
 }
-th {
-    background-color: #232524;
-    color: white;
-    width: 160px;
+
+  */ 
+  table{
+    width: 80%;
+    border: none;
     text-align: center;
+    
+  }
+  th {
+    background-color: #ffffff;
+    color: rgb(0, 0, 0);
+   
   }
   td {
-    background-color: #a7bdb08f;
-    color: rgb(0, 0, 0);
-    width: 125px;
-    text-align: center;
-    margin-top: auto;
-    /* padding: auto; */
+ 
+    padding-top: 6px;padding-bottom: 6px;
   }

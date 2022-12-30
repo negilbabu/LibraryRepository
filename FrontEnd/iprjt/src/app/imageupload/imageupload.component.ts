@@ -40,17 +40,13 @@ export class ImageuploadComponent implements OnInit {
       if (file) {
         this.currentFile = file;
       }
-      //this.assi.assignmentId=
-      //this.assi.studentId=this.studentDetails.studentId
-      // this.assi.file=this.currentFile;
-      console.log(this.data.hotelId)
+      console.log(this.data.booksId)
       this.service.imageUpload(this.currentFile,this.service.getId()).subscribe(
       response =>{
-        this.toast.success({detail:'Success',summary:'Book cover uploaded',duration:5000});
+        this.toast.success({detail:'Success',summary:' Book cover uploaded',duration:5000});
         this.router.navigate(['/addbooks'])
-
-
         console.log(response)
+        
         if(response)
         {
           alert("IMAGE UPLOADED SUCCESSFULLY")
