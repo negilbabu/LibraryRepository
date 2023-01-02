@@ -9,6 +9,10 @@ import java.util.Collection;
 
 //import javax.validation.Valid;
 
+import org.springframework.data.domain.Page;
+import org.springframework.http.HttpEntity;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.view.RedirectView;
 import org.springframework.validation.Errors;
 
 import com.innovature.Library.entity.User;
@@ -47,4 +51,7 @@ public interface UserService {
     UserView edit(Integer userId, UserForm form);
 
     Collection<User> viewProfile(Integer userId);
+
+    Page<User> getAllUser(Integer pageNo, Integer pageSize, String sortBy,Integer direction);
+
 }

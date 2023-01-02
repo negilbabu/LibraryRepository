@@ -1,4 +1,6 @@
 body, html {
+
+  position: fixed;
     margin: 0;
     font-family: arial;
     height: 0vh;
@@ -8,7 +10,9 @@ body, html {
     box-sizing: border-box;
   }
   .nav-mobile {
+    /* position: fixed; */
     background: #446cb3;
+    /* background: #9f3800; */
     color: #fff;
     padding: 0;
     margin: 0;

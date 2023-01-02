@@ -12,6 +12,7 @@ import java.util.Collection;
 //import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.Errors;
@@ -142,6 +143,34 @@ public class UserServiceImpl implements UserService {
     return userRepository.findAll();
     } 
 
+
+
+    // @Override
+    // @Transactional
+    // public Page<User>getAllUser(Integer pageNo, Integer pageSize, String sortBy,Integer direction){
+  
+    //     var sortByDescending=Sort.by(sortBy).descending();
+    //     var sortByAscending=Sort.by(sortBy).ascending();
+
+    //     if(direction==1){
+
+    //         Pageable paging = PageRequest.of(pageNo, pageSize, sortByDescending);
+    //         Page<User> pagedResult = booksRepository.findAll(paging);
+    //         return pagedResult;    
+    //     }
+
+    //     else 
+    //     {
+    //         Pageable paging = PageRequest.of(pageNo, pageSize, sortByAscending);
+    //         Page<User> pagedResult = booksRepository.findAll(paging);
+    //         return pagedResult; 
+    //     }
+    // }
+
+
+
+
+
     
 
     @Override
@@ -200,6 +229,12 @@ public class UserServiceImpl implements UserService {
                         
         );
 
+    }
+
+    @Override
+    public Page<User> getAllUser(Integer pageNo, Integer pageSize, String sortBy, Integer direction) {
+        // TODO Auto-generated method stub
+        return null;
     }
 
 

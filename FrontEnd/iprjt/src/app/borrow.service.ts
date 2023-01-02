@@ -73,7 +73,7 @@ handleError(err: HttpErrorResponse): any {
     return this.http.get('http://localhost:8080/borrow/due').pipe((catchError(err => this.handleError(err))));
   }
   LoadFine(){
-    return this.http.get('http://localhost:8080/borrow/fine').pipe((catchError(err => this.handleError(err))));
+    return this.http.get('http://localhost:8080/borrow/admin/fine').pipe((catchError(err => this.handleError(err))));
   }
   LoadDueByUser(){
     return this.http.get('http://localhost:8080/borrow/dueByUser').pipe((catchError(err => this.handleError(err))));
