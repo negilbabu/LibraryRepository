@@ -87,18 +87,18 @@ public class UsersController {
 
    
 
-    // @GetMapping("admin/pagenated/")
-    // public ResponseEntity<Page<User>>getAllBooks(
-    //                     @RequestParam(defaultValue = "1") Integer pageNo,
-    //                     @RequestParam(defaultValue = "10") Integer pageSize,
-    //                     @RequestParam(defaultValue = "auther") String sortBy,
-    //                     @RequestParam(defaultValue = "1") Integer direction)
-    // {
-    //     Page<User> list = userService.getAllUser(pageNo-1, pageSize, sortBy,direction);
-    //     return new ResponseEntity<Page<User>>(list,new HttpHeaders(),
-    //     HttpStatus.OK);
+    @GetMapping("admin/pagenated/")
+    public ResponseEntity<Page<User>>getAllBooks(
+                        @RequestParam(defaultValue = "1") Integer pageNo,
+                        @RequestParam(defaultValue = "10") Integer pageSize,
+                        @RequestParam(defaultValue = "userId") String sortBy,
+                        @RequestParam(defaultValue = "1") Integer direction)
+    {
+        Page<User> list = userService.getAllUser(pageNo-1, pageSize, sortBy,direction);
+        return new ResponseEntity<Page<User>>(list,new HttpHeaders(),
+        HttpStatus.OK);
 
-    // }
+    }
 
 
 }

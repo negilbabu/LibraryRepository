@@ -13,6 +13,24 @@ export class UserDetailsComponent implements OnInit {
 userdata: any;
 userList:any[];
 
+
+data: any;
+page:number=1;
+count: any;
+tableSize: number = 5;
+ProdData: any;
+sortedData: any;
+a:any;
+b:any;
+searchResult:any
+searchData:any
+sort:string="userId";
+len: any;
+result: any;
+  booksCount: any;
+  direction=-1;
+userId: any;
+
   constructor(private router:Router ,private service:UserserviceService) {
     this.userList=[];
    }
@@ -23,15 +41,52 @@ userList:any[];
     this.Load();
   }
 
-  Load() {
-    this.service.Load().subscribe((data: any)=>{
-    this.userdata=data;
-    });  }  
+   Load(){
+  // {
+  //   this.service.Load().subscribe((data: any)=>{
+  //   this.userdata=data;
+  //   });  }  
+  this.service.userPaginationAdmin(this.page,this.tableSize,this.sort,this.direction).subscribe(result=>{
+    this.result=result.content;
+    this.count=result.totalElements
+    console.log("loaded books=",this.result);   
+    console.log("page=",this.page);  
+    this.data=this.result; 
+    this.userdata=this.result;                   
+      });
+}  
 
+sortfn(a:any){    
+  this.sort=a;      
+  this.page=this.page;
+  this.tableSize;
 
-    home()
-    {
-      this.router.navigate(['/sidenav'])
-    }
+  if(this.direction==1){
+    this.direction=-1;
+    console.log("from desc to :",this.direction)
+    this.ngOnInit();       
+  }
+
+  else{
+    this.direction=1;
+    console.log("from asc to desc",this.direction)
+  this.ngOnInit(); 
+  }
+  
+}
+
+onTableDataChange(event:any) {
+  
+  console.log("page=",event)
+    this.service.userPaginationAdmin(this.page,this.tableSize,this.sort,this.direction).subscribe(result=>{
+      this.result=result.content;
+      this.count=result.totalElements
+      console.log("loaded books=",this.result);   
+      this.data=this.result;   
+      this.userdata=this.result;                     
+        })       
+  }
+
+  
 
 }

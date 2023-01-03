@@ -49,7 +49,9 @@ END DATE&nbsp;&nbsp; <input type="date" formControlName="date2" value="date2" ma
                                         <button mat-icon-button *ngIf="this.direction==1"> <i class="material-icons" style="color:rgb(255, 255, 255)" >arrow_upward</i></button>
                                         <button mat-icon-button *ngIf="this.direction==-1"> <i class="material-icons" style="color:rgb(255, 255, 255)" >arrow_downward</i></button>
                                       </th>
-                                      <th>Action</th>
+                                      <th></th>
+                                      
+                                      <th></th>
                                     </tr>
                               </thead>
           <tbody>
@@ -63,27 +65,21 @@ END DATE&nbsp;&nbsp; <input type="date" formControlName="date2" value="date2" ma
         };
         let i = index
         " >
-        <td scope="row">{{ post.user.firstName }}</td>
-
-          <!-- <td>{{post.user.firstName}}</td> -->
+        <td>{{ post.user.firstName }}</td>
           <td>{{post.books.booksName}}</td>
           <td>{{post.issueDate| date:'dd/MM/yyyy'}}</td>                 
-          <!-- <td>{{post.returnDate| date:'dd/MM/yyyy'}}</td> -->
           <td>{{post.dueDate| date:'dd/MM/yyyy'}}</td>
-          <!-- <td>{{post.dueDays}}</td> -->
           <td>{{post.fine}}</td>
-          
-          <!-- <td>{{post.bookReturnedDate| date:'dd/MM/yyyy'}}</td> -->
           <td>{{post.status}}</td>
-          <!-- <td>{{post.reason}}</td> -->
 
   <td>
-  <button type ="button"  class="btnn0" *ngIf="post.status!='APPROVED' && post.status!='RETURNED'"  (click)="acceptRequest(post)">Accept</button>
+  <button type ="button"  class="btnn0" *ngIf="post.status=='REQUESTED' "  (click)="acceptRequest(post)">Accept</button>&nbsp;&nbsp;
   <button type ="button" class="btnn2" *ngIf="post.status=='REQUESTED' "  (click)="rejectRequest(post)">Reject</button>&nbsp;&nbsp;
   <button type ="button" class="btnn" *ngIf="post.status!='RETURNED' && post.status=='APPROVED' " (click)="bookReturn(post)" >Return</button>&nbsp;&nbsp;
   <button type ="button" class="btnn1" *ngIf="post.status=='RETURNED'  "  (click)="undo(post)" >Undo</button>&nbsp;&nbsp;
-  <!-- <button type ="button" class="btnn1" *ngIf="post.status!='REQUESTED'  "  (click)="DetailView(post)" >View More</button><br><br> -->
-  <button mat-icon-button>
+  </td>  
+  <td>
+    <button mat-icon-button>
     <i class="material-icons" *ngIf="post.status!='REQUESTED'  "  style="color:rgb(14, 155, 216)" (click)="DetailView(post)">visibility</i>  &nbsp;
   </button>
 </td>
@@ -91,24 +87,20 @@ END DATE&nbsp;&nbsp; <input type="date" formControlName="date2" value="date2" ma
         
                               </tbody>
                           </table>
-
-                          <table *ngIf="flag==1"  align="center" class="table-bordered" id="datatable" role="grid" >
-                            <!-- matSort (matSortChange)="sortData($event)" -->
+<!-- table for display -->
+                          <table *ngIf="flag==1"  align="center" class=".table-hover" id="datatable" role="grid" >
                             <thead class="bg-primary text-white">
                                 <tr role="row">
                                  
-                                  <!-- <th mat-sort-header="user_id">User Name</th> -->
+
                                   <th (click)="sortfilter('user_id')">User Name</th>
                                   <th (click)="sortfilter('books_id')">Book Name</th>
                                   <th (click)="sortfilter('issue_date')">Issue Date</th>                                  
-                                  <!-- <th (click)="sortfilter('return_date')">Return Date</th>                              -->
                                   <th (click)="sortfilter('due_date')">Due Date</th>
-                                  <!-- <th (click)="sortfilter('due_days')">DueDays</th>                                   -->
                                   <th (click)="sortfilter('fine')">Fine(INR)</th>
-                                  <!-- <th (click)="sortfilter('book_returned_date')">Returned Date</th> -->
                                   <th (click)="sortfilter('status')">Status</th>
-                                  <!-- <th (click)="sortfilter('reason')">Reason</th> -->
-                                  <th>Action</th>
+                                  <th></th>
+                                  <th></th>
                                   </tr>
                             </thead>
         <tbody>
@@ -122,25 +114,22 @@ END DATE&nbsp;&nbsp; <input type="date" formControlName="date2" value="date2" ma
       };
       let i = index
       " >
-      <td scope="row">{{ post.user.firstName }}</td>
+      <td>{{ post.user.firstName }}</td>
 
-        <!-- <td>{{post.user.firstName}}</td> -->
         <td>{{post.books.booksName}}</td>
         <td>{{post.issueDate| date:'dd/MM/yyyy'}}</td>                 
-        <!-- <td>{{post.returnDate| date:'dd/MM/yyyy'}}</td> -->
         <td>{{post.dueDate| date:'dd/MM/yyyy'}}</td>
-        <!-- <td>{{post.dueDays}}</td> -->
         <td>{{post.fine}}</td>
-        
-        <!-- <td>{{post.bookReturnedDate| date:'dd/MM/yyyy'}}</td> -->
         <td>{{post.status}}</td>
-        <!-- <td>{{post.reason}}</td> -->
+
 
 <td>
-<button type ="button" style = "margin-top: 20px;" class="btnn0" *ngIf="post.status!='APPROVED' && post.status!='RETURNED'"  (click)="acceptRequest(post)">Accept</button>&nbsp;&nbsp;
+<button type ="button" style = "margin-top: 20px;" class="btnn0" *ngIf="post.status=='REQUESTED'"  (click)="acceptRequest(post)">Accept</button>
 <button type ="button" class="btnn2" *ngIf="post.status=='REQUESTED' "  (click)="rejectRequest(post)">Reject</button>&nbsp;&nbsp;<br>
 <button type ="button" class="btnn" *ngIf="post.status!='RETURNED' && post.status=='APPROVED' " (click)="bookReturn(post)" >Return</button>
 <button type ="button" class="btnn1" *ngIf="post.status=='RETURNED'  "  (click)="undo(post)" >Undo</button><br><br>
+</td> 
+<td>
 <button mat-icon-button>
   <i class="material-icons" *ngIf="post.status!='REQUESTED'  "  style="color:rgb(14, 155, 216)" (click)="DetailView(post)">visibility</i>  
 </button>

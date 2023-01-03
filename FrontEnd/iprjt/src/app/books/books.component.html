@@ -5,16 +5,16 @@
    <p>ADD BOOKS</p></div>
    <mat-dialog-content>
  
+
     <mat-form-field appearance="fill">
       <mat-select formControlName="categoryId"  placeholder="Select Category">
-         <ng-container>
-     
+         <ng-container>     
         <mat-option  *ngFor="let category of catdata"   [value]="category.categoryId" (click)="disp(category.categoryId)" >   
            {{category.categoryName}} </mat-option>
         </ng-container> 
-        <!-- <mat-option value="html"> HTML </mat-option> -->
-      </mat-select>
+       </mat-select>
     </mat-form-field>
+    
     
     <br>
 
