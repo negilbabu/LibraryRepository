@@ -27,7 +27,7 @@ import { AddcategoryComponent } from './addcategory/addcategory.component';
 import { DemoComponent } from './demo/demo.component';
 import { AddbooksComponent } from './addbooks/addbooks.component';
 import { BorrowDetailViewComponent } from './borrow-detail-view/borrow-detail-view.component';
-
+import { ForgotpasswordComponent } from './forgotpassword/forgotpassword.component';
 
 const routes: Routes = [
   {path: '',redirectTo:'login',pathMatch:'full'},
@@ -56,6 +56,7 @@ const routes: Routes = [
   {path:'demo',component:DemoComponent},
   {path:'addbooks',component:AddbooksComponent,canActivate: [HomeguardGuard]},
   {path:'borrow-detail-view',component:BorrowDetailViewComponent},
+  {path:'forgotpassword',component:ForgotpasswordComponent},
 ];
 
 @NgModule({

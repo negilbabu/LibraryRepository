@@ -51,6 +51,7 @@ import { AddbooksComponent } from './addbooks/addbooks.component';
 import { MatInputModule } from '@angular/material/input';
 import { MatOptionModule } from '@angular/material/core';
 import { BorrowDetailViewComponent } from './borrow-detail-view/borrow-detail-view.component';
+import { ForgotpasswordComponent } from './forgotpassword/forgotpassword.component';
 
 //  import {MatIconModule} from '@angular/material/icon';
 // import { MatToolbarModule } from '@angular/material';
@@ -87,6 +88,7 @@ import { BorrowDetailViewComponent } from './borrow-detail-view/borrow-detail-vi
     DemoComponent,
     AddbooksComponent,
     BorrowDetailViewComponent,
+    ForgotpasswordComponent,
     
   //  ModalComponent
     

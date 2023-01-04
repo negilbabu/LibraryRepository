@@ -4,7 +4,7 @@
     <div>Lib<span>rary</span></div>
 </div>
 <br>
-  <!-- <span><mat-icon>eco</mat-icon> <Label>LIBRARY</Label></span> -->
+
 <form [formGroup]="loginForm" class="login">
     <span><mat-icon style="color:#c99f14">library_books</mat-icon> <Label style="color: #dddbd5">LIB</Label><Label style="color: #c99f14">RARY</Label></span> 
    
@@ -20,12 +20,8 @@
 
         <span class="text-danger"   class="text-danger" *ngIf="loginForm.controls['password'].touched && loginForm.hasError('required','password')"><small>password is required<br>use (uppercase ,lowercase and numbers)<br>minimum 8 character</small>
             </span>
-    <!-- <span class="text-danger" 
-    *ngIf="this.login && loginForm.get('password')?.invalid"><small>
-            password is required <br>use (uppercase ,lowercase and numbers)<br>minimum 8 character    
-               </small>   
-    </span> -->
+  
     <input type="button" value="Login" (click)="login()" [disabled]="!loginForm.valid">
-    <input type="button" value="Register" routerLink="/user-reg">
+    <input type="button" value="Register" routerLink="/user-reg">  
+     <a href="forgotpassword"  >Forgot_Password </a>
 </form>
-<!--  pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" -->
