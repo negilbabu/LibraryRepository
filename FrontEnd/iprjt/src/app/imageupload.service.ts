@@ -12,6 +12,7 @@ export class ImageuploadService {
   }
     getId(){
       return this.id;
+      console.log(this.id)
   }
   
     private baseUrl="http://localhost:8080";
@@ -21,7 +22,7 @@ export class ImageuploadService {
   
     LoadBooks(): Observable<any>  
     {
-      return this.http.get(this.baseUrl+'/books')
+      return this.http.get(this.baseUrl+'/books/admin')
     }
   
     imageUpload(image:any,booksId:any):Observable<any>{

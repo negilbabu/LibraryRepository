@@ -34,7 +34,7 @@ export class ViewAdminprofileComponent implements OnInit {
       home()
       {        
 
-          this.router.navigate(['/body'])
+          this.router.navigate(['/sidenav'])
       
       }
   

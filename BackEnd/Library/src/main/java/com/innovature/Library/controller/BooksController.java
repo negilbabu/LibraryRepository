@@ -10,6 +10,7 @@ import javax.validation.Valid;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.StringUtils;
@@ -52,12 +53,12 @@ public class BooksController {
         return service.add(form);
     }
 
-    @GetMapping
+    @GetMapping("/admin")
     public Collection<Books> list() {
         return service.listAll();
     }
 
-    @GetMapping("/findByCategory/{categoryId}")
+    @GetMapping("user/findByCategory/{categoryId}")
     public Collection<Books> listByCategory(
         @PathVariable("categoryId") Integer categoryId) 
         {
@@ -90,18 +91,31 @@ public class BooksController {
 
 
 
-    @GetMapping("/pagenated/")
-    public ResponseEntity<List<Books>>getAllBooks(
-                        @RequestParam(defaultValue = "0") Integer pageNo,
+    @GetMapping("admin/pagenated/")
+    public ResponseEntity<Page<Books>>getAllBooks(
+                        @RequestParam(defaultValue = "1") Integer pageNo,
                         @RequestParam(defaultValue = "10") Integer pageSize,
-                        @RequestParam(defaultValue = "id") String sortBy)
+                        @RequestParam(defaultValue = "auther") String sortBy,
+                        @RequestParam(defaultValue = "1") Integer direction)
     {
-        List<Books> list = service.getAllBooks(pageNo-1, pageSize, sortBy);
-        return new ResponseEntity<List<Books>>(list,new HttpHeaders(),
+        Page<Books> list = service.getAllBooks(pageNo-1, pageSize, sortBy,direction);
+        return new ResponseEntity<Page<Books>>(list,new HttpHeaders(),
         HttpStatus.OK);
 
     }
 
+    @GetMapping("user/pagenated/")
+    public ResponseEntity<Page<Books>>getAllBooksforUser(
+                        @RequestParam(defaultValue = "1") Integer pageNo,
+                        @RequestParam(defaultValue = "10") Integer pageSize,
+                        @RequestParam(defaultValue = "auther") String sortBy,
+                        @RequestParam(defaultValue = "1") Integer direction)
+    {
+        Page<Books> list = service.getAllBooks(pageNo-1, pageSize, sortBy,direction);
+        return new ResponseEntity<Page<Books>>(list,new HttpHeaders(),
+        HttpStatus.OK);
+
+    }
 
 
 

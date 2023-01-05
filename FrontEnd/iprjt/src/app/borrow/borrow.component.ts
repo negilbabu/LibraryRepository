@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import {MatSort,Sort} from '@angular/material/sort';
 import { Router } from '@angular/router';
 import { BooksService } from '../books.service';
 import { BorrowService } from '../borrow.service';
@@ -13,16 +14,12 @@ import { CategoryService } from '../category.service';
 export class BorrowComponent implements OnInit {
 
 
-  // borrowList: any[];
+
   borrowId:any;
   borrowdata:any;
   booksdata:any;
 
-  // POSTS: any;
-  // page: number = 1;
-  // count: number = 0;
-  // tableSize: number = 5;
-  // tableSizes: any = [3, 6, 9, 12];
+
   date:any;
   data: any;
   page:number=1;
@@ -34,9 +31,13 @@ export class BorrowComponent implements OnInit {
   b:any;
   searchResult:any
   searchData:any
-  sort:string="status";
+  sort1:string="borrowId";
+  sort:string="borrow_id";
   len: any;
   flag:number=0;
+  result: any;
+  direction=1;
+  direction1=-1;
   //borrow_id:any;
     constructor(private router:Router ,private service:BorrowService,private booksService:BooksService) {
  
@@ -46,29 +47,21 @@ export class BorrowComponent implements OnInit {
 
   
     ngOnInit(): void {  
-      sessionStorage.clear()
-    // this.LoadBorrow() 
-    this.service.Load().subscribe(result=>{
-      this.len=result; 
-      console.log(result)
-      this.count=this.len.length;
-      //this.data=result;
+
       
-    })
-    
-   
-    if(this.searchData==null || this.searchData==""){
-      this.service.borrowPagination(this.page,this.tableSize,this.sort).subscribe((result=>{
-        this.data=result; 
-        console.log('OnloadPagenation')  
-        console.log(this.data)         
-      }));        
+      
+      sessionStorage.clear()
+      this.LoadData();
+
     }
-    else{
 
-      this.data=this.searchData
-    } 
-
+    LoadData(){
+      this.service.borrowPagination(this.page,this.tableSize,this.sort1,this.direction).subscribe(result=>{
+        this.result=result.content;
+        this.count=result.totalElements
+        console.log(this.result);   
+        this.data=this.result;                     
+          });
     }
 
     ObjSampleForm:FormGroup=new FormGroup(
@@ -81,40 +74,59 @@ export class BorrowComponent implements OnInit {
 
     sortfn(a:any){
     
+      this.sort1=a;      
+      this.page=this.page;
+      this.tableSize;
+
+     
+
+      if(this.direction==1){
+        this.direction=-1;
+        console.log("DIR -----1",this.direction)
+        this.ngOnInit();       
+      }
+
+      else{
+        this.direction=1;
+        console.log("dir -1",this.direction)
+      this.ngOnInit(); 
+      }
+
+         
+    }
+
+    sortfilter(a:any){
+    
       this.sort=a;      
       this.page=this.page;
       this.tableSize;
-       this.ngOnInit();        
-     // this.getFilter();
-    }
+
+        if(this.direction1==1){
+          this.direction1=-1;
+          console.log("DIR -----1",this.direction1)
+          this.getFilter();     
+        }
+  
+        else{
+          this.direction1=1;
+          console.log("dir -1",this.direction1)
+          this.getFilter();
+        } 
+          }
+
+
     getFilter() {
-      
-      console.log(this.ObjSampleForm)
-        // this.page=1  
-        this.flag=1; 
-        this.service.LoadByIssueDate(this.ObjSampleForm.controls['date1'].value,this.ObjSampleForm.controls['date2'].value).subscribe(result=>{
-          this.len=result; 
-          console.log(result)
-          this.count=this.len.length;
-        })
-    
-        if(this.searchData==null || this.searchData==""){
 
-        this.sort="borrow_id";
-         this.service.filterBorrowPagination(this.ObjSampleForm.controls['date1'].value,this.ObjSampleForm.controls['date2'].value,this.page,this.tableSize,this.sort).subscribe({
-          next: (res: any) => {
-          //console.log("--------")
-            console.log(res);             
-            this.data=res;       
-          },         
-        });
-        
+      this.flag=1; 
+      this.service.filterBorrowPagination(this.ObjSampleForm.controls['date1'].value,this.ObjSampleForm.controls['date2'].value,this.page,this.tableSize,this.sort,this.direction1).subscribe(response=>{
+        this.result=response.content;
+        this.count=response.totalElements
+        console.log(this.result);   
+        this.data=this.result;                     
+          });  
       }
-      else{
 
-        this.data=this.searchData
-      } 
-      }
+
 
       clearFilter(){
         this.flag=0;
@@ -126,32 +138,40 @@ export class BorrowComponent implements OnInit {
         console.log(event)   
         if(this.flag==0){         
           console.log('flag=',this.flag)
-        this.service.borrowPagination(event,this.tableSize,this.sort).subscribe((result=>{
-          this.data=result;
-          console.log('sorted')
-        }),
-        );  
+          this.service.borrowPagination(this.page,this.tableSize,this.sort1,this.direction).subscribe(result=>{
+            this.result=result.content;
+            this.count=result.totalElements
+            console.log(this.result);   
+            this.data=this.result;                     
+              });
          }   
         else if(this.flag==1){
           console.log('flag=',this.flag)
-        this.service.filterBorrowPagination(this.ObjSampleForm.controls['date1'].value,this.ObjSampleForm.controls['date2'].value,this.page,this.tableSize,this.sort).subscribe({
-          next: (res: any) => {
-            console.log("--------")
-            console.log(res);             
-            this.data=res;       
-          },         
+          this.service.filterBorrowPagination(this.ObjSampleForm.controls['date1'].value,this.ObjSampleForm.controls['date2'].value,this.page,this.tableSize,this.sort,this.direction1).subscribe(response=>{
+            this.result=response.content;
+            this.count=response.totalElements
+            console.log(this.result);   
+            this.data=this.result;     
+                   
         });
       }
       }
 
 
+    
+      
+
       ///////////////////////////////////////////////- C R U D -////////////////////////////////////////////////////
       
       home()
       {
-        this.router.navigate(['/body'])
+        this.router.navigate(['/sidenav'])
       }      
-
+      LogOut(){
+        sessionStorage.clear()
+        localStorage.clear()
+        this.router.navigate(['/login'])
+      }
       
       
       acceptRequest(borrow:any)
@@ -194,7 +214,7 @@ export class BorrowComponent implements OnInit {
 
 
         undo(borrow: any) {
-     
+          alert(" Are you want to undo last change?")
           this.service.undo(borrow.borrowId).subscribe({
             next: (Response: any) => {
               console.log(Response);
@@ -208,6 +228,31 @@ export class BorrowComponent implements OnInit {
           })
           this.router.navigate(['/borrow'])
           }
+
+
+        DetailView(borrow: any) {             
+            
+        console.log("in borrow");
+        console.log(borrow);
+        console.log(borrow.borrowId);
+
+        sessionStorage.setItem('borrowId',borrow.borrowId)
+        this.router.navigate(['/borrow-detail-view'])
+
+            }
+
+
+    
+  
+
   
   }
-  
+
+
+
+
+
+
+  function compare(a: number | string, b: number | string, isAsc: boolean) {
+    return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
+  }

@@ -117,17 +117,25 @@ public class BooksServiceImpl implements BooksService{
     }
 
 
+    @Override
+    @Transactional
+    public Page<Books>getAllBooks(Integer pageNo, Integer pageSize, String sortBy,Integer direction){
+  
+        var sortByDescending=Sort.by(sortBy).descending();
+        var sortByAscending=Sort.by(sortBy).ascending();
 
-    public List<Books>getAllBooks(Integer pageNo, Integer pageSize, String sortBy){
-        
-        Pageable paging = PageRequest.of(pageNo, pageSize, Sort.by(sortBy));
+        if(direction==1){
 
-        Page<Books> pagedResult = booksRepository.findAll(paging);
+            Pageable paging = PageRequest.of(pageNo, pageSize, sortByDescending);
+            Page<Books> pagedResult = booksRepository.findAll(paging);
+            return pagedResult;    
+        }
 
-        if(pagedResult.hasContent()){
-            return pagedResult.getContent();
-        } else {
-            return new ArrayList<Books>();
+        else 
+        {
+            Pageable paging = PageRequest.of(pageNo, pageSize, sortByAscending);
+            Page<Books> pagedResult = booksRepository.findAll(paging);
+            return pagedResult; 
         }
     }
 

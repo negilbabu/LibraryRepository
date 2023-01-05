@@ -98,6 +98,17 @@ public class BorrowServiceImpl implements BorrowService {
         return borrowRepository.findbyBorrowIdandDueDateandStatus();                
     }
 
+    @Override
+    public Borrow BorrowDetail(Integer borrowId) {
+        
+        return borrowRepository.findByBorrowId(borrowId);                
+    }
+/////////////////////////////////////////////////////////////////////////////////////////////
+    @Override
+    public Integer BorrowBlock() {
+        
+        return borrowRepository.findbyUserIdAndStatus(SecurityUtil.getCurrentUserId());                
+    }
 
 
     @Override
@@ -227,13 +238,40 @@ public class BorrowServiceImpl implements BorrowService {
         } else {
             return new ArrayList<Borrow>();
         }
-
-
-//         @Override
-//   public Collection<BookingView> listinguserdropdown(String string, java.sql.Date date1, java.sql.Date date2) {
-//     return bookingRepository.findAll(string, date1, date2).stream().map(BookingView::new).collect(Collectors.toList());
-//   }
     }
+
+
+    //////////////////////////////////
+    @Override
+    @Transactional
+    public Page<Borrow>getAllBor( java.sql.Date date1, java.sql.Date date2,Integer pageNo, Integer pageSize, String sortBy,Integer direction){
+        
+       // Pageable paging = PageRequest.of(pageNo, pageSize, Sort .by(sortBy));
+        var sortByDescending=Sort.by(sortBy).descending();
+        var sortByAscending=Sort.by(sortBy).ascending();
+
+        if(direction==1){
+
+            Pageable paging = PageRequest.of(pageNo, pageSize, sortByDescending);
+            Page<Borrow> pagedResult = borrowRepository.findbyIssuDat(date1,date2,paging);
+            return pagedResult;    
+        }
+
+        else 
+        {
+            Pageable paging = PageRequest.of(pageNo, pageSize, sortByAscending);
+            Page<Borrow> pagedResult = borrowRepository.findbyIssuDat(date1,date2,paging);
+             return pagedResult; 
+        }
+
+        // Page<Borrow> pagedResult = borrowRepository.findbyIssuDat(date1,date2,paging);
+        // return pagedResult;
+      
+    }
+
+
+
+
 
     @Override
     @Transactional
@@ -250,6 +288,37 @@ public class BorrowServiceImpl implements BorrowService {
         }
     }
 
+
+//@admin borrow oninit
+    @Override
+    @Transactional
+    public Page<Borrow>getAllBorr(Integer pageNo, Integer pageSize, String sortBy,Integer direction){
+        
+        var sortByDescending=Sort.by(sortBy).descending();
+
+        var sortByAscending=Sort.by(sortBy).ascending();
+
+        if(direction==1){
+
+            Pageable paging = PageRequest.of(pageNo, pageSize, sortByDescending);
+            Page<Borrow> pagedResult = borrowRepository.findAll(paging);
+            return pagedResult;    
+        }
+
+        else 
+        {
+            Pageable paging = PageRequest.of(pageNo, pageSize, sortByAscending);
+            Page<Borrow> pagedResult = borrowRepository.findAll(paging);
+             return pagedResult; 
+        }
+       // return pagedResult;
+
+ 
+
+
+
+     
+    }
 
 
     @Override
@@ -329,7 +398,7 @@ public class BorrowServiceImpl implements BorrowService {
     @Override
     @Transactional
    // @Scheduled(cron="* */1 * * * * ")
-   @Scheduled(cron="0 0 9 * * ?")
+   @Scheduled(cron="0 0 12 * * ?")
     public void fineGeneration() {
        System.out.println("reachllllllllllllll");
        

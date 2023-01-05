@@ -8,7 +8,8 @@ import { LoginComponent } from './login/login.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BodyComponent } from './body/body.component';
 
-
+//import { ModalComponent } from './modal/modal.component';
+import {MatDialogConfig, MatDialogModule, MAT_DIALOG_DEFAULT_OPTIONS,} from '@angular/material/dialog';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { provideCloudflareLoader } from '@angular/common';
 import { TokenInterceptorService } from './token-interceptor.service';
@@ -30,6 +31,7 @@ import { RejectrequestComponent } from './rejectrequest/rejectrequest.component'
 import { NotificationComponent } from './notification/notification.component';
 import { BookreturnComponent } from './bookreturn/bookreturn.component';
 import { ViewAdminprofileComponent } from './view-adminprofile/view-adminprofile.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 // import { MatIconModule, MatToolbarModule, MatTooltipModule } from '@angular/material';
 
@@ -38,6 +40,18 @@ import { ImageuploadComponent } from './imageupload/imageupload.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FineComponent } from './fine/fine.component';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { SidenavComponent } from './sidenav/sidenav.component';
+import { UserSidenavComponent } from './user-sidenav/user-sidenav.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { AddcategoryComponent } from './addcategory/addcategory.component';
+import { MatButtonModule } from '@angular/material/button';
+import { MatSelect, MatSelectModule } from '@angular/material/select';
+import { DemoComponent } from './demo/demo.component';
+import { AddbooksComponent } from './addbooks/addbooks.component';
+import { MatInputModule } from '@angular/material/input';
+import { MatOptionModule } from '@angular/material/core';
+import { BorrowDetailViewComponent } from './borrow-detail-view/borrow-detail-view.component';
+import { ForgotpasswordComponent } from './forgotpassword/forgotpassword.component';
 
 //  import {MatIconModule} from '@angular/material/icon';
 // import { MatToolbarModule } from '@angular/material';
@@ -68,6 +82,15 @@ import { NgxPaginationModule } from 'ngx-pagination';
     ViewAdminprofileComponent,
     ImageuploadComponent,
     FineComponent,
+    SidenavComponent,
+    UserSidenavComponent,
+    AddcategoryComponent,
+    DemoComponent,
+    AddbooksComponent,
+    BorrowDetailViewComponent,
+    ForgotpasswordComponent,
+    
+  //  ModalComponent
     
 
   ],
@@ -80,13 +103,24 @@ import { NgxPaginationModule } from 'ngx-pagination';
     NgToastModule,
     MatIconModule,
     NgbModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    MatDialogModule,
+    MatFormFieldModule,
+    BrowserAnimationsModule ,
+    MatButtonModule,  
+    MatSelectModule,
+    MatDialogModule,
+    MatInputModule
+    
+
    ///MatIconModule,
     // MatToolbarModule,
     // MatTooltipModule,
     //BrowserAnimationsModule
   ],
+  // ,{provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: false}}
   providers: [ {provide:HTTP_INTERCEPTORS,useClass:TokenInterceptorService,multi:true},[HomeguardGuard, GuardserviceService] ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents:[CategoryComponent,DemoComponent],
 })
 export class AppModule { }

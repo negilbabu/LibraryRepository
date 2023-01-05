@@ -1,8 +1,4 @@
-<router-outlet></router-outlet>
-<p>
-  <br><input type="button" style = "position:absolute; left:1200px; top:10px;" class="btnhome" name="HomE" value="HomE" (click)="home()"><br>
-</p>    
-
+<app-sidenav></app-sidenav>   
   
   <div class="text-center"> 
       <form>
@@ -15,29 +11,75 @@
                         <h3 style="text-align:center ;">USER DETAILS</h3>
 
 
-                            <table align="center" class="table-bordered" id="datatable" role="grid" >
+                            <table align="center" class="table table-white table-hover" id="datatable" role="grid" >
                              
                               <thead class="bg-primary text-white">
                                   <tr role="row">
                                    
-                                    <th>User Id</th>
-                                    <th>First Name</th>
-                                    <th>Last Name</th>
-                                    <th>Address</th>
-                                    <th>Phone</th>
-                                    <th>Email</th>
+                                    <th (click)="sortfn('userId')">User Id
+                                      <button mat-icon-button *ngIf="this.direction==1"> <i class="material-icons" style="color:rgb(0, 0, 0)" >keyboard_arrow_up</i></button>
+                                      <button mat-icon-button *ngIf="this.direction==-1"> <i class="material-icons" style="color:rgb(0, 0, 0)" >keyboard_arrow_down</i></button>
+                                    </th>
+
+                                    <!-- <th (click)="sortfn('userId')">User Id 
+                                      <button mat-icon-button *ngIf="this.direction==1 && this.sort==this.userId"> <i class="material-icons" style="color:rgb(0, 0, 0)" >arrow_drop_down_circle</i></button>
+                                     <button mat-icon-button *ngIf="this.direction==-1"> <i class="material-icons" style="color:rgb(0, 0, 0)" >keyboard_arrow_down</i></button> -->
+                                    <!-- </th>  -->
+
+
+
+
+
+                                    <th (click)="sortfn('firstName')">First Name
+                                      <button mat-icon-button *ngIf="this.direction==1"> <i class="material-icons" style="color:rgb(0, 0, 0)" >keyboard_arrow_up</i></button>
+                                      <button mat-icon-button *ngIf="this.direction==-1"> <i class="material-icons" style="color:rgb(0, 0, 0)" >keyboard_arrow_down</i></button>
+                                    </th>
+                                    <th (click)="sortfn('lastName')">Last Name
+                                      <button mat-icon-button *ngIf="this.direction==1"> <i class="material-icons" style="color:rgb(0, 0, 0)" >keyboard_arrow_up</i></button>
+                                      <button mat-icon-button *ngIf="this.direction==-1"> <i class="material-icons" style="color:rgb(0, 0, 0)" >keyboard_arrow_down</i></button>
+                                    </th>
+                                    <th (click)="sortfn('address')">Address
+                                      <button mat-icon-button *ngIf="this.direction==1"> <i class="material-icons" style="color:rgb(0, 0, 0)" >keyboard_arrow_up</i></button>
+                                      <button mat-icon-button *ngIf="this.direction==-1"> <i class="material-icons" style="color:rgb(0, 0, 0)" >keyboard_arrow_down</i></button>
+                                    </th>
+                                    <th (click)="sortfn('phone')">Phone
+                                      <button mat-icon-button *ngIf="this.direction==1"> <i class="material-icons" style="color:rgb(0, 0, 0)" >keyboard_arrow_up</i></button>
+                                      <button mat-icon-button *ngIf="this.direction==-1"> <i class="material-icons" style="color:rgb(0, 0, 0)" >keyboard_arrow_down</i></button>
+                                    </th>
+                                    <th (click)="sortfn('email')">Email
+                                      <button mat-icon-button *ngIf="this.direction==1"> <i class="material-icons" style="color:rgb(0, 0, 0)" >keyboard_arrow_up</i></button>
+                                      <button mat-icon-button *ngIf="this.direction==-1"> <i class="material-icons" style="color:rgb(0, 0, 0)" >keyboard_arrow_down</i></button>
+                                    </th>
                                     <!-- <th>Password</th> -->
-                                    <th>Status</th>
+                                    <th (click)="sortfn('userId')">Status
+                                      <button mat-icon-button *ngIf="this.direction==1"> <i class="material-icons" style="color:rgb(0, 0, 0)" >keyboard_arrow_up</i></button>
+                                      <button mat-icon-button *ngIf="this.direction==-1"> <i class="material-icons" style="color:rgb(0, 0, 0)" >keyboard_arrow_down</i></button>
+                                    </th>
                                     <!-- <th>role</th> -->
-                                    <th>DOB</th>
-                                    <th>CreateDate</th>
-                                    <th>UpdateDate</th>
+                                    <th (click)="sortfn('dob')">DOB
+                                      <button mat-icon-button *ngIf="this.direction==1"> <i class="material-icons" style="color:rgb(0, 0, 0)" >keyboard_arrow_up</i></button>
+                                      <button mat-icon-button *ngIf="this.direction==-1"> <i class="material-icons" style="color:rgb(0, 0, 0)" >keyboard_arrow_down</i></button>
+                                    </th>
+                                    <th (click)="sortfn('createDate')">CreateDate
+                                      <button mat-icon-button *ngIf="this.direction==1"> <i class="material-icons" style="color:rgb(0, 0, 0)" >keyboard_arrow_up</i></button>
+                                      <button mat-icon-button *ngIf="this.direction==-1"> <i class="material-icons" style="color:rgb(0, 0, 0)" >keyboard_arrow_down</i></button>
+                                    </th>
+                                    <th (click)="sortfn('updateDate')">UpdateDate
+                                      <button mat-icon-button *ngIf="this.direction==1"> <i class="material-icons" style="color:rgb(0, 0, 0)" >keyboard_arrow_up</i></button>
+                                      <button mat-icon-button *ngIf="this.direction==-1"> <i class="material-icons" style="color:rgb(0, 0, 0)" >keyboard_arrow_down</i></button>
+                                    </th>
                                     </tr>
                               </thead>
                               <tbody>
-        <tr *ngFor="let user of  userdata">
-    
-        <td>{{user.userId}}</td>
+        <tr *ngFor="let user of  userdata
+        | paginate 
+                          : {
+                              itemsPerPage: tableSize,
+                              currentPage: page,
+                              totalItems: count
+                            };        
+        ">
+          <td>{{user.userId}}</td>
         <td>{{user.firstName}}</td>
         <td>{{user.lastName}}</td>
         <td>{{user.address}}</td>
@@ -57,7 +99,9 @@
         
                               </tbody>
                           </table>
-                        
+                          <div class="d-flex justify-content-center">
+                            <pagination-controls (pageChange)="onTableDataChange(page=$event)">
+                            </pagination-controls>
                       </div>
                   </div>
                 </div>

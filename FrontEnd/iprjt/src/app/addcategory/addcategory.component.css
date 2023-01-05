@@ -1,0 +1,39 @@
+/* 
+.table-bordered{
+    border: 1px solid;
+}
+th {
+    background-color: #232524;
+    color: white;
+    width: 18%;
+    text-align: center;
+  }
+  td {
+    background-color: #a7bdb08f;
+    color: rgb(0, 0, 0);
+    width: 18%;
+    text-align: center;
+    margin-top: auto;
+    padding: auto;
+  } */
+  table{
+    width: 28%;
+    border: none;
+    text-align: center;
+    
+  }
+  /* tr{
+    border: none;
+  } */
+  th {
+    background-color: #ffffff;
+    color: rgb(0, 0, 0);
+    text-align: center;
+    border: none;
+   
+  }
+  td {
+    border: none;
+    padding-top: 16px;padding-bottom: 6px;
+    text-align: center;
+  }

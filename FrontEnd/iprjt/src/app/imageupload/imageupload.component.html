@@ -1,7 +1,4 @@
-<p>
-    <br><input type="button" style = "position:absolute; left:1200px; top:20px;" class="btnhome" name="HomE" value="HomE" (click)="home()"><br><br>
-</p>    
-
+<app-sidenav></app-sidenav>   
   <!-- notification -->
 <!DOCTYPE html>
 <html>
@@ -39,18 +36,16 @@
   <strong>Note!</strong>Please Select a book cover to upload
 </div>
 
-</body>
-</html>
-<tbody>
+
     <br><br>
     <tr>
-        <td><input type="file" style="text-align: center; margin-left: 500px;" (change)="selectFile($event)"></td>
+        <td><input type="file" style="position:absolute; left:450px; top:150px;" (change)="selectFile($event)">
    
         
             
-            <button [disabled]="!selectedFiles" (click)="upload() " style="text-align: center; margin-left: 10px;">Upload</button>
+            <!-- <button [disabled]="!selectedFiles" (click)="upload() " style="position:absolute; left:750px; top:150px;">Upload</button> -->
     
-        
+            <button mat-icon-button > <i class="material-icons" style="color:rgb(142, 179, 137);position:absolute; left:750px; top:-20px;" (click)="upload() " >cloud_upload</i></button></td>
         
     </tr>
-</tbody>
+</body>

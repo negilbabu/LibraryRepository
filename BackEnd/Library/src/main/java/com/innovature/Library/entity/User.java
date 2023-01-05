@@ -31,6 +31,18 @@ public class User {
             this.value = value;
         }
     }
+    public static enum Role{
+    
+        ADMIN((byte)1),
+        USER((byte)2);
+
+        
+        public final byte value;
+        
+        private Role(byte value){
+        this.value=value;
+        }
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

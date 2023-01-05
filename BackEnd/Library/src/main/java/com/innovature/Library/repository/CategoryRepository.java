@@ -4,7 +4,8 @@ import java.util.Collection;
 // import java.util.Optional;
 // import java.util.Optional;
 //import java.util.Optional;
-
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.Repository;
 
 // import org.aspectj.apache.bcel.util.Repository;
@@ -25,6 +26,8 @@ public interface CategoryRepository extends Repository <Category, Integer> {
 
     // void delete(Collection<Category> collection);
     void delete(Category orElseThrow);
+
+    public Page<Category> findAll(Pageable paging);
 
 
 }

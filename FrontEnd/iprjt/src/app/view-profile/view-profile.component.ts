@@ -1,3 +1,4 @@
+import { ConditionalExpr } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserserviceService } from '../userservice.service';
@@ -27,6 +28,7 @@ export class ViewProfileComponent implements OnInit {
     Load() {
       this.service.getUser().subscribe((data: any)=>{
       this.userdata=data;
+      console.log(this.userdata)
       sessionStorage.setItem('role',data[0].role)
       });  }  
   
