@@ -52,13 +52,13 @@ export class BodyComponent implements OnInit {
   }
   logout()
   {
-  if (confirm('Are you sure you want to LogOuT?')) {
-    localStorage. clear()   
-    this.router.navigate(['/login'])
-  } else {
+  // if (confirm('Are you sure you want to LogOuT?')) {
+  //   localStorage. clear()   
+  //   this.router.navigate(['/login'])
+  // } else {
     
-    this.router.navigate(['/body'])
-  } 
+    this.router.navigate(['/login'])
+  // } 
   }
   onClickProfile()
   {

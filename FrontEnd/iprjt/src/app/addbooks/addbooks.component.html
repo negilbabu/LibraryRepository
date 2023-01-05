@@ -5,6 +5,11 @@
       <button  mat-raised-button (click)="openDialog()" color="primary"  >ADD BOOKS</button></div>
 <br><br>
 
+<div class="col-md-6" style="position: relative; left:1030px; top:-70px;">
+<input type="file" id="myFile" (change)="selectFile($event)" style="margin-top: 3px;">
+<button mat-icon-button   [disabled]="!selectedFiles" > <i class="material-icons" style="color:rgb(142, 179, 137);"  (click)="upload() " >cloud_upload</i></button>
+        
+</div>
 
 
 <div class="card-box">

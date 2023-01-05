@@ -97,7 +97,17 @@ result: any;
 openDialog() {
 
   const dialogConfig = new MatDialogConfig();
-  this.dialog.open(CategoryComponent, dialogConfig);
+  this.dialog.open(CategoryComponent,
+    {
+      width:'25%',height:'40%'
+    
+    }
+    );
+
+//   this.matdialog.open(ChangePassComponent,{
+      
+//     width: '60%'
+// });
 
 }
 
@@ -105,7 +115,12 @@ editCategory(categoryId:any) {
  // localStorage.setItem('flag',this.flag);
   localStorage.setItem('categoryId',categoryId);
   const dialogConfig = new MatDialogConfig();
-  this.dialog.open(CategoryComponent, dialogConfig);
+  this.dialog.open(CategoryComponent,
+    {
+      width:'25%',height:'40%'
+    
+    }
+    );
 
 }
 

@@ -35,7 +35,7 @@ public class csvController {
     csvService csvService;
 
 
-    @PostMapping("/upload")
+    @PostMapping("/admin/upload")
   public ResponseEntity<ResponseMessage> uploadFile(@RequestParam("file") MultipartFile file) {
     String message = "";
 
