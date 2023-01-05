@@ -5,6 +5,7 @@ import { CategoryService } from '../category.service';
 import { BooksService } from '../books.service';
 import { ImageuploadService } from '../imageupload.service';
 import { NgToastService } from 'ng-angular-popup';
+import { MatDialog } from '@angular/material/dialog';
 
 
 @Component({
@@ -93,16 +94,15 @@ onSubmit(){
       console.log(result);
       if(result.booksId){  
         console.log(result);
-        alert(" The Book "+result.booksName+" Added");
-        this.toast.success({detail:'Success',summary:'The Book'+result.booksName+'Added',duration:5000});
+        this.toast.success({detail:'Success',summary:'The Book '+result.booksName+' Added',duration:5000});
         this.imageService.setId(result.booksId)
         console.log("bid=",result.booksId)
+        // MatDialog.close();
         this.router.navigate(['/imageupload'])
 
-       // window.location.reload();
       }
       else{
-        this.toast.success({detail:'Invalid',summary:'Add new Book Failed',duration:5000});
+        this.toast.error({detail:'Invalid',summary:'Add new Book Failed',duration:5000});
       }
     })
 
@@ -151,16 +151,24 @@ update(booksId:any){
   this.booksService.update(booksId, body).subscribe({
     next: (Response: any) => {
       console.log(Response);
-      this.toast.success({detail:'Success',summary:Response.booksName+' Edited Successfully',duration:5000});      
-     // window.location.reload()
-     if (confirm('Do you want to change Book cover?')) { 
+      
+     
+
+      
+      if (confirm('Do you want to change Book cover?')) { 
+        this.toast.info({detail:'Success ',summary:'The book '+this.ObjSampleForm.controls['booksName'].value+' Edited Successfully',duration:5000});      
+    
       this.imageService.setId(Response.booksId)
       console.log("bookId=",Response.booksId)
       this.router.navigate(['/imageupload'])
     } else {
       
-      this.router.navigate(['/addbooks'])
-      window.location.reload()
+      this.toast.info({detail:'Success ',summary:this.ObjSampleForm.controls['booksName'].value+' Edited Successfully',duration:5000});      
+    
+      setTimeout(() => {
+        this.router.navigate(['/addbooks'])
+        window.location.reload()       
+    }, 5000); 
     } 
 
 

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { NgToastService } from 'ng-angular-popup';
 import { EmailService } from '../email.service';
 
@@ -10,6 +11,8 @@ import { EmailService } from '../email.service';
 })
 export class ForgotpasswordComponent implements OnInit {
   displayStyle: any;
+  result:any;
+  rslt=0;
 
 
   ObjForm:FormGroup=new FormGroup({
@@ -27,19 +30,47 @@ export class ForgotpasswordComponent implements OnInit {
 
   
   constructor(  private emails:EmailService,
-    private toast:NgToastService) { }
+    private toast:NgToastService,
+    private router:Router) { }
 
-  ngOnInit(): void {
+  ngOnInit(): void { 
+
+    // this.ObjForgetForm.controls['otp'].value.reset()
+    console.log('rslt=',this.rslt)
+    if(this.rslt==1){
+      this.rslt=2;
+      // window.location.reload()  
+    //   setTimeout(() => {
+
+    //     window.location.reload()       
+    // }, 50);     
+    }
+
+    if(this.rslt==2){
+   
+      console.log('rslt2=',this.rslt)
+      this.toast.error({detail:'OTP Not Sent',summary:'Unregistered Email Detected', duration:5000,position:'tr'})
+      this.rslt=0;
+       window.location.reload() 
+    }
+    
   }
+  
 
 
 //verify otp
   SaveData() {
+
+    // this.toast.success({detail:'OTP  Sent',summary:'Please verify the OTP', duration:10000,position:'tr'})
     this.ObjForgetForm.value.email=this.email;
     console.log(this.ObjForgetForm.value.email);
     this.emails.verify(this.ObjForgetForm.value).subscribe(result=>{
 
-      alert("password has been Updated")
+      if(result){
+        this.toast.success({detail:'psd changed',summary:'Please Login', duration:10000,position:'tr'})
+        this.router.navigate(['/login'])
+      }
+      // alert("password has been Updated")
     })
 
     
@@ -48,6 +79,7 @@ export class ForgotpasswordComponent implements OnInit {
 
   //send otp
   openPopup() {
+    
     this.email=this.ObjForm.value.sentto;
     
     this.emails.sendotp(this.ObjForm.value).subscribe(result=>{
@@ -55,11 +87,15 @@ export class ForgotpasswordComponent implements OnInit {
      console.log(result);
 
      if(result==null){
-      alert("mail id is not registered")
-      window.location.reload()
+      this.toast.error({detail:'OTP Not Sent',summary:'Unregistered Email Detected', duration:5000,position:'tr'})
+        this.rslt=1;
+        console.log("reslt in if=",this.rslt)
+        // this.router.navigate(['/forgotpassword'])
+        this.ngOnInit()
      }
-      
+           
     })
+
     this.openSuccess();
     this.displayStyle = "block";
     

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { NgToastService } from 'ng-angular-popup';
 import { BooksService } from '../books.service';
 import { BorrowService } from '../borrow.service';
 import { CategoryService } from '../category.service';
@@ -17,7 +18,10 @@ export class AcceptrequestComponent implements OnInit {
   val: any;
   date: any;
 
-  constructor(private router:Router ,private booksService:BooksService,private borrowService:BorrowService) {  
+  constructor(private router:Router ,
+    private toast : NgToastService,
+    private booksService:BooksService,
+    private borrowService:BorrowService) {  
   // this.booksList=[];
   this.borrowList=[];
  }
@@ -59,15 +63,21 @@ update(borrowId:any){
   this.borrowService.update(borrowId, body).subscribe({
     next: (Response: any) => {
       console.log(Response);
-      alert(" Book approved")
-      window.location.reload()
+      this.toast.success({detail:'Success',summary:'The Book '+Response.booksName+' Approved',duration:5000});
+ 
+      setTimeout(() => {
+        this.router.navigate(['/borrow'])
+        window.location.reload()       
+    }, 5000); 
+      // window.location.reload()
     },
     error: (Response: any) => {
       console.log(Response)
-      alert("invalid Borrow details")
+      this.toast.info({detail:'INVALID',summary:'Something went wrong',duration:5000});
+ 
     }
   })
-  this.router.navigate(['/borrow'])
+  // this.router.navigate(['/borrow'])
 
  }
 

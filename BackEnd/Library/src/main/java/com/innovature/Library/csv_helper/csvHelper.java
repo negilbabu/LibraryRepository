@@ -50,7 +50,7 @@ public class csvHelper {
                     Integer.parseInt(csvRecord.get("booksCopies")), 
                     Integer.parseInt(csvRecord.get("categoryId")),
                     Integer.parseInt(csvRecord.get("status"))  
-                    // csvRecord.get("image")
+                    //csvRecord.get("image")
                     
 
                 );
@@ -73,7 +73,7 @@ public static ByteArrayInputStream loadFromdb(List<csvUpload>csvList){
         csvPrinter.printRecord(HEADERs);
         for( csvUpload csv:csvList){
             List<String>data=Arrays.asList(
-                String.valueOf(csv.getBooksId()),
+                //String.valueOf(csv.getBooksId()),
                 csv.getBooksName(),
                 csv.getBooksAuther(),
                 csv.getPublication(),

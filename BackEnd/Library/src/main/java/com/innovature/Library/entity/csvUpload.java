@@ -25,10 +25,16 @@ public class csvUpload { public static enum Status {
         this.value = value;
     }
 }
+// @Id
+// @GeneratedValue(strategy = GenerationType.IDENTITY)
+// @Column(name="book_id")
+// private Long booksId;
+
+
 @Id
 @GeneratedValue(strategy = GenerationType.IDENTITY)
-@Column(name="book_id")
-private Long booksId;
+@Column(name="books_id")
+private Integer booksId;
 
 @Column(name="books_name")
 private String booksName;
@@ -71,19 +77,19 @@ this.status=status;
 
 @Override
 public String toString() {
-return "Csv [booksId=" + booksId + ", booksName=" + booksName + ", booksAuthor=" + booksAuther + ", booksCopies=" + booksCopies
+return "Csv [ booksName=" + booksName + ", booksAuthor=" + booksAuther + ", booksCopies=" + booksCopies
         + ", categoryId=" + categoryId + ", status=" + status + "]";
 }
 
 
-public Long getBooksId() {
-    return booksId;
-}
+// public Long getBooksId() {
+//     return booksId;
+// }
 
 
-public void setBooksId(Long booksId) {
-    this.booksId = booksId;
-}
+// public void setBooksId(Long booksId) {
+//     this.booksId = booksId;
+// }
 
 
 public String getBooksName() {

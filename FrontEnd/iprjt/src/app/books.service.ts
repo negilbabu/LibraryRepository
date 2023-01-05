@@ -25,6 +25,16 @@ handleError(err: HttpErrorResponse): any {
 }
 
   //////////////////////////////////////////////
+  uploadCsv(file: File): Observable<any> {
+    const formData: FormData = new FormData();
+
+    formData.append('file', file);
+    return this.http.post('http://localhost:8080/csv/admin/upload', formData)
+
+  }
+
+
+
 
   add(data:any):Observable<any>{
     return this.http.post('http://localhost:8080/books',data).pipe((catchError(err => this.handleError(err))))

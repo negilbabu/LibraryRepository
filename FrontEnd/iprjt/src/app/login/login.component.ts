@@ -43,14 +43,14 @@ export class LoginComponent implements OnInit {
 
             if(result.role==2){
             localStorage.setItem('token',this.responsedata.accessToken.value)        
-            this.toast.success({detail:'success msg',summary:'LogIn Successfull',duration:5000});        
+            this.toast.info({detail:'success msg',summary:'LogIn Successfull',duration:5000});        
             this.router.navigate(['/user-sidenav'])
             }
             
             
             else{
               localStorage.setItem('token',this.responsedata.accessToken.value)         
-              this.toast.success({detail:'success msg',summary:'LogIn Successfull',duration:5000});
+              this.toast.info({detail:'success msg',summary:'LogIn Successfull',duration:5000});
               this.router.navigate(['/sidenav'])
 
             }

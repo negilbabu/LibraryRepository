@@ -1,20 +1,23 @@
 
 
  <form [formGroup]="ObjSampleForm" class="dialog-form"> 
- <div mat-dialog-content>
-  <p>ADD CATEGORY</p></div>
-  <mat-dialog-content>
+ <div mat-dialog-content style="text-align: center;">
+  <p *ngIf="categoryId==null"><b>ADD CATEGORY</b></p>
+  <p *ngIf="categoryId!=null"><b>EDIT CATEGORY</b></p>
 
-    <mat-form-field>
-      <input formControlName="categoryName" matInput placeholder="categoryName*" />
-      <mat-error>This field is mandatory.</mat-error>
+</div>
+
+  <mat-dialog-content>
+    <mat-form-field  style="width: 100% ; padding-left:'15%'" >
+      <input  formControlName="categoryName" matInput placeholder="categoryName" />
+      <mat-error style="text-align: center;">This field is mandatory.</mat-error>
     </mat-form-field>
 
 </mat-dialog-content>
 
-<div mat-dialog-actions>
-  <button mat-button color="warn" (click)="clear()">Clear</button> &nbsp;&nbsp;
-  <button mat-raised-button (click)="onSubmit()" color="warn" [disabled]="ObjSampleForm.invalid">Submit</button>
+<div mat-dialog-actions >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <button mat-raised-button color="warn" (click)="clear()" >Clear</button> &nbsp;&nbsp;
+  <button mat-raised-button (click)="onSubmit()" color="primary" [disabled]="ObjSampleForm.invalid">Submit</button>
  	
 </div>
 

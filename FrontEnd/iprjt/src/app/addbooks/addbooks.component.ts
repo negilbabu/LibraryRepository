@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog,MatDialogRef, MatDialogModule} from '@angular/material/dialog';
 import { MatDialogConfig } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { NgToastService } from 'ng-angular-popup';
 import { BooksService } from '../books.service';
 import { BooksComponent } from '../books/books.component';
 import { CategoryService } from '../category.service';
@@ -40,8 +41,12 @@ len: any;
 result: any;
   booksCount: any;
   direction=-1;
+
+  key:any;
+selectedFiles?: FileList;
+currentFile?: File;
   // ObjSampleForm:FormGroup;
-  constructor(private router:Router ,private booksService:BooksService,private service:CategoryService,private imageService:ImageuploadService,private dialog: MatDialog) { 
+  constructor(private router:Router ,private toast : NgToastService,private booksService:BooksService,private service:CategoryService,private imageService:ImageuploadService,private dialog: MatDialog) { 
     this.booksList=[];
     this.categoryList=[];
     
@@ -100,7 +105,12 @@ onTableDataChange(event:any) {
   openDialog() {
 
     const dialogConfig = new MatDialogConfig();
-    this.dialog.open(BooksComponent, dialogConfig);
+    this.dialog.open(BooksComponent,
+      {
+        width:'32%',height:'70%'
+      
+      }
+      );
   
   }
 
@@ -108,10 +118,13 @@ onTableDataChange(event:any) {
     if(confirm('Are you sure want to delete?'))
     {
    console.log(booksId);
+   this.toast.error({detail:'BOOK DELETED',summary:'The book '+booksId.booksName+' Has DELETED',duration:5000}); 
     this.booksService.delete(booksId.booksId).subscribe({next:(res)=>{
-      console.log(res);
-      alert("Books deleted");
-      window.location.reload();
+      console.log(res);            
+      setTimeout(() => {
+
+        window.location.reload()       
+    }, 1500);
     },
     error:(msg)=>{}      
     })
@@ -125,10 +138,53 @@ onTableDataChange(event:any) {
     // localStorage.setItem('flag',this.flag);
      localStorage.setItem('booksId',booksId);
      const dialogConfig = new MatDialogConfig();
-     this.dialog.open(BooksComponent, dialogConfig);
+     this.dialog.open(BooksComponent,
+      {
+        width:'32%',height:'70%'
+      
+      }
+      );
    
    }
    
+
+
+
+////////////////////////////////////
+
+selectFile($event:any) {
+  this.selectedFiles=$event.target.files;
+   }
+   
+   upload(): void {
+ 
+     if (this.selectedFiles) {
+       const file: File | null = this.selectedFiles.item(0);
+ 
+       if (file) {
+         this.currentFile = file;
+         this.booksService.uploadCsv(this.currentFile).subscribe(res=>{
+           console.log(res);
+           if(res!==null){
+            this.toast.success({detail:'SUCCESS',summary:'The CSV File upload is successfull',duration:5000}); 
+             
+          
+      setTimeout(() => {
+
+        window.location.reload()       
+    }, 5000);  
+            
+           }
+         })
+ 
+     
+       }
+ 
+       this.selectedFiles = undefined;
+     }
+   }
+
+
   
 
 
