@@ -27,7 +27,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.innovature.Library.entity.Borrow;
 import com.innovature.Library.form.BorrowForm;
 import com.innovature.Library.service.BorrowService;
+import com.innovature.Library.service.impl.BorrowServiceImpl;
 import com.innovature.Library.view.BorrowDetailView;
+import com.innovature.Library.view.rentChartView;
 //import com.innovature.Library.view.BorrowListView;
 import com.innovature.Library.view.BorrowListView;
 
@@ -38,6 +40,9 @@ public class BorrowController {
 
     @Autowired
     private BorrowService bService;
+
+    @Autowired
+    private BorrowServiceImpl borrowServices;
 
 
     //load all borrow list
@@ -253,6 +258,16 @@ public ResponseEntity<List<Borrow>> loadByIssueDateUser(
     }
 
 
+
+/////////////////////////////////////
+
+
+
+@GetMapping("/admin/chart")
+    public rentChartView getchart(){
+        rentChartView test =borrowServices.getChart();
+        return test;
+    }
 
 
 

@@ -64,4 +64,7 @@ public interface BorrowService {
 
     Integer BorrowBlock();
 
+    // public  RentCharView getChart();
+    
+
 }

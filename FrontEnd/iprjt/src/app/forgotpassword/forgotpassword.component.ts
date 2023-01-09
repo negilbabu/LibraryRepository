@@ -38,20 +38,11 @@ export class ForgotpasswordComponent implements OnInit {
     // this.ObjForgetForm.controls['otp'].value.reset()
     console.log('rslt=',this.rslt)
     if(this.rslt==1){
-      this.rslt=2;
-      // window.location.reload()  
-    //   setTimeout(() => {
-
-    //     window.location.reload()       
-    // }, 50);     
-    }
-
-    if(this.rslt==2){
-   
-      console.log('rslt2=',this.rslt)
-      this.toast.error({detail:'OTP Not Sent',summary:'Unregistered Email Detected', duration:5000,position:'tr'})
-      this.rslt=0;
-       window.location.reload() 
+         this.toast.error({detail:'OTP Sent Failed :(',summary:'Unregistered Email Detected ', duration:5000,position:'tr'}) 
+      setTimeout(() => {
+        window.location.reload()       
+    }, 3000);   
+      // this.rslt=0;
     }
     
   }
@@ -64,14 +55,25 @@ export class ForgotpasswordComponent implements OnInit {
     // this.toast.success({detail:'OTP  Sent',summary:'Please verify the OTP', duration:10000,position:'tr'})
     this.ObjForgetForm.value.email=this.email;
     console.log(this.ObjForgetForm.value.email);
+
+    if(this.ObjForgetForm.value.newPassword==this.ObjForgetForm.value.cnewPassword){
+    
     this.emails.verify(this.ObjForgetForm.value).subscribe(result=>{
 
       if(result){
         this.toast.success({detail:'psd changed',summary:'Please Login', duration:10000,position:'tr'})
         this.router.navigate(['/login'])
       }
+      else{
+        this.toast.warning({detail:'Failed',summary:'Please Enter valid OTP', duration:10000,position:'tr'})
+      }
+
+
       // alert("password has been Updated")
     })
+  } 
+  else
+  this.toast.warning({detail:'Password Mismatch',summary:'Please Enter valid password', duration:10000,position:'tr'})
 
     
   }
@@ -87,7 +89,7 @@ export class ForgotpasswordComponent implements OnInit {
      console.log(result);
 
      if(result==null){
-      this.toast.error({detail:'OTP Not Sent',summary:'Unregistered Email Detected', duration:5000,position:'tr'})
+     // this.toast.error({detail:'OTP Not Sent',summary:'Unregistered Email Detected', duration:5000,position:'tr'})
         this.rslt=1;
         console.log("reslt in if=",this.rslt)
         // this.router.navigate(['/forgotpassword'])

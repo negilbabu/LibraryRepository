@@ -61,28 +61,5 @@ public class csvController {
     return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ResponseMessage(message,""));
   }
     
-  @GetMapping("/tutorials")
-  public ResponseEntity<List<csvUpload>> getAllTutorials() {
-    try {
-      List<csvUpload> tutorials = csvService.getAll();
-
-      if (tutorials.isEmpty()) {
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-      }
-
-      return new ResponseEntity<>(tutorials, HttpStatus.OK);
-    } catch (Exception e) {
-      return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-    }
-  }
-
-  @GetMapping("/download")
-  public ResponseEntity<Resource> downloadFile() {
-    InputStreamResource file = new InputStreamResource(csvService.load());
-
-    return ResponseEntity.ok()
-        .header(HttpHeaders.CONTENT_DISPOSITION, "attachment;")
-        .contentType(MediaType.parseMediaType("application/csv"))
-        .body(file);
-  }
+  
 }

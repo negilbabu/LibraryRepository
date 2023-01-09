@@ -65,32 +65,7 @@ public class csvHelper {
     
 }
 
-public static ByteArrayInputStream loadFromdb(List<csvUpload>csvList){
-    final CSVFormat format=CSVFormat.DEFAULT.withQuoteMode(QuoteMode.MINIMAL);
-    try(ByteArrayOutputStream out=new ByteArrayOutputStream();
-    CSVPrinter csvPrinter=new CSVPrinter(new PrintWriter(out),format);){
-        String[] HEADERs={"books_name","books_auther","publication","books_copies","category_id","status"};
-        csvPrinter.printRecord(HEADERs);
-        for( csvUpload csv:csvList){
-            List<String>data=Arrays.asList(
-                //String.valueOf(csv.getBooksId()),
-                csv.getBooksName(),
-                csv.getBooksAuther(),
-                csv.getPublication(),
-                String.valueOf(csv.getBooksCopies()),
-                String.valueOf(csv.getCategoryId()),
-                String.valueOf(csv.getStatus())
-                // csv.getImage()
-            );
-            csvPrinter.printRecord(data);
 
-        }
-        csvPrinter.flush();
-        return new ByteArrayInputStream(out.toByteArray());
-    }catch(IOException e){
-        throw new RuntimeException("fail to import data to CSV file: " + e.getMessage());
-    }
-}
 }
 
         

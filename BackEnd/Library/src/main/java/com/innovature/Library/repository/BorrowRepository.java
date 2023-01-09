@@ -103,5 +103,11 @@ public interface BorrowRepository extends PagingAndSortingRepository<Borrow, Int
        Integer findbyUserIdAndStatus(Integer userId);
     
 
+       @Query(value = "SELECT * FROM borrow",nativeQuery = true)
+       List<Borrow>findAllC(); 
+
 
 }
+
+//mysql> select count(borrow_id) from borrow where  book_returned_date between '2023-01-01' and '2023-01-07';
+//select count(borrow_id) from borrow where  book_returned_date='2022-12-27';

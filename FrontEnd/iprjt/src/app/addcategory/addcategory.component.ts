@@ -99,7 +99,7 @@ openDialog() {
   const dialogConfig = new MatDialogConfig();
   this.dialog.open(CategoryComponent,
     {
-      width:'25%',height:'40%'
+      width:'25%',height:'35%'
     
     }
     );
@@ -117,7 +117,7 @@ editCategory(categoryId:any) {
   const dialogConfig = new MatDialogConfig();
   this.dialog.open(CategoryComponent,
     {
-      width:'25%',height:'40%'
+      width:'25%',height:'35%'
     
     }
     );
