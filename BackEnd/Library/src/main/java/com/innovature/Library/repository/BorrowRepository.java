@@ -106,6 +106,9 @@ public interface BorrowRepository extends PagingAndSortingRepository<Borrow, Int
        @Query(value = "SELECT * FROM borrow",nativeQuery = true)
        List<Borrow>findAllC(); 
 
+    // @Query(value = "select * from borrow where issue_date between date_sub(curdate(),interval 7 day) and curdate()",nativeQuery = true)
+    //    List<Borrow>findAllC(); 
+
 
 }
 

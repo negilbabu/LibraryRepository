@@ -64,9 +64,9 @@ update(borrowId:any){
     next: (Response: any) => {
       console.log(Response);
       this.toast.success({detail:'Success',summary:'The Book '+Response.booksName+' Approved',duration:5000});
- 
+      this.router.navigate(['/borrow'])
       setTimeout(() => {
-        this.router.navigate(['/borrow'])
+        
         window.location.reload()       
     }, 5000); 
       // window.location.reload()

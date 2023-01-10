@@ -3,8 +3,9 @@ import { MinValidator } from '@angular/forms';
 import { Router,Route } from '@angular/router';
 import { BorrowService } from '../borrow.service';
 import { Chart, registerables } from 'chart.js';
+import { BooksService } from '../books.service';
 Chart.register(...registerables);
-// Chart.register(Colors);
+
 
 @Component({
   selector: 'app-body',
@@ -22,12 +23,16 @@ export class BodyComponent implements OnInit {
     mychart: any
     barchart:  any;
     bar: any;
-  constructor(private router:Router,private borrowService:BorrowService) { }
+  constructor(private router:Router,private borrowService:BorrowService,private booksService:BooksService) { }
 
   ngOnInit(): void {
- 
+ this.piechart();
+ this.chart();
+  }
 
 
+  
+chart(){
 this.borrowService.chartbar().subscribe(res=>{
 console.log("res=",res);
 
@@ -50,21 +55,55 @@ this.barchart = new Chart("bar", {
     ]
   },
   options: {
-    aspectRatio:3.3
+    aspectRatio:3.6
   } 
 });
 
-
-
-
-
-
 })
-
 
 }
 
+piechart(){
+  this.booksService.chart().subscribe(res=>{
+    console.log(res);
+    this.len=res.length;
+    this.inlen=res[0].length;
+    for(this.i=0;this.i<this.len;this.i++){
+      for(this.j=0;this.j<this.inlen;this.j++){
+        let t=this.i;
+        let q=this.j
+      this.count[this.i]= res[this.i][0];
+     this.label[this.i]=res[t][1];
+      }
+      
+    }
+    console.log(this.label);
+    console.log(this.count);
 
+    this.mychart = new Chart("MyChart", {
+      type: 'pie', //this denotes the type of chart
+      data: { //values on X-Axis
+        labels:this.label, 
+         datasets: [
+        
+          {
+            label: "BOOK COUNT",
+            data: this.count,
+            backgroundColor: ['lightgreen','black','darkgreen','grey','skyblue','magentha','orange']
+          }  
+        ]
+      },
+      options: {
+        aspectRatio:3.3
+      } 
+    });
+  
+  
+    
+  })
+
+
+}
 
 
 

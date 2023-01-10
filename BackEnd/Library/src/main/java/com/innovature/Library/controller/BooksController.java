@@ -148,5 +148,14 @@ public class BooksController {
         return service.getImagePic(booksId);
     }
 
+
+    //pie
+
+    @GetMapping("admin/pie")
+    public List<Object[]> getcountByCategoryId() {
+        return service.getBookCountByCategory();
+
+    }
+
     
 }

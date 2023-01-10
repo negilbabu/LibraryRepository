@@ -1,6 +1,9 @@
 
 <ul class="nav-mobile"  > 
-    <li >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+  <!-- style="position:fixed;" -->
+    <li >
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
       <label (click)="dash()" style="text-align:center;">LIBRARY</label>
 
       <button mat-icon-button > <i class="material-icons" style="color:rgb(142, 179, 137);float:right;position:absolute; left:440px; top:3px;" (click)="profile()"  >account_circle</i></button>                            
@@ -21,7 +24,7 @@
         </svg>
       </label>
       <ul class="menu-sidebar">
-
+        <li ><a href="body"  >DASHBOARD </a></li>
         <li ><a href="addcategory"  >CATEGORY </a></li>
         <li><a href="addbooks">BOOKS</a></li>
         <li><a href="borrow">BORROW</a></li>
@@ -41,24 +44,17 @@
                                  
           </ul>
         </li>
-        <li>
-          <!-- <input type="checkbox" id="sub-two" class="submenu-toggle">         -->
-          <!-- <label class="submenu-label" for="sub-two">Category</label> -->
-          <!-- <div class="arrow right">&#8250;</div>  -->
-          <ul class="menu-sub">
-            <li class="menu-sub-title">
-              <label class="submenu-label" for="sub-two">Back</label>
-              <div class="arrow left">&#8249;</div>
-            </li>
-            <li><a href="#">Sub-item</a></li>
-            <li><a href="#">Sub-item</a></li>
-            <li><a href="#">Sub-item</a></li>
-            <li><a href="#">Sub-item</a></li>
-          </ul>
-        </li>
+
       </ul>
     </li>
    </ul>
+
+
+
+
+
+<!-- 
+
   <html>
   
   <head>
@@ -72,14 +68,14 @@
   
   
   
-    <!-- <div *ngIf="status==0" class="alert">
+    <div *ngIf="status==0" class="alert">
       <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
       <strong>Welcome Back!</strong>Admin
       
-    </div> -->
+    </div>
     
   
    </body> 
   
   </html>
-  
+   -->

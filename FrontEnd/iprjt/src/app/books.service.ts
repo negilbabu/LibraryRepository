@@ -32,8 +32,10 @@ handleError(err: HttpErrorResponse): any {
     return this.http.post('http://localhost:8080/csv/admin/upload', formData)
 
   }
-
-
+//pie
+  chart(): Observable<any> {
+    return this.http.get('http://localhost:8080/books/admin/pie')
+  }
 
 
   add(data:any):Observable<any>{
