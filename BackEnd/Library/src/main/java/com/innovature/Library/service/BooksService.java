@@ -36,7 +36,7 @@ public interface BooksService {
 
     Page<Books> getAllBooks(Integer pageNo, Integer pageSize, String sortBy,Integer direction);
 
-
+    List<Object[]> getBookCountByCategory();
 
     }
     

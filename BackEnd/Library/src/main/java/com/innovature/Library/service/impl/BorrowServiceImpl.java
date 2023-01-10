@@ -374,6 +374,7 @@ public class BorrowServiceImpl implements BorrowService {
 
     //     this.mailSender.send(simpleMailMessage);
     // }
+
     @Override
     @Transactional
    // @Scheduled(cron="* */1 * * * * ")
@@ -392,15 +393,11 @@ public class BorrowServiceImpl implements BorrowService {
             simpleMailMessage.setSubject("Books are due");
             simpleMailMessage.setText("Please return the book '"+bor.getBooks().getBooksName()+"'. The due date has expired on "+bor.getDueDate() +". Fine will be generated for each day(5 rs/day)");
     
-            this.mailSender.send(simpleMailMessage);
+            this.mailSender.send(simpleMailMessage);        }      
         }
-      
-        }
-
     @Override
     public void sendMail(Integer userId, String subject, String text) {
-        // TODO Auto-generated method stub
-        
+        // TODO Auto-generated method stub        
     }
 
 
@@ -463,6 +460,7 @@ public rentChartView getChart(){
                 hm.put(b.getDayOfWeek().getValue(), new Result(hm.get(b.getDayOfWeek().getValue()).getIssueCount() + 1,
                 hm.get(b.getDayOfWeek().getValue()).getReturnedCount()));
                 }
+
                 LocalDateTime c=null;
                 
                 if(a.getStatus().equals("RETURNED"))
@@ -476,12 +474,7 @@ public rentChartView getChart(){
                 hm.get(c.getDayOfWeek().getValue()).getReturnedCount() +1));
             
                 System.out.println(hm.get(c.getDayOfWeek().getValue()).getReturnedCount());   
-            }
-                
-                // System.out.println(b.getDayOfWeek().getValue());
-                // System.out.println(hm.get(b.getMonth().getValue()).getReturnCount());
-
-                
+            }                   
             }
             for (Map.Entry<Integer, Result > mapElement : hm.entrySet()) {
                 result.getIssueCount().add(mapElement.getValue().getIssueCount()+"");

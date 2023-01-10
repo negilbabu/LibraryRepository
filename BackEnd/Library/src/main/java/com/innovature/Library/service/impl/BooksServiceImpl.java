@@ -139,6 +139,12 @@ public class BooksServiceImpl implements BooksService{
         }
     }
 
+    //pie
+    @Override
+    public List<Object[]> getBookCountByCategory() {
+        return booksRepository.findCountByCategoryId();
+    }
+
 
 }
 
