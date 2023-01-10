@@ -33,11 +33,7 @@ public class csvService {
         }
     }
 
-    public ByteArrayInputStream load(){
-        List<csvUpload> csvTest=repository.findAll();
-        ByteArrayInputStream in=csvHelper.loadFromdb(csvTest);
-        return in;
-    }
+
 
     public List<csvUpload>getAll(){
         return repository.findAll();

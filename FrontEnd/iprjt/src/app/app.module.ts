@@ -52,6 +52,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatOptionModule } from '@angular/material/core';
 import { BorrowDetailViewComponent } from './borrow-detail-view/borrow-detail-view.component';
 import { ForgotpasswordComponent } from './forgotpassword/forgotpassword.component';
+import {Chart} from 'chart.js';
 
 //  import {MatIconModule} from '@angular/material/icon';
 // import { MatToolbarModule } from '@angular/material';
@@ -89,6 +90,7 @@ import { ForgotpasswordComponent } from './forgotpassword/forgotpassword.compone
     AddbooksComponent,
     BorrowDetailViewComponent,
     ForgotpasswordComponent,
+    // Chart
     
   //  ModalComponent
     
@@ -110,7 +112,8 @@ import { ForgotpasswordComponent } from './forgotpassword/forgotpassword.compone
     MatButtonModule,  
     MatSelectModule,
     MatDialogModule,
-    MatInputModule
+    MatInputModule,
+    // Chart
     
 
    ///MatIconModule,

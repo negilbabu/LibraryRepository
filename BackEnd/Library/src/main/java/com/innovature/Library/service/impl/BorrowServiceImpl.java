@@ -6,6 +6,18 @@ import java.util.Collection;
 import java.util.Date;
 //import java.sql.Date;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+
+
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +42,8 @@ import com.innovature.Library.service.BorrowService;
 
 import com.innovature.Library.view.BorrowDetailView;
 import com.innovature.Library.view.BorrowListView;
+import com.innovature.Library.view.rentChartView;
+
 import java.util.List;
 
 
@@ -150,7 +164,7 @@ public class BorrowServiceImpl implements BorrowService {
         Books books=booksRepository.findbyBorrowId(borrowId);
   
 
-       borrow.setIssueDate(new Date());
+       borrow.setIssueDate(LocalDateTime.now());
        borrow.setDueDate(form.getDueDate());
        borrow.setReturnDate(form.getReturnDate());
        borrow.setReason(null);
@@ -191,7 +205,7 @@ public class BorrowServiceImpl implements BorrowService {
         Books books=booksRepository.findbyBorrowId(borrowId);
   
 
-       borrow.setBookReturnedDate(new Date());
+       borrow.setBookReturnedDate(LocalDateTime.now());
        borrow.setIssueDate(borrow.getIssueDate());
        borrow.setReturnDate(borrow.getReturnDate());
        borrow.setDueDate(borrow.getDueDate());
@@ -417,6 +431,92 @@ public class BorrowServiceImpl implements BorrowService {
         }
         
     }
+
+
+public rentChartView getChart(){
+    rentChartView result= new rentChartView();
+    String[] weeks = {"Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"};
+    result.setLabel(Arrays.asList(weeks));
+
+    HashMap<Integer, Result> hm
+            = new HashMap<Integer, Result>();
+
+            hm.put(1, new Result(0, 0));
+            hm.put(2, new Result(0, 0));
+            hm.put(3, new Result(0, 0));
+            hm.put(4, new Result(0, 0));
+            hm.put(5, new Result(0, 0));
+            hm.put(6, new Result(0, 0));
+            hm.put(7, new Result(0, 0));
+
+            List<Borrow>s=borrowRepository.findAllC();
+
+
+            for(Borrow a:s){
+                if(a.getStatus().equals("APPROVED"))
+                {
+
+                LocalDateTime b = a.getIssueDate();
+                 System.out.println("---------------------------"+b);
+                // System.out.println("........>>>>>>>>>>>>>>>>....."+ b.getDayOfWeek().getValue());
+               
+                hm.put(b.getDayOfWeek().getValue(), new Result(hm.get(b.getDayOfWeek().getValue()).getIssueCount() + 1,
+                hm.get(b.getDayOfWeek().getValue()).getReturnedCount()));
+                }
+                LocalDateTime c=null;
+                
+                if(a.getStatus().equals("RETURNED"))
+                {
+
+                    c = a.getBookReturnedDate();
+                System.out.println("cccccccccccccccccccccccccccccccccccccccccc="+c);
+
+
+                hm.put(c.getDayOfWeek().getValue(), new Result(hm.get(c.getDayOfWeek().getValue()).getIssueCount() ,
+                hm.get(c.getDayOfWeek().getValue()).getReturnedCount() +1));
+            
+                System.out.println(hm.get(c.getDayOfWeek().getValue()).getReturnedCount());   
+            }
+                
+                // System.out.println(b.getDayOfWeek().getValue());
+                // System.out.println(hm.get(b.getMonth().getValue()).getReturnCount());
+
+                
+            }
+            for (Map.Entry<Integer, Result > mapElement : hm.entrySet()) {
+                result.getIssueCount().add(mapElement.getValue().getIssueCount()+"");
+                  result.getReturnedCount().add(mapElement.getValue().getReturnedCount()+"");
+
+            }
+            return result;
+}
+
+
+public class Result {
+    private Integer issueCount;
+    private Integer returnedCount;
+
+    public Result(Integer issueCount, Integer returnedCount) {
+        this.issueCount = issueCount;
+        this.returnedCount= returnedCount;
+    }
+
+    public Integer getIssueCount() {
+        return issueCount;
+    }
+
+    public void setIssueCount(Integer issueCount) {
+        this.issueCount = issueCount;
+    }
+
+    public Integer getReturnedCount() {
+        return returnedCount;
+    }
+
+    public void setReturnedCount(Integer returnedCount) {
+        this.returnedCount = returnedCount;
+    }
+}
 
     
 

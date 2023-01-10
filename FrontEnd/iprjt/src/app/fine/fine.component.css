@@ -2,6 +2,7 @@ table{
     width: 58%;
     border: none;
     text-align: center;
+    position:relative;
     
   }
   /* tr{

@@ -29,6 +29,11 @@ handleError(err: HttpErrorResponse): any {
 
   //////////////////////////////////////////////
 
+
+  chartbar():Observable<any>{
+    return this.http.get('http://localhost:8080/borrow/admin/chart')
+  }
+
   sendMail(userId: any):Observable<any> {
     console.log("inservice"+userId)
     return this.http.post('http://localhost:8080/email/emailsent/'+userId,userId).pipe((catchError(err => this.handleError(err))));
