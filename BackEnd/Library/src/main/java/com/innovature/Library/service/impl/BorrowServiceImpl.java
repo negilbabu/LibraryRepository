@@ -511,6 +511,11 @@ public class Result {
     }
 }
 
+@Override
+public List<Borrow> listcsv() {
+    return borrowRepository.findAllC();
+}
+
     
 
 

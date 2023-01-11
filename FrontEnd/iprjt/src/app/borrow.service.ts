@@ -28,7 +28,9 @@ handleError(err: HttpErrorResponse): any {
 }
 
   //////////////////////////////////////////////
-
+  export(): Observable<Blob> {
+    return this.http.get('http://localhost:8080/borrow/admin/export', { responseType: 'blob' });
+  }
 
   chartbar():Observable<any>{
     return this.http.get('http://localhost:8080/borrow/admin/chart')

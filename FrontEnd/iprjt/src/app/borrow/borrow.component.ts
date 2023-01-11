@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import {MatSort,Sort} from '@angular/material/sort';
@@ -5,6 +6,7 @@ import { Router } from '@angular/router';
 import { BooksService } from '../books.service';
 import { BorrowService } from '../borrow.service';
 import { CategoryService } from '../category.service';
+import { saveAs } from 'file-saver';
 
 @Component({
   selector: 'app-borrow',
@@ -13,7 +15,10 @@ import { CategoryService } from '../category.service';
 })
 export class BorrowComponent implements OnInit {
 
-
+  key: any;
+  curDate= new Date()
+  myDate:any;
+  filename: any;
 
   borrowId:any;
   borrowdata:any;
@@ -39,7 +44,7 @@ export class BorrowComponent implements OnInit {
   direction=1;
   direction1=-1;
   //borrow_id:any;
-    constructor(private router:Router ,private service:BorrowService,private booksService:BooksService) {
+    constructor(private router:Router ,private datePipe:DatePipe,private service:BorrowService,private booksService:BooksService) {
  
       // this.borrowList=[];
       this.date=new Date();
@@ -71,6 +76,24 @@ export class BorrowComponent implements OnInit {
      
       }
     )
+
+    dwn() {
+      // if(this.key==""){
+    
+      this.myDate=this.datePipe.transform(this.curDate,'yyyy-MM-dd');
+      this.filename="DataExport_"+this.myDate;
+      this.service.export().subscribe((blob:any)=>saveAs(blob,this.filename))
+      // }
+      // else{
+      //   this.myDate=this.datePipe.transform(this.curDate,'yyyy-MM-dd');
+      //   this.filename="DataExport_"+this.myDate;
+      //   this.service.exportSearch(this.search.controls['inp'].value).subscribe((blob:any)=>saveAs(blob,this.filename))
+      // }
+    
+    // throw new Error('Method not implemented.');
+    }
+    
+
 
     sortfn(a:any){
     

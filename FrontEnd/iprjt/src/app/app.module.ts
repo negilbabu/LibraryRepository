@@ -11,7 +11,7 @@ import { BodyComponent } from './body/body.component';
 //import { ModalComponent } from './modal/modal.component';
 import {MatDialogConfig, MatDialogModule, MAT_DIALOG_DEFAULT_OPTIONS,} from '@angular/material/dialog';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { provideCloudflareLoader } from '@angular/common';
+import { DatePipe, provideCloudflareLoader } from '@angular/common';
 import { TokenInterceptorService } from './token-interceptor.service';
 import { HomeguardGuard } from './homeguard.guard';
 import { GuardserviceService } from './guardservice.service';
@@ -113,6 +113,7 @@ import {Chart} from 'chart.js';
     MatSelectModule,
     MatDialogModule,
     MatInputModule,
+    
     // Chart
     
 
@@ -122,7 +123,7 @@ import {Chart} from 'chart.js';
     //BrowserAnimationsModule
   ],
   // ,{provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: false}}
-  providers: [ {provide:HTTP_INTERCEPTORS,useClass:TokenInterceptorService,multi:true},[HomeguardGuard, GuardserviceService] ],
+  providers: [ {provide:HTTP_INTERCEPTORS,useClass:TokenInterceptorService,multi:true},[HomeguardGuard, GuardserviceService],[DatePipe] ],
   bootstrap: [AppComponent],
   entryComponents:[CategoryComponent,DemoComponent],
 })
