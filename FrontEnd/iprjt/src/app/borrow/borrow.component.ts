@@ -7,6 +7,7 @@ import { BooksService } from '../books.service';
 import { BorrowService } from '../borrow.service';
 import { CategoryService } from '../category.service';
 import { saveAs } from 'file-saver';
+import { NgToastService } from 'ng-angular-popup';
 
 @Component({
   selector: 'app-borrow',
@@ -44,7 +45,11 @@ export class BorrowComponent implements OnInit {
   direction=1;
   direction1=-1;
   //borrow_id:any;
-    constructor(private router:Router ,private datePipe:DatePipe,private service:BorrowService,private booksService:BooksService) {
+    constructor(private router:Router ,
+      private datePipe:DatePipe,
+      private service:BorrowService,
+      private toast : NgToastService,
+      private booksService:BooksService) {
  
       // this.borrowList=[];
       this.date=new Date();
@@ -224,8 +229,12 @@ export class BorrowComponent implements OnInit {
         this.service.bookReturn(borrow.borrowId).subscribe({
           next: (Response: any) => {
             console.log(Response);
-            alert(" Book Returned")
-            window.location.reload()
+            // alert(" Book Returned")
+            this.toast.success({detail:'Book Returned',summary:'Book '+borrow.books.booksName+' Returned by '+borrow.user.firstName,duration:5000});
+            setTimeout(() => {
+        
+              window.location.reload()       
+          }, 2500); 
           },
           error: (Response: any) => {
             console.log(Response)
