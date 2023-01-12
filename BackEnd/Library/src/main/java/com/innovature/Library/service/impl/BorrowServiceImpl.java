@@ -450,11 +450,12 @@ public rentChartView getChart(){
 
 
             for(Borrow a:s){
-                if(a.getStatus().equals("APPROVED"))
+                // if(a.getStatus().equals("APPROVED" ))
+                if(a.getIssueDate()!=null)
                 {
 
                 LocalDateTime b = a.getIssueDate();
-                 System.out.println("---------------------------"+b);
+                //  System.out.println("-----in issue----------------------"+b);
                 // System.out.println("........>>>>>>>>>>>>>>>>....."+ b.getDayOfWeek().getValue());
                
                 hm.put(b.getDayOfWeek().getValue(), new Result(hm.get(b.getDayOfWeek().getValue()).getIssueCount() + 1,
@@ -467,13 +468,13 @@ public rentChartView getChart(){
                 {
 
                     c = a.getBookReturnedDate();
-                System.out.println("cccccccccccccccccccccccccccccccccccccccccc="+c);
+                // System.out.println("cccccccccccccccccccccccccccccccccccccccccc="+c);
 
 
                 hm.put(c.getDayOfWeek().getValue(), new Result(hm.get(c.getDayOfWeek().getValue()).getIssueCount() ,
                 hm.get(c.getDayOfWeek().getValue()).getReturnedCount() +1));
             
-                System.out.println(hm.get(c.getDayOfWeek().getValue()).getReturnedCount());   
+                // System.out.println(hm.get(c.getDayOfWeek().getValue()).getReturnedCount());   
             }                   
             }
             for (Map.Entry<Integer, Result > mapElement : hm.entrySet()) {

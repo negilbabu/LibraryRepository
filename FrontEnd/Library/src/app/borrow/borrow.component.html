@@ -8,7 +8,7 @@
                       <div class="table-responsive"><br>
                         <h2 style="text-align:center ;">Borrow Details</h2>
 
- <button class=" btn-success btn-sm mb-1" style="margin-top: 2%; border: none;" (click)="dwn()"> Download CSV</button>
+ <button class=" btn-success btn-sm mb-1" style="margin-top: 2%; border: none;position:absolute; left:1200px; top:500px;" (click)="dwn()"> Download CSV</button>
 
 <div><input type="button" (click)="clearFilter()" value="CLEAR FILTER" style = "position:absolute; left:1200px; top:100px;"> </div>
 
@@ -76,7 +76,7 @@ END DATE&nbsp;&nbsp; <input type="date" formControlName="date2" value="date2" ma
   <td>
     <button  mat-button (click)="acceptRequest(post)" color="primary" *ngIf="post.status=='REQUESTED' "   >Accept</button>
     <button  mat-button (click)="rejectRequest(post)" color="warn" *ngIf="post.status=='REQUESTED' "   >Reject</button>
-    <button  mat-button (click)="bookReturn(post)" color="accent"  *ngIf="post.status!='RETURNED' && post.status=='APPROVED' "    >Return</button>
+    <button  mat-button (click)="bookReturn(post)" color="accent"  *ngIf="post.status!='RETURNED' && post.status=='APPROVED' ">Return</button>
   <!-- <button type ="button"  class="btnn0" *ngIf="post.status=='REQUESTED' "  (click)="acceptRequest(post)">Accept</button>&nbsp;&nbsp;
   <button type ="button" class="btnn2" *ngIf="post.status=='REQUESTED' "  (click)="rejectRequest(post)">Reject</button>&nbsp;&nbsp;
   <button type ="button" class="btnn" *ngIf="post.status!='RETURNED' && post.status=='APPROVED' " (click)="bookReturn(post)" >Return</button>&nbsp;&nbsp;
@@ -87,6 +87,11 @@ END DATE&nbsp;&nbsp; <input type="date" formControlName="date2" value="date2" ma
     <i class="material-icons" *ngIf="post.status!='REQUESTED'  "  style="color:rgb(14, 155, 216)" (click)="DetailView(post)">visibility</i>  &nbsp;
   </button>
 </td>
+      </tr>
+      <tr>
+        <td>
+
+        </td>
       </tr>
         
                               </tbody>
@@ -128,10 +133,9 @@ END DATE&nbsp;&nbsp; <input type="date" formControlName="date2" value="date2" ma
 
 
 <td>
-<button type ="button" style = "margin-top: 20px;" class="btnn0" *ngIf="post.status=='REQUESTED'"  (click)="acceptRequest(post)">Accept</button>
-<button type ="button" class="btnn2" *ngIf="post.status=='REQUESTED' "  (click)="rejectRequest(post)">Reject</button>&nbsp;&nbsp;<br>
-<button type ="button" class="btnn" *ngIf="post.status!='RETURNED' && post.status=='APPROVED' " (click)="bookReturn(post)" >Return</button>
-<button type ="button" class="btnn1" *ngIf="post.status=='RETURNED'  "  (click)="undo(post)" >Undo</button><br><br>
+  <button  mat-button (click)="acceptRequest(post)" color="primary" *ngIf="post.status=='REQUESTED' "   >Accept</button>
+  <button  mat-button (click)="rejectRequest(post)" color="warn" *ngIf="post.status=='REQUESTED' "   >Reject</button>
+  <button  mat-button (click)="bookReturn(post)" color="accent"  *ngIf="post.status!='RETURNED' && post.status=='APPROVED' ">Return</button>
 </td> 
 <td>
 <button mat-icon-button>
