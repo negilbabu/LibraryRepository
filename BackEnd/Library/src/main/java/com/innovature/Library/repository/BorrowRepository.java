@@ -109,8 +109,23 @@ public interface BorrowRepository extends PagingAndSortingRepository<Borrow, Int
     // @Query(value = "select * from borrow where issue_date between date_sub(curdate(),interval 7 day) and curdate()",nativeQuery = true)
     //    List<Borrow>findAllC(); 
 
+    // @Query(value = "Select * from borrow where books_name like %?1% order by books_name like ?2% DESC,books_name like %?3 DESC,books_name like %?4% ", nativeQuery = true)
+    // public Page<Borrow> findByKeywords(String keyword, String k, String k1, String k2, Pageable pageable);
+
+
+    // @Query(value = "SELECT * FROM borrow INNER JOIN user ON borrow.user_id = user.user_id where first_name like %?1% order by first_name like ?2% DESC,first_name like %?3 DESC,first_name like %?4% ", nativeQuery = true)
+    // public Page<Borrow> findByKeywords(String keyword, String k, String k1, String k2, Pageable pageable);
+ 
+    @Query(value = "select * from borrow where user_id in(select user_id from user where first_name like %?%", nativeQuery = true)
+    public Page<Borrow> findByKeywords(String keyword, String k, String k1, String k2, Pageable pageable);
+ 
 
 }
 
 //mysql> select count(borrow_id) from borrow where  book_returned_date between '2023-01-01' and '2023-01-07';
 //select count(borrow_id) from borrow where  book_returned_date='2022-12-27';
+
+// inner join eg = SELECT user.first_name FROM borrow INNER JOIN user ON borrow.user_id = user.user_id
+// >no innerjoin= select user.first_name from user,borrow where user.user_id=borrow.user_id;
+//>select * from borrow where user_id in(select user_id from user where first_name like 'ashwin');
+

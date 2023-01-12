@@ -67,6 +67,9 @@ public interface BorrowService {
     // public  RentCharView getChart();
 
     List<Borrow>listcsv();
+
+    Page<Borrow>getAllBorrowedUserSearch(String keyword, Integer pageNo,Integer pageSize);
+
     
 
 }

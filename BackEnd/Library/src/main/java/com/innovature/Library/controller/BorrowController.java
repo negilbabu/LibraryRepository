@@ -304,5 +304,19 @@ public ResponseEntity<List<Borrow>> loadByIssueDateUser(
     }
 
 
+    @GetMapping("/admin/searchUser")
+    public ResponseEntity<Page<Borrow>> getAllBorrowedUserSearch(
+            @RequestParam(defaultValue = "") String keyword,
+            @RequestParam(defaultValue = "1") Integer pageNo,
+            @RequestParam(defaultValue = "10") Integer pageSize)
+            // @RequestParam(defaultValue = "user_id") String sortBy)
+             {
+        System.out.println("paage size" + pageSize);
+        Page<Borrow> list = bService.getAllBorrowedUserSearch(keyword, pageNo - 1, pageSize);
+        return new ResponseEntity<Page<Borrow>>(list, new HttpHeaders(),
+                HttpStatus.OK);
+
+    }
+
 
 }

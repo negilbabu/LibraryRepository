@@ -518,6 +518,17 @@ public List<Borrow> listcsv() {
 }
 
     
+@Override
+public Page<Borrow> getAllBorrowedUserSearch(String keyword, Integer pageNo, Integer pageSize) {
+    Pageable paging = PageRequest.of(pageNo, pageSize);
+    System.out.println(keyword);
+    String k = keyword;
+    String k1 = keyword;
+    String k2 = keyword;
+    Page<Borrow> pagedResult = borrowRepository.findByKeywords(keyword, k, k1, k2, paging);
+     return pagedResult;
+
+}
 
 
 

@@ -34,7 +34,7 @@ import { ViewAdminprofileComponent } from './view-adminprofile/view-adminprofile
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 // import { MatIconModule, MatToolbarModule, MatTooltipModule } from '@angular/material';
-
+import { MatListModule } from '@angular/material/list';
 import {MatIconModule} from '@angular/material/icon';
 import { ImageuploadComponent } from './imageupload/imageupload.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -113,6 +113,7 @@ import {Chart} from 'chart.js';
     MatSelectModule,
     MatDialogModule,
     MatInputModule,
+    MatListModule,
     
     // Chart
     
