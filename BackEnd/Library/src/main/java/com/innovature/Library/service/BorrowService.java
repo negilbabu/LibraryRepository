@@ -68,7 +68,9 @@ public interface BorrowService {
   
     BorrowDetailView updatePaymentStatus(Integer borrowId, BorrowForm form);
 
+    List<Borrow>listcsv();
 
+    // Page<Borrow>getAllBorrowedUserSearch(String keyword, Integer pageNo,Integer pageSize);
     // public  RentCharView getChart();
     
 

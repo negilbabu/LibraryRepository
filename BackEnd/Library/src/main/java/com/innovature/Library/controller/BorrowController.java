@@ -4,6 +4,13 @@ package com.innovature.Library.controller;
 import java.util.Collection;
 import java.sql.Date;
 import java.util.List;
+import java.io.IOException;
+
+import java.text.SimpleDateFormat;
+import java.util.List;
+
+import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 
 import javax.validation.Valid;
 
@@ -20,6 +27,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+
+
+import org.supercsv.io.CsvBeanWriter;
+import org.supercsv.io.ICsvBeanWriter;
+import org.supercsv.prefs.CsvPreference;
+
 
 import com.innovature.Library.entity.Borrow;
 import com.innovature.Library.form.BorrowForm;
@@ -287,6 +301,45 @@ public ResponseEntity<List<Borrow>> loadByIssueDateUser(
         return bService.updatePaymentStatus(borrowId, form);
     }
 
+
+
+    @GetMapping("admin/export")
+    public void Exportcsv(HttpServletResponse httpServletResponse) throws IOException {
+        httpServletResponse.setContentType("text/csv");
+        java.text.DateFormat datefFormat = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss");
+        String currentDateTime = datefFormat.format(new java.util.Date());
+        String headerKey = "Content-Disposition";
+        String headerValue = "attachment; filename=users_" + currentDateTime + ".csv";
+        httpServletResponse.setHeader(headerKey, headerValue);
+        List<Borrow> rents = bService.listcsv();
+
+        ICsvBeanWriter csvWriter = new CsvBeanWriter(httpServletResponse.getWriter(),
+                CsvPreference.STANDARD_PREFERENCE);
+        String[] csvHeader = { "borrow_id","first_name","books_name", "issue_date", "return_date","due_date","book_returned_date","reason","due_days","fine","status"};
+        String[] nameMapping = { "borrowId","firstName","booksName",  "issueDate", "returnDate", "dueDate","bookReturnedDate","reason","dueDays","fine","status" };
+        csvWriter.writeHeader(csvHeader);
+        for (Borrow rent : rents) {
+            //  System.out.println("         :"+rent.getStatus());
+            csvWriter.write(rent, nameMapping);
+        }
+        csvWriter.flush();
+        csvWriter.close();
+    }
+
+
+    // @GetMapping("/admin/searchUser")
+    // public ResponseEntity<Page<Borrow>> getAllBorrowedUserSearch(
+    //         @RequestParam(defaultValue = "") String keyword,
+    //         @RequestParam(defaultValue = "1") Integer pageNo,
+    //         @RequestParam(defaultValue = "10") Integer pageSize)
+    //         // @RequestParam(defaultValue = "user_id") String sortBy)
+    //          {
+    //     System.out.println("paage size" + pageSize);
+    //     Page<Borrow> list = bService.getAllBorrowedUserSearch(keyword, pageNo - 1, pageSize);
+    //     return new ResponseEntity<Page<Borrow>>(list, new HttpHeaders(),
+    //             HttpStatus.OK);
+
+    // }
 
 
 

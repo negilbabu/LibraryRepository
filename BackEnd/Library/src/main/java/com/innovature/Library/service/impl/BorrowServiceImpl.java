@@ -144,7 +144,7 @@ public class BorrowServiceImpl implements BorrowService {
         borrow.setIssueDate(LocalDateTime.now());
         borrow.setDueDate(form.getDueDate());
         borrow.setReturnDate(form.getReturnDate());
-        borrow.setReason(null);
+        borrow.setReason("NA");
         borrow.setStatus("APPROVED");
         books.setBooksCopies(books.getBooksCopies() - 1);
         return new BorrowDetailView(borrowRepository.save(borrow));
@@ -395,10 +395,10 @@ public class BorrowServiceImpl implements BorrowService {
         hm.put(6, new Result(0, 0));
         hm.put(7, new Result(0, 0));
 
-        List<Borrow> s = borrowRepository.findAllC();
+        List<Borrow> s = borrowRepository.findAllL7();
 
         for (Borrow a : s) {
-            if (a.getStatus().equals("APPROVED")) {
+            if(a.getIssueDate()!=null) {
 
                 LocalDateTime b = a.getIssueDate();
                 System.out.println("---------------------------" + b);
@@ -521,5 +521,31 @@ public class BorrowServiceImpl implements BorrowService {
         borrow.setPaymentStatus("PAID");
         return new BorrowDetailView(borrowRepository.save(borrow));
     }
+
+    @Override
+    public List<Borrow> listcsv() {
+        return borrowRepository.findAllC();
+    }
+
+
+//     @Override
+// public Page<Borrow> getAllBorrowedUserSearch(String keyword, Integer pageNo, Integer pageSize) {
+//     Pageable paging = PageRequest.of(pageNo, pageSize);
+//     System.out.println(keyword);
+//     String k = keyword;
+//     String k1 = keyword;
+//     String k2 = keyword;
+//     Page<Borrow> pagedResult = borrowRepository.findByKeywords(keyword, k, k1, k2, paging);
+//      return pagedResult;
+
+// }
+    
+
+
+
+
+
+
+
 
 }

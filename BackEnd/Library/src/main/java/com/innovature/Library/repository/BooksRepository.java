@@ -36,5 +36,8 @@ public interface BooksRepository extends Repository<Books, Integer> {
    // @Query(value = "select sum(books_copies)", nativeQuery = true)
    // List<Object[]> findbyBooksId1();
 
+   @Query(value = "Select * from books where  status = 1 AND books_name like %?1% order by books_name like ?2% DESC,books_name like %?3 DESC,books_name like %?4% ", nativeQuery = true)
+   public Page<Books> findByKeywords(String keyword, String k, String k1, String k2, Pageable pageable);
+
 
 }
