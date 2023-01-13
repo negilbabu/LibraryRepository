@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormControl } from '@angular/forms';
 import { MatDialog,MatDialogRef, MatDialogModule} from '@angular/material/dialog';
 import { MatDialogConfig } from '@angular/material/dialog';
 import { Router } from '@angular/router';
@@ -21,6 +22,8 @@ export class AddbooksComponent implements OnInit {
   booksList: any[];
   books: any;
   booksId: any;
+  key: any;
+  pkey:any;
 
   categorydata:any;
   booksdata:any;
@@ -42,7 +45,6 @@ result: any;
   booksCount: any;
   direction=-1;
 
-  key:any;
 selectedFiles?: FileList;
 currentFile?: File;
   // ObjSampleForm:FormGroup;
@@ -53,10 +55,30 @@ currentFile?: File;
     
   }
 
+  search:FormGroup=new FormGroup({
+    inp:new FormControl()
+  })
+
+
   ngOnInit(): void {
     this.Load();
     localStorage.removeItem('booksId'); 
+
   }
+
+  search1(key:any){
+    console.log("before api=",key);
+    this.booksService.search(key,this.page,this.tableSize,this.sort).subscribe(response=>{
+      this.result=response.content;
+     console.log("searchRslt=",this.result);
+      this.data=this.result;
+       this.count=response.totalElements;
+       console.log("count=",this.count);
+       this.pkey=this.search.controls['inp'].value;
+       console.log("pk",this.pkey)
+     });
+}
+  
 
 Load() {
   this.booksService.pagination1(this.page,this.tableSize,this.sort,this.direction).subscribe(result=>{
@@ -90,7 +112,9 @@ sortfn(a:any){
 }
 
 onTableDataChange(event:any) {
-  
+  this.pkey==this.search.controls['inp'].value;
+  console.log("p-",this.pkey)
+  if(this.pkey==null){
   console.log("page=",event)
     this.booksService.pagination1(this.page,this.tableSize,this.sort,this.direction).subscribe(result=>{
       this.result=result.content;
@@ -98,7 +122,20 @@ onTableDataChange(event:any) {
       console.log("loaded books=",this.result);   
       this.data=this.result;   
       this.booksdata=this.result;                     
-        })       
+        })      
+      }
+      else{
+        // this.pkey==this.search.controls['inp'].value;
+        console.log("page=",event)
+        console.log("pkey in page=",this.pkey)
+        this.booksService.search(this.pkey,this.page,this.tableSize,this.sort).subscribe(result=>{
+          this.result=result.content;
+          this.count=result.totalElements
+          console.log("loaded books=",this.result);   
+          this.data=this.result;   
+          this.booksdata=this.result;                     
+            })  
+      } 
   }
 
 

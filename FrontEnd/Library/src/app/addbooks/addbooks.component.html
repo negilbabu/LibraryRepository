@@ -5,19 +5,27 @@
       <button  mat-raised-button (click)="openDialog()" color="primary"  >ADD BOOKS</button></div>
 <br><br>
 
-<div class="col-md-6" style="position: relative; left:1030px; top:-70px;">
+
+
+<form [formGroup]="search" style="display: inline-flex;padding: 0px;" class="col-md-4">
+  <input type="text" style="position: relative; left:1030px; top:-75px;" class="form-control" formControlName="inp" placeholder="Enter Book Name to Search "
+      aria-label="Recipient's username" aria-describedby="basic-addon2" (ngModelChange)="search1(this.search.controls['inp'].value)" >
+      <button mat-icon-button  style="position: relative; left:1030px; top:-75px;"> <i class="material-icons" style="color:rgb(0, 0, 0)" >search</i></button> 
+  <!-- <div class="input-group-append">
+      <button class="input-group-text button_" id="basic-addon2" (click)="search1(this.search.controls['inp'].value)">search</button>
+  </div> -->
+</form>
+
+
+
+<div class="col-md-6" style="position: relative; left:1030px; top:-55px;">
 <input type="file" id="myFile" (change)="selectFile($event)" style="margin-top: 3px;">
-<button mat-icon-button   [disabled]="!selectedFiles" > <i class="material-icons" style="color:rgb(142, 179, 137);"  (click)="upload() " >cloud_upload</i></button>
-        
+<button mat-icon-button   [disabled]="!selectedFiles" > <i class="material-icons" style="color:rgb(142, 179, 137);"  (click)="upload() " >cloud_upload</i></button>      
 </div>
 
-
-<div class="card-box">
-          
-        
-      <div class="row">
-                <div class="table-responsive">
-                    
+<!-- <div class="card-box">         
+              <div class="row"> -->
+                <div class="table-responsive">                    
                       <table align="center" class=".table-hover"  >
                         <thead class="bg-primary text-white">
                             <tr role="row">
@@ -67,17 +75,17 @@
   <td align="right"><img src="../../assets/BooksImage/item_pics/{{books.image}}" width="90" height="110"  ></td>
 
 
-<td>
+<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
-<button mat-icon-button> <i class="material-icons" style="color:red" (click)="delete(books)">delete</i></button>
+<button mat-icon-button> <i class="material-icons" style="color:red" (click)="delete(books)">delete</i></button>&nbsp;
 <button mat-icon-button> <i class="material-icons" style="color:green" (click)="edit(books.booksId)">edit</i></button>
   </tr> 
                         </tbody>
                     </table>
                 <!-- unfold_more -->
                   </div>
-                </div>
-              </div>
+                <!-- </div>
+              </div> -->
                           <!-- Pagenation Controler -->
                           <div class="d-flex justify-content-center">
                             <pagination-controls (pageChange)="onTableDataChange(page=$event)">

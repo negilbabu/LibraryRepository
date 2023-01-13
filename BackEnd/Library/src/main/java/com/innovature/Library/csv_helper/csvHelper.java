@@ -50,20 +50,22 @@ public class csvHelper {
                     Integer.parseInt(csvRecord.get("booksCopies")), 
                     Integer.parseInt(csvRecord.get("categoryId")),
                     Integer.parseInt(csvRecord.get("status"))  
-                    //csvRecord.get("image")
-                    
-
+                    //csvRecord.get("image")                  
                 );
                 csvList.add(csvob);
-
             }
             return csvList;
-            
+                        
     }catch(IOException e){
         throw new  RuntimeException("fail to parse csv file"+e.getMessage());
     }
     
 }
+
+
+
+
+
 
 
 }

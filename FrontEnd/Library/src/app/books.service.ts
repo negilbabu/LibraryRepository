@@ -25,6 +25,14 @@ handleError(err: HttpErrorResponse): any {
 }
 
   //////////////////////////////////////////////
+
+  search(key: any, pageno: any, pagesize: any, sortby: any): Observable<any> {
+    console.log('+++++++++++', key)
+    return this.http.get('http://localhost:8080/books/admin/searchBooks/?keyword=' + key + '&pageNo=' + pageno + '&pageSize=' + pagesize + '&sortBy=' + sortby)
+  }
+
+
+
   uploadCsv(file: File): Observable<any> {
     const formData: FormData = new FormData();
 

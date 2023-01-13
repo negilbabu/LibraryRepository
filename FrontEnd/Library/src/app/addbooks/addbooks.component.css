@@ -20,3 +20,6 @@
     border: none;
     padding-top: 6px;padding-bottom: 6px;
   } 
+  .form-control{
+    width: fit-content;
+  }

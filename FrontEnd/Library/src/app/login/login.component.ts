@@ -39,7 +39,7 @@ export class LoginComponent implements OnInit {
         this.service.login(this.loginForm.value).subscribe(result=>{
           if(result.userId){
             this.responsedata=result
-            console.log(result);
+            console.log("log=",result);
 
             if(result.role==2){
             localStorage.setItem('token',this.responsedata.accessToken.value)        
@@ -50,7 +50,7 @@ export class LoginComponent implements OnInit {
             
             else{
               localStorage.setItem('token',this.responsedata.accessToken.value)         
-              this.toast.info({detail:'Hello Admin',summary:'LogIn Successfull',duration:5000});
+              this.toast.info({detail:'Hello Admin : '+result.firstName,summary:'LogIn Successfull',duration:5000});
               this.router.navigate(['/sidenav'])
 
             }

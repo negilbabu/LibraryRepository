@@ -181,4 +181,11 @@ public class Borrow {
         this.fine = fine;
     }
 
+    public String getFirstName(){
+        return user.getFirstName();
+    }
+
+    public String getBooksName(){
+        return books.getBooksName();
+    }
 }
