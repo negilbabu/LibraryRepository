@@ -1,0 +1,31 @@
+p{
+    padding: 0px 0px 30px 1000px;
+    margin: 0px;
+    background-color: rgb(0, 0, 0);
+    background-image: url('../../../a.png');
+    
+}
+
+.btnhome{
+    margin-top: 20px;
+    margin-bottom: 10px;
+    padding: 7;
+    border-color: rgb(124, 241, 134);
+    background-color: rgba(83, 254, 3, 0.853);
+    font-size: 13px;
+    border-radius: 25px;
+   
+}
+
+
+
+.table-bordered{
+border: none;
+}
+
+  td {
+    color: rgb(0, 0, 0);
+    width: auto;
+     padding: 8px;
+  }
+

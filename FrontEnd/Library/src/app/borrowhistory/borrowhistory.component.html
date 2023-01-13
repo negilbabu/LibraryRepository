@@ -1,0 +1,77 @@
+<router-outlet></router-outlet>
+<app-sidenav2></app-sidenav2>
+<div class="text-center">
+  <form [formGroup]="ObjSampleForm">
+    <div class="card-box">
+      <div class="row">
+        <div class="table-responsive">
+          <h1 style="text-align:center ;">Borrow Details</h1>
+          <!-- fliter starts  -->
+          <div><input type="button" (click)="clearFilter()" value="CLEAR FILTER"
+              style="position:absolute; left:915px; top:103px;"> </div>
+
+          <div>
+            START DATE &nbsp;&nbsp; <input type="date" formControlName="date1" value="date1"
+              max="{{date| date:'yyyy/MM/dd' }}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            END DATE&nbsp;&nbsp; <input type="date" formControlName="date2" value="date2"
+              max="{{date| date:'yyyy/MM/dd' }}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <input type="button" (click)="getFilter()"
+              value="FILTER">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          </div>
+          <BR>
+        </div>
+      </div>
+    </div>
+    <!-- new table starts -->
+    <table class="table table-striped w-auto" style="margin-left: 100px; position: relative;margin-right: 20px;">
+
+      <!--Table head-->
+      <thead>
+        <tr role="row">
+          <th (click)="sortfn('books.booksName')">Book Name</th>
+          <th>Issued Date</th>
+          <th>Return Date</th>
+          <th (click)="sortfn('dueDate')">Due date</th>
+          <th>
+            <form [formGroup]="filter" style="width: 70px;">
+              <select name="Status" formControlName="status" [(ngModel)]="selectedGroup" class="dropbtn" id="status"
+                (ngModelChange)="disp1()">
+                <option value="" [selected]="selected">status</option>
+                <option value=1>APPROVED</option>
+                <option value=2>REJECTED </option>
+                <option value=3>RETURNED </option>
+                <option value=4>REQUESTED</option>
+              </select>
+            </form>
+          </th>
+          <th>Reason</th>
+          <th>DueDays</th>
+          <th>Fine(INR)</th>
+        </tr>
+
+      </thead>
+      <!--Table head-->
+
+      <!--Table body-->
+      <tbody>
+        <tr *ngFor="let borrow of  data | paginate 
+        : {
+            itemsPerPage: tableSize,
+            currentPage: page,
+            totalItems: count
+          };
+          ">
+          <td>{{borrow.books.booksName}}</td>
+          <td>{{borrow.issueDate| date:'dd/MM/yyyy'}}</td>
+          <td>{{borrow.returnDate| date:'dd/MM/yyyy'}}</td>
+          <td>{{borrow.dueDate| date:'dd/MM/yyyy'}}</td>
+          <td>{{borrow.status}}</td>
+          <td>{{borrow.reason}}</td>
+          <td>{{borrow.dueDays}}</td>
+          <td>{{borrow.fine}}</td>
+      </tbody>
+    </table>
+    <div class="d-flex justify-content-center">
+      <pagination-controls (pageChange)="onTableDataChange(page=$event)">
+      </pagination-controls>
+    </div>

@@ -1,0 +1,56 @@
+<app-sidenav></app-sidenav>   
+<html style="position:relative;">
+   <body style="position:relative;">
+    <div style="margin-left: 0%;max-width: 100%;" class="container p-0">
+      <div class="container-scroller">
+          <div class="container-fluid page-body-wrapper">
+  
+             <div class="main-panel">
+              <div class="content-wrapper">
+   <div class="text-center" style="position:relative;"> 
+      <form position:relative;>
+        <div class="card-box">         
+                    <div class="row">
+                      <div class="table-responsive"><br>
+                        <h2 style="text-align:center ;">Fine Details</h2>
+
+
+                            <table align="center" class="table table-white table-hover" id="datatable" role="grid" style="position:relative;" >
+                             
+                              <thead class="bg-primary text-white">
+                                  <tr role="row">
+                                   
+                                    <th>User Name</th>
+                                    <th>Book Name</th>
+                                    <th>Issue Date</th>                                                            
+                                    <th>Due Date</th>                                    
+                                    <th>DueDays</th>                                  
+                                    <th>Fine(INR)</th>
+                                    </tr>
+                              </thead>
+                              <tbody>
+        <tr *ngFor="let borrow of  borrowdata">
+
+            <td>{{borrow.user.firstName}}</td>
+            <td>{{borrow.books.booksName}}</td>
+            <td>{{borrow.issueDate| date:'dd/MM/yyyy'}}</td>                 
+            <td>{{borrow.dueDate| date:'dd/MM/yyyy'}}</td>
+            <td>{{borrow.dueDays}}</td>
+            <td>{{borrow.fine}}</td>
+ 
+        </tr>
+        
+                              </tbody>
+                          </table>
+                        
+                      </div>
+                  </div>
+                </div>
+            
+      </form>
+      </div>
+              </div>
+             </div>
+          </div></div></div>
+   </body>
+</html>

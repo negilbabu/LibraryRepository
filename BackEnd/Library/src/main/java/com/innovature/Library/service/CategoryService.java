@@ -1,6 +1,8 @@
 package com.innovature.Library.service;
 import java.util.Collection;
 
+import org.springframework.data.domain.Page;
+
 //import javax.validation.Valid;
 
 // import org.springframework.http.HttpEntity;
@@ -29,6 +31,9 @@ public interface CategoryService {
     void deletes(Integer catogoryId);
     
     CategoryDetailView updates(Integer categoryId, CategoryForm form);
+
+    Page<Category> getAllCategory(Integer pageNo, Integer pageSize, String sortBy,Integer direction);
+
 
     
 }

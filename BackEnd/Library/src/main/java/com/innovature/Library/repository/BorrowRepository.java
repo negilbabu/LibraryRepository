@@ -22,6 +22,8 @@ public interface BorrowRepository extends PagingAndSortingRepository<Borrow, Int
     // Optional<Borrow> findByBorrowId(Integer borrowId)
     Borrow findByBorrowId(Integer borrowId);
 
+    //Collection<Borrow> findByBorrowId(Integer borrowId);
+
     Collection<BorrowListView> findAllByUserUserId(Integer userId);
 
     
@@ -54,11 +56,9 @@ public interface BorrowRepository extends PagingAndSortingRepository<Borrow, Int
     @Query(value = "select * from borrow where borrow_id in(select borrow_id  from borrow where due_date<curdate() and status!='RETURNED')", nativeQuery = true)
     Collection <Borrow> findbyBorrowIdandDueDateandStatus();
 
-
-
     
     //To select user by due date expired
-    @Query(value = "select * from borrow where borrow_id in(select borrow_id  from borrow where due_date<curdate() and status='APPROVED' and user_id=?1 )", nativeQuery = true)
+    @Query(value = "select * from borrow where borrow_id in(select borrow_id  from borrow where due_date<curdate() and status='APPROVED' and payment_status!='PAID' and user_id=?1 )", nativeQuery = true)
     Collection<Borrow> findbyUserIdandStatus(Integer userId);
 
 
@@ -77,19 +77,58 @@ public interface BorrowRepository extends PagingAndSortingRepository<Borrow, Int
     // void findFineByUserId(Integer userId); public Page<Borrow> findAll(Pageable paging);
 
 
-    //Load Filterd results
+    //LOAD-FILTER @ADMIN ### ON-Load Filterd results
     @Query(value = "select * from borrow where issue_date between DATE(?1) and DATE(?2) and status!='REQUESTED'", nativeQuery = true)
    List<Borrow> findbyIssuDate(java.sql.Date date1,java.sql.Date date2);
     
-//pagenated filtered results
+//GET FILTER-RSLT @ADMIN- filtered results
     @Query(value = "select * from borrow where issue_date between DATE(?1) and DATE(?2) and status!='REQUESTED'", nativeQuery = true)
     public Page<Borrow> findbyIssuDate( java.sql.Date date1,java.sql.Date date2,Pageable paging);
+
+
+    //test
+    @Query(value = "select * from borrow where issue_date between DATE(?1) and DATE(?2) and status!='REQUESTED'", nativeQuery = true)
+    public Page<Borrow> findbyIssuDat( java.sql.Date date1,java.sql.Date date2,Pageable paging);
 
   //  public Page<Borrow> findbyIssuDate(java.util.Date date1, java.util.Date date2, Pageable paging);
 
 
- 
+     //Load Filterd results at user borrow history
+     @Query(value = "select * from borrow where issue_date between DATE(?1) and DATE(?2) and user_id=?1", nativeQuery = true)
+     List<Borrow> findbyIssuDateAndUserId(java.sql.Date date1,java.sql.Date date2);
+
+
+       //to get total books in-hand by user
+       @Query(value = "select count(user_id) from borrow where status='APPROVED' and user_id=?1", nativeQuery = true)
+       Integer findbyUserIdAndStatus(Integer userId);
+    
+
+       @Query(value = "SELECT * FROM borrow",nativeQuery = true)
+       List<Borrow>findAllC(); 
+
+    // @Query(value = "select * from borrow where issue_date between date_sub(curdate(),interval 7 day) and curdate()",nativeQuery = true)
+    //    List<Borrow>findAllC(); 
+
+        // filter by approved
+        @Query(value = "select * from borrow where  status='APPROVED' and user_id=?", nativeQuery = true)
+        public Page<Borrow> findByAppStatusUser(Integer userId,Pageable paging);
+    
+          // filter by rejected
+        @Query(value = "select * from borrow where  status='REJECTED' and user_id=?", nativeQuery = true)
+        public Page<Borrow> findByRejStatusUser(Integer userId,Pageable paging);
+    
+      //filter by returned
+      @Query(value = "select * from borrow where  status='RETURNED' and user_id=?", nativeQuery = true)
+      public Page<Borrow> findByRetStatusUser(Integer userId,Pageable paging);
+    
+        //filter by requested
+        @Query(value = "select * from borrow where  status='REQUESTED' and user_id=?", nativeQuery = true)
+        public Page<Borrow> findByReqStatusUser(Integer userId,Pageable paging);
+     
     
 
 
 }
+
+//mysql> select count(borrow_id) from borrow where  book_returned_date between '2023-01-01' and '2023-01-07';
+//select count(borrow_id) from borrow where  book_returned_date='2022-12-27';

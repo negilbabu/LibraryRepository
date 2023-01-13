@@ -1,0 +1,25 @@
+/* /* 
+.table-bordered{
+    border: 1px solid;
+}
+
+  */ 
+  table{
+    width: 80%;
+    border: none;
+    text-align: center;
+    
+  }
+  th {
+    background-color: #ffffff;
+    color: rgb(0, 0, 0);
+    text-align: center;
+    border: none;
+  }
+  td {
+    border: none;
+    padding-top: 6px;padding-bottom: 6px;
+  } 
+  .form-control{
+    width: fit-content;
+  }

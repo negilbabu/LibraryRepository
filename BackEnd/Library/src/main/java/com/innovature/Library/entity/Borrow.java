@@ -1,5 +1,6 @@
 package com.innovature.Library.entity;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 //import java.util.Objects;
 
@@ -31,15 +32,17 @@ public class Borrow {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer borrowId;
 
-    @Temporal(TemporalType.DATE)
-    private Date issueDate;
+   // @Temporal(TemporalType.DATE)
+    private LocalDateTime issueDate;
+
     @Temporal(TemporalType.DATE)
     private Date returnDate;
+
     @Temporal(TemporalType.DATE)
     private Date dueDate;
 
-    @Temporal(TemporalType.DATE)
-    private Date bookReturnedDate;
+    //@Temporal(TemporalType.DATE)
+    private LocalDateTime bookReturnedDate;
 
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private Books books;
@@ -48,6 +51,7 @@ public class Borrow {
     private User user;
 
     private String status;
+    private String paymentStatus;
     private String reason;
     public Long fine;
     public Long dueDays;
@@ -66,23 +70,18 @@ public class Borrow {
 
     public Borrow(BorrowForm form, Books books, User user2) {
 
-        // Date dt = new Date();
-        // this.issueDate= dt;
-        // this.user = new User(user2);
-        // this.booksId=form.getBooksId();
-
-        // this.issueDate = form.getIssueDate();
         this.returnDate = form.getReturnDate();
         this.dueDate = form.getDueDate();
         this.books = books;
         this.user = user2;
         this.status = getStatus();
+        this.paymentStatus=getPaymentStatus();
         this.reason = form.getReason();
         
-        Date dt = new Date();
+        LocalDateTime dt =LocalDateTime.now();
         this.issueDate = dt;
 
-        Date date = new Date();
+        LocalDateTime date =LocalDateTime.now();
         this.bookReturnedDate = date;
         this.dueDays=0L;
         this.fine=0L;
@@ -93,6 +92,7 @@ public class Borrow {
         this.books = book;
         this.user = user;
         this.status = "REQUESTED";
+        this.paymentStatus="UNBILLED";
         this.dueDays=(long) 0;
         this.fine=(long) 0;
     }
@@ -105,11 +105,11 @@ public class Borrow {
         this.borrowId = borrowId;
     }
 
-    public Date getIssueDate() {
+    public LocalDateTime getIssueDate() {
         return issueDate;
     }
 
-    public void setIssueDate(Date issueDate) {
+    public void setIssueDate(LocalDateTime issueDate) {
         this.issueDate = issueDate;
     }
 
@@ -161,11 +161,11 @@ public class Borrow {
         this.reason = reason;
     }
 
-    public Date getBookReturnedDate() {
+    public LocalDateTime getBookReturnedDate() {
         return bookReturnedDate;
     }
 
-    public void setBookReturnedDate(Date bookReturnedDate) {
+    public void setBookReturnedDate(LocalDateTime bookReturnedDate) {
         this.bookReturnedDate = bookReturnedDate;
     }
 
@@ -182,6 +182,14 @@ public class Borrow {
     }
     public void setFine(Long fine) {
         this.fine = fine;
+    }
+
+    public String getPaymentStatus() {
+        return paymentStatus;
+    }
+
+    public void setPaymentStatus(String paymentStatus) {
+        this.paymentStatus = paymentStatus;
     }
 
 }

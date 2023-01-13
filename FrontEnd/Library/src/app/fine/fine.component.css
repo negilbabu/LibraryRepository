@@ -1,0 +1,32 @@
+table{
+
+    width: 78%;
+    border: none;
+    text-align: center;
+    position:relative;
+  }
+
+  th {
+    background-color: #ffffff;
+    color: rgb(0, 0, 0);
+    text-align: center;
+    border: none;
+
+    position:relative;
+  }
+  td {
+    border: none;
+    padding-top: 16px;padding-bottom: 6px;
+    text-align: center;
+    position:relative;
+  }
+
+  .table-hover{
+    margin: 100;
+  }
+
+
+  /* edited */
+  .text-center{
+    display: block;
+  }

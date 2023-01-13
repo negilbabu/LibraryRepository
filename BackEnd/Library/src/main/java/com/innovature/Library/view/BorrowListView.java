@@ -1,5 +1,6 @@
 package com.innovature.Library.view;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 // import java.util.Optional;
 
@@ -15,20 +16,21 @@ public class BorrowListView {
     private final UserDetailView user;
     private final BooksDetailView books;
 
-    @Json.DateFormat
-    private final Date issueDate;
+    // @Json.DateFormat
+    private final LocalDateTime issueDate;
     @Json.DateFormat
     private final Date returnDate;
     @Json.DateFormat
     private final Date dueDate;
-    @Json.DateFormat
-    private final Date bookReturnedDate;
+    // @Json.DateFormat
+    private final LocalDateTime bookReturnedDate;
     private String status;
+    private String paymentStatus;
     private String reason;
     public Long fine;
     public Long dueDays;
 
-    public BorrowListView(int borrowId, User user, Books books, Date issueDate, Date returnDate, Date dueDate,Date bookReturnedDate, String status,String reason,Long dueDays,Long fine) {
+    public BorrowListView(int borrowId, User user, Books books, LocalDateTime issueDate, Date returnDate, LocalDateTime bookReturnedDate,Date dueDate, String status,String reason,Long dueDays,Long fine,String paymentStatus) {
         this.borrowId = borrowId;
         this.user = new UserDetailView(user);
         this.books = new BooksDetailView(books);
@@ -41,9 +43,13 @@ public class BorrowListView {
         this.reason = reason;
         this.dueDays=dueDays;
         this.fine=fine;
-
+        this.paymentStatus=paymentStatus;
 
     }
+
+    // public BorrowListView(Integer borrowId2, User user2, Books books2, LocalDateTime issueDate2, Date returnDate2,
+    //         LocalDateTime bookReturnedDate2, Date dueDate2, String status2, String reason2, Long dueDays2, Long fine2) {
+    // }
 
     public int getBorrowId() {
         return borrowId;
@@ -57,7 +63,7 @@ public class BorrowListView {
         return books;
     }
 
-    public Date getIssueDate() {
+    public LocalDateTime getIssueDate() {
         return issueDate;
     }
 
@@ -79,7 +85,7 @@ public class BorrowListView {
 
     }
 
-    public Date getBookReturnedDate() {
+    public LocalDateTime getBookReturnedDate() {
         return bookReturnedDate;
     }
 
@@ -91,7 +97,10 @@ public class BorrowListView {
         return dueDays;
     }
 
+    public String getpaymentStatus(){
+        return paymentStatus;
 
+    }
 
 
 }
