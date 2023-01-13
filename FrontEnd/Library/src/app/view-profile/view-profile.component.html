@@ -1,69 +1,27 @@
 <router-outlet></router-outlet>
-<p>
-    <br><input type="button" style = "position:absolute; left:1200px; top:20px;" class="btnhome" name="HomE" value="HomE" (click)="home()"><br><br>
-</p>    
+<!-- <app-user-sidenav></app-user-sidenav> -->
+<app-sidenav2></app-sidenav2>
+<div class="cards-container">
+  <div class="card card-one" style="margin-top: 5px;">
+    <h3>{{userdata[0].firstName}}&nbsp;{{userdata[0].lastName}}</h3>
+    <div class="desc">
+      ID :&nbsp;{{userdata[0].userId}}
+     
+    </div>
+    <div class="desc">
+     ADDRESS : {{userdata[0].address}}<br>
+   PHONE:   {{userdata[0].phone}}
 
-  
-  <div class="text-center"> 
-      <form>
-
-        <div class="card-box">
-          
-        
-            <div class="row">
-                      <div class="table-responsive"><BR>
-                        <h2 style="text-align:center ;">PROFILE</h2>
-
-
-                            <table align="center"  class="table-bordered" id="datatable" role="grid" >
-                             
-                              <!-- <thead class="bg-primary text-white">
-                                  <tr role="row">
-                                   
-                                     <th>User Id</th> -->
-                                    <!-- <th>First Name</th>
-                                    <th>Last Name</th>
-                                    <th>Address</th>
-                                    <th>Phone</th>
-                                    <th>Email</th>
-                                     <th>Password</th> -->
-                                    <!-- <th>Status</th> -->
-                                    <!-- <th>role</th> -->
-                                    <!-- <th>DOB</th>
-                                    <th>CreateDate</th>
-                                    <th>UpdateDate</th>
-                                    </tr>
-                              </thead> --> 
-
-                              <!-- <tbody>
-        <tr *ngFor="let user of  userdata">
-    
-         <td>{{user.userId}}</td> -->
-        <!-- <td>{{user.firstName}}</td>
-        <td>{{user.lastName}}</td>
-        <td>{{user.address}}</td>
-        <td>{{user.phone}}</td>
-        <td>{{user.email}}</td> -->
-        <!-- <td>{{user.password}}</td> -->
-        <!-- <td>{{user.status}}</td> -->
-        <!-- <td>{{user.role}}</td> -->
-        <!-- <td>{{user.dob}}</td>
-        <td>{{user.createDate| date:'dd/MM/yyyy'}}</td>
-        <td>{{user.updateDate| date:'dd/MM/yyyy'}}</td>
-                              </tbody> --> 
-
-<tr><td>NAME </td><td>{{userdata[0].firstName}} {{userdata[0].lastName}}</td></tr>
-<tr><td>ADDRESS </td><td>{{userdata[0].address}}</td></tr>
-<tr><td>PHONE </td><td>{{userdata[0].phone}}</td></tr>
-<tr><td>EMAIL </td><td>{{userdata[0].email}}</td></tr>
-<tr><td>CREATED DATE </td><td>{{userdata[0].createDate| date:'dd/MM/yyyy'}}</td></tr>
-<tr><td>UPDATE DATE </td><td>{{userdata[0].updateDate| date:'dd/MM/yyyy'}}</td></tr>
-
-
-
-
-                          </table>
-                        
-                      </div>
-                  </div>
-                </div>
+    </div>
+    <!-- <div class="desc">
+      {{userdata[0].phone}}
+    </div>  -->
+    <div class="desc">
+      {{userdata[0].email}}<br>
+     DOB : {{userdata[0].dob| date:'dd/MM/yyyy'}}
+    </div> 
+    <div class="desc">
+     CREATED DATE : {{userdata[0].createDate| date:'dd/MM/yyyy'}}<br><br>
+     UPDATE DATE :{{userdata[0].updateDate| date:'dd/MM/yyyy'}}
+    </div>
+   

@@ -38,8 +38,6 @@ public interface BooksService {
 
     List<Object[]> getBookCountByCategory();
 
-    Page<Books>getAllBookStocks(String keyword, Integer pageNo,Integer pageSize,String sortBy);
-
     }
     
 

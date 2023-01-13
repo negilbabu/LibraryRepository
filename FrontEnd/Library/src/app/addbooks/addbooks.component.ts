@@ -192,6 +192,8 @@ onTableDataChange(event:any) {
 selectFile($event:any) {
   this.selectedFiles=$event.target.files;
    }
+
+   
    
    upload(): void {
  

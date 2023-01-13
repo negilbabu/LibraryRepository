@@ -78,3 +78,12 @@ th {
     color: rgb(255, 255, 255);
     border-radius: 3px;
 }
+mat-grid-tile {
+    background: white;
+    color: rgb(39, 54, 104);
+  
+  }
+  button{
+    color: white;
+    background-color: black;
+  }

@@ -64,12 +64,12 @@ public interface BorrowService {
 
     Integer BorrowBlock();
 
+    Page<Borrow>getAllBorrByStat(Integer pageNo, Integer pageSize, String sortBy,Integer direction,Integer status);
+  
+    BorrowDetailView updatePaymentStatus(Integer borrowId, BorrowForm form);
+
+
     // public  RentCharView getChart();
-
-    List<Borrow>listcsv();
-
-    Page<Borrow>getAllBorrowedUserSearch(String keyword, Integer pageNo,Integer pageSize);
-
     
 
 }

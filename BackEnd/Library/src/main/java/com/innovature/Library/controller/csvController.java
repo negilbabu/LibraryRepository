@@ -60,8 +60,6 @@ public class csvController {
     message = "Please upload a csv file!";
     return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ResponseMessage(message,""));
   }
-
-
     
   
 }

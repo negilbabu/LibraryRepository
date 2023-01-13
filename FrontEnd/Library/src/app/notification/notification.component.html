@@ -1,120 +1,13 @@
 <router-outlet></router-outlet>
-<p>
-    <br><input type="button" style = "position:absolute; left:1200px; top:20px;" class="btnhome" name="HomE" value="HomE" (click)="home()"><br><br>
-</p>    
-<!-- notification -->
+<app-sidenav2></app-sidenav2>
 <!DOCTYPE html>
-<html>
-<head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<style>
-.alert {
-  padding: 20px;
-  background-color: #f44336;
-  color: white;
-}
-
-.closebtn {
-  margin-left: 15px;
-  color: white;
-  font-weight: bold;
-  float: right;
-  font-size: 22px;
-  line-height: 20px;
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-.closebtn:hover {
-  color: black;
-}
-</style>
-</head>
-<body>
-
-
-
-<div class="alert">
-  <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
-  <strong>Warning!</strong>Please Return the book on or before due date
-</div>
-
-</body>
-</html>
-
-  <!-- noti -->
-  <div class="text-center"> 
-      <form>
-
-        <div class="card-box">
-          
-        
-            <div class="row">
-                      <div class="table-responsive">
-                        <!-- <h1 style="text-align:center ;"><u>Please Return the book on or before due date</u></h1> -->
-
-
-                            <table align="center" class="table-bordered" id="datatable" role="grid" >
-                             
-                              <thead class="bg-primary text-white">
-                                  <tr role="row">
-                                   
-                                   
-                                    <th>Book Name</th>                                
-                                    <th>Issued Date</th>
-                                    <!-- <th>Return Date</th>                                   -->
-                                    <th>Due date</th>
-                                    <th>Status</th>
-                                    <th>DueDays</th>
-                                    <th>Fine(INR)</th>
-                                   
-                                    <th>Note</th>
-                                    <!-- <th>Status</th> -->
-                                    <!-- <th>Reason</th> -->
-                                   
-                                    </tr>
-                              </thead>
-                              <tbody>
-        <tr *ngFor="let borrow of  borrowdata">
-
-       
-            <td>{{borrow.books.booksName}}</td>            
-            <td>{{borrow.issueDate| date:'dd/MM/yyyy'}}</td>                 
-            <!-- <td>{{borrow.returnDate| date:'dd/MM/yyyy'}}</td> -->
-            <td>{{borrow.dueDate| date:'dd/MM/yyyy'}}</td>
-            <td>{{borrow.status}}</td>
-            <td>{{borrow.dueDays}}</td>
-            <td>{{borrow.fine}}</td>
-            <td>Book due date is Tommorrow</td></tr>
-
-
-            <tr *ngFor="let return of  returnData">
-
-              <td>{{return.books.booksName}}</td>            
-              <td>{{return.issueDate| date:'dd/MM/yyyy'}}</td>                 
-              <!-- <td>{{return.returnDate| date:'dd/MM/yyyy'}}</td> -->
-              <td>{{return.dueDate| date:'dd/MM/yyyy'}}</td>
-              <td>{{return.status}}</td>
-              <td>{{return.dueDays}}</td>
-              <td>{{return.fine}}</td>
-              <td>Book due date is today <br> Return book today itself to avoid fine</td></tr>
-
-
-        <tr *ngFor="let due of  duedata">
-
-          <td>{{due.books.booksName}}</td>            
-          <td>{{due.issueDate| date:'dd/MM/yyyy'}}</td>                 
-          <!-- <td>{{due.returnDate| date:'dd/MM/yyyy'}}</td> -->
-          <td>{{due.dueDate| date:'dd/MM/yyyy'}}</td>
-          <td>{{due.status}}</td>
-          <td>{{due.dueDays}}</td>
-          <td>{{due.fine}}</td>
-          <td>Book due date has Expired <br> Return book ASAP</td></tr>
-
-                   
-                              </tbody>
-                          </table>
-                        
-                      </div>
-                  </div>
-                </div>
+    <mat-grid-list [cols]="2" *ngFor="let due of  duedata"rowHeight="5:1" style="width: 1200px;  margin-left: 70px;margin-top: 50px;">
+      <mat-grid-tile><img src="../../assets/BooksImage/item_pics/{{due.books.image}} " width="110px" height="120px" > <br><br>
+       Issue date : {{due.issueDate| date:'dd/MM/yyyy'}}<br>
+       Due date : {{due.dueDate| date:'dd/MM/yyyy'}}<br>
+       Status : {{due.status}}<br>
+       Due days : {{due.dueDays}}<br>
+       Fine : {{due.fine}}<br>
+       <button (click)="pay(due.fine,due.books.booksName)">pay</button>
+       </mat-grid-tile>
+    </mat-grid-list>

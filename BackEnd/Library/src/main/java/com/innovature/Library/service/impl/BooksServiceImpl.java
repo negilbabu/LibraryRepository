@@ -145,20 +145,6 @@ public class BooksServiceImpl implements BooksService{
         return booksRepository.findCountByCategoryId();
     }
 
-    //book search
-
-    @Override
-    public Page<Books> getAllBookStocks(String keyword, Integer pageNo, Integer pageSize, String sortBy) {
-        Pageable paging = PageRequest.of(pageNo, pageSize, Sort.by(sortBy));
-        System.out.println(keyword);
-        String k = keyword;
-        String k1 = keyword;
-        String k2 = keyword;
-        Page<Books> pagedResult = booksRepository.findByKeywords(keyword, k, k1, k2, paging);
-         return pagedResult;
-  
-    }
-
 
 }
 
