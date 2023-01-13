@@ -8,8 +8,9 @@
 
 
 <form [formGroup]="search" style="display: inline-flex;padding: 0px;" class="col-md-4">
-  <input type="text" style="position: relative; left:1030px; top:-75px;" class="form-control" formControlName="inp" placeholder="Enter Book Name to Search"
+  <input type="text" style="position: relative; left:1030px; top:-75px;" class="form-control" formControlName="inp" placeholder="Enter Book Name to Search "
       aria-label="Recipient's username" aria-describedby="basic-addon2" (ngModelChange)="search1(this.search.controls['inp'].value)" >
+      <button mat-icon-button  style="position: relative; left:1030px; top:-75px;"> <i class="material-icons" style="color:rgb(0, 0, 0)" >search</i></button> 
   <!-- <div class="input-group-append">
       <button class="input-group-text button_" id="basic-addon2" (click)="search1(this.search.controls['inp'].value)">search</button>
   </div> -->
