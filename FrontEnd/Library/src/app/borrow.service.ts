@@ -3,12 +3,20 @@ import { Injectable } from '@angular/core';
 import { catchError, Observable } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
+function _window() : any {
+  // return the global native browser window object
+  return window;
+}
 
 @Injectable({
   providedIn: 'root'
 })
 export class BorrowService {
-
+ 
+  get nativeWindow() : any {
+    return _window();
+  }
+  
 
   
 
@@ -26,6 +34,9 @@ handleError(err: HttpErrorResponse): any {
     localStorage.clear()
     this.router.navigateByUrl(`/login`);    }    
 }
+
+
+
 
   //////////////////////////////////////////////
   export(): Observable<Blob> {
@@ -58,11 +69,28 @@ handleError(err: HttpErrorResponse): any {
     console.log(date1,' to ',date2)
     return this.http.get(this.apiurl + "/borrow/admin/"+date1+"/"+date2+"/?pageNo="+page+"&pageSize="+tableSize+"&sortBy="+sort+"&direction="+direction).pipe((catchError(err => this.handleError(err))))
   }
+    // user filer
+    filterBorrowPagination2(date1:any,date2:any,page:any,tableSize:any,sort:any){
+      console.log(date1)
+      return this.http.get(this.apiurl + "/borrow/user/"+date1+"/"+date2+"?pageNo="+page+"&pageSize="+tableSize+"&sortBy="+sort)
+    }
+
+    //////////////
+    statusfilterBor(page:any,tableSize:any,sort:any,direction:any,status:any):Observable<any>{
+      return this.http.get("http://localhost:8080/borrow/user/statusFilter/?pageNo="+page+"&pageSize="+tableSize+"&sortBy="+sort+"&direction="+direction+"&status="+status)
+      // return this.http.get(this.apiurl + "/borrow/user/statusFilter?pageNo="+page+"&pageSize="+tableSize+"&sortBy="+sort+"&direction="+direction+"&status="+status)
+    }
+  
   // return this.http.get(this.apiurl + `/users/fetching/${type}/${date1}/${date2}`, httpOptions)
   LoadByIssueDate(date1:any,date2:any){
     return this.http.get(this.apiurl + "/borrow/loadByIssueDate/"+date1+"/"+date2).pipe((catchError(err => this.handleError(err))));
   }
+  //user
+  LoadByIssueDateUser(date1:any,date2:any){
+    return this.http.get(this.apiurl + "/borrow/user/loadByIssueDateUser/"+date1+"/"+date2);
+  }
   
+
   Load(){
     return this.http.get('http://localhost:8080/borrow').pipe((catchError(err => this.handleError(err))));
   }
@@ -82,8 +110,9 @@ handleError(err: HttpErrorResponse): any {
   LoadFine(){
     return this.http.get('http://localhost:8080/borrow/admin/fine').pipe((catchError(err => this.handleError(err))));
   }
+  //user
   LoadDueByUser(){
-    return this.http.get('http://localhost:8080/borrow/dueByUser').pipe((catchError(err => this.handleError(err))));
+    return this.http.get('http://localhost:8080/borrow/user/dueByUser').pipe((catchError(err => this.handleError(err))));
   }
 
 
@@ -106,6 +135,36 @@ handleError(err: HttpErrorResponse): any {
   getBorrowID(borrowId:any){
     return this.http.get('http://localhost:8080/borrow'+borrowId);
   }
+
+
+  payment(id: any) {
+    return this.http.put(this.apiurl + "/borrow/user/paymentStatus/" + id,{headers:Headers});
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   
   delete(booksId:any):Observable<any>{
     let tocken=localStorage.getItem('accesstoken')

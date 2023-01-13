@@ -66,6 +66,8 @@ public interface BorrowService {
 
     Page<Borrow>getAllBorrByStat(Integer pageNo, Integer pageSize, String sortBy,Integer direction,Integer status);
   
+    BorrowDetailView updatePaymentStatus(Integer borrowId, BorrowForm form);
+
 
     // public  RentCharView getChart();
     

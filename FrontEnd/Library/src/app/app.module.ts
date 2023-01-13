@@ -32,6 +32,7 @@ import { NotificationComponent } from './notification/notification.component';
 import { BookreturnComponent } from './bookreturn/bookreturn.component';
 import { ViewAdminprofileComponent } from './view-adminprofile/view-adminprofile.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatGridListModule } from '@angular/material/grid-list';
 
 // import { MatIconModule, MatToolbarModule, MatTooltipModule } from '@angular/material';
 import { MatListModule } from '@angular/material/list';
@@ -53,6 +54,8 @@ import { MatOptionModule } from '@angular/material/core';
 import { BorrowDetailViewComponent } from './borrow-detail-view/borrow-detail-view.component';
 import { ForgotpasswordComponent } from './forgotpassword/forgotpassword.component';
 import {Chart} from 'chart.js';
+import { Sidenav2Component } from './sidenav2/sidenav2.component';
+import { Navbar2Component } from './navbar2/navbar2.component';
 
 //  import {MatIconModule} from '@angular/material/icon';
 // import { MatToolbarModule } from '@angular/material';
@@ -90,6 +93,8 @@ import {Chart} from 'chart.js';
     AddbooksComponent,
     BorrowDetailViewComponent,
     ForgotpasswordComponent,
+    Sidenav2Component,
+    Navbar2Component,
     // Chart
     
   //  ModalComponent
@@ -114,6 +119,7 @@ import {Chart} from 'chart.js';
     MatDialogModule,
     MatInputModule,
     MatListModule,
+    MatGridListModule
     
     // Chart
     

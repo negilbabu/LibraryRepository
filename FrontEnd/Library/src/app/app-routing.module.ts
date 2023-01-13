@@ -28,6 +28,8 @@ import { DemoComponent } from './demo/demo.component';
 import { AddbooksComponent } from './addbooks/addbooks.component';
 import { BorrowDetailViewComponent } from './borrow-detail-view/borrow-detail-view.component';
 import { ForgotpasswordComponent } from './forgotpassword/forgotpassword.component';
+import { Sidenav2Component } from './sidenav2/sidenav2.component';
+import { Navbar2Component } from './navbar2/navbar2.component';
 
 const routes: Routes = [
   {path: '',redirectTo:'login',pathMatch:'full'},
@@ -57,6 +59,8 @@ const routes: Routes = [
   {path:'addbooks',component:AddbooksComponent,canActivate: [HomeguardGuard]},
   {path:'borrow-detail-view',component:BorrowDetailViewComponent},
   {path:'forgotpassword',component:ForgotpasswordComponent},
+  {path:'sidenav2',component:Sidenav2Component,canActivate: [HomeguardGuard]},
+  {path:'navbar2',component:Navbar2Component,canActivate: [HomeguardGuard]}
 ];
 
 @NgModule({

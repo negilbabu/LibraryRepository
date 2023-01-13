@@ -279,6 +279,16 @@ public ResponseEntity<List<Borrow>> loadByIssueDateUser(
         return test;
     }
 
+    @PutMapping("user/paymentStatus/{borrowId}")
+    public BorrowDetailView updatePaymentStatus(
+            @PathVariable("borrowId") Integer borrowId,
+            @Valid @RequestBody BorrowForm form
+    ) {
+        return bService.updatePaymentStatus(borrowId, form);
+    }
+
+
+
 
 
 }

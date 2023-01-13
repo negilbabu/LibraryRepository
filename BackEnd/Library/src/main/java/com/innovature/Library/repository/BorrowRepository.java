@@ -58,7 +58,7 @@ public interface BorrowRepository extends PagingAndSortingRepository<Borrow, Int
 
     
     //To select user by due date expired
-    @Query(value = "select * from borrow where borrow_id in(select borrow_id  from borrow where due_date<curdate() and status='APPROVED' and user_id=?1 )", nativeQuery = true)
+    @Query(value = "select * from borrow where borrow_id in(select borrow_id  from borrow where due_date<curdate() and status='APPROVED' and payment_status!='PAID' and user_id=?1 )", nativeQuery = true)
     Collection<Borrow> findbyUserIdandStatus(Integer userId);
 
 
