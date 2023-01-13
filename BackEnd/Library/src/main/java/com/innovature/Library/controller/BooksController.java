@@ -157,20 +157,5 @@ public class BooksController {
 
     }
 
-    //book search
-
-    @GetMapping("/admin/searchBooks")
-    public ResponseEntity<Page<Books>> getAllBookStockSearch(
-            @RequestParam(defaultValue = "") String keyword,
-            @RequestParam(defaultValue = "1") Integer pageNo,
-            @RequestParam(defaultValue = "10") Integer pageSize,
-            @RequestParam(defaultValue = "id") String sortBy) {
-        System.out.println("paage size" + pageSize);
-        Page<Books> list = service.getAllBookStocks(keyword, pageNo - 1, pageSize, sortBy);
-        return new ResponseEntity<Page<Books>>(list, new HttpHeaders(),
-                HttpStatus.OK);
-
-    }
-
     
 }

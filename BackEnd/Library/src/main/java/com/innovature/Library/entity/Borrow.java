@@ -51,6 +51,7 @@ public class Borrow {
     private User user;
 
     private String status;
+    private String paymentStatus;
     private String reason;
     public Long fine;
     public Long dueDays;
@@ -74,6 +75,7 @@ public class Borrow {
         this.books = books;
         this.user = user2;
         this.status = getStatus();
+        this.paymentStatus=getPaymentStatus();
         this.reason = form.getReason();
         
         LocalDateTime dt =LocalDateTime.now();
@@ -90,6 +92,7 @@ public class Borrow {
         this.books = book;
         this.user = user;
         this.status = "REQUESTED";
+        this.paymentStatus="UNBILLED";
         this.dueDays=(long) 0;
         this.fine=(long) 0;
     }
@@ -181,11 +184,12 @@ public class Borrow {
         this.fine = fine;
     }
 
-    public String getFirstName(){
-        return user.getFirstName();
+    public String getPaymentStatus() {
+        return paymentStatus;
     }
 
-    public String getBooksName(){
-        return books.getBooksName();
+    public void setPaymentStatus(String paymentStatus) {
+        this.paymentStatus = paymentStatus;
     }
+
 }

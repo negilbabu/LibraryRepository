@@ -450,12 +450,11 @@ public rentChartView getChart(){
 
 
             for(Borrow a:s){
-                // if(a.getStatus().equals("APPROVED" ))
-                if(a.getIssueDate()!=null)
+                if(a.getStatus().equals("APPROVED"))
                 {
 
                 LocalDateTime b = a.getIssueDate();
-                //  System.out.println("-----in issue----------------------"+b);
+                 System.out.println("---------------------------"+b);
                 // System.out.println("........>>>>>>>>>>>>>>>>....."+ b.getDayOfWeek().getValue());
                
                 hm.put(b.getDayOfWeek().getValue(), new Result(hm.get(b.getDayOfWeek().getValue()).getIssueCount() + 1,
@@ -468,13 +467,13 @@ public rentChartView getChart(){
                 {
 
                     c = a.getBookReturnedDate();
-                // System.out.println("cccccccccccccccccccccccccccccccccccccccccc="+c);
+                System.out.println("cccccccccccccccccccccccccccccccccccccccccc="+c);
 
 
                 hm.put(c.getDayOfWeek().getValue(), new Result(hm.get(c.getDayOfWeek().getValue()).getIssueCount() ,
                 hm.get(c.getDayOfWeek().getValue()).getReturnedCount() +1));
             
-                // System.out.println(hm.get(c.getDayOfWeek().getValue()).getReturnedCount());   
+                System.out.println(hm.get(c.getDayOfWeek().getValue()).getReturnedCount());   
             }                   
             }
             for (Map.Entry<Integer, Result > mapElement : hm.entrySet()) {
@@ -512,23 +511,72 @@ public class Result {
     }
 }
 
+
 @Override
-public List<Borrow> listcsv() {
-    return borrowRepository.findAllC();
-}
+@Transactional
+public Page<Borrow>getAllBorrByStat(Integer pageNo, Integer pageSize, String sortBy,Integer direction,Integer status){
+    
+    var sortByDescending=Sort.by(sortBy).descending();
+
+    var sortByAscending=Sort.by(sortBy).ascending();
+
+    if(direction==1 && status==1){
+
+        Pageable paging = PageRequest.of(pageNo, pageSize, sortByDescending);
+        Page<Borrow> pagedResult = borrowRepository.findByAppStatusUser(SecurityUtil.getCurrentUserId(),paging);
+        return pagedResult;    
+    }
+
+    else if(direction==1 && status==2)
+    {
+        Pageable paging = PageRequest.of(pageNo, pageSize, sortByAscending);
+        Page<Borrow> pagedResult = borrowRepository.findByRejStatusUser(SecurityUtil.getCurrentUserId(),paging);
+         return pagedResult; 
+    }
+    else if(direction==1 && status==3)
+    {
+        Pageable paging = PageRequest.of(pageNo, pageSize, sortByAscending);
+        Page<Borrow> pagedResult = borrowRepository.findByRetStatusUser(SecurityUtil.getCurrentUserId(),paging);
+         return pagedResult; 
+    }
+    else if(direction==1 && status==4)
+    {
+        Pageable paging = PageRequest.of(pageNo, pageSize, sortByAscending);
+        Page<Borrow> pagedResult = borrowRepository.findByReqStatusUser(SecurityUtil.getCurrentUserId(),paging);
+         return pagedResult; 
+    }
+
+    else if(direction==-1 && status==1)
+    {
+        Pageable paging = PageRequest.of(pageNo, pageSize, sortByAscending);
+        Page<Borrow> pagedResult = borrowRepository.findByAppStatusUser(SecurityUtil.getCurrentUserId(),paging);
+         return pagedResult; 
+    }
+
+    else if(direction==-1 && status==2)
+    {
+        Pageable paging = PageRequest.of(pageNo, pageSize, sortByAscending);
+        Page<Borrow> pagedResult = borrowRepository.findByRejStatusUser(SecurityUtil.getCurrentUserId(),paging);
+         return pagedResult; 
+    }
+    else if(direction==-1 && status==3)
+    {
+        Pageable paging = PageRequest.of(pageNo, pageSize, sortByAscending);
+        Page<Borrow> pagedResult = borrowRepository.findByRetStatusUser(SecurityUtil.getCurrentUserId(),paging);
+         return pagedResult; 
+    }
+    else if(direction==-1 && status==4)
+    {
+        Pageable paging = PageRequest.of(pageNo, pageSize, sortByAscending);
+        Page<Borrow> pagedResult = borrowRepository.findByReqStatusUser(SecurityUtil.getCurrentUserId(),paging);
+         return pagedResult; 
+    }
+    else {
+     return null;
+    }
+    }
 
     
-@Override
-public Page<Borrow> getAllBorrowedUserSearch(String keyword, Integer pageNo, Integer pageSize) {
-    Pageable paging = PageRequest.of(pageNo, pageSize);
-    System.out.println(keyword);
-    String k = keyword;
-    String k1 = keyword;
-    String k2 = keyword;
-    Page<Borrow> pagedResult = borrowRepository.findByKeywords(keyword, k, k1, k2, paging);
-     return pagedResult;
-
-}
 
 
 

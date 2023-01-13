@@ -1,14 +1,10 @@
 package com.innovature.Library.controller;
 
- import java.io.IOException;
-import java.security.Principal;
+ import java.security.Principal;
 import java.util.Collection;
 import java.sql.Date;
-
-import java.text.SimpleDateFormat;
 import java.util.List;
 
-import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,23 +12,14 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-//import org.springframework.beans.factory.annotation.Autowired;
-// import org.springframework.web.bind.annotation.DeleteMapping;
- import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.GetMapping;
  import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
-// import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-
-import org.supercsv.io.CsvBeanWriter;
-import org.supercsv.io.ICsvBeanWriter;
-import org.supercsv.prefs.CsvPreference;
-
 
 import com.innovature.Library.entity.Borrow;
 import com.innovature.Library.form.BorrowForm;
@@ -40,7 +27,6 @@ import com.innovature.Library.service.BorrowService;
 import com.innovature.Library.service.impl.BorrowServiceImpl;
 import com.innovature.Library.view.BorrowDetailView;
 import com.innovature.Library.view.rentChartView;
-//import com.innovature.Library.view.BorrowListView;
 import com.innovature.Library.view.BorrowListView;
 
 
@@ -59,6 +45,20 @@ public class BorrowController {
     @GetMapping
     public Collection<Borrow> list() {
         return bService.listAll();
+    }
+
+    @GetMapping("/user/statusFilter/")
+    public ResponseEntity<Page<Borrow>>getAllBorrByStat(
+                        @RequestParam(defaultValue = "1") Integer pageNo,
+                        @RequestParam(defaultValue = "5") Integer pageSize,
+                        @RequestParam(defaultValue = "borrowId") String sortBy,
+                        @RequestParam(defaultValue = "1") Integer direction,
+                        @RequestParam(defaultValue = "1") Integer status)
+    {
+        Page<Borrow> list = bService.getAllBorrByStat(pageNo-1, pageSize, sortBy,direction,status);
+        return new ResponseEntity<Page<Borrow>>(list,new HttpHeaders(),
+        HttpStatus.OK);
+    
     }
 
 
@@ -279,44 +279,6 @@ public ResponseEntity<List<Borrow>> loadByIssueDateUser(
         return test;
     }
 
-
-    @GetMapping("admin/export")
-    public void Exportcsv(HttpServletResponse httpServletResponse) throws IOException {
-        httpServletResponse.setContentType("text/csv");
-        java.text.DateFormat datefFormat = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss");
-        String currentDateTime = datefFormat.format(new java.util.Date());
-        String headerKey = "Content-Disposition";
-        String headerValue = "attachment; filename=users_" + currentDateTime + ".csv";
-        httpServletResponse.setHeader(headerKey, headerValue);
-        List<Borrow> rents = bService.listcsv();
-
-        ICsvBeanWriter csvWriter = new CsvBeanWriter(httpServletResponse.getWriter(),
-                CsvPreference.STANDARD_PREFERENCE);
-        String[] csvHeader = { "borrow_id","first_name","books_name", "issue_date", "return_date","due_date","book_returned_date","reason","due_days","fine","status"};
-        String[] nameMapping = { "borrowId","firstName","booksName",  "issueDate", "returnDate", "dueDate","bookReturnedDate","reason","dueDays","fine","status" };
-        csvWriter.writeHeader(csvHeader);
-        for (Borrow rent : rents) {
-            //  System.out.println("         :"+rent.getStatus());
-            csvWriter.write(rent, nameMapping);
-        }
-        csvWriter.flush();
-        csvWriter.close();
-    }
-
-
-    @GetMapping("/admin/searchUser")
-    public ResponseEntity<Page<Borrow>> getAllBorrowedUserSearch(
-            @RequestParam(defaultValue = "") String keyword,
-            @RequestParam(defaultValue = "1") Integer pageNo,
-            @RequestParam(defaultValue = "10") Integer pageSize)
-            // @RequestParam(defaultValue = "user_id") String sortBy)
-             {
-        System.out.println("paage size" + pageSize);
-        Page<Borrow> list = bService.getAllBorrowedUserSearch(keyword, pageNo - 1, pageSize);
-        return new ResponseEntity<Page<Borrow>>(list, new HttpHeaders(),
-                HttpStatus.OK);
-
-    }
 
 
 }
