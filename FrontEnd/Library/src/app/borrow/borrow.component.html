@@ -70,8 +70,8 @@ END DATE&nbsp;&nbsp; <input type="date" formControlName="date2" value="date2" ma
           <td>{{post.books.booksName}}</td>
           <td>{{post.issueDate| date:'dd/MM/yyyy'}}</td>                 
           <td>{{post.dueDate| date:'dd/MM/yyyy'}}</td>
-          <td>{{post.fine}}</td>
-          <td>{{post.status}}</td>
+          <td>{{post.fine }} ( {{post.paymentStatus}} )</td>
+          <td>{{post.status}} </td>
 
   <td>
     <button  mat-button (click)="acceptRequest(post)" color="primary" *ngIf="post.status=='REQUESTED' "   >Accept</button>

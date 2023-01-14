@@ -11,9 +11,7 @@
   <input type="text" style="position: relative; left:1030px; top:-75px;" class="form-control" formControlName="inp" placeholder="Enter Book Name to Search "
       aria-label="Recipient's username" aria-describedby="basic-addon2" (ngModelChange)="search1(this.search.controls['inp'].value)" >
       <button mat-icon-button  style="position: relative; left:1030px; top:-75px;"> <i class="material-icons" style="color:rgb(0, 0, 0)" >search</i></button> 
-  <!-- <div class="input-group-append">
-      <button class="input-group-text button_" id="basic-addon2" (click)="search1(this.search.controls['inp'].value)">search</button>
-  </div> -->
+
 </form>
 
 
@@ -23,8 +21,7 @@
 <button mat-icon-button   [disabled]="!selectedFiles" > <i class="material-icons" style="color:rgb(142, 179, 137);"  (click)="upload() " >cloud_upload</i></button>      
 </div>
 
-<!-- <div class="card-box">         
-              <div class="row"> -->
+
                 <div class="table-responsive">                    
                       <table align="center" class=".table-hover"  >
                         <thead class="bg-primary text-white">
@@ -84,8 +81,8 @@
                     </table>
                 <!-- unfold_more -->
                   </div>
-                <!-- </div>
-              </div> -->
+      
+   
                           <!-- Pagenation Controler -->
                           <div class="d-flex justify-content-center">
                             <pagination-controls (pageChange)="onTableDataChange(page=$event)">
