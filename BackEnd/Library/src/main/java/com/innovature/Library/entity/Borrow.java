@@ -90,9 +90,10 @@ public class Borrow {
 
     public Borrow(Books book, User user) {
         this.books = book;
-        this.user = user;
+        this.user = user;      
         this.status = "REQUESTED";
         this.paymentStatus="UNBILLED";
+        this.reason = "NA";
         this.dueDays=(long) 0;
         this.fine=(long) 0;
     }
@@ -190,6 +191,14 @@ public class Borrow {
 
     public void setPaymentStatus(String paymentStatus) {
         this.paymentStatus = paymentStatus;
+    }
+
+    public String getFirstName(){
+        return user.getFirstName();
+    }
+
+    public String getBooksName(){
+        return books.getBooksName();
     }
 
 }
