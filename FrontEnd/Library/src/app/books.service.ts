@@ -26,9 +26,9 @@ handleError(err: HttpErrorResponse): any {
 
   //////////////////////////////////////////////
 
-  search(key: any, pageno: any, pagesize: any, sortby: any): Observable<any> {
+  search(key: any, pageno: any, pagesize: any, sortby: any,direction:any): Observable<any> {
     console.log('+++++++++++', key)
-    return this.http.get('http://localhost:8080/books/admin/searchBooks/?keyword=' + key + '&pageNo=' + pageno + '&pageSize=' + pagesize + '&sortBy=' + sortby)
+    return this.http.get('http://localhost:8080/books/admin/searchBooks/?keyword=' + key + '&pageNo=' + pageno + '&pageSize=' + pagesize + '&sortBy=' + sortby+"&direction="+direction)
   }
 
 

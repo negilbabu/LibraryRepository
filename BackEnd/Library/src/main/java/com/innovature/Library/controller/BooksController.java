@@ -163,9 +163,10 @@ public class BooksController {
             @RequestParam(defaultValue = "") String keyword,
             @RequestParam(defaultValue = "1") Integer pageNo,
             @RequestParam(defaultValue = "10") Integer pageSize,
-            @RequestParam(defaultValue = "id") String sortBy) {
+            @RequestParam(defaultValue = "books_id") String sortBy,
+            @RequestParam(defaultValue = "-1") Integer direction) {
         System.out.println("paage size" + pageSize);
-        Page<Books> list = service.getAllBookStocks(keyword, pageNo - 1, pageSize, sortBy);
+        Page<Books> list = service.getAllBookStocks(keyword, pageNo - 1, pageSize, sortBy,direction);
         return new ResponseEntity<Page<Books>>(list, new HttpHeaders(),
                 HttpStatus.OK);
 
