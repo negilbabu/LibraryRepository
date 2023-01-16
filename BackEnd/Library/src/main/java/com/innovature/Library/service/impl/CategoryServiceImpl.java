@@ -4,7 +4,10 @@ import java.util.Collection;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-// import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.innovature.Library.view.CategoryDetailView;
@@ -63,6 +66,28 @@ public class CategoryServiceImpl implements CategoryService{
         return new CategoryDetailView(categoryRepository.save(category));
     }
 
+
+    @Override
+    @Transactional
+    public Page<Category>getAllCategory(Integer pageNo, Integer pageSize, String sortBy,Integer direction){
+  
+        var sortByDescending=Sort.by(sortBy).descending();
+        var sortByAscending=Sort.by(sortBy).ascending();
+
+        if(direction==1){
+
+            Pageable paging = PageRequest.of(pageNo, pageSize, sortByDescending);
+            Page<Category> pagedResult = categoryRepository.findAll(paging);
+            return pagedResult;    
+        }
+
+        else 
+        {
+            Pageable paging = PageRequest.of(pageNo, pageSize, sortByAscending);
+            Page<Category> pagedResult = categoryRepository.findAll(paging);
+            return pagedResult; 
+        }
+    }
 
 
 

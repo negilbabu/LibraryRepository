@@ -6,6 +6,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
+import org.springframework.data.annotation.Transient;
+
+import javax.persistence.Column;
+
 import com.innovature.Library.form.BooksForm;
 
 @Entity
@@ -31,6 +35,8 @@ public class Books {
     private Integer booksCopies;
     @ManyToOne(optional = false, fetch = FetchType.EAGER) 
     private Category category;
+    @Column(nullable = true, length = 64)
+    private String image;
     
 
     public Books(){}
@@ -48,6 +54,16 @@ public class Books {
         this.category = category;   
         //this.categoryName = new Category(Category);
     }
+
+
+    @Transient
+    public String getPhotosImagePath() {
+        if (image == null || booksId == null)
+            return null;
+        return "/items - photos/" + booksId + image;
+    }
+
+
 
     public Integer getBooksId() {
         return booksId;
@@ -96,6 +112,19 @@ public class Books {
     public void setCategory(Category category) {
         this.category = category;
     }
+
+
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+    
+
+    
     
     public Books(int booksId, String booksName,String publication,String auther,String status,Integer booksCopies,Category category){
         this.booksId = booksId;

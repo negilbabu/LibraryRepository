@@ -1,20 +1,17 @@
 package com.innovature.Library.service;
 
+import java.io.IOException;
 import java.util.Collection;
+import java.util.List;
+
+import org.springframework.data.domain.Page;
+import org.springframework.http.HttpEntity;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.view.RedirectView;
 
 import com.innovature.Library.entity.Books;
-
-//import javax.validation.Valid;
-
-//import com.innovature.Library.entity.Books;
-//import com.innovature.Library.entity.Category;
-
-// import javax.validation.Valid;
-
 import com.innovature.Library.form.BooksForm;
 import com.innovature.Library.view.BooksDetailView;
-//import com.innovature.Library.view.BooksListView;
-//import com.innovature.Library.view.BooksListView;
 
 public interface BooksService {
 
@@ -33,9 +30,15 @@ public interface BooksService {
 
     BooksDetailView updates(Integer booksId,BooksForm form);
 
-  
+    HttpEntity<byte[]> getImagePic(Integer booksId);
 
+    RedirectView uploadImage(MultipartFile multipartFile) throws IOException;
 
+    Page<Books> getAllBooks(Integer pageNo, Integer pageSize, String sortBy,Integer direction);
+
+    List<Object[]> getBookCountByCategory();
+
+    Page<Books>getAllBookStocks(String keyword, Integer pageNo,Integer pageSize,String sortBy,Integer direction);
 
     }
     

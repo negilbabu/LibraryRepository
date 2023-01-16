@@ -1,0 +1,13 @@
+<router-outlet></router-outlet>
+<app-sidenav2></app-sidenav2>
+<!DOCTYPE html>
+    <mat-grid-list [cols]="2" *ngFor="let due of  duedata"rowHeight="5:1" style="width: 1200px;  margin-left: 70px;margin-top: 50px;">
+      <mat-grid-tile><img src="../../assets/BooksImage/item_pics/{{due.books.image}} " width="110px" height="120px" > <br><br>
+       Issue date : {{due.issueDate| date:'dd/MM/yyyy'}}<br>
+       Due date : {{due.dueDate| date:'dd/MM/yyyy'}}<br>
+       Status : {{due.status}}<br>
+       Due days : {{due.dueDays}}<br>
+       Fine : {{due.fine}}<br>
+       <button (click)="pay(due.fine,due.books.booksName)">pay</button>
+       </mat-grid-tile>
+    </mat-grid-list>

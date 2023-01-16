@@ -4,9 +4,17 @@ import java.util.Collection;
 
 import org.springframework.data.repository.Repository;
 
+import com.innovature.Library.entity.Email;
 
-public class EmailRepository {
 
+public interface EmailRepository extends Repository<Email,Integer> {
 
+    void deleteAll();
+
+    Email save(Email email);
+
+    Collection<Email>findAll();
+
+    Email findByEmail(String email);
 
 }

@@ -1,0 +1,65 @@
+<app-navbar2></app-navbar2>
+<router-outlet></router-outlet>
+
+<div class="area"></div>
+<nav class="main-menu" >
+    <ul>
+        <br><br><br>
+        <li>
+            <a href="sidenav2">
+                <i class="fa fa-home fa-2x" ></i>
+                <span class="nav-text">
+                    HOME
+                </span>
+            </a>
+        </li>
+        <li class="has-subnav">
+            <a href="findby-category">
+                <i class="fa fa-bars fa-2x"></i>
+                <span class="nav-text">
+                    CATEGORY
+                </span>
+            </a>
+        </li>
+      
+        <li>
+            <a href="borrowhistory">
+                <i class="fa fa-refresh fa-2x"></i>
+                <span class="nav-text">
+                    BORROW HISTORY
+                </span>
+            </a>
+        </li>
+        <li>
+            <a href="booksdisplay">
+                <i class="fa fa-book fa-2x"></i>
+                <span class="nav-text">
+                    VIEW BOOKS
+                </span>
+            </a>
+        </li>
+        <li>
+            <a href="notification">
+                <i class="fa fa-inr fa-2x"></i>
+                <span class="nav-text">
+                    PAYMENT
+                </span><br>
+            </a>
+        </li>
+
+      
+    </ul>
+
+    <ul class="logout">
+        <li>
+            <a href="#">
+                <!-- <button mat-icon-button> -->
+                <i class="fa fa-power-off fa-2x"></i>
+                <span class="nav-text" (click)="logout()">
+                    Logout
+                </span>
+
+            </a>
+        </li>
+    </ul>
+</nav>

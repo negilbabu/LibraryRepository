@@ -1,0 +1,51 @@
+<app-sidenav></app-sidenav>   
+  <!-- notification -->
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+.alert {
+  padding: 20px;
+  background-color: #58f842a8;;
+  color: white;
+}
+
+.closebtn {
+  margin-left: 15px;
+  color: white;
+  font-weight: bold;
+  float: right;
+  font-size: 22px;
+  line-height: 20px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.closebtn:hover {
+  color: black;
+}
+</style>
+</head>
+<body>
+
+
+
+<div class="alert">
+  <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+  <strong>Note!</strong>Please Select a book cover to upload
+</div>
+
+
+    <br><br>
+    <tr>
+        <td><input type="file" style="position:absolute; left:450px; top:150px;" (change)="selectFile($event)">
+   
+        
+            
+            <!-- <button [disabled]="!selectedFiles" (click)="upload() " style="position:absolute; left:750px; top:150px;">Upload</button> -->
+    
+            <button mat-icon-button > <i class="material-icons" style="color:rgb(142, 179, 137);position:absolute; left:750px; top:-20px;" (click)="upload() " >cloud_upload</i></button></td>
+        
+    </tr>
+</body>

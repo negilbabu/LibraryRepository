@@ -1,0 +1,40 @@
+
+
+/* 
+.table-bordered{
+    border: 1px solid;
+}
+th {
+    background-color: #232524;
+    color: white;
+    width: 5%;
+    text-align: center;
+    padding: 12px;
+  }
+  td {
+    background-color: #a7bdb08f;
+    color: rgb(0, 0, 0);
+    width: 5%;
+    text-align: center;
+    margin-top: auto;
+    padding: 8px;
+  }
+ */
+
+
+ table{
+    width: 100%;
+    border: none;
+    text-align: center;
+    
+  }
+  th {
+    background-color: #ffffff;
+    color: rgb(0, 0, 0);
+    text-align: center;
+   
+  }
+  td {
+ 
+    padding-top: 16px;padding-bottom: 16px;
+  } 

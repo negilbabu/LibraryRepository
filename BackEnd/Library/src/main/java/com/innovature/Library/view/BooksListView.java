@@ -11,7 +11,7 @@ public class BooksListView {
     private final String auther;
     // private final String status;
     private final Integer booksCopies;
-    //private final String image;
+    private String image;
 
     public BooksListView(int booksId, String booksName,Category category,String publication,String auther,Integer booksCopies) 
     {
@@ -22,6 +22,7 @@ public class BooksListView {
         this.publication = publication;
         this.auther = auther;
         // this.status = status;
+        this.image=image;
         this.booksCopies = booksCopies;
     }
     // public BooksListView(int booksId, String booksName,Integer categoryId,String categoryName,String publication,String auther,String booksCopies) 
@@ -67,7 +68,9 @@ public class BooksListView {
     }
 
   
-    
+    public String getImage() {
+        return image;
+    }
 
 
     

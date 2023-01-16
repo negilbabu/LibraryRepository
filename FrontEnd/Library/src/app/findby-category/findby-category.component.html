@@ -1,0 +1,60 @@
+<app-sidenav2></app-sidenav2>
+<router-outlet></router-outlet>
+<div class="text-center">
+  <form [formGroup]="ObjSampleForm">
+    <div style="width: 200px; margin-left: 70px; left:520px; top:180px;" class="example-container">
+      <table>
+        <br>
+        <label for="categoryId">Select Category </label>
+        <select [(ngModel)]="selectedGroup" class="dropbtn" type="input" formControlName="categoryId" name="select"
+          placeholder="Select Category" (ngModelChange)="disp()">
+          <option *ngFor="let category of catdata" value={{category.categoryId}}>
+            {{category.categoryName}}
+          </option>
+        </select>
+      </table>
+    </div>
+  </form>
+</div>
+<br>
+<div class="text-center">
+  <form>
+    <div class="card-box">
+      <div *ngIf="booksdata==null"> NO BOOKS FOUND!!! </div>
+      <!-- new table starts -->
+      <table class="table table-striped w-auto" style="margin-left: 100px; position: relative;">
+
+        <!--Table head-->
+        <thead>
+          <tr role="row">
+            <th>Book Name</th>
+            <th>Category-Name</th>
+            <th>Publication</th>
+            <th>Auther</th>
+            <th>Book Copies</th>
+            <th>Book Cover</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <!--Table head-->
+      
+        <!--Table body-->
+        <tbody>
+          
+          <tr *ngFor="let books of  booksdata">
+          <td>{{books.booksName}}</td>
+          <td>{{books.category.categoryName}}</td>
+          <td>{{books.publication}}</td>
+          <td>{{books.auther}}</td>
+          <td>{{books.booksCopies}}</td>
+          <td align="right"><img src="../../assets/BooksImage/item_pics/{{books.image}}" width="70" height="100">
+          </td>
+      
+          <td>
+      
+            <button type="button" class="btnn2" (click)="requestBook(books)">Request</button>
+        </tbody>
+        <!--Table body-->
+      
+      
+      </table>

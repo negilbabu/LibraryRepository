@@ -6,26 +6,46 @@
 //package com.innovaturelabs.training.contacts.security;
 package com.innovature.Library.security;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 
 public class AccessTokenUserDetails implements UserDetails {
 
     private static final List<GrantedAuthority> ROLES = AuthorityUtils.createAuthorityList("ROLE_USER");
-
+    // AuthorityUtils.createAuthorityList("ROLE_ADMIN");
+    
     public final int userId;
+    public String userRole;
 
-    public AccessTokenUserDetails(int userId) {
+    public AccessTokenUserDetails(int userId,int role) {
         this.userId = userId;
+      switch(role){
+        case 1:
+        userRole="ADMIN";
+        break;
+
+        case 2:
+        userRole="USER";
+        break;
+
+        default:
+        break;
+      }
+
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return ROLES;
+        String ROLE_PREFIX = "ROLE_";
+        List<GrantedAuthority> ROLES = new ArrayList<>();
+        ROLES.add(new SimpleGrantedAuthority(ROLE_PREFIX + userRole));
+        return ROLES;    
     }
 
     @Override

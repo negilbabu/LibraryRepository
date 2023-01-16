@@ -8,6 +8,9 @@ package com.innovature.Library.repository;
 import java.util.Collection;
 import java.util.Optional;
 import org.springframework.data.repository.Repository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.Query;
 
 import com.innovature.Library.entity.User;
 
@@ -29,7 +32,12 @@ public interface UserRepository extends Repository<User, Integer> {
     Collection<User> findAll();
 
     Collection<User> findByUserId(Integer userId);
-    
+
+    public Page<User> findAll(Pageable paging);
+
+
+    @Query(value = "SELECT * FROM user WHERE email=?",nativeQuery = true)
+    User findByEmailId(String email);
 
   //  User findById(User userId);
 }

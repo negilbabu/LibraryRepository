@@ -1,0 +1,89 @@
+p{
+    padding: 0px 0px 30px 1000px;
+    margin: 0px;
+    background-color: rgb(0, 0, 0);
+    background-image: url('../../../a.png');
+    
+}
+
+.btnhome{
+    margin-top: 20px;
+    margin-bottom: 10px;
+    padding: 7;
+    border-color: rgb(124, 241, 134);
+    background-color: rgba(83, 254, 3, 0.853);
+    font-size: 13px;
+    border-radius: 25px;
+   
+}
+
+.text-danger1{
+
+    width: 160%;
+    padding: 8px 6px;
+    margin: 0px;
+    box-sizing: border-box;
+    border: 1px ;
+    background-color: #a7bdb08f;
+    color: rgb(0, 0, 0);
+    border-radius: 7px;
+  
+}
+
+.dropbtn{
+    width: 160%;
+    padding: 8px 6px;
+    margin: 0px;
+    box-sizing: border-box;
+    border: 1px ;
+    background-color: #a7bdb08f;
+    color: rgb(0, 0, 0);
+    border-radius: 7px;
+}
+.btn{
+    width: 150%;
+    padding: 7px 2px;
+    margin: 5px ;
+    box-sizing: border-box;
+    border: 2px solid rgb(250, 97, 97);
+    background-color:rgba(106, 215, 56, 0.682);
+    color: rgb(0, 0, 0);
+    border-radius: 7px;
+}
+.table-bordered{
+    border: 1px solid;
+}
+th {
+    background-color: #232524;
+    color: white;
+    width: 15%;
+    text-align: center;
+  }
+  td {
+    background-color: #a7bdb08f;
+    color: rgb(0, 0, 0);
+    width: 15%;
+    text-align: center;
+    margin-top: auto;
+    padding: auto;
+  }
+
+
+  .btnList{
+    border: none;
+    padding: 1px;
+    background: rgb(0, 0, 0);
+    font-size: 13px;
+    font-style: italic ;
+    color: rgb(255, 255, 255);
+    border-radius: 3px;
+}
+mat-grid-tile {
+    background: white;
+    color: rgb(39, 54, 104);
+  
+  }
+  button{
+    color: white;
+    background-color: black;
+  }

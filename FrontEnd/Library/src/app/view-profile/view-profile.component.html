@@ -1,0 +1,27 @@
+<router-outlet></router-outlet>
+<!-- <app-user-sidenav></app-user-sidenav> -->
+<app-sidenav2></app-sidenav2>
+<div class="cards-container">
+  <div class="card card-one" style="margin-top: 5px;">
+    <h3>{{userdata[0].firstName}}&nbsp;{{userdata[0].lastName}}</h3>
+    <div class="desc">
+      ID :&nbsp;{{userdata[0].userId}}
+     
+    </div>
+    <div class="desc">
+     ADDRESS : {{userdata[0].address}}<br>
+   PHONE:   {{userdata[0].phone}}
+
+    </div>
+    <!-- <div class="desc">
+      {{userdata[0].phone}}
+    </div>  -->
+    <div class="desc">
+      {{userdata[0].email}}<br>
+     DOB : {{userdata[0].dob| date:'dd/MM/yyyy'}}
+    </div> 
+    <div class="desc">
+     CREATED DATE : {{userdata[0].createDate| date:'dd/MM/yyyy'}}<br><br>
+     UPDATE DATE :{{userdata[0].updateDate| date:'dd/MM/yyyy'}}
+    </div>
+   
