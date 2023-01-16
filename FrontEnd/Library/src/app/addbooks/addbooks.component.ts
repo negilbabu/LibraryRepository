@@ -32,7 +32,7 @@ export class AddbooksComponent implements OnInit {
 data: any;
 page:number=1;
 count: any;
-tableSize: number = 5;
+tableSize: number = 3;
 ProdData: any;
 sortedData: any;
 a:any;
@@ -68,7 +68,7 @@ currentFile?: File;
 
   search1(key:any){
     console.log("before api=",key);
-    this.booksService.search(key,this.page,this.tableSize,this.sort).subscribe(response=>{
+    this.booksService.search(key,this.page,this.tableSize,this.sort,this.direction).subscribe(response=>{
       this.result=response.content;
      console.log("searchRslt=",this.result);
       this.data=this.result;
@@ -94,9 +94,10 @@ Load() {
 
 sortfn(a:any){    
   this.sort=a;      
-  this.page=this.page;
-  this.tableSize;
+  // this.page=this.page;
+  // this.tableSize;
 
+  if(this.pkey==null){
   if(this.direction==1){
     this.direction=-1;
     console.log("from desc to :",this.direction)
@@ -108,11 +109,26 @@ sortfn(a:any){
     console.log("from asc to desc",this.direction)
   this.ngOnInit(); 
   }
+}
+else{
+  if(this.direction==1){
+    this.direction=-1;
+    console.log("from desc to :",this.direction)
+    this.search1(this.search.controls['inp'].value);       
+  }
+
+  else{
+    this.direction=1;
+    console.log("from asc to desc",this.direction)
+  this.search1(this.search.controls['inp'].value); 
+  }
+
+}
   
 }
 
 onTableDataChange(event:any) {
-  this.pkey==this.search.controls['inp'].value;
+  // this.pkey==this.search.controls['inp'].value;
   console.log("p-",this.pkey)
   if(this.pkey==null){
   console.log("page=",event)
@@ -128,7 +144,7 @@ onTableDataChange(event:any) {
         // this.pkey==this.search.controls['inp'].value;
         console.log("page=",event)
         console.log("pkey in page=",this.pkey)
-        this.booksService.search(this.pkey,this.page,this.tableSize,this.sort).subscribe(result=>{
+        this.booksService.search(this.pkey,this.page,this.tableSize,this.sort,this.direction).subscribe(result=>{
           this.result=result.content;
           this.count=result.totalElements
           console.log("loaded books=",this.result);   

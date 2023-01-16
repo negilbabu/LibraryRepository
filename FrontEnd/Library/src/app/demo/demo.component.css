@@ -55,3 +55,14 @@
   box-shadow: 0 5px 5px -5px #333;
   position:fixed;
 }
+
+@import url(//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css);
+body, html {
+  height: 100%;
+}
+
+@media (min-width: 768px) {
+  aside {
+      height: 100%;
+  }
+}

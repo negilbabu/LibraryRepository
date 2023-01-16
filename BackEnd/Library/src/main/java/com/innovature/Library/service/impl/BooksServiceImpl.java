@@ -147,14 +147,34 @@ public class BooksServiceImpl implements BooksService{
     //book search
 
     @Override
-    public Page<Books> getAllBookStocks(String keyword, Integer pageNo, Integer pageSize, String sortBy) {
-        Pageable paging = PageRequest.of(pageNo, pageSize, Sort.by(sortBy));
-        System.out.println(keyword);
+    public Page<Books> getAllBookStocks(String keyword, Integer pageNo, Integer pageSize, String sortBy,Integer direction) {
+
+        var sortByDescending=Sort.by(sortBy).descending();
+        var sortByAscending=Sort.by(sortBy).ascending();
+
+        if(direction==1){
+
+            Pageable paging = PageRequest.of(pageNo, pageSize, sortByDescending);
+            System.out.println(keyword);
         String k = keyword;
         String k1 = keyword;
         String k2 = keyword;
         Page<Books> pagedResult = booksRepository.findByKeywords(keyword, k, k1, k2, paging);
          return pagedResult;
+        }
+
+        else 
+        {
+            Pageable paging = PageRequest.of(pageNo, pageSize, sortByAscending);
+            System.out.println(keyword);
+            String k = keyword;
+            String k1 = keyword;
+            String k2 = keyword;
+            Page<Books> pagedResult = booksRepository.findByKeywords(keyword, k, k1, k2, paging);
+             return pagedResult;
+        }
+
+   
   
     }
 
