@@ -30,6 +30,7 @@ import { BorrowDetailViewComponent } from './borrow-detail-view/borrow-detail-vi
 import { ForgotpasswordComponent } from './forgotpassword/forgotpassword.component';
 import { Sidenav2Component } from './sidenav2/sidenav2.component';
 import { Navbar2Component } from './navbar2/navbar2.component';
+import { AdminNavbarComponent } from './admin-navbar/admin-navbar.component';
 
 const routes: Routes = [
   {path: '',redirectTo:'login',pathMatch:'full'},
@@ -60,7 +61,9 @@ const routes: Routes = [
   {path:'borrow-detail-view',component:BorrowDetailViewComponent},
   {path:'forgotpassword',component:ForgotpasswordComponent},
   {path:'sidenav2',component:Sidenav2Component,canActivate: [HomeguardGuard]},
-  {path:'navbar2',component:Navbar2Component,canActivate: [HomeguardGuard]}
+  {path:'navbar2',component:Navbar2Component,canActivate: [HomeguardGuard]},
+  {path:'sidenav2',component:Sidenav2Component,canActivate: [HomeguardGuard]},
+  {path:'admin-navbar',component:AdminNavbarComponent,canActivate: [HomeguardGuard]}
 ];
 
 @NgModule({

@@ -56,6 +56,7 @@ import { ForgotpasswordComponent } from './forgotpassword/forgotpassword.compone
 import {Chart} from 'chart.js';
 import { Sidenav2Component } from './sidenav2/sidenav2.component';
 import { Navbar2Component } from './navbar2/navbar2.component';
+import { AdminNavbarComponent } from './admin-navbar/admin-navbar.component';
 
 //  import {MatIconModule} from '@angular/material/icon';
 // import { MatToolbarModule } from '@angular/material';
@@ -95,6 +96,7 @@ import { Navbar2Component } from './navbar2/navbar2.component';
     ForgotpasswordComponent,
     Sidenav2Component,
     Navbar2Component,
+    AdminNavbarComponent,
     // Chart
     
   //  ModalComponent
