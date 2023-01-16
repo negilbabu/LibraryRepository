@@ -25,7 +25,32 @@
     width: fit-content;
   }
 
+  .main {
+    height: 100%;
+  overflow: hidden;
+  overflow-y: scroll;
+}
 
+div{
+  position: relative;
+  /* background-color: rgb(255, 255, 255); */
+  width: 100%;
+
+}
+
+header {
+  position: fixed;
+  width: 100%;
+  z-index: 1;
+  background-color: green;
+}
+
+header a {
+  display: inline-block;
+  padding: 20px 30px;
+  color: #ffffff;
+  text-decoration: none;
+}
 
 
 

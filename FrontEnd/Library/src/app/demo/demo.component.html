@@ -1,57 +1,54 @@
-<!-- <div class="nav-mobile1"  >
-<ul style="position:fixed;" nav-mobile  > 
-
-   
-    <li >
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-      <label (click)="dash()" style="text-align:center;">LIBRARY</label>
-
-       <button mat-icon-button > <i class="material-icons" style="color:rgb(142, 179, 137);float:right;position:absolute; left:440px; top:3px;" (click)="profile()"  >account_circle</i></button>                             
-                       
-      <input type="button" class="btnItem1" style="float:right" name="logout" value="logout" (click)="logout()" style = "position:absolute; left:1210px; top:3px;"><br>
-   
-    </li>
-
-</ul>
-</div> -->
-
-<app-admin-navbar></app-admin-navbar>
-<div class="container-fluid h-100">
-  <div class="row h-100">
-      <aside class="col-12 col-md-2 p-0 bg-dark fixed-top" style="width: 150px;">
-          <nav class="navbar navbar-expand navbar-dark bg-dark flex-md-column flex-row align-items-start py-5 ">
-              <div class="collapse navbar-collapse align-items-start">
-                  <ul class="flex-md-column flex-row navbar-nav w-100 justify-content-between">
-                      <li class="nav-item" >
-                          <a class="nav-link pl-0 text-nowrap" href="#"><i class="fa-regular fa-house"></i>
+<style>
+    div {
+      position: relative;
+      background-color: rgb(255, 255, 255);
+      width: 100%;
+    
+    }
+    .main {
+        height: 100%;
+      overflow: hidden;
+      overflow-y: scroll;
+    }
+    header {
+      position: fixed;
+      width: 100%;
+      z-index: 1;
+      background-color: green;
+    }
+    header a {
+      display: inline-block;
+      padding: 20px 30px;
+      color: #ffffff;
+      text-decoration: none;
+    }
 
 
+  </style>
 
-                              <span class="font-weight-bold">HOME</span></a>
-                      </li>
-                      <li class="nav-item">
-                          <a class="nav-link pl-0" href="#"><i class="fa-thin fa-user" ></i>
-
-                              <span class="d-none d-md-inline">CATEGORY</span></a>
-                      </li>
-                      <li class="nav-item">
-                          <a class="nav-link pl-0" href="#"> <span class="d-none d-md-inline">BOOK</span></a>
-                      </li>
-                      <li class="nav-item">
-                          <a class="nav-link pl-0" href="#"> <span class="d-none d-md-inline">BORROW</span></a>
-                      </li>
-                      <li class="nav-item">
-                          <a class="nav-link pl-0" href="#"> <span class="d-none d-md-inline">FINE</span></a>
-                      </li>
-                     
-                      <li class="nav-item">
-                          <a class="nav-link pl-0" href="#"> <span class="d-none d-md-inline">PROFILE</span></a>
-                      </li>
-                      
-                  </ul>
-              </div>
-          </nav>
-      </aside>
-      
-  </div>
-</div>
+   <body>
+    <div class="main">
+      <header>
+        <a href="/learn-html.html">Learn HTML</a>
+        <a href="/learn-git.html">Learn GIT</a>
+      </header>
+      <h1>
+        <a class="anchor" name="name">Anchor link</a>
+      </h1>
+      <p>
+        In the HTML Basics section, you w<br>ill have a full understanding of Editors and Too<br>ls that you need when working on<br> building we<br>b pages. It will inform you about the professional editors that web developers use for coding. Elements are the fundamentals of HTML. Each HTML document is made of elements, which are defined using tags. HTML Elements teaches you the types of HTML elements. It also highlights the difference between HTML tags and HTML elements that are often confused.
+      </p>
+      <p>
+        HTML Basic Tags are used to<br> structure website content<br> (text, hyperlinks, images, media, etc). Tags o<br>nly "instruct" browsers how to show the content of the web page. HTML Tags chapter suggests the most frequently used tags in HTML with their examples.
+      </p>
+      <p>
+        HTML Attri<br>butes are a<br>dded to an HTML element to<br> provide additional information about it. Book sugge<br>sts lots of examples an<br>d the list of the most used attributes.
+      </p>
+      <p>
+        HTML Formatting <br>sophisticated chapter lets you<br> explore the categori<br>es of formatting tag<br>s with a brief description and exa<br>mples.
+      </p>
+      <p>
+        Websites contain <br> different types of links<br> that take you directly <br>to other pages or allow navigating to a specific part<br> of the page. Find out how you can define hyperlinks in the HTML Links chapter and how to use different attributes with links and how to apply links on the image.
+      </p>
+    </div>
+  </body>

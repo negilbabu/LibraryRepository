@@ -1,6 +1,7 @@
 
 <app-sidenav></app-sidenav>    
-
+<br><br>
+<body style="position:relative; left: 7%;">
     <div class="text-center"> 
       <form [formGroup]="ObjSampleForm">
         <div class="card-box">         
@@ -8,9 +9,9 @@
                       <div class="table-responsive"><br>
                         <h2 style="text-align:center ;">Borrow Details</h2>
 
- <button class=" btn-success btn-sm mb-1" style="margin-top: 2%; border: none;position:absolute; left:1200px; top:500px;" (click)="dwn()"> Download CSV</button>
+ <button class=" btn-success btn-sm mb-1" style="margin-top: 2%; border: none;position:absolute; left:83%; top:500px;" (click)="dwn()"> Download CSV</button>
 
-<div><input type="button" (click)="clearFilter()" value="CLEAR FILTER" style = "position:absolute; left:1200px; top:100px;"> </div>
+<div><input type="button" (click)="clearFilter()" value="CLEAR FILTER" style = "position:absolute; left:83%; top:12%;"> </div>
 
 <div>
 START DATE &nbsp;&nbsp; <input type="date" formControlName="date1" value="date1" max="{{date| date:'yyyy/MM/dd' }}" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -158,3 +159,7 @@ END DATE&nbsp;&nbsp; <input type="date" formControlName="date2" value="date2" ma
                       </div>
                   </div>
                 </div>
+
+                </div>
+                </form>
+                </div></body>

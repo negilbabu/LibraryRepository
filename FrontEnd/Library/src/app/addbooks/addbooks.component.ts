@@ -32,7 +32,7 @@ export class AddbooksComponent implements OnInit {
 data: any;
 page:number=1;
 count: any;
-tableSize: number = 3;
+tableSize: number = 10;
 ProdData: any;
 sortedData: any;
 a:any;
@@ -177,7 +177,7 @@ onTableDataChange(event:any) {
       setTimeout(() => {
 
         window.location.reload()       
-    }, 1500);
+    }, 1000);
     },
     error:(msg)=>{}      
     })

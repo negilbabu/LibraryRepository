@@ -236,5 +236,16 @@ public class UserServiceImpl implements UserService {
 
 
 
+    @Override
+    public Collection getUserById(Integer userId) {
+      
+        userRepository.findById(userId);
+        return userRepository.findByUserId(userId);              
+    
+
+    }
+
+
+
 
 }

@@ -1,5 +1,5 @@
 <app-sidenav></app-sidenav>   
-  
+<body style="   position: relative; left: 7%;top:80px">
   <div class="text-center"> 
       <form>
 
@@ -21,15 +21,6 @@
                                       <button mat-icon-button *ngIf="this.direction==-1"> <i class="material-icons" style="color:rgb(0, 0, 0)" >keyboard_arrow_down</i></button>
                                     </th>
 
-                                    <!-- <th (click)="sortfn('userId')">User Id 
-                                      <button mat-icon-button *ngIf="this.direction==1 && this.sort==this.userId"> <i class="material-icons" style="color:rgb(0, 0, 0)" >arrow_drop_down_circle</i></button>
-                                     <button mat-icon-button *ngIf="this.direction==-1"> <i class="material-icons" style="color:rgb(0, 0, 0)" >keyboard_arrow_down</i></button> -->
-                                    <!-- </th>  -->
-
-
-
-
-
                                     <th (click)="sortfn('firstName')">First Name
                                       <button mat-icon-button *ngIf="this.direction==1"> <i class="material-icons" style="color:rgb(0, 0, 0)" >keyboard_arrow_up</i></button>
                                       <button mat-icon-button *ngIf="this.direction==-1"> <i class="material-icons" style="color:rgb(0, 0, 0)" >keyboard_arrow_down</i></button>
@@ -38,10 +29,10 @@
                                       <button mat-icon-button *ngIf="this.direction==1"> <i class="material-icons" style="color:rgb(0, 0, 0)" >keyboard_arrow_up</i></button>
                                       <button mat-icon-button *ngIf="this.direction==-1"> <i class="material-icons" style="color:rgb(0, 0, 0)" >keyboard_arrow_down</i></button>
                                     </th>
-                                    <th (click)="sortfn('address')">Address
+                                    <!-- <th (click)="sortfn('address')">Address
                                       <button mat-icon-button *ngIf="this.direction==1"> <i class="material-icons" style="color:rgb(0, 0, 0)" >keyboard_arrow_up</i></button>
                                       <button mat-icon-button *ngIf="this.direction==-1"> <i class="material-icons" style="color:rgb(0, 0, 0)" >keyboard_arrow_down</i></button>
-                                    </th>
+                                    </th> -->
                                     <th (click)="sortfn('phone')">Phone
                                       <button mat-icon-button *ngIf="this.direction==1"> <i class="material-icons" style="color:rgb(0, 0, 0)" >keyboard_arrow_up</i></button>
                                       <button mat-icon-button *ngIf="this.direction==-1"> <i class="material-icons" style="color:rgb(0, 0, 0)" >keyboard_arrow_down</i></button>
@@ -50,12 +41,12 @@
                                       <button mat-icon-button *ngIf="this.direction==1"> <i class="material-icons" style="color:rgb(0, 0, 0)" >keyboard_arrow_up</i></button>
                                       <button mat-icon-button *ngIf="this.direction==-1"> <i class="material-icons" style="color:rgb(0, 0, 0)" >keyboard_arrow_down</i></button>
                                     </th>
-                                    <!-- <th>Password</th> -->
-                                    <th (click)="sortfn('userId')">Status
+                            
+                                    <!-- <th (click)="sortfn('userId')">Status
                                       <button mat-icon-button *ngIf="this.direction==1"> <i class="material-icons" style="color:rgb(0, 0, 0)" >keyboard_arrow_up</i></button>
                                       <button mat-icon-button *ngIf="this.direction==-1"> <i class="material-icons" style="color:rgb(0, 0, 0)" >keyboard_arrow_down</i></button>
-                                    </th>
-                                    <!-- <th>role</th> -->
+                                    </th> -->
+<!--                              
                                     <th (click)="sortfn('dob')">DOB
                                       <button mat-icon-button *ngIf="this.direction==1"> <i class="material-icons" style="color:rgb(0, 0, 0)" >keyboard_arrow_up</i></button>
                                       <button mat-icon-button *ngIf="this.direction==-1"> <i class="material-icons" style="color:rgb(0, 0, 0)" >keyboard_arrow_down</i></button>
@@ -67,7 +58,8 @@
                                     <th (click)="sortfn('updateDate')">UpdateDate
                                       <button mat-icon-button *ngIf="this.direction==1"> <i class="material-icons" style="color:rgb(0, 0, 0)" >keyboard_arrow_up</i></button>
                                       <button mat-icon-button *ngIf="this.direction==-1"> <i class="material-icons" style="color:rgb(0, 0, 0)" >keyboard_arrow_down</i></button>
-                                    </th>
+                                    </th> -->
+                                    <th></th>
                                     </tr>
                               </thead>
                               <tbody>
@@ -82,20 +74,21 @@
           <td>{{user.userId}}</td>
         <td>{{user.firstName}}</td>
         <td>{{user.lastName}}</td>
-        <td>{{user.address}}</td>
+        <!-- <td>{{user.address}}</td> -->
         <td>{{user.phone}}</td>
         <td>{{user.email}}</td>
-        <!-- <td>{{user.password}}</td> -->
-        <td>{{user.status}}</td>
-        <!-- <td>{{user.role}}</td> -->
-        <td>{{user.dob}}</td>
-        <td>{{user.createDate| date:'dd/MM/yyyy'}}</td>
-        <td>{{user.updateDate| date:'dd/MM/yyyy'}}</td>
+
+        <!-- <td>{{user.status}}</td> -->
+
+        <!-- <td>{{user.dob}}</td> -->
+        <!-- <td>{{user.createDate| date:'dd/MM/yyyy'}}</td> -->
+        <!-- <td>{{user.updateDate| date:'dd/MM/yyyy'}}</td> -->
+        <td>
+          <button mat-icon-button>
+          <i class="material-icons" style="color:rgb(14, 155, 216)" (click)="DetailView(user)" >visibility</i>  &nbsp;
+        </button>
+      </td>
  
-    <!-- <td>
-     <button type ="button" class="btnAction" (click)="delete(books)">delete</button>&nbsp;&nbsp;
-    <button type ="button" class="btnAction" (click)="edit(books)">edit</button></td>
-        </tr> -->
         
                               </tbody>
                           </table>
@@ -105,3 +98,5 @@
                       </div>
                   </div>
                 </div>
+                </div>
+      </form></div></body>
