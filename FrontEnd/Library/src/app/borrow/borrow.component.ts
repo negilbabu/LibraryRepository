@@ -15,7 +15,7 @@ import { NgToastService } from 'ng-angular-popup';
   styleUrls: ['./borrow.component.css']
 })
 export class BorrowComponent implements OnInit {
-
+  val: any;
   key: any;
   curDate= new Date()
   myDate:any;
@@ -58,8 +58,9 @@ export class BorrowComponent implements OnInit {
   
     ngOnInit(): void {  
 
-      
-      
+      this.date = new Date();
+      console.log("today-",this.date) 
+
       sessionStorage.clear()
       this.LoadData();
 
@@ -124,7 +125,7 @@ export class BorrowComponent implements OnInit {
     }
 
     sortfilter(a:any){
-    
+   
       this.sort=a;      
       this.page=this.page;
       this.tableSize;
@@ -144,7 +145,7 @@ export class BorrowComponent implements OnInit {
 
 
     getFilter() {
-
+console.log("d=",this.ObjSampleForm.controls['date1'].value)
       this.flag=1; 
       this.service.filterBorrowPagination(this.ObjSampleForm.controls['date1'].value,this.ObjSampleForm.controls['date2'].value,this.page,this.tableSize,this.sort,this.direction1).subscribe(response=>{
         this.result=response.content;
@@ -225,7 +226,11 @@ export class BorrowComponent implements OnInit {
       }
 
       bookReturn(borrow: any) {
-     
+        console.log(borrow)
+     if(borrow.paymentStatus=="UNPAID"){
+      alert("FINE IS NOT PAIDED")
+     }
+     else{
         this.service.bookReturn(borrow.borrowId).subscribe({
           next: (Response: any) => {
             console.log(Response);
@@ -242,8 +247,13 @@ export class BorrowComponent implements OnInit {
           }
         })
         this.router.navigate(['/borrow'])
+      }
         }
-
+        datas(){
+          this.val=this.ObjSampleForm.controls['date1'].value;
+        console.log("date=",this.val)
+        }
+        
 
         undo(borrow: any) {
           alert(" Are you want to undo last change?")

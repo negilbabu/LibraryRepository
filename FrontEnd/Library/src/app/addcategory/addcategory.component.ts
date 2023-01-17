@@ -6,6 +6,8 @@ import { Router } from '@angular/router';
 import { CategoryService } from '../category.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { NgToastService } from 'ng-angular-popup';
+import { auto } from '@popperjs/core';
 
 @Component({
   selector: 'app-addcategory',
@@ -39,7 +41,11 @@ result: any;
   category_id: any;
   categoryName: any;
   category_name: any;
-  constructor(private dialog: MatDialog,private router:Router ,private service:CategoryService) {
+  constructor(private dialog: MatDialog,
+    private router:Router ,
+    private service:CategoryService,
+    private toast : NgToastService
+    ) {
     this.categoryList=[];
     
    }
@@ -96,10 +102,11 @@ result: any;
 
 openDialog() {
 
-  const dialogConfig = new MatDialogConfig();
+
   this.dialog.open(CategoryComponent,
     {
-      width:'25%',height:'35%'
+      // width:'25%',height:'35%'
+      width:'auto+50px',height:'auto'
     
     }
     );
@@ -112,13 +119,14 @@ openDialog() {
 }
 
 editCategory(categoryId:any) {
- // localStorage.setItem('flag',this.flag);
+
   localStorage.setItem('categoryId',categoryId);
-  const dialogConfig = new MatDialogConfig();
+
   this.dialog.open(CategoryComponent,
     {
-      width:'25%',height:'35%'
-    
+      // width:'25%',height:'35%'
+      width:'auto+50px',height:'auto'
+
     }
     );
 
@@ -127,14 +135,18 @@ editCategory(categoryId:any) {
 
 
 
-deleteCategory(categoryId:any): void{
+deleteCategory(category:any): void{
   if(confirm('Are you sure want to delete?'))
   {
- console.log(categoryId);
-  this.service.delete(categoryId.categoryId).subscribe({next:(res)=>{
-    console.log(res);
-    alert("item deleted");
-    window.location.reload();
+    
+ console.log("catid=",category);
+  this.service.delete(category.categoryId).subscribe({next:(res)=>{
+   
+    this.toast.error({detail:'Success',summary:'The Category '+category.categoryName+' Deleted',duration:5000}); 
+    setTimeout(() => {
+    window.location.reload()       
+  }, 1500);
+  
   },
   error:(msg)=>{}      
   })

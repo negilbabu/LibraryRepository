@@ -5,13 +5,9 @@ import java.util.Collection;
 import java.sql.Date;
 import java.util.List;
 import java.io.IOException;
-
 import java.text.SimpleDateFormat;
-import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
-import javax.validation.Valid;
-
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -76,19 +72,6 @@ public class BorrowController {
     }
 
 
-//pagenated borrow list at admin borrow
-// @GetMapping("/pagenated/")
-// public ResponseEntity<List<Borrow>>getAllBorrows(
-//                     @RequestParam(defaultValue = "1") Integer pageNo,
-//                     @RequestParam(defaultValue = "5") Integer pageSize,
-//                     @RequestParam(defaultValue = "id") String sortBy)
-// {
-//     List<Borrow> list = bService.getAllBorrows(pageNo-1, pageSize, sortBy);
-//     return new ResponseEntity<List<Borrow>>(list,new HttpHeaders(),
-//     HttpStatus.OK);
-
-// }
-
 //BORROW @ADMIN //pagenated borrow list at admin VIEW borrow single api
 @GetMapping("/admin/pagenated/")
 public ResponseEntity<Page<Borrow>>getAllBorTest(
@@ -103,36 +86,6 @@ public ResponseEntity<Page<Borrow>>getAllBorTest(
 
 }
 
-
-//LOAD-FILTER@ADMIN//load results of issuedate filter at Admin Borrow
-// @GetMapping("/loadByIssueDate/{date1}/{date2}")
-// public ResponseEntity<List<Borrow>> loadByIssueDate( 
-// @PathVariable("date1") Date date1,
-//  @PathVariable("date2") Date date2)
-
-// {   
-//     List<Borrow> list = bService.loadtAllByIssueDate(date1, date2);
-//     return new ResponseEntity<List<Borrow>>(list,new HttpHeaders(),
-//     HttpStatus.OK);
-// }
-
-
-//GET FILTER RESULT@ADMIN//filtered pagenated borrow list [on filtering] @admin//
-// @GetMapping("/{date1}/{date2}")
-// public ResponseEntity<List<Borrow>>getFilterBorrow(
-//                     // @PathVariable Date date1, @PathVariable Date date2,
-//                     @PathVariable("date1") Date date1,
-//                     @PathVariable("date2") Date date2,
-//                     @RequestParam(defaultValue = "1") Integer pageNo,
-//                     @RequestParam(defaultValue = "5") Integer pageSize,
-//                     @RequestParam(defaultValue = "id") String sortBy)
-// {
-
-//     List<Borrow> list = bService.getAllBorrow(date1, date2,pageNo-1, pageSize, sortBy);
-//     return new ResponseEntity<List<Borrow>>(list,new HttpHeaders(),
-//     HttpStatus.OK);
-
-// }
 
 //GET FILTER RESULT@ADMIN//filtered single api
 @GetMapping("/admin/{date1}/{date2}")
@@ -152,7 +105,7 @@ public ResponseEntity<Page<Borrow>>getTestFilterBorrow(
 }
 
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 
 
 
@@ -182,7 +135,6 @@ public ResponseEntity<List<Borrow>> loadByIssueDateUser(
 
     }
 
-////////////////////////////////////////////////////////////////////////////////////
 
 
 
@@ -283,7 +235,7 @@ public ResponseEntity<List<Borrow>> loadByIssueDateUser(
 
 
 
-/////////////////////////////////////
+    
 
 
 
@@ -319,29 +271,11 @@ public ResponseEntity<List<Borrow>> loadByIssueDateUser(
         String[] nameMapping = { "borrowId","firstName","booksName",  "issueDate", "returnDate", "dueDate","bookReturnedDate","reason","dueDays","fine","status" };
         csvWriter.writeHeader(csvHeader);
         for (Borrow rent : rents) {
-            //  System.out.println("         :"+rent.getStatus());
-            csvWriter.write(rent, nameMapping);
+          csvWriter.write(rent, nameMapping);
         }
         csvWriter.flush();
         csvWriter.close();
     }
-
-
-    // @GetMapping("/admin/searchUser")
-    // public ResponseEntity<Page<Borrow>> getAllBorrowedUserSearch(
-    //         @RequestParam(defaultValue = "") String keyword,
-    //         @RequestParam(defaultValue = "1") Integer pageNo,
-    //         @RequestParam(defaultValue = "10") Integer pageSize)
-    //         // @RequestParam(defaultValue = "user_id") String sortBy)
-    //          {
-    //     System.out.println("paage size" + pageSize);
-    //     Page<Borrow> list = bService.getAllBorrowedUserSearch(keyword, pageNo - 1, pageSize);
-    //     return new ResponseEntity<Page<Borrow>>(list, new HttpHeaders(),
-    //             HttpStatus.OK);
-
-    // }
-
-
 
 
 }

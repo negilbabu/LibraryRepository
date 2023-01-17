@@ -1,7 +1,10 @@
 
 <app-sidenav></app-sidenav>    
 <br><br>
-<body style="position:relative; left: 7%;">
+<!-- <body style="position:relative; left: 17%; right: 0%;"> -->
+
+  <div class="split right">
+  <body>
     <div class="text-center"> 
       <form [formGroup]="ObjSampleForm">
         <div class="card-box">         
@@ -9,18 +12,19 @@
                       <div class="table-responsive"><br>
                         <h2 style="text-align:center ;">Borrow Details</h2>
 
- <button class=" btn-success btn-sm mb-1" style="margin-top: 2%; border: none;position:absolute; left:83%; top:500px;" (click)="dwn()"> Download CSV</button>
+ <button class=" btn-success btn-sm mb-1" *ngIf="this.flag==0" style="margin-top: 2%; border: none;position:absolute; left:83%; top:500px;" (click)="dwn()"> Download CSV</button>
 
-<div><input type="button" (click)="clearFilter()" value="CLEAR FILTER" style = "position:absolute; left:83%; top:12%;"> </div>
+<div><input type="button" (click)="clearFilter()" *ngIf="this.flag==1" value="CLEAR FILTER" style = "position:absolute; left:83%; top:12%;"> </div>
 
 <div>
-START DATE &nbsp;&nbsp; <input type="date" formControlName="date1" value="date1" max="{{date| date:'yyyy/MM/dd' }}" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-END DATE&nbsp;&nbsp; <input type="date" formControlName="date2" value="date2" max="{{date| date:'yyyy/MM/dd' }}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+START DATE &nbsp;&nbsp; <input type="date" formControlName="date1" value="date1" max="{{date| date:'yyyy/MM/dd' }}" (input)="datas()">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+END DATE&nbsp;&nbsp; <input type="date" formControlName="date2" value="date2"  min="{{this.val}}" max="{{date| date:'yyyy/MM/dd' }}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 <input type="button" (click)="getFilter()" value="FILTER">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 </div>
 <BR>
-<!-- *ngIf="flag==0" -->
-                            <table *ngIf="flag==0"  align="center" class=".table-hover" id="datatable" role="grid" >
+
+                          
+                            <table *ngIf="flag==0"  class=".table-hover" id="datatable" role="grid" >
                              
                               <thead class="bg-primary text-white">
                                   <tr role="row">
@@ -151,6 +155,7 @@ END DATE&nbsp;&nbsp; <input type="date" formControlName="date2" value="date2" ma
                         </table>
 
 
+
                           <!-- Pagenation Controler -->
                           <div class="d-flex justify-content-center">
                             <pagination-controls (pageChange)="onTableDataChange(page=$event)">
@@ -162,4 +167,4 @@ END DATE&nbsp;&nbsp; <input type="date" formControlName="date2" value="date2" ma
 
                 </div>
                 </form>
-                </div></body>
+                </div></body></div>

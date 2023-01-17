@@ -8,7 +8,8 @@
   .fa {
   position: relative;
   display: table-cell;
-  width: 60px;
+  width: 25%;
+
   height: 36px;
   text-align: center;
   vertical-align: middle;
@@ -16,23 +17,28 @@
   }
   
   .main-menu {
+  /* background:#01183f;
+  border-right:0px solid #030303; */
   background:#446cb3;
-  border-right:0px solid #030303;
+  border-right:0px solid #ffffffaf;
+
   position:fixed;
-  top:0;
+  /* top:7.9%; */
+  top:o;
   bottom:0;
   height:100%;
   left:0;
-  width:220px;
-  overflow:auto;
+  width:16%;
+  /* width: fit-content; */
+  overflow:hidden;
   -webkit-transition:width .05s linear;
   transition:width .05s linear;
   -webkit-transform:translateZ(0) scale(1,1);
-  z-index:1000;
+  /* z-index:1000; */
   }
   
   .main-menu>ul {
-  margin:7px 0;
+  margin:7px 10px;
   }
   body{height: 0vh;
   background-color: #030303;
@@ -40,10 +46,11 @@
   .main-menu li {
   position:relative;
   display:block;
-  width:250px;
+  width:auto;
   }
   
   .main-menu li>a {
+    z-index: 1;
   position:relative;
   display:table;
   border-collapse:collapse;
@@ -74,12 +81,7 @@
   width:190px;
     font-family: 'Titillium Web', sans-serif;
   }
-  
-  .main-menu>ul.logout {
-  position:absolute;
-  left:0;
-  bottom:0;
-  }
+
   
   .no-touch .scrollable.hover {
   overflow-y:hidden;
@@ -109,12 +111,12 @@
   }
   .main-menu li:hover>a,nav.main-menu li.active>a,.dropdown-menu>li>a:hover,.dropdown-menu>li>a:focus,.dropdown-menu>.active>a,.dropdown-menu>.active>a:hover,.dropdown-menu>.active>a:focus,.no-touch .dashboard-page nav.dashboard-menu ul li:hover a,.dashboard-page nav.dashboard-menu ul li.active a {
   color:rgb(243, 234, 234);
-  background-color:#565985;
+  background-color:#000ed38b;
   }
-  @font-face {
+   @font-face {
     font-family: 'Titillium Web';
     font-style: normal;
     font-weight: 300;
     src: local('Titillium WebLight'), local('TitilliumWeb-Light'), url(http://themes.googleusercontent.com/static/fonts/titilliumweb/v2/anMUvcNT0H1YN4FII8wpr24bNCNEoFTpS2BTjF6FB5E.woff) format('woff');
-  }
+  } 
   

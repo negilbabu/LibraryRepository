@@ -27,8 +27,9 @@ export class AcceptrequestComponent implements OnInit {
  }
  ngOnInit(): void {
 
-  this.date = new Date();
+this.date = new Date();
 console.log(this.date)
+
   // this.date = new Date()
   // this.cValue = formatDate(this.d1, 'dd-MM-yyyy', 'en-US');
  
@@ -88,8 +89,7 @@ update(borrowId:any){
 
  datas(){
   this.val=this.ObjSampleForm.controls['returnDate'].value;
-  // alert("dsfsdf"+this.val)
-  // console.log("dsfadv"+this.val)
+
 }
 
  
