@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CategoryService } from '../category.service';
 import {MatDialog, MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
+import { NgToastService } from 'ng-angular-popup';
 
 
 
@@ -29,7 +30,8 @@ ObjSampleForm:FormGroup;
 
   constructor(
     private router:Router ,
-    private service:CategoryService,    
+    private service:CategoryService,   
+    private toast : NgToastService, 
     ) 
      {
       this.ObjSampleForm=new FormGroup(
@@ -84,8 +86,13 @@ onSubmit(){
       console.log(result);
       if(result.categoryId){  
         console.log(result);
-        alert("Category added");
-        window.location.reload();
+        this.toast.success({detail:'Success',summary:'The Category '+result.categoryName+' Added',duration:5000});
+      
+        setTimeout(() => {
+        window.location.reload()       
+      }, 1500);
+      
+        
       }
       else{
         alert("category Not added");
@@ -103,12 +110,16 @@ updateCategory(categoryId:any){
   this.service.update(categoryId, body).subscribe({
     next: (Response: any) => {
       console.log(Response);
-      alert(" Edited successfully")
-      window.location.reload()
+      // alert(" Edited successfully")
+      this.toast.success({detail:'Success',summary:'The Category - '+Response.categoryName+' Edited',duration:5000});
+      setTimeout(() => {
+        window.location.reload()       
+      }, 1500);
+      // window.location.reload()
     },
     error: (Response: any) => {
       console.log(Response)
-      alert("invalid Contact")
+      alert("invalid Category credentials")
     }
   })
   localStorage.removeItem('categoryId');
@@ -120,10 +131,6 @@ updateCategory(categoryId:any){
   window.location.reload()
   }
     
- home()
- {
-   this.router.navigate(['/sidenav'])
- }
 
  
 }

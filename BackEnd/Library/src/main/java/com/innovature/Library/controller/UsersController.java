@@ -52,6 +52,8 @@ public class UsersController {
     @Autowired
     private UserService userService;
 
+
+
     @PostMapping
     public UserView add(@Valid @RequestBody UserForm form) {
         return userService.add(form);
@@ -84,6 +86,19 @@ public class UsersController {
             @PathVariable("userId") Integer userId) {
         userService.deletes(userId);
     }
+
+    // @GetMapping("/{userId}")
+    // public void deletes(
+    //         @PathVariable("userId") Integer userId) {
+    //     userService.deletes(userId);
+    // }
+
+
+    @GetMapping("/admin/{userId}")
+    public Collection getUserById(
+        @PathVariable("userId") Integer userId) {
+     return  userService.getUserById(userId);
+}
 
    
 

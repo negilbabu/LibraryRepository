@@ -1,68 +1,55 @@
-/* <div ng-controller="AppCtrl" layout="column" style="height: 500px;" ng-cloak>
-
-  <section layout="row" flex>
-
-    <md-sidenav class="md-sidenav-left" md-component-id="left"
-                md-disable-backdrop md-whiteframe="4">
-
-      <md-toolbar class="md-theme-indigo">
-        <h1 class="md-toolbar-tools">Disabled Backdrop</h1>
-      </md-toolbar>
-
-      <md-content layout-margin>
-        <p>
-          This sidenav is not showing any backdrop, where users can click on it, to close the sidenav.
-        </p>
-        <md-button ng-click="toggleLeft()" class="md-accent">
-          Close this Sidenav
-        </md-button>
-      </md-content>
-
-    </md-sidenav>
-
-    <md-content flex layout-padding>
-
-      <div layout="column" layout-align="top center">
-        <p>
-          Developers can also disable the backdrop of the sidenav.<br/>
-          This will disable the functionality to click outside to close the sidenav.
-        </p>
-
-        <div>
-          <md-button ng-click="toggleLeft()" class="md-raised">
-            Toggle Sidenav
-          </md-button>
-        </div>
-
-      </div>
-
-    </md-content>
-
-  </section>
-
-</div> */
-
-.nav-mobile1{
-  /* position: fixed; */
-  background: #446cb3;
-  /* background: #9f3800; */
-  color: #fff;
-  padding: 30;
-  margin: 0;
-  cursor: auto;
-  font-size: 18px;
-  /* list-style-type: none; */
-  box-shadow: 0 5px 5px -5px #333;
-  position:fixed;
-}
-
-@import url(//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css);
 body, html {
-  height: 100%;
-}
+  /* fixed */
+    position: relative;
+      margin: 0;
+      font-family: arial;
+      height: 0vh;
+      background: #ccc;
+    }
+    *, *:before, *:after {
+      box-sizing: border-box;
+    }
+    .nav-mobile {
+      position: fixed;
+      width: 100%;
+      z-index: 1;
+      background: #446cb3;
+      /* background: #9f3800; */
+      color: #fff;
+      padding: 0;
+      /* border:10px; */
+      /* border-color: black; */
+      margin: 0;
+      cursor: auto;
+      font-size: 18px;
+      list-style-type: none;
+      /* box-shadow: 0 5px 5px -5px #333; */
+     } 
+    .nav-mobile:after {
+      content: "";
+      display: table;
+      clear: both;
+    }
 
-@media (min-width: 768px) {
-  aside {
+ 
+    .nav-mobile li {
+      width: 100%;
+      height: 4%;
+      line-height: 46px;
+      text-align: center;
+      float: left;
+    }
+    .nav-mobile li a {
+      display: block;
+      color: #333;
+      width: 100%;
       height: 100%;
+      text-decoration: none;
+    }
+
+    .main {
+      height: 100%;
+      width: 100%;
+    overflow: hidden;
+    overflow-y: scroll;
   }
-}

@@ -1,7 +1,6 @@
 package com.innovature.Library.controller;
 
 import java.io.IOException;
-//import java.security.Principal;
 import java.util.Collection;
 import java.util.List;
 
@@ -26,15 +25,12 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.innovature.Library.entity.Books;
-import com.innovature.Library.entity.Borrow;
-//import com.innovature.Library.entity.Category;
 import com.innovature.Library.form.BooksForm;
 import com.innovature.Library.repository.BooksRepository;
 import com.innovature.Library.service.BooksService;
 import com.innovature.Library.util.FileUtil;
 import com.innovature.Library.view.BooksDetailView;
-//import com.innovature.Library.view.BooksListView;
-//import com.innovature.Library.view.BooksListView;
+
 
 @RestController
 @RequestMapping("/books")
@@ -45,7 +41,7 @@ public class BooksController {
 
     @Autowired
     private BooksRepository booksRepository;
-    private Integer booksId;
+
 
 
     @PostMapping
@@ -114,15 +110,7 @@ public class BooksController {
         Page<Books> list = service.getAllBooks(pageNo-1, pageSize, sortBy,direction);
         return new ResponseEntity<Page<Books>>(list,new HttpHeaders(),
         HttpStatus.OK);
-
-    }
-
-
-
-
-
-
-
+  }
 
 
     @PostMapping("/save/image/{booksId}")
@@ -136,8 +124,6 @@ public class BooksController {
 
         booksRepository.save(books);
 
-    //  String UploadDir = "userProfile-photos/" + savedUserProfile.getUserprofileId();
-
         FileUtil.saveUserProfile(fileName, multipartFile);
 
     }
@@ -150,7 +136,6 @@ public class BooksController {
 
 
     //pie
-
     @GetMapping("admin/pie")
     public List<Object[]> getcountByCategoryId() {
         return service.getBookCountByCategory();
@@ -165,8 +150,7 @@ public class BooksController {
             @RequestParam(defaultValue = "10") Integer pageSize,
             @RequestParam(defaultValue = "books_id") String sortBy,
             @RequestParam(defaultValue = "-1") Integer direction) {
-        System.out.println("paage size" + pageSize);
-        Page<Books> list = service.getAllBookStocks(keyword, pageNo - 1, pageSize, sortBy,direction);
+         Page<Books> list = service.getAllBookStocks(keyword, pageNo - 1, pageSize, sortBy,direction);
         return new ResponseEntity<Page<Books>>(list, new HttpHeaders(),
                 HttpStatus.OK);
 

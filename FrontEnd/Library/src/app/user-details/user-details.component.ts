@@ -41,11 +41,14 @@ userId: any;
     this.Load();
   }
 
+  DetailView(user:any){
+    sessionStorage.setItem('userId',user.userId)
+    this.router.navigate(['/user-detailview'])
+  }
+
    Load(){
-  // {
-  //   this.service.Load().subscribe((data: any)=>{
-  //   this.userdata=data;
-  //   });  }  
+
+
   this.service.userPaginationAdmin(this.page,this.tableSize,this.sort,this.direction).subscribe(result=>{
     this.result=result.content;
     this.count=result.totalElements

@@ -44,6 +44,8 @@ public interface UserService {
 
     void deletes(Integer userId);
 
+    Collection getUserById(Integer userId);
+
     Collection<User> listAll();
 
    // Collection<User> list();

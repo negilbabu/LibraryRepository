@@ -13,6 +13,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 
 import com.innovature.Library.entity.User;
+import com.innovature.Library.view.UserView;
 
 /**
  *
@@ -32,6 +33,8 @@ public interface UserRepository extends Repository<User, Integer> {
     Collection<User> findAll();
 
     Collection<User> findByUserId(Integer userId);
+
+    // UserView<User>findByUserId1(Integer userId);
 
     public Page<User> findAll(Pageable paging);
 

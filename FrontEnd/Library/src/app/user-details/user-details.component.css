@@ -1,40 +1,63 @@
-
-
-/* 
-.table-bordered{
-    border: 1px solid;
+.split {
+  height: 100%;
+  /* width: 50%; */
+  position: fixed;
+  /* z-index: 1; */
+  top: 5%;
+  overflow-x: hidden;
+  padding-top: 20px;
 }
-th {
-    background-color: #232524;
-    color: white;
-    width: 5%;
-    text-align: center;
-    padding: 12px;
-  }
-  td {
-    background-color: #a7bdb08f;
-    color: rgb(0, 0, 0);
-    width: 5%;
-    text-align: center;
-    margin-top: auto;
-    padding: 8px;
-  }
- */
+
+.left {
+  left: 0;
+  width: 18%;
+   z-index: 1;
+  background-color: #111;
+}
+
+.right {
+  right: 0;
+  width: 89%;
+  background-color: rgb(255, 255, 255);
+  position: relative;
+  left: 16%;
+  top:10%;
+}
+
+.centered {
+  position: relative;
+  top: 45%;
+  left: 40%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
 
 
  table{
-    width: 100%;
+    width:70%;
     border: none;
     text-align: center;
+    border: none;
     
   }
   th {
     background-color: #ffffff;
     color: rgb(0, 0, 0);
     text-align: center;
+    /* border: none; */
    
   }
   td {
- 
+    border: none;
     padding-top: 16px;padding-bottom: 16px;
   } 
+  .no-touch .scrollable.hover {
+    overflow-y:hidden;
+    }
+    
+    .no-touch .scrollable.hover:hover {
+    overflow-y:auto;
+    overflow:visible;
+    }
+    
