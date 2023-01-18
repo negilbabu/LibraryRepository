@@ -1,16 +1,64 @@
-<router-outlet></router-outlet>
 <app-sidenav></app-sidenav>
+
+<head> 
+  <title>Borrow </title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+* {
+  box-sizing: border-box;
+}
+
+@media only screen and (max-width: 620px) {
+  /* For mobile phones: */
+  .right {
+    width: 87%;
+
+  }
+  /* .form-control{
+    top:15%;
+  }
+*/
+  .csvv{
+    position: relative;
+    left: 8%;
+    top:65px;
+  } 
+
+  .centered{
+    top: 18%;
+    left:45%;
+  }
+.mat-dialog-container{
+margin-left: 20%;
+}
+
+.form-control{
+  width: 30vh;
+}
+ 
+  /* .col-md-6{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+  } */
+
+
+}
+</style>
+</head>
+
+
+
 
 <br><br><br><br><br>
 
 
-<body>
+
+
+
   
   <div class="split right">
     <br><br><br>
-    <!-- <button mat-icon-button   [disabled]="!selectedFiles" > 
-      <i class="material-icons" style="color:rgb(142, 179, 137);position: relative; left:1030px; top:40px"  (click)="upload() " >cloud_upload</i>
-      </button>   -->
     <div class="col-md-6"  >
 
       <form [formGroup]="search" style="display: inline-flex;padding: 0px;" class="col-md-4">
@@ -18,22 +66,19 @@
             aria-label="Recipient's username" aria-describedby="basic-addon2" (ngModelChange)="search1(this.search.controls['inp'].value)" >
             <button mat-icon-button  style="position: relative; left:10%; "> <i class="material-icons" style="color:rgb(0, 0, 0)" >search</i></button> 
       </form>
-      
-      <input type="file" id="myFile" (change)="selectFile($event)" style="position: relative; left:115%; ">
+      <span class="csvv">
+      <input type="file" id="myFile" (change)="selectFile($event)" style="position: relative; ">
       <button mat-icon-button   [disabled]="!selectedFiles" > 
-        <i class="material-icons" style="color:rgb(142, 179, 137);position: relative; left:550px; top:1px"  (click)="upload() " >cloud_upload</i>
-        </button>   
+        <i class="material-icons" style="color:rgb(142, 179, 137);position: relative; "  (click)="upload() " >cloud_upload</i>
+        </button>   </span>
 
       <div class="centered">  
       
         <button  mat-raised-button (click)="openDialog()" color="primary" style="text-align: center;" >ADD BOOKS</button>
+    </div>   
+       
     </div>
       
-    
-    
-    
-   
-    <br></div>
 <br><br><br><br>
     <div class="table-responsive">                    
       <table class=".table-hover"  >
@@ -131,7 +176,7 @@
 
 
        
-  </body>
+
 
 
 

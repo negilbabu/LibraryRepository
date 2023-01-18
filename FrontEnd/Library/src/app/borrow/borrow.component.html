@@ -1,10 +1,37 @@
 
 <app-sidenav></app-sidenav>    
 <br><br>
-<!-- <body style="position:relative; left: 17%; right: 0%;"> -->
+
+<head> 
+  <title>Borrow </title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+* {
+  box-sizing: border-box;
+}
+
+@media only screen and (max-width: 620px) {
+  /* For mobile phones: */
+  .right {
+    width: 87%;
+  }
+
+  .table-responsive{
+    overflow-x: auto;
+  }
+
+}
+</style>
+</head>
+
+
+
+
+
+
 
   <div class="split right">
-  <body>
+    <button class=" btn-success btn-sm mb-1" *ngIf="this.flag==0" style=" border: none;position:relative; top:80% " (click)="dwn()"> Download CSV</button>
     <div class="text-center"> 
       <form [formGroup]="ObjSampleForm">
         <div class="card-box">         
@@ -12,16 +39,18 @@
                       <div class="table-responsive"><br>
                         <h2 style="text-align:center ;">Borrow Details</h2>
 
- <button class=" btn-success btn-sm mb-1" *ngIf="this.flag==0" style="margin-top: 2%; border: none;position:absolute; left:83%; top:500px;" (click)="dwn()"> Download CSV</button>
+
 
 <div><input type="button" (click)="clearFilter()" *ngIf="this.flag==1" value="CLEAR FILTER" style = "position:absolute; left:83%; top:12%;"> </div>
 
-<div>
-START DATE &nbsp;&nbsp; <input type="date" formControlName="date1" value="date1" max="{{date| date:'yyyy/MM/dd' }}" (input)="datas()">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-END DATE&nbsp;&nbsp; <input type="date" formControlName="date2" value="date2"  min="{{this.val}}" max="{{date| date:'yyyy/MM/dd' }}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<div class="centered">
+  <label> START DATE</label> &nbsp;&nbsp; <input type="date" formControlName="date1" value="date1" max="{{date| date:'yyyy/MM/dd' }}" (input)="datas()">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<label class="end">END DATE</label>&nbsp;&nbsp; <input type="date" formControlName="date2" value="date2"  min="{{this.val}}" max="{{date| date:'yyyy/MM/dd' }}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 <input type="button" (click)="getFilter()" value="FILTER">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 </div>
-<BR>
+<br>
+
 
                           
                             <table *ngIf="flag==0"  class=".table-hover" id="datatable" role="grid" >
@@ -82,10 +111,7 @@ END DATE&nbsp;&nbsp; <input type="date" formControlName="date2" value="date2"  m
     <button  mat-button (click)="acceptRequest(post)" color="primary" *ngIf="post.status=='REQUESTED' "   >Accept</button>
     <button  mat-button (click)="rejectRequest(post)" color="warn" *ngIf="post.status=='REQUESTED' "   >Reject</button>
     <button  mat-button (click)="bookReturn(post)" color="accent"  *ngIf="post.status!='RETURNED' && post.status=='APPROVED' ">Return</button>
-  <!-- <button type ="button"  class="btnn0" *ngIf="post.status=='REQUESTED' "  (click)="acceptRequest(post)">Accept</button>&nbsp;&nbsp;
-  <button type ="button" class="btnn2" *ngIf="post.status=='REQUESTED' "  (click)="rejectRequest(post)">Reject</button>&nbsp;&nbsp;
-  <button type ="button" class="btnn" *ngIf="post.status!='RETURNED' && post.status=='APPROVED' " (click)="bookReturn(post)" >Return</button>&nbsp;&nbsp;
-  <button type ="button" class="btnn1" *ngIf="post.status=='RETURNED'  "  (click)="undo(post)" >Undo</button>&nbsp;&nbsp;  -->
+ 
   </td>  
   <td>
     <button mat-icon-button>
@@ -101,8 +127,9 @@ END DATE&nbsp;&nbsp; <input type="date" formControlName="date2" value="date2"  m
         
                               </tbody>
                           </table>
-<!-- table for display -->
-                          <table *ngIf="flag==1"  align="center" class=".table-hover" id="datatable" role="grid" >
+
+                          <table *ngIf="flag==1" class=".table-hover" id="datatable" role="grid" >
+                            <caption>Borrow </caption>
                             <thead class="bg-primary text-white">
                                 <tr role="row">
                                  
@@ -167,4 +194,4 @@ END DATE&nbsp;&nbsp; <input type="date" formControlName="date2" value="date2"  m
 
                 </div>
                 </form>
-                </div></body></div>
+                </div></div>

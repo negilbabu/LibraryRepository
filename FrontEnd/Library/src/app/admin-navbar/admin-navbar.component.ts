@@ -16,7 +16,7 @@ export class AdminNavbarComponent implements OnInit {
   }
 
   profile() {
-    throw new Error('Method not implemented.');
+    this.router.navigate(['/view-adminprofile'])
     }
     logout() {
       if (confirm('Are you sure want to Logout?')) {

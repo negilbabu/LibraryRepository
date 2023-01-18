@@ -125,7 +125,7 @@ editCategory(categoryId:any) {
   this.dialog.open(CategoryComponent,
     {
       // width:'25%',height:'35%'
-      width:'auto+50px',height:'auto'
+      width:'auto',height:'auto'
 
     }
     );

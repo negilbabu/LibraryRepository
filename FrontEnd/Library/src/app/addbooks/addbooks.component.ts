@@ -161,7 +161,7 @@ onTableDataChange(event:any) {
     this.dialog.open(BooksComponent,
       {
         // width:'32%',height:'70%'
-        width:'auto+50px',height:'auto'
+        width:'55%',height:'auto'
       
       }
       );
@@ -194,7 +194,7 @@ onTableDataChange(event:any) {
      const dialogConfig = new MatDialogConfig();
      this.dialog.open(BooksComponent,
       {
-        width:'32%',height:'70%'
+        width:'30%',height:'70%'
       
       }
       );
