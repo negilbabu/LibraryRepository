@@ -31,6 +31,7 @@ import { ForgotpasswordComponent } from './forgotpassword/forgotpassword.compone
 import { Sidenav2Component } from './sidenav2/sidenav2.component';
 import { Navbar2Component } from './navbar2/navbar2.component';
 import { AdminNavbarComponent } from './admin-navbar/admin-navbar.component';
+import { HomepageComponent } from './homepage/homepage.component';
 
 const routes: Routes = [
   {path: '',redirectTo:'login',pathMatch:'full'},
@@ -63,7 +64,8 @@ const routes: Routes = [
   {path:'sidenav2',component:Sidenav2Component,canActivate: [HomeguardGuard]},
   {path:'navbar2',component:Navbar2Component,canActivate: [HomeguardGuard]},
   {path:'sidenav2',component:Sidenav2Component,canActivate: [HomeguardGuard]},
-  {path:'admin-navbar',component:AdminNavbarComponent,canActivate: [HomeguardGuard]}
+  {path:'admin-navbar',component:AdminNavbarComponent,canActivate: [HomeguardGuard]},
+  {path:'homepage',component:HomepageComponent,canActivate:[HomeguardGuard]}
 ];
 
 @NgModule({

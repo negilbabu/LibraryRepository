@@ -18,9 +18,6 @@ export class LoginComponent implements OnInit {
   constructor(private router:Router, private service:UserserviceService,private toast : NgToastService )
    { 
     }
-  
-  
-  
     loginForm:FormGroup=new FormGroup(
     { 
       email:new FormControl('',[Validators.required]),
@@ -44,7 +41,7 @@ export class LoginComponent implements OnInit {
             if(result.role==2){
             localStorage.setItem('token',this.responsedata.accessToken.value)        
             this.toast.info({detail:'Hello User ',summary:'LogIn Successfull',duration:5000});        
-            this.router.navigate(['/sidenav2'])
+            this.router.navigate(['/homepage'])
             }
             
             
