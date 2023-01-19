@@ -67,7 +67,7 @@ export class ForgotpasswordComponent implements OnInit {
     this.emails.verify(this.ObjForgetForm.value).subscribe(result=>{
 
       if(result){
-        this.toast.success({detail:'psd changed',summary:'Please Login', duration:10000,position:'tr'})
+        this.toast.success({detail:'password changed',summary:'Please Login', duration:10000,position:'tr'})
         this.router.navigate(['/login'])
       }
       else{
@@ -113,7 +113,7 @@ export class ForgotpasswordComponent implements OnInit {
   }
 
   openSuccess(){
-    this.toast.success({detail:'OTP Sent Success',summary:'Otp Has been Sent to your mail', duration:5000,position:'tr'})
+    this.toast.success({detail:'OTP Sent Success',summary:'OTP Has been Sent to your mail', duration:5000,position:'tr'})
     }
 
 }

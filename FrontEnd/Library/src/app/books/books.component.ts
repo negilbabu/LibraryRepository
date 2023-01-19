@@ -30,6 +30,7 @@ export class BooksComponent implements OnInit {
   booksdata:any;
   catdata: any;
   ObjSampleForm:FormGroup;
+  displayStyle: any;
 
   constructor(private router:Router ,
     private booksService:BooksService,
@@ -77,7 +78,8 @@ LoadCategory() {
   
   clear() {
     localStorage.removeItem('categoryId');
-    window.location.reload()
+
+    
   }
   
 onSubmit(){
@@ -99,18 +101,19 @@ onSubmit(){
         console.log("bid=",result.booksId)
         // MatDialog.close();
         this.router.navigate(['/imageupload'])
-
+        this.displayStyle = "none";
       }
       else{
         this.toast.error({detail:'Invalid',summary:'Add new Book Failed',duration:5000});
       }
     })
 
-
-
  }
 }
 
+closePopup() {
+  this.displayStyle = "none";
+}
 
 loadEdit(): void{
 

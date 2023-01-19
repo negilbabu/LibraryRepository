@@ -29,16 +29,18 @@
 
 
 
-
   <div class="split right">
+
+      <h2 class="centr" style="text-align:center ;">Borrow Details</h2>
+ 
+    
     <button class=" btn-success btn-sm mb-1" *ngIf="this.flag==0" style=" border: none;position:relative; top:80% " (click)="dwn()"> Download CSV</button>
     <div class="text-center"> 
       <form [formGroup]="ObjSampleForm">
         <div class="card-box">         
                     <div class="row">
                       <div class="table-responsive"><br>
-                        <h2 style="text-align:center ;">Borrow Details</h2>
-
+                       
 
 
 <div><input type="button" (click)="clearFilter()" *ngIf="this.flag==1" value="CLEAR FILTER" style = "position:absolute; left:83%; top:12%;"> </div>

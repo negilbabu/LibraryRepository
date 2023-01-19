@@ -64,14 +64,15 @@ margin-left: 20%;
     </mat-form-field>
     <br>
     <mat-form-field>
-      <input formControlName="booksCopies" matInput placeholder="booksCopies" pattern="[0-9]+"  />
+      <input formControlName="booksCopies" matInput placeholder="booksCopies" pattern="[0-9]+" type="number" min="0" />
       <mat-error>This field is mandatory.</mat-error>
+      <!-- <mat-error>Numeric values only</mat-error> -->
     </mat-form-field>
     <br>
  </mat-dialog-content>
  
  <div mat-dialog-actions >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-   <button mat-raised-button color="warn" (click)="clear()">Clear</button> &nbsp;&nbsp;&nbsp;
+   <button mat-raised-button color="warn" (click)="clear()" type="reset">Clear</button> &nbsp;&nbsp;&nbsp;
    <button mat-raised-button (click)="onSubmit()" color="primary" [disabled]="ObjSampleForm.invalid"  >Submit</button>
     
  </div>
