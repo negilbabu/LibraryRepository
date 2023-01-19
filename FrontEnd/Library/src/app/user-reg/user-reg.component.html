@@ -1,8 +1,16 @@
-<p > <br>
-    <input type="button" style = "position:absolute; left:1200px; top:20px;" class="btnhome" name="LogIn" value="LogIn" (click)="Login()">
-    <br><br>
-     </p>
-
+<ul class="nav-mobile"  > 
+    <li class="cls"> 
+      <label  style="position: relative;text-align: center; left: 8%;">LIBRARY</label>
+       <button type="button" style="position: relative;float: right;" class="button" (click)="Login()">LOGIN</button>
+     
+  <div class="right">                    
+  
+      <!-- <button mat-icon-button > <i class="material-icons" style="color:rgb(30, 237, 213);float:right; " (click)="Login()">logout</i></button> <br>                            -->
+     
+  </div> 
+    </li>
+    </ul>
+  
 
 
 <router-outlet></router-outlet>
@@ -10,7 +18,7 @@
 <div class="text-center"> 
     <form [formGroup]="ObjSampleForm" (ngSubmit)="onSubmit()">
             
-            <div style="width: 160px; margin:0 auto;" class="example-container" ><br>
+            <div style="width: 180px; margin:0 auto;" class="example-container" ><br>
                <div style="width: 50px; margin:0 auto;"> <label ><h2>SignUp</h2></label></div>
                 <br>                
                             
@@ -56,21 +64,13 @@
             </div> <br><br>            
             
 
-            
-            <input class="btn" type="submit" name="onSubmit" value="Submit" [disabled]="ObjSampleForm.invalid" ><br><br><br><br>
-            <!-- <br>    [disabled]="!ObjSampleForm.valid" -->
-            <br><br>
-            <br>
-            <br>
-            <br>    
-            <br><br>
-            <br>    
-            <br>
+            <button mat-raised-button color="warn" (click)="clear()">Clear</button>
+                &nbsp;  &nbsp; 
+            <button mat-raised-button (click)="onSubmit()" color="primary" [disabled]="ObjSampleForm.invalid" >Submit</button>
+         
+          
             </div>
-            <br>    
-            <br><br>
-            <br>    
-            <br>
+          
     </form>     
     
     </div>

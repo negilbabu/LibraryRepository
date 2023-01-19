@@ -61,7 +61,11 @@ export class LoginComponent implements OnInit {
             //alert("login not sucessful");
             this.toast.warning({detail:'success msg',summary:'LogIn failed',duration:5000});
           }
-        })
+        }, (error: any) =>{
+          this.toast.error({detail:'Login Failed',summary:'Invalid Credentials',duration:5000});
+          console.log(error)});
+        
+        
     //  }
      
        

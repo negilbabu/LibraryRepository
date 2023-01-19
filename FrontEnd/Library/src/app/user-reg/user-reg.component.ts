@@ -63,7 +63,9 @@ var:any;
      this.router.navigate(['/login'])
    }
 
-  
+  clear(){
+    window.location.reload()
+  }
 
 
 
