@@ -37,6 +37,10 @@ export class LoginComponent implements OnInit {
           if(result.userId){
             this.responsedata=result
             console.log("log=",result);
+            localStorage.setItem('name',result.firstName);
+            localStorage.setItem('email',result.email);
+            localStorage.setItem('phone',result.phone);
+          
 
             if(result.role==2){
             localStorage.setItem('token',this.responsedata.accessToken.value)        
@@ -55,21 +59,12 @@ export class LoginComponent implements OnInit {
           }
           
           else{
-            //alert("login not sucessful");
+           
             this.toast.warning({detail:'success msg',summary:'LogIn failed',duration:5000});
           }
         }, (error: any) =>{
           this.toast.error({detail:'Login Failed',summary:'Invalid Credentials',duration:5000});
           console.log(error)});
-        
-        
-    //  }
-     
-       
-   // }
-   // else{   
-   //       return;
-     //   }
   }
 
 

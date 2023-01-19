@@ -72,7 +72,7 @@ handleError(err: HttpErrorResponse): any {
     // user filer
     filterBorrowPagination2(date1:any,date2:any,page:any,tableSize:any,sort:any){
       console.log(date1)
-      return this.http.get(this.apiurl + "/borrow/user/"+date1+"/"+date2+"?pageNo="+page+"&pageSize="+tableSize+"&sortBy="+sort)
+      return this.http.get(this.apiurl + "/borrow/user/loadByIssueDate/"+date1+"/"+date2)
     }
 
     //////////////
@@ -83,7 +83,7 @@ handleError(err: HttpErrorResponse): any {
   
   // return this.http.get(this.apiurl + `/users/fetching/${type}/${date1}/${date2}`, httpOptions)
   LoadByIssueDate(date1:any,date2:any){
-    return this.http.get(this.apiurl + "/borrow/loadByIssueDate/"+date1+"/"+date2).pipe((catchError(err => this.handleError(err))));
+    return this.http.get(this.apiurl + "/borrow/loadByIssueDate/"+date1+"/"+date2);
   }
   //user
   LoadByIssueDateUser(date1:any,date2:any){

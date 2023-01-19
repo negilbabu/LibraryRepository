@@ -59,6 +59,8 @@ import { Navbar2Component } from './navbar2/navbar2.component';
 import { AdminNavbarComponent } from './admin-navbar/admin-navbar.component';
 import { HomepageComponent } from './homepage/homepage.component';
 import { UserDetailviewComponent } from './user-detailview/user-detailview.component';
+import {MatTableModule} from '@angular/material/table';
+
 
 //  import {MatIconModule} from '@angular/material/icon';
 // import { MatToolbarModule } from '@angular/material';
@@ -125,7 +127,8 @@ import { UserDetailviewComponent } from './user-detailview/user-detailview.compo
     MatDialogModule,
     MatInputModule,
     MatListModule,
-    MatGridListModule
+    MatGridListModule,
+    MatTableModule
     
     // Chart
     
