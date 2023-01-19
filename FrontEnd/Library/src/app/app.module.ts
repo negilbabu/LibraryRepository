@@ -57,6 +57,7 @@ import {Chart} from 'chart.js';
 import { Sidenav2Component } from './sidenav2/sidenav2.component';
 import { Navbar2Component } from './navbar2/navbar2.component';
 import { AdminNavbarComponent } from './admin-navbar/admin-navbar.component';
+import { HomepageComponent } from './homepage/homepage.component';
 import { UserDetailviewComponent } from './user-detailview/user-detailview.component';
 
 //  import {MatIconModule} from '@angular/material/icon';
@@ -98,6 +99,7 @@ import { UserDetailviewComponent } from './user-detailview/user-detailview.compo
     Sidenav2Component,
     Navbar2Component,
     AdminNavbarComponent,
+    HomepageComponent,
     UserDetailviewComponent,
     // Chart
     

@@ -332,7 +332,7 @@ public class BorrowServiceImpl implements BorrowService {
     @Override
     @Transactional
     // @Scheduled(cron="* */1 * * * * ")
-    @Scheduled(cron = "0 0 12 * * ?")
+     @Scheduled(cron = "0 0 12 * * ?")
     public void sendMails() {
         System.out.println("Email sent successfully");
 
