@@ -46,7 +46,7 @@
 <div class="centered">
   <label> START DATE</label> &nbsp;&nbsp; <input type="date" formControlName="date1" value="date1" max="{{date| date:'yyyy/MM/dd' }}" (input)="datas()">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
-<label class="end">END DATE</label>&nbsp;&nbsp; <input type="date" formControlName="date2" value="date2"  min="{{this.val}}" max="{{date| date:'yyyy/MM/dd' }}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<label class="end">END DATE</label>&nbsp;&nbsp; <input type="date" formControlName="date2" value="date2"  min="{{this.val}}" (input)="datas1()" max="{{date| date:'yyyy/MM/dd' }}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 <input type="button" (click)="getFilter()" value="FILTER">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 </div>
 <br>
@@ -124,7 +124,7 @@
 
         </td>
       </tr>
-        
+     
                               </tbody>
                           </table>
 
@@ -176,12 +176,16 @@
 
 </td>
 
+      </tr>
+    <tr>
+      <label *ngIf="this.data1==1">   NO RECORDS FOUND </label> 
     </tr>
-      
+ 
                             </tbody>
+                      
                         </table>
 
-
+                    
 
                           <!-- Pagenation Controler -->
                           <div class="d-flex justify-content-center">

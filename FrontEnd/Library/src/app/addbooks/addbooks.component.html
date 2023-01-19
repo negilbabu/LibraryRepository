@@ -67,7 +67,7 @@ margin-left: 20%;
             <button mat-icon-button  style="position: relative; left:10%; "> <i class="material-icons" style="color:rgb(0, 0, 0)" >search</i></button> 
       </form>
       <span class="csvv">
-      <input type="file" id="myFile" (change)="selectFile($event)" style="position: relative; ">
+      <input type="file" id="myFile" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"  (change)="selectFile($event)" style="position: relative; ">
       <button mat-icon-button   [disabled]="!selectedFiles" > 
         <i class="material-icons" style="color:rgb(142, 179, 137);position: relative; "  (click)="upload() " >cloud_upload</i>
         </button>   </span>
