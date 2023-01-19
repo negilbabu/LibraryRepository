@@ -32,7 +32,7 @@ export class AddbooksComponent implements OnInit {
 data: any;
 page:number=1;
 count: any;
-tableSize: number = 3;
+tableSize: number = 5;
 ProdData: any;
 sortedData: any;
 a:any;
@@ -160,7 +160,8 @@ onTableDataChange(event:any) {
     const dialogConfig = new MatDialogConfig();
     this.dialog.open(BooksComponent,
       {
-        width:'32%',height:'70%'
+        // width:'32%',height:'70%'
+        width:'55%',height:'auto'
       
       }
       );
@@ -177,7 +178,7 @@ onTableDataChange(event:any) {
       setTimeout(() => {
 
         window.location.reload()       
-    }, 1500);
+    }, 1000);
     },
     error:(msg)=>{}      
     })
@@ -193,7 +194,7 @@ onTableDataChange(event:any) {
      const dialogConfig = new MatDialogConfig();
      this.dialog.open(BooksComponent,
       {
-        width:'32%',height:'70%'
+        width:'30%',height:'70%'
       
       }
       );

@@ -1,0 +1,18 @@
+<app-sidenav></app-sidenav>   
+
+      <form>
+      <br><br>      <br><br>
+         <h2 style="text-align:center;position:absolute; left:40%; top:58px;"> <button mat-icon-button > <i class="material-icons" style="color:rgb(142, 179, 137);"  >account_circle</i></button> USER DETAIL VIEW</h2>
+<br><br>
+        <table align="center" style="border-collapse: collapse; border: none; "  >
+
+        <tr> <td>NAME </td><td>:</td><td>{{userdata[0].firstName}} {{userdata.lastName}}</td></tr><br>
+        <tr><td>ADDRESS </td> <td>:</td><td>{{userdata[0].address}}</td></tr><br>
+        <tr> <td>PHONE </td><td>:</td><td>{{userdata[0].phone}}</td></tr><br>
+        <tr><td>EMAIL </td><td>:</td><td>{{userdata[0].email}}</td></tr><br>
+        <tr> <td>DOB </td><td>:</td><td>{{userdata[0].dob| date:'dd/MM/yyyy'}}</td></tr><br>
+        <tr> <td>CREATED DATE </td><td>:</td><td>{{userdata[0].createDate| date:'dd/MM/yyyy'}}</td></tr><br>
+        <tr><td>UPDATE DATE </td><td>:</td><td>{{userdata[0].updateDate| date:'dd/MM/yyyy'}}</td></tr><br>
+                                    
+          </table>
+                     

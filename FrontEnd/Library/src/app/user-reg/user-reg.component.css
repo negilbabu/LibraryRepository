@@ -1,10 +1,64 @@
-p{
-    padding: 0px 0px 30px 1000px;
-    margin: 0px;
-    background-color: rgb(0, 0, 0);
-    background-image: url('../../../a.png');
-    
-}
+body, html {
+    /* fixed */
+      position: relative;
+        margin: 0;
+        font-family: arial;
+        height: 0vh;
+        background: #ccc;
+      }
+      *, *:before, *:after {
+        box-sizing: border-box;
+      }
+      .nav-mobile {
+        position: fixed;
+        width: 100%;
+        z-index: 1;
+        background: #1c032e;
+        /* background: #9f3800; */
+        color: #fff;
+        padding: 0;
+        /* border:10px; */
+        /* border-color: black; */
+        margin: 0;
+        cursor: auto;
+        font-size: 18px;
+        list-style-type: none;
+        /* box-shadow: 0 5px 5px -5px #333; */
+       } 
+      .nav-mobile:after {
+        content: "";
+        display: table;
+        clear: both;
+      }
+  
+   
+      .nav-mobile li {
+        width: 90%;
+        height: 4%;
+        line-height: 46px;
+        text-align: center;
+        /* float: right; */
+      }
+      .nav-mobile li a {
+        display: block;
+        color: #333;
+        width: 100%;
+        height: 100%;
+        text-decoration: none;
+      }
+  
+      .main {
+        height: 100%;
+        width: 100%;
+      overflow: hidden;
+      overflow-y: scroll;
+    }
+    .button{
+        border: none;
+        background-color: transparent; 
+        color: rgb(150, 40, 180);       
+    }
+    .button:hover {color: #ffffff}
 
 
 .text-danger1{

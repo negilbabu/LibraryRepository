@@ -358,10 +358,11 @@ public class BorrowServiceImpl implements BorrowService {
         // TODO Auto-generated method stub
     }
 
+
     @Override
     @Transactional
     // @Scheduled(cron="* */1 * * * * ")
-    @Scheduled(cron = "0 0 12 * * ?")
+    @Scheduled(cron = "0 0 10 * * ?")
     public void fineGeneration() {
         System.out.println("reachllllllllllllll");
 
@@ -376,6 +377,7 @@ public class BorrowServiceImpl implements BorrowService {
             bor.setDueDays(due);
 
             bor.setFine(due * 5);
+            bor.setPaymentStatus("UNPAID");
         }
 
     }
