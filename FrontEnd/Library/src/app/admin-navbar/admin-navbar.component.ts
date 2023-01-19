@@ -28,7 +28,7 @@ export class AdminNavbarComponent implements OnInit {
       } 
     }
     dash() {
-    throw new Error('Method not implemented.');
+
     }
 
 }
