@@ -45,7 +45,7 @@ export class BooksComponent implements OnInit {
       publication:new FormControl('',[Validators.required]), 
       booksName:new FormControl('',[Validators.required]), 
       auther:new FormControl('',[Validators.required]), 
-      booksCopies:new FormControl('',[Validators.required]) ,
+      booksCopies:new FormControl('',[Validators.required]) 
       // categoryId:new FormControl('',[Validators.required]) ,
     }
   );

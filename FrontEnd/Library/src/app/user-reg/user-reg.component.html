@@ -36,7 +36,8 @@
 
                 <div>
                     <input  type="date" class="text-danger1" placeholder="DOB" formControlName="dob" name="dob" max="{{date | date :'yyyy-MM-dd' }}"  required>    
-                    <span class="text-danger"   *ngIf="ObjSampleForm.controls['dob'].touched && ObjSampleForm.hasError('required','dob')"><small>Date-of-birth is required</small> </span>   
+                    <span class="text-danger"   *ngIf="ObjSampleForm.controls['dob'].touched && ObjSampleForm.hasError('required','dob')"><small>Date-of-birth is required</small> </span> 
+    
                 </div> <br>
                 <div>
                     <input  type="text" class="text-danger1" placeholder="Address" formControlName="address" name="address" maxlength="100" required>
@@ -46,14 +47,13 @@
                     <input  type="text" class="text-danger1" placeholder="phone" formControlName="phone" name="phone" maxlength="10" required> 
                     <span class="text-danger"    *ngIf="ObjSampleForm.controls['phone'].touched && ObjSampleForm.hasError('required','phone')"><small>Phone n.o is required</small> </span>
                     </div> <br>
-                <!-- <div>
-                    <input  type="number" class="text-danger1" placeholder="role" formControlName="role" name="role" maxlength="20" required>    
-                    </div> <br><br> -->
+           
             <div>
                 <input type="password" class="text-danger1" placeholder="password" formControlName="password" name="password" pattern='(?=.*\d)(?=.*[a-z])(?=.*[#$@!%&*?])(?=.*[A-Z]).{8,}' minlength="8" required> 
-                <span class="text-danger"   *ngIf="ObjSampleForm.controls['password'].touched && ObjSampleForm.hasError('required','password')"><small>pswd is required<br>use (uppercase,lowercase & numbers)<br>minimum 8 character</small>
-                </span>            
-                    <br><br>                
+                <span class="text-danger"   *ngIf="ObjSampleForm.controls['password'].touched && ObjSampleForm.hasError('required','password')"><small>pswd is required</small></span>            
+                <span class="text-danger" *ngIf=" ObjSampleForm.hasError('pattern','password')"><small>use alphanumeric & special characters &nbsp;</small></span> 
+                <span class="text-danger" *ngIf="ObjSampleForm.controls['password'].touched && ObjSampleForm.hasError('minlength','password')"><small>minimum 8 character</small></span>   
+                 <br><br>                
             </div>
             <div>
             <input  type="email" class="text-danger1" placeholder="email" formControlName="email" name="email"  maxlength="100" required>
@@ -64,11 +64,11 @@
             </div> <br><br>            
             
 
-            <button mat-raised-button color="warn" (click)="clear()">Clear</button>
+            <button mat-raised-button color="warn" class="b1" type="reset">Clear</button>
                 &nbsp;  &nbsp; 
-            <button mat-raised-button (click)="onSubmit()" color="primary" [disabled]="ObjSampleForm.invalid" >Submit</button>
+            <button mat-raised-button (click)="onSubmit()"  color="primary"  >Submit</button>
          
-          
+            <!-- [disabled]="ObjSampleForm.invalid" -->
             </div>
           
     </form>     

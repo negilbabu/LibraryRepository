@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router,Route } from '@angular/router';
+import { NgToastService } from 'ng-angular-popup';
 import { UserserviceService } from '../userservice.service';
 
 @Component({
@@ -12,7 +13,7 @@ export class UserRegComponent implements OnInit {
 [x: string]: any;
 date: any;
 var:any;
-  constructor(private router:Router ,private service:UserserviceService) { }
+  constructor(private router:Router ,private service:UserserviceService,private toast : NgToastService) { }
   
   
   
@@ -37,9 +38,9 @@ var:any;
 
 
   onSubmit(){
-    console.log("aaaa");
 
-  //  if(this.ObjSampleForm.valid){
+
+   if(this.ObjSampleForm.valid){
      this.var=this.ObjSampleForm.value
       this.service.add(this.ObjSampleForm.value).subscribe(result=>{
         if(result.userId){  
@@ -51,8 +52,18 @@ var:any;
         else{
           alert("User Not added");
         }
-      })
-    // }
+      },
+      (error: any) =>{
+        this.toast.error({detail:'User Registration Failed',summary:'Email Already Registered',duration:5000});
+        console.log(error)});    
+      
+      
+    }
+    else{   
+      this.toast.error({detail:'User Registration Failed',summary:'Fill up the fields',duration:2000});
+         }
+
+
    }
 
 
@@ -63,9 +74,10 @@ var:any;
      this.router.navigate(['/login'])
    }
 
-  clear(){
-    window.location.reload()
-  }
+  // clear(){
+  //   // window.location.reload()
+  //   this.ObjSampleForm.reset()
+  // }
 
 
 

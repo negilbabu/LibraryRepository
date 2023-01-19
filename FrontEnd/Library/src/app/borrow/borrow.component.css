@@ -46,7 +46,7 @@
   table{
     width: 90%;
     border: none;
-    text-align: center;
+    text-align: left;
  
     
     
@@ -54,10 +54,10 @@
   th {
     background-color: #ffffff;
     color: rgb(0, 0, 0);
-    text-align: center;
+    text-align: left;
    
   }
   td {
- 
+    text-align: left;
     padding-top: 6px;padding-bottom: 6px;
   } 

@@ -208,6 +208,7 @@ onTableDataChange(event:any) {
 
 selectFile($event:any) {
   this.selectedFiles=$event.target.files;
+  console.log("sel-",this.selectedFiles)
    }
 
    

@@ -49,22 +49,22 @@ margin-left: 20%;
     <br>
 
      <mat-form-field>
-       <input formControlName="publication" matInput placeholder="publication" />
+       <input formControlName="publication" matInput placeholder="publication" maxlength="30" />
        <mat-error>This field is mandatory.</mat-error>
      </mat-form-field>
 <br>
      <mat-form-field>
-      <input formControlName="booksName" matInput placeholder="booksName" />
+      <input formControlName="booksName" matInput placeholder="booksName" maxlength="30" />
       <mat-error>This field is mandatory.</mat-error>
     </mat-form-field>
     <br>
     <mat-form-field>
-      <input formControlName="auther" matInput placeholder="auther" />
+      <input formControlName="auther" matInput placeholder="auther" maxlength="30" />
       <mat-error>This field is mandatory.</mat-error>
     </mat-form-field>
     <br>
     <mat-form-field>
-      <input formControlName="booksCopies" matInput placeholder="booksCopies" />
+      <input formControlName="booksCopies" matInput placeholder="booksCopies" pattern="[0-9]+"  />
       <mat-error>This field is mandatory.</mat-error>
     </mat-form-field>
     <br>
@@ -72,7 +72,7 @@ margin-left: 20%;
  
  <div mat-dialog-actions >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
    <button mat-raised-button color="warn" (click)="clear()">Clear</button> &nbsp;&nbsp;&nbsp;
-   <button mat-raised-button (click)="onSubmit()" color="primary" [disabled]="ObjSampleForm.invalid" >Submit</button>
+   <button mat-raised-button (click)="onSubmit()" color="primary" [disabled]="ObjSampleForm.invalid"  >Submit</button>
     
  </div>
  
@@ -103,49 +103,3 @@ margin-left: 20%;
 
 
 
-
-
-<!--  
-
-  <div class="text-center"> 
-      <form [formGroup]="ObjSampleForm" class="dialog-form" >
-              <br>
-              <div style="width: 200px; margin:0 auto;" class="example-container" >
-                  <label><h1>ADD BOOKS</h1></label>
-               <table align="center">
-<br>
-               <label for="categoryId">Select Category </label>
-               <select class="dropbtn" type="input" formControlName="categoryId"  name="select" placeholder="Select Category" (click)="disp()" >
-               <option  *ngFor="let category of catdata" value={{category.categoryId}}>
-                {{category.categoryName}}
-               </option>
-               </select>
-               <span class="text-danger"   class="text-danger" *ngIf="ObjSampleForm.controls['categoryId'].touched && ObjSampleForm.hasError('required','categoryId')"><small>Category Name is required</small>
-               </span>
-               <br><br>
-                  
-                <div><input  type="text" class="text-danger1" placeholder="publication" formControlName="publication" name="publication" maxlength="20" required></div>
-                <span class="text-danger"   class="text-danger" *ngIf="ObjSampleForm.controls['publication'].touched && ObjSampleForm.hasError('required','publication')"><small>Publication is required</small>
-                </span><br>
-
-                <div><input  type="text" class="text-danger1" placeholder="booksName" formControlName="booksName" name="booksName" maxlength="20" required></div>
-                <span class="text-danger"   class="text-danger" *ngIf="ObjSampleForm.controls['booksName'].touched && ObjSampleForm.hasError('required','booksName')"><small>Books Name is required</small>
-               </span><br>
-
-                <div><input  type="text" class="text-danger1" placeholder="author" formControlName="auther" name="auther" maxlength="20" required></div>
-                <span class="text-danger"   class="text-danger" *ngIf="ObjSampleForm.controls['auther'].touched && ObjSampleForm.hasError('required','auther')"><small>Author Name is required</small>
-               </span><br>
-
-                <div><input  type="text" class="text-danger1" placeholder="booksCopies" formControlName="booksCopies" name="booksCopies" maxlength="20" required></div><br>
-              <span class="text-danger"   class="text-danger" *ngIf="ObjSampleForm.controls['booksCopies'].touched && ObjSampleForm.hasError('required','booksCopies')"><small>booksCopies is required</small>
-               </span>
-
-
-                  <input class="btn" type="submit" name="onSubmit" value="Submit" ><br><br><br>
-                
-                </table> 
-          </div>       
-          </form>         
-          </div>
-          
- -->

@@ -2,7 +2,7 @@
   table{
     width: auto;
     border: none;
-    text-align: center;
+    text-align: left;
     
   }
   /* tr{
@@ -11,12 +11,18 @@
   th {
     background-color: #ffffff;
     color: rgb(0, 0, 0);
-    text-align: center;
+    text-align: left;
+    /* text-align: center; */
     border: none;
    
   }
   td {
     border: none;
     padding-top: 16px;padding-bottom: 6px;
-    text-align: center;
+    text-align: left;
+    /* text-align: center; */
+  }
+
+  td text{
+    padding-top: 30%;
   }

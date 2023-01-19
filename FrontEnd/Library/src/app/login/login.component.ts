@@ -35,7 +35,7 @@ export class LoginComponent implements OnInit {
 
   login(){
 
-    //  if(this.ObjSampleForm.valid){
+     if(this.loginForm.valid){
         this.service.login(this.loginForm.value).subscribe(result=>{
           if(result.userId){
             this.responsedata=result
@@ -51,7 +51,7 @@ export class LoginComponent implements OnInit {
             else{
               localStorage.setItem('token',this.responsedata.accessToken.value)         
               this.toast.info({detail:'Hello Admin : '+result.firstName,summary:'LogIn Successfull',duration:5000});
-              this.router.navigate(['/sidenav'])
+              this.router.navigate(['/body'])
 
             }
 
@@ -66,13 +66,13 @@ export class LoginComponent implements OnInit {
           console.log(error)});
         
         
-    //  }
+     }
      
        
-   // }
-   // else{   
-   //       return;
-     //   }
+   
+   else{   
+    this.toast.error({detail:'Login Failed',summary:'Fill up the fields',duration:5000});
+       }
   }
 
 
