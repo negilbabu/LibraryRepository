@@ -53,10 +53,6 @@ export class NotificationComponent implements OnInit {
       if (data[0].borrowId == null) {
         this.toast.success({ detail: 'REMAINDER', summary: 'Nothing here :)', duration: 5000 });
       }
-      //   if(data=[])
-      //   {alert("nothing here")
-      //  // this.router.navigate(['/userbody'])
-      //   }
       console.log("<1")
       console.log(data)
     });
@@ -152,8 +148,5 @@ export class NotificationComponent implements OnInit {
         alert("invalid Payment details")
       }
     })
-
-
-
   }
 }

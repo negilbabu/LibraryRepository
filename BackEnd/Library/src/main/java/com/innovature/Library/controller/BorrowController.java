@@ -104,13 +104,8 @@ public ResponseEntity<Page<Borrow>>getTestFilterBorrow(
 
 }
 
-
-
-
-
-
 //load results of issuedate filter at User BorrowHistory
-@GetMapping("user/loadByIssueDate/{date1}/{date2}")
+@GetMapping("/user/loadByIssueDate/{date1}/{date2}")
 public ResponseEntity<List<Borrow>> loadByIssueDateUser( 
 @PathVariable("date1") Date date1,
  @PathVariable("date2") Date date2)
@@ -134,11 +129,6 @@ public ResponseEntity<List<Borrow>> loadByIssueDateUser(
         HttpStatus.OK);
 
     }
-
-
-
-
-
     @PostMapping
     public BorrowDetailView add(@Valid @RequestBody BorrowForm form) {
         return bService.add(form);
