@@ -32,15 +32,11 @@ export class LoginComponent implements OnInit {
 
   login(){
 
-    //  if(this.ObjSampleForm.valid){
+     if(this.loginForm.valid){
         this.service.login(this.loginForm.value).subscribe(result=>{
           if(result.userId){
             this.responsedata=result
             console.log("log=",result);
-            localStorage.setItem('name',result.firstName);
-            localStorage.setItem('email',result.email);
-            localStorage.setItem('phone',result.phone);
-          
 
             if(result.role==2){
             localStorage.setItem('token',this.responsedata.accessToken.value)        
@@ -52,19 +48,28 @@ export class LoginComponent implements OnInit {
             else{
               localStorage.setItem('token',this.responsedata.accessToken.value)         
               this.toast.info({detail:'Hello Admin : '+result.firstName,summary:'LogIn Successfull',duration:5000});
-              this.router.navigate(['/sidenav'])
+              this.router.navigate(['/body'])
 
             }
 
           }
           
           else{
-           
+            //alert("login not sucessful");
             this.toast.warning({detail:'success msg',summary:'LogIn failed',duration:5000});
           }
         }, (error: any) =>{
           this.toast.error({detail:'Login Failed',summary:'Invalid Credentials',duration:5000});
           console.log(error)});
+        
+        
+     }
+     
+       
+   
+   else{   
+    this.toast.error({detail:'Login Failed',summary:'Fill up the fields',duration:5000});
+       }
   }
 
 
