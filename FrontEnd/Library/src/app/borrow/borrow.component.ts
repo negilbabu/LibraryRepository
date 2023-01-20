@@ -20,11 +20,12 @@ export class BorrowComponent implements OnInit {
   curDate= new Date()
   myDate:any;
   filename: any;
+  data1:number=0;
 
   borrowId:any;
   borrowdata:any;
   booksdata:any;
-
+  d1:number=0;
 
   date:any;
   data: any;
@@ -145,14 +146,33 @@ export class BorrowComponent implements OnInit {
 
 
     getFilter() {
+      if(this.d1==2){
 console.log("d=",this.ObjSampleForm.controls['date1'].value)
       this.flag=1; 
       this.service.filterBorrowPagination(this.ObjSampleForm.controls['date1'].value,this.ObjSampleForm.controls['date2'].value,this.page,this.tableSize,this.sort,this.direction1).subscribe(response=>{
         this.result=response.content;
         this.count=response.totalElements
         console.log(this.result);   
-        this.data=this.result;                     
-          });  
+        this.data=this.result; 
+
+        console.log("len>",this.result.length);   
+        if(this.result.length!==0){
+          this.data1=0;
+          
+        }
+        else if(this.result.length==0){
+        this.data1=1;
+        console.log("else>",this.data1);   
+       }   
+      
+      
+      
+      });  
+        }
+        else
+        this.toast.warning({detail:'Warning',summary:'Choose start and end dates ',duration:5000});
+        // this.d1=0;
+        console.log("d11==",this.d1)
       }
 
 
@@ -252,6 +272,36 @@ console.log("d=",this.ObjSampleForm.controls['date1'].value)
         datas(){
           this.val=this.ObjSampleForm.controls['date1'].value;
         console.log("date=",this.val)
+
+        if(this.d1==0){
+          this.d1=1;
+          console.log("d1=",this.d1)  
+        }
+        else if(this.d1==1){
+          this.d1=2;
+        }
+
+        if(this.ObjSampleForm.controls['date1'].value!=null){
+          this.d1=1;
+        }
+        
+        }
+
+        datas1(){
+       
+        if(this.d1==1){
+          this.d1=2;
+          console.log("d1=",this.d1)  
+        }
+        else if(this.d1==0){
+          this.d1=1;
+        }
+
+        // if(this.ObjSampleForm.controls['date2'].value!=null){
+        //   this.d1=1;
+        // }
+        
+        
         }
         
 

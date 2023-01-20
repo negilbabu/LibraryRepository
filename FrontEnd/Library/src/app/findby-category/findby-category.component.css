@@ -58,6 +58,7 @@ th {
     color: white;
     width: 15%;
     text-align: center;
+    border: none;
   }
   td {
     background-color: #a7bdb08f;
@@ -66,6 +67,7 @@ th {
     text-align: center;
     margin-top: auto;
     padding: auto;
+    border: none;
   }
 
 

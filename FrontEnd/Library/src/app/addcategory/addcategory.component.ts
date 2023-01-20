@@ -124,11 +124,15 @@ editCategory(categoryId:any) {
 
   this.dialog.open(CategoryComponent,
     {
-      // width:'25%',height:'35%'
+      closeOnNavigation: true,
       width:'auto',height:'auto'
 
     }
     );
+    this.router.events
+    .subscribe(() => {
+      this.dialog.closeAll();
+    });
 
 }
 

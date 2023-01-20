@@ -23,6 +23,13 @@ handleError(err: HttpErrorResponse): any {
     localStorage.clear()
     this.router.navigateByUrl(`/login`);    }    
 }
+handleCsvError(err: HttpErrorResponse): any {
+  console.log('hhhii');
+  if ( err.status === 417) {
+    alert("CSV upload failed : Invalid csv file")
+   
+       }    
+}
 
   //////////////////////////////////////////////
 
@@ -37,7 +44,7 @@ handleError(err: HttpErrorResponse): any {
     const formData: FormData = new FormData();
 
     formData.append('file', file);
-    return this.http.post('http://localhost:8080/csv/admin/upload', formData)
+    return this.http.post('http://localhost:8080/csv/admin/upload', formData).pipe((catchError(err => this.handleCsvError(err))))
 
   }
 //pie
