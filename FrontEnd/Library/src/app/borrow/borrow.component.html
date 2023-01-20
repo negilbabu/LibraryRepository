@@ -29,16 +29,18 @@
 
 
 
-
   <div class="split right">
+
+      <h2 class="centr" style="text-align:center ;">Borrow Details</h2>
+ 
+    
     <button class=" btn-success btn-sm mb-1" *ngIf="this.flag==0" style=" border: none;position:relative; top:80% " (click)="dwn()"> Download CSV</button>
     <div class="text-center"> 
       <form [formGroup]="ObjSampleForm">
         <div class="card-box">         
                     <div class="row">
                       <div class="table-responsive"><br>
-                        <h2 style="text-align:center ;">Borrow Details</h2>
-
+                       
 
 
 <div><input type="button" (click)="clearFilter()" *ngIf="this.flag==1" value="CLEAR FILTER" style = "position:absolute; left:83%; top:12%;"> </div>
@@ -46,7 +48,7 @@
 <div class="centered">
   <label> START DATE</label> &nbsp;&nbsp; <input type="date" formControlName="date1" value="date1" max="{{date| date:'yyyy/MM/dd' }}" (input)="datas()">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
-<label class="end">END DATE</label>&nbsp;&nbsp; <input type="date" formControlName="date2" value="date2"  min="{{this.val}}" max="{{date| date:'yyyy/MM/dd' }}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<label class="end">END DATE</label>&nbsp;&nbsp; <input type="date" formControlName="date2" value="date2"  min="{{this.val}}" (input)="datas1()" max="{{date| date:'yyyy/MM/dd' }}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 <input type="button" (click)="getFilter()" value="FILTER">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 </div>
 <br>
@@ -124,7 +126,7 @@
 
         </td>
       </tr>
-        
+     
                               </tbody>
                           </table>
 
@@ -176,12 +178,16 @@
 
 </td>
 
+      </tr>
+    <tr>
+      <label *ngIf="this.data1==1">   NO RECORDS FOUND </label> 
     </tr>
-      
+ 
                             </tbody>
+                      
                         </table>
 
-
+                    
 
                           <!-- Pagenation Controler -->
                           <div class="d-flex justify-content-center">

@@ -100,11 +100,14 @@ overflow:visible; */
           <td>{{borrow.issueDate| date:'dd/MM/yyyy'}}</td>                 
           <td>{{borrow.dueDate| date:'dd/MM/yyyy'}}</td>
           <td>{{borrow.dueDays}}</td>
-          <td>{{borrow.fine}}</td>
-       
-   
-
+          <td>{{borrow.fine}}</td>             
+          
       </tr>
+      <tr *ngFor="let borrow of  borrowdata">
+      <td *ngIf="borrow==null">NO RECORDS FOUND</td>
+      </tr>
+
+      <label *ngIf="this.data==1">   NO RECORDS FOUND </label>
       
                             </tbody>
                         </table>

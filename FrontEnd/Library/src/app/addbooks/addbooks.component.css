@@ -60,7 +60,7 @@ margin-left: 20%;
   table{
     width: 90%;
     border: none;
-    text-align: center;
+    text-align: left;
     height: 100px;
     text-size-adjust: auto;
     
@@ -68,12 +68,13 @@ margin-left: 20%;
   th {
     background-color: #ffffff;
     color: rgb(0, 0, 0);
-    text-align: center;
+    text-align: left;
     border: none;
   }
   td {
     border: none;
     padding-top: 6px;padding-bottom: 6px;
+    text-align: left;
   } 
   /* .form-control{
     width: fit-content;

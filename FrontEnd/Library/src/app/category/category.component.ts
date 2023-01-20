@@ -87,7 +87,7 @@ onSubmit(){
       if(result.categoryId){  
         console.log(result);
         this.toast.success({detail:'Success',summary:'The Category '+result.categoryName+' Added',duration:5000});
-      
+      this.router.navigate(['/addCategory'])
         setTimeout(() => {
         window.location.reload()       
       }, 1500);

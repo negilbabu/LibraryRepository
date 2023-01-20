@@ -160,11 +160,16 @@ onTableDataChange(event:any) {
     const dialogConfig = new MatDialogConfig();
     this.dialog.open(BooksComponent,
       {
+        closeOnNavigation: true,
         // width:'32%',height:'70%'
         width:'55%',height:'auto'
       
       }
       );
+      this.router.events
+      .subscribe(() => {
+        this.dialog.closeAll();
+      });
   
   }
 
@@ -194,10 +199,15 @@ onTableDataChange(event:any) {
      const dialogConfig = new MatDialogConfig();
      this.dialog.open(BooksComponent,
       {
+        closeOnNavigation: true,
         width:'30%',height:'70%'
       
       }
       );
+      this.router.events
+      .subscribe(() => {
+        this.dialog.closeAll();
+      });
    
    }
    
@@ -208,6 +218,7 @@ onTableDataChange(event:any) {
 
 selectFile($event:any) {
   this.selectedFiles=$event.target.files;
+  console.log("sel-",this.selectedFiles)
    }
 
    
@@ -223,15 +234,19 @@ selectFile($event:any) {
            console.log(res);
            if(res!==null){
             this.toast.success({detail:'SUCCESS',summary:'The CSV File upload is successfull',duration:5000}); 
+
              
           
       setTimeout(() => {
 
         window.location.reload()       
-    }, 5000);  
-            
+    }, 5000);              
            }
-         })
+         }),
+         (error: any) =>{
+          console.log("in error")
+          this.toast.error({detail:'CSV upload failed',summary:'Invalid csv file',duration:5000});
+          console.log(error)};  
  
      
        }

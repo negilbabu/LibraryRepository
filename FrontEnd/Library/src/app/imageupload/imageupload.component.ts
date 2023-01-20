@@ -49,7 +49,7 @@ export class ImageuploadComponent implements OnInit {
         
         if(response)
         {
-          alert("IMAGE UPLOADED SUCCESSFULLY")
+          
         }
 
       }, error => { alert("Invalid Data\t " +error.HttpErrorResponse+"  Status" +error.status) 
