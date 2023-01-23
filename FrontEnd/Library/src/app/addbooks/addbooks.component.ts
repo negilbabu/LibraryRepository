@@ -164,7 +164,7 @@ onTableDataChange(event:any) {
    this.toast.error({detail:'BOOK DELETED',summary:'The book '+booksId.booksName+' Has DELETED',duration:5000}); 
     this.booksService.delete(booksId.booksId).subscribe({next:(res)=>{          
       setTimeout(() => {
-        window.location.reload()       
+       this.Load();   
     }, 1000);
     },
     error:(msg)=>{}      
