@@ -24,7 +24,7 @@ export class BorrowService {
   accesstocken:any
   constructor(private http:HttpClient,private router:Router) { }
  
-  ////////////////////////////////////////////////
+
 
 handleError(err: HttpErrorResponse): any {
   console.log('hhhii');
@@ -36,9 +36,6 @@ handleError(err: HttpErrorResponse): any {
 }
 
 
-
-
-  //////////////////////////////////////////////
   export(): Observable<Blob> {
     return this.http.get('http://localhost:8080/borrow/admin/export', { responseType: 'blob' });
   }
@@ -96,7 +93,7 @@ handleError(err: HttpErrorResponse): any {
   }
 
   LoadBorrowDetailView(id: any){
-    return this.http.get('http://localhost:8080/borrow/'+ sessionStorage.getItem('borrowId')).pipe((catchError(err => this.handleError(err))));
+    return this.http.get('http://localhost:8080/borrow/'+ localStorage.getItem('borrowId')).pipe((catchError(err => this.handleError(err))));
   }
 
   borrowBlock(){
@@ -172,27 +169,15 @@ handleError(err: HttpErrorResponse): any {
     return this.http.delete(this.apiurl+'/borrow/'+booksId,{headers:head_obj});
   }
   
-  
-  // update(id: any, data: any) {
-  //   const httpOptions = {
-  //     headers: new HttpHeaders({
-  //       'Content-Type': 'application/json',
-  //       'Authorization': 'library ' + localStorage.getItem('accessToken')
-  //     })
-  //   }
-  //   return this.http.put(this.apiurl + "/borrow/" + id, data, httpOptions)
-  // }
+
 
   update(id: any, data: any) {
-    return this.http.put(this.apiurl + "/borrow/admin/accept/" + sessionStorage.getItem('borrowId'), data).pipe((catchError(err => this.handleError(err))));
+    return this.http.put(this.apiurl + "/borrow/admin/accept/" + localStorage.getItem('borrowId'), data).pipe((catchError(err => this.handleError(err))));
   }
 
 
-  // updateReject(id: any, data:any) {
-  //   return this.http.put(this.apiurl + "/borrow/reject/" + id,{headers:Headers});
-  // }
   updateReject(id: any, data:any) {
-    return this.http.put(this.apiurl + "/borrow/admin/reject/" + sessionStorage.getItem('borrowId'), data).pipe((catchError(err => this.handleError(err))));
+    return this.http.put(this.apiurl + "/borrow/admin/reject/" + localStorage.getItem('borrowId'), data).pipe((catchError(err => this.handleError(err))));
   }
 
   bookReturn(id: any) {

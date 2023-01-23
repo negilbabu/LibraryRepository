@@ -74,13 +74,15 @@ public class EmailController {
                 boolean result = this.emailService.sendEmail("OTP Verification","Your OTP to change your password is \t"+ otp +"\tuse it to create a new password.", form.getSentto());
                 // "OTP Verification", "Your OTP to change your password is "+"otp"+"use it to create a new password."
                 if(result){
-                    return  ResponseEntity.ok("Email Sent!");
-                }else{
-                    return  ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Email not sent.");
+                    return  new ResponseEntity(null,HttpStatus.ACCEPTED);
+                }
+                else{
+                    return new ResponseEntity(null,HttpStatus.BAD_REQUEST);
                 }
             }
             else{
-                return null;
+                return new ResponseEntity(null,HttpStatus.NOT_ACCEPTABLE);
+
             }
 
     

@@ -1,13 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { CategoryComponent } from '../category/category.component';
-import { MatDialog,MatDialogRef, MatDialogModule} from '@angular/material/dialog';
-import { MatDialogConfig } from '@angular/material/dialog';
+import { MatDialog} from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { CategoryService } from '../category.service';
-import { HttpErrorResponse } from '@angular/common/http';
-import { Observable } from 'rxjs';
 import { NgToastService } from 'ng-angular-popup';
-import { auto } from '@popperjs/core';
+
 
 @Component({
   selector: 'app-addcategory',
@@ -19,19 +16,14 @@ export class AddcategoryComponent implements OnInit  {
   categoryList: any[];
   categoryId:any;
   categorydata:any;
-  // flag:string="ONE";
 
-
-  data: any;
+data: any;
 page:number=1;
 count: any;
 tableSize: number = 5;
-ProdData: any;
-sortedData: any;
 a:any;
 b:any;
-searchResult:any
-searchData:any
+
 sort:string="categoryId";
 sort1:string="categoryName";
 len: any;
@@ -60,8 +52,6 @@ result: any;
     this.service.CatPageAdmin(this.page,this.tableSize,this.sort,this.direction).subscribe(result=>{
       this.result=result.content;
       this.count=result.totalElements
-      console.log("loaded cat=",this.result);   
-      console.log("page=",this.page);  
       this.data=this.result; 
       this.categorydata=this.result;                   
         }); }  
@@ -69,19 +59,16 @@ result: any;
 
   sortfn(a:any){    
     this.sort=a;
-    console.log("sortbyname",a)    
     this.page=this.page;
     this.tableSize;
   
     if(this.direction==1){
       this.direction=-1;
-      console.log("from desc to :",this.direction)
       this.ngOnInit();       
     }
   
     else{
       this.direction=1;
-      console.log("from asc to desc",this.direction)
     this.LoadCategory(); 
     }
     
@@ -89,11 +76,9 @@ result: any;
 
   onTableDataChange(event:any) {
   
-    console.log("page=",event)
       this.service.CatPageAdmin(this.page,this.tableSize,this.sort,this.direction).subscribe(result=>{
         this.result=result.content;
         this.count=result.totalElements
-        console.log("loaded books=",this.result);   
         this.data=this.result;   
         this.categorydata=this.result;                     
           })       
@@ -111,10 +96,6 @@ openDialog() {
     }
     );
 
-//   this.matdialog.open(ChangePassComponent,{
-      
-//     width: '60%'
-// });
 
 }
 
@@ -143,7 +124,7 @@ deleteCategory(category:any): void{
   if(confirm('Are you sure want to delete?'))
   {
     
- console.log("catid=",category);
+
   this.service.delete(category.categoryId).subscribe({next:(res)=>{
    
     this.toast.error({detail:'Success',summary:'The Category '+category.categoryName+' Deleted',duration:5000}); 
@@ -159,18 +140,4 @@ deleteCategory(category:any): void{
   this.router.navigate(['/addcategory'])
  }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
  }

@@ -1,43 +1,15 @@
 <app-sidenav></app-sidenav>   
-<!-- <body style="   position: relative; left: 17%;top:80px"> -->
+
 
   <head>
+    <title>Users Details</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
     * {
       box-sizing: border-box;
     }
     
-    /* .menu {
-      float: left;
-      width: 20%;
-      text-align: center;
-    }
-    
-    .menu a {
-      background-color: #e5e5e5;
-      padding: 8px;
-      margin-top: 7px;
-      display: block;
-      width: 100%;
-      color: black;
-    }
-    
-    .main {
-      float: left;
-      width: 60%;
-      padding: 0 20px;
-    }
-    
-    .right {
-      background-color: #e5e5e5;
-      float: left;
-      width: 20%;
-      padding: 15px;
-      margin-top: 7px;
-      text-align: center;
-    }
-     */
+
     @media only screen and (max-width: 620px) {
       /* For mobile phones: */
       .menu, .main, .right {
@@ -45,7 +17,7 @@
       }
 .right{
   right: 0;
-  width: 89%;
+  width: 99%;
   float: left;
   background-color: rgb(255, 255, 255);
   overflow-x: scroll;
@@ -53,13 +25,19 @@ overflow-x: visible;
 
 }
 table{
-  width: 35%;
+  width: 25%;
 border: none;
 text-align: center;
 position:relative;
 overflow-x: scroll;
 overflow-x: visible;
 font-size: 0.675em;
+}
+.centr{
+
+  top: 8%;
+  left: 50%;
+  position: fixed;
 }
 
 
@@ -79,7 +57,7 @@ font-size: 0.675em;
                         <h2 style="text-align:center ;" class="centr">USER DETAILS</h2>
 
 
-                            <table align="center" class="table table-white table-hover" id="datatable" role="grid" >
+                            <table  class="table table-white table-hover" id="datatable" role="grid" >
                               <caption>User Results</caption>
                               <thead class="bg-primary text-white">
                                   <tr role="row">

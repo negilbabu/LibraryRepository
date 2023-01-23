@@ -13,10 +13,8 @@ export class BooksService {
   constructor(private http:HttpClient,private router:Router) { }
 
 
-////////////////////////////////////////////////
-
 handleError(err: HttpErrorResponse): any {
-  console.log('hhhii');
+
   if ( err.status === 403) {
     alert("UNAUTHORIZED ACCESS DETECTED")
     sessionStorage.clear()
@@ -24,17 +22,16 @@ handleError(err: HttpErrorResponse): any {
     this.router.navigateByUrl(`/login`);    }    
 }
 handleCsvError(err: HttpErrorResponse): any {
-  console.log('hhhii');
+
   if ( err.status === 417) {
     alert("CSV upload failed : Invalid csv file")
    
        }    
 }
 
-  //////////////////////////////////////////////
+
 
   search(key: any, pageno: any, pagesize: any, sortby: any,direction:any): Observable<any> {
-    console.log('+++++++++++', key)
     return this.http.get('http://localhost:8080/books/admin/searchBooks/?keyword=' + key + '&pageNo=' + pageno + '&pageSize=' + pagesize + '&sortBy=' + sortby+"&direction="+direction)
   }
 
@@ -83,7 +80,7 @@ handleCsvError(err: HttpErrorResponse): any {
 
   
   update(id: any, data: any) {
-    // console.log(id)
+
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',

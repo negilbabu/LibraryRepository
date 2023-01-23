@@ -36,8 +36,7 @@ export class LoginComponent implements OnInit {
         this.service.login(this.loginForm.value).subscribe(result=>{
           if(result.userId){
             this.responsedata=result
-            console.log("log=",result);
-
+         
             if(result.role==2){
             localStorage.setItem('token',this.responsedata.accessToken.value)        
             this.toast.info({detail:'Hello User ',summary:'LogIn Successfull',duration:5000});        
@@ -55,12 +54,12 @@ export class LoginComponent implements OnInit {
           }
           
           else{
-            //alert("login not sucessful");
+         
             this.toast.warning({detail:'success msg',summary:'LogIn failed',duration:5000});
           }
         }, (error: any) =>{
           this.toast.error({detail:'Login Failed',summary:'Invalid Credentials',duration:5000});
-          console.log(error)});
+           });
         
         
      }

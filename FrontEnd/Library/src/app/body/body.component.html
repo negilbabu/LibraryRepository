@@ -15,16 +15,16 @@
   }
 
   .chart h2{
-
     font-size: 10px;
-
   }
 
   .chart-container col-md-12{
     margin-top: 50%;
+    margin-left: 8%;
   }
-
-
+  .chart{
+    margin-left: 0%;
+  }
 
 
 }
@@ -34,15 +34,15 @@
 
 
 <br><br><br>
-<div style="position: absolute;left: 20%;" class="chart">
-   <div class="chart-container col-md-12 mb-5" style="height:30vh; width:50vw; margin-left: 30px">
+<div style="position: absolute;" class="chart">
+   <div class="chart-container" style=" margin-left: 30px ; width:auto;height:auto;">
       <h2 >BOOKS BY CATEGORY</h2>
       <canvas id="MyChart">{{mychart}}</canvas>
   
     </div>
 
     <br><br>
-    <div class="chart-container col-md-12" style="height:40vh; width:80vw;margin-left: 30px ">
+    <div class="chart-contain" style="height:auto; width:70vw;margin-left: 30px ">
       <h2 style=" position: relative;">ISSUE AND RETURNED CHART</h2>
       <canvas id="bar" style="background-color: rgb(0, 0, 0);position: relative; ">{{bar}}</canvas>
   

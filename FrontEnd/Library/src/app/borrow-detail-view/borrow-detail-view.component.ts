@@ -19,7 +19,6 @@ export class BorrowDetailViewComponent implements OnInit {
   }
 
     ngOnInit(): void {  
-      //sessionStorage.clear()
     this.LoadBorrow(this.borrowId) 
 
     }
@@ -27,7 +26,8 @@ export class BorrowDetailViewComponent implements OnInit {
     LoadBorrow(borrow:any){
       this.service.LoadBorrowDetailView(borrow).subscribe((data)=>{
       this.borrowdata=data;
-      console.log(this.borrowdata);});
+     
+      ;});
       
 }
 
