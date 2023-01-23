@@ -1,6 +1,6 @@
 package com.innovature.Library.view;
 
-//import com.innovature.Library.entity.Books;
+
 import com.innovature.Library.entity.Category;
 
 public class BooksListView {
@@ -9,7 +9,6 @@ public class BooksListView {
     private  CategoryDetailView category;
     private final String publication;
     private final String auther;
-    // private final String status;
     private final Integer booksCopies;
     private String image;
 
@@ -21,21 +20,11 @@ public class BooksListView {
         this.category = new CategoryDetailView(category);
         this.publication = publication;
         this.auther = auther;
-        // this.status = status;
-        this.image=image;
+
+        
         this.booksCopies = booksCopies;
     }
-    // public BooksListView(int booksId, String booksName,Integer categoryId,String categoryName,String publication,String auther,String booksCopies) 
-    // {
 
-    //     this.booksId = booksId;
-    //     this.booksName = booksName;
-    //     this.category = new Category(categoryId,categoryName);
-    //     this.publication = publication;
-    //     this.auther = auther;
-    //     // this.status = status;
-    //     this.booksCopies = booksCopies;
-    // }
 
 
     

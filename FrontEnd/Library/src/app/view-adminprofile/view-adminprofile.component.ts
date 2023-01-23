@@ -9,13 +9,11 @@ import { UserserviceService } from '../userservice.service';
 })
 export class ViewAdminprofileComponent implements OnInit {
 
-  //booksdata:any;
+
   userdata: any;
-  userList:any[];
   role: any;
   
     constructor(private router:Router ,private service:UserserviceService) {
-      this.userList=[];
      }
   
     ngOnInit(): void {
@@ -27,16 +25,8 @@ export class ViewAdminprofileComponent implements OnInit {
     Load() {
       this.service.getAdmin().subscribe((data: any)=>{
       this.userdata=data;
-      sessionStorage.setItem('role',data[0].role)
       });  }  
   
-  
-      home()
-      {        
-
-          this.router.navigate(['/sidenav'])
-      
-      }
   
   }
   

@@ -24,7 +24,6 @@ export class ImageuploadComponent implements OnInit {
   ngOnInit(): void {
     this.service.LoadBooks().subscribe(data=>{
       this.data=data
-      console.log(this.service.getId());
       
     })
   }
@@ -40,12 +39,12 @@ export class ImageuploadComponent implements OnInit {
       if (file) {
         this.currentFile = file;
       }
-      console.log(this.data.booksId)
+   
       this.service.imageUpload(this.currentFile,this.service.getId()).subscribe(
       response =>{
         this.toast.success({detail:'Success',summary:' Book cover uploaded',duration:5000});
         this.router.navigate(['/addbooks'])
-        console.log(response)
+
         
         if(response)
         {

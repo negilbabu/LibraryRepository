@@ -9,21 +9,17 @@ import { UserserviceService } from '../userservice.service';
 })
 export class UserDetailsComponent implements OnInit {
 
-//booksdata:any;
+
 userdata: any;
-userList:any[];
+
 
 
 data: any;
 page:number=1;
 count: any;
 tableSize: number = 5;
-ProdData: any;
-sortedData: any;
 a:any;
 b:any;
-searchResult:any
-searchData:any
 sort:string="userId";
 len: any;
 result: any;
@@ -32,7 +28,7 @@ result: any;
 userId: any;
 
   constructor(private router:Router ,private service:UserserviceService) {
-    this.userList=[];
+
    }
 
   ngOnInit(): void {
@@ -42,7 +38,7 @@ userId: any;
   }
 
   DetailView(user:any){
-    sessionStorage.setItem('userId',user.userId)
+    localStorage.setItem('userId',user.userId)
     this.router.navigate(['/user-detailview'])
   }
 
@@ -52,8 +48,6 @@ userId: any;
   this.service.userPaginationAdmin(this.page,this.tableSize,this.sort,this.direction).subscribe(result=>{
     this.result=result.content;
     this.count=result.totalElements
-    console.log("loaded books=",this.result);   
-    console.log("page=",this.page);  
     this.data=this.result; 
     this.userdata=this.result;                   
       });
@@ -66,13 +60,11 @@ sortfn(a:any){
 
   if(this.direction==1){
     this.direction=-1;
-    console.log("from desc to :",this.direction)
     this.ngOnInit();       
   }
 
   else{
     this.direction=1;
-    console.log("from asc to desc",this.direction)
   this.ngOnInit(); 
   }
   
@@ -80,11 +72,10 @@ sortfn(a:any){
 
 onTableDataChange(event:any) {
   
-  console.log("page=",event)
+
     this.service.userPaginationAdmin(this.page,this.tableSize,this.sort,this.direction).subscribe(result=>{
       this.result=result.content;
       this.count=result.totalElements
-      console.log("loaded books=",this.result);   
       this.data=this.result;   
       this.userdata=this.result;                     
         })       

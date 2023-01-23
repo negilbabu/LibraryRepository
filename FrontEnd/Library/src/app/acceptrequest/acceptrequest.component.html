@@ -4,13 +4,11 @@
   <div class="text-center"> 
       <form [formGroup]="ObjSampleForm" (ngSubmit)="onSubmit()"><br>
               
-              <!-- <div style="width: 120px; margin:0 auto;" class="example-container" ><br> -->
+
                   <label><h2>AcceptRequest </h2></label>
                <table align="center">
 
-                 
-                <!--9526909544 <div>Issue Date<input  type="date" class="text-danger1" placeholder="issueDate" formControlName="issueDate" name="issueDate"  required></div><br> 
- -->
+
  <br>
               
                 <div>Return Date&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input style="width: 180px; margin:0 auto;"  type="date" class="text-danger1" placeholder="returnDate" formControlName="returnDate" name="returnDate" min="{{date | date :'yyyy-MM-dd' }}" (input)="datas()" required></div>
@@ -26,7 +24,7 @@
                   <input class="btn" style="width: 180px;" type="submit" name="onSubmit" value="Submit" [disabled]="!ObjSampleForm.valid"><br><br><br>
                 
                 </table> 
-          <!-- </div>        -->
+
           </form>         
           </div>
           

@@ -46,7 +46,7 @@ export class ForgotpasswordComponent implements OnInit {
         this.rslt=0;
         this.val=0;
     }, 3000);   
-      // this.rslt=0;
+     
    
     }
     
@@ -63,13 +63,10 @@ export class ForgotpasswordComponent implements OnInit {
 //verify otp
   SaveData() {
 
-    // if(this.ObjForgetForm.valid!==true){
+
 
     this.ObjForgetForm.value.email=this.email;
-    console.log(this.ObjForgetForm.value.email);
-
-
-
+    
     if(this.ObjForgetForm.value.otp==null ) {
       this.toast.warning({detail:'OTP =required',summary:'Please Enter valid OTP', duration:10000,position:'tr'}) 
     }
@@ -77,10 +74,7 @@ export class ForgotpasswordComponent implements OnInit {
       this.toast.warning({detail:' Password required',summary:'Please EnternewPassword', duration:10000,position:'tr'}) 
     }
 
-
-
-
-     
+    
      if(this.ObjForgetForm.value.newPassword==this.ObjForgetForm.value.cnewPassword){    
     this.emails.verify(this.ObjForgetForm.value).subscribe(result=>{
       if(result){
@@ -93,18 +87,13 @@ export class ForgotpasswordComponent implements OnInit {
 
     })
   }
-  // else if(this.ObjForgetForm.value.otp!=null) {
-  //   this.toast.warning({detail:'OTP required',summary:'Please Enterdddd valid OTP', duration:10000,position:'tr'}) 
-  // }
+
   else{
   this.toast.warning({detail:'Password Mismatch',summary:'Please Enter valid password', duration:10000,position:'tr'})
    
   
   }
 
-    // else{
-    //   this.toast.warning({detail:'Failed',summary:'Fill Up all Fields', duration:10000,position:'tr'})
-    // }
     
   }
 
@@ -113,7 +102,7 @@ export class ForgotpasswordComponent implements OnInit {
   openPopup() {
     
     if(this.ObjForm.valid!==true){
-      console.log("hiii");
+
       this.toast.warning({detail:'Warning',summary:'Please provide email ', duration:5000,position:'tr'}) 
       this.val=0
   }
@@ -125,7 +114,6 @@ export class ForgotpasswordComponent implements OnInit {
     this.openSuccess();     
     }),
     (error)=>{
-console.log(error.status);
 
      if(error.status==406){    
         this.rslt=1;      
@@ -138,8 +126,7 @@ console.log(error.status);
     
   }
 
-    // this.openSuccess();
-    this.displayStyle = "block";
+   this.displayStyle = "block";
     
   }
   closePopup() {

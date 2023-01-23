@@ -58,7 +58,7 @@ export class UserserviceService {
     return this.http.get('http://localhost:8080/users');
   }
   LoadUserDetailView(user: any){
-    return this.http.get('http://localhost:8080/users/admin/'+ sessionStorage.getItem('userId')).pipe((catchError(err => this.handleError(err))));
+    return this.http.get('http://localhost:8080/users/admin/'+ localStorage.getItem('userId')).pipe((catchError(err => this.handleError(err))));
   }
 
 }
