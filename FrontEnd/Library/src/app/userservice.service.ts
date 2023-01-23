@@ -47,6 +47,9 @@ export class UserserviceService {
   getUser(){
     return this.http.get('http://localhost:8080/users/viewProfile')
   }
+  getAdmin(){
+    return this.http.get('http://localhost:8080/users/admin/viewProfile/').pipe((catchError(err => this.handleError(err))));
+  }
   GetToken(){
     return localStorage.getItem('token')||'';
    }

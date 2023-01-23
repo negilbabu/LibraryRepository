@@ -25,7 +25,7 @@ export class ViewAdminprofileComponent implements OnInit {
     }
   
     Load() {
-      this.service.getUser().subscribe((data: any)=>{
+      this.service.getAdmin().subscribe((data: any)=>{
       this.userdata=data;
       sessionStorage.setItem('role',data[0].role)
       });  }  
