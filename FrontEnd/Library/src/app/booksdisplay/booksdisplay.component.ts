@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { NgToastService } from 'ng-angular-popup';
 import { BooksService } from '../books.service';
 import { BorrowService } from '../borrow.service';
 import { CategoryService } from '../category.service';
@@ -10,7 +11,7 @@ import { CategoryService } from '../category.service';
   styleUrls: ['./booksdisplay.component.css']
 })
 export class BooksdisplayComponent implements OnInit {
-
+  
 //booksdata:any;
 // categoryList: any[];
 categoryId:any;
@@ -41,7 +42,7 @@ result: any;
   direction=-1;
 
 
-  constructor(private router:Router ,private booksservice:BooksService,private service:CategoryService,private borrowservice:BorrowService) {
+  constructor(private router:Router ,private booksservice:BooksService,private service:CategoryService,private borrowservice:BorrowService,private toast:NgToastService) {
     // this.booksList=[];
     // this.categoryList=[];
    }
@@ -128,8 +129,10 @@ onTableDataChange(event:any) {
         this.borrowservice.add(data).subscribe({    
         next:(res)=>{
         this.booksId=res.booksId;
-        console.log(res);   
-        alert("Book request successfull")   
+        console.log(res);  
+       
+        // alert("Book request successfull")   
+        this.toast.info({summary:'Booking Successfull',duration:5000});
         this.router.navigate(['/borrowhistory'])
         },
         error:(msg)=>{}

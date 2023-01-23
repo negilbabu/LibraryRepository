@@ -89,7 +89,7 @@ export class NotificationComponent implements OnInit {
     "currency": "INR",
     "name": "",
     "description": "Test Transaction",
-    "image": "../assets/BooksImage/item_pics/item_pics/sherlok.jpeg",
+    "image": "../../assets/BooksImage/item_pics/aadu.jpeg",
     "order_id": "", //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
     // "callback_url": "https://eneqd3r9zrjok.x.pipedream.net/",
     "handler": function (response: any) {
@@ -105,7 +105,7 @@ export class NotificationComponent implements OnInit {
     "prefill": {
       "name": this.name,
       "email": this.email,
-      "contact": this.phone
+      "contact": this.phone,
     },
     "notes": {
       "address": "Razorpay Corporate Office"
@@ -114,11 +114,12 @@ export class NotificationComponent implements OnInit {
       "color": "#3399cc"
     }
   };
-  pay(fine: number, bookname: string) {
+  pay(fine: number, bookname: string,BooksImage:string) {
     console.log(fine)
     this.tot = fine * 100;
     this.options.amount = this.tot;
     this.options.name = bookname;
+    this.options.image=BooksImage;
     this.service.LoadDueByUser().subscribe((data: any) => {
       this.duedata = data;
       this.borrow = data;
@@ -129,9 +130,6 @@ export class NotificationComponent implements OnInit {
     this.rzp1 = new this.service.nativeWindow.Razorpay(this.options);
     this.rzp1.open();
     this.rzp1.on('payment.failed', function (response: any) {
-
-      //  this.message ="Payment Failed"
-
       console.log(response.console.error.code);
     }
     );
@@ -145,8 +143,9 @@ export class NotificationComponent implements OnInit {
     this.service.payment(this.duedata[0].borrowId).subscribe({
       next: (Response: any) => {
         console.log(Response);
-        alert("Payment Success")
-        // window.location.reload()
+        // alert("Payment Success")
+        this.toast.info({summary:'payment Successfull',duration:5000});
+        
       },
       error: (Response: any) => {
         console.log(Response)
