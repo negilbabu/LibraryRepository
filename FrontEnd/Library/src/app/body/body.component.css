@@ -1,3 +1,33 @@
+
+* {
+  box-sizing: border-box;
+}
+
+@media only screen and (max-width: 620px) {
+  /* For mobile phones: */
+  .right {
+    width: 87%;
+
+  }
+
+  .chart h2{
+    font-size: 10px;
+  }
+
+  .chart-container col-md-12{
+    margin-top: 50%;
+    margin-left: 8%;
+  }
+  .chart{
+    margin-left: 0%;
+  }
+
+
+}
+
+ 
+ 
+ 
  .chart{
     left: 18%; 
   

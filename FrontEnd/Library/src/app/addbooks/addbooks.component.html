@@ -1,55 +1,6 @@
 <app-sidenav></app-sidenav>
 
-<head> 
-  <title>Borrow </title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<style>
-* {
-  box-sizing: border-box;
-}
 
-@media only screen and (max-width: 620px) {
-  /* For mobile phones: */
-  .right {
-    width: 87%;
-
-  }
-  /* .form-control{
-    top:15%;
-  }
-*/
-  .csvv{
-    position: relative;
-    left: 8%;
-    top:65px;
-  } 
-
-  .centered{
-    top: 18%;
-    left:45%;
-  }
-.mat-dialog-container{
-margin-left: 20%;
-}
-
-.form-control{
-  width: 30vh;
-}
-
-}
-</style>
-</head>
-
-
-
-
-<br><br><br><br><br>
-
-
-
-
-
-  
   <div class="split right">
     <br><br><br>
     <div class="col-md-6"  >
@@ -59,16 +10,18 @@ margin-left: 20%;
             aria-label="Recipient's username" aria-describedby="basic-addon2" (ngModelChange)="search1(this.search.controls['inp'].value)" >
             <button mat-icon-button  style="position: relative; left:10%; "> <i class="material-icons" style="color:rgb(0, 0, 0)" >search</i></button> 
       </form>
+
+      <button  mat-raised-button (click)="openDialog()" color="primary" style="text-align: center;position: relative;left: 40%;" class="mycls" >ADD BOOKS</button>
       <span class="csvv">
       <input type="file" id="myFile" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"  (change)="selectFile($event)" style="position: relative; ">
       <button mat-icon-button   [disabled]="!selectedFiles" > 
         <i class="material-icons" style="color:rgb(142, 179, 137);position: relative; "  (click)="upload() " >cloud_upload</i>
         </button>   </span>
 
-      <div class="centered">  
+      <!-- <div class="centered">  
       
         <button  mat-raised-button (click)="openDialog()" color="primary" style="text-align: center;" >ADD BOOKS</button>
-    </div>   
+    </div>    -->
        
     </div>
       
