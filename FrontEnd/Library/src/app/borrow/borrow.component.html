@@ -113,7 +113,7 @@
     <button  mat-button (click)="acceptRequest(post)" color="primary" *ngIf="post.status=='REQUESTED' "   >Accept</button>
     <button  mat-button (click)="rejectRequest(post)" color="warn" *ngIf="post.status=='REQUESTED' "   >Reject</button>
     <button  mat-button (click)="bookReturn(post)" color="accent"  *ngIf="post.status!='RETURNED' && post.status=='APPROVED' ">Return</button>
- 
+
   </td>  
   <td>
     <button mat-icon-button>

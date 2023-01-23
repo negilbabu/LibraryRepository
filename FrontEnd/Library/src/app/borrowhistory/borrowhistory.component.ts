@@ -11,7 +11,8 @@ import { UserserviceService } from '../userservice.service';
   styleUrls: ['./borrowhistory.component.css']
 })
 export class BorrowhistoryComponent implements OnInit {
-
+ 
+  
 
   // borrowList: any[];
   borrowId: any;
@@ -194,25 +195,14 @@ export class BorrowhistoryComponent implements OnInit {
       console.log('1111',this.sort);
     })
 
-    // if (this.searchData == null || this.searchData == "") {
-
-    //   //  this.sort="borrow_id";
     
        this.service.filterBorrowPagination2(this.ObjSampleForm.controls['date1'].value, this.ObjSampleForm.controls['date2'].value, this.page, this.tableSize, this.sort).subscribe({
          next: (res: any) => {
-          
-           //console.log("--------")
            console.log('filter',res);
            console.log(this.ObjSampleForm.controls['date1'].value);
            this.data = res;
        },
        });
-
-    // }
-    // else {
-
-    //   this.data = this.searchData
-    // }
   }
 
   display(){
