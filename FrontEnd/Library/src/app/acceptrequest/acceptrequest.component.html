@@ -2,30 +2,27 @@
 
   
   <div class="text-center"> 
-      <form [formGroup]="ObjSampleForm" (ngSubmit)="onSubmit()"><br>
+      <form [formGroup]="ObjSampleForm" ><br>
               
 
                   <label><h2>AcceptRequest </h2></label>
                <table align="center">
-
-
- <br>
-              
-                <div>Return Date&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input style="width: 180px; margin:0 auto;"  type="date" class="text-danger1" placeholder="returnDate" formControlName="returnDate" name="returnDate" min="{{date | date :'yyyy-MM-dd' }}" (input)="datas()" required></div>
+           <tr> <td>
+                Return Date  </td><td><input type="date" class="text-danger1" placeholder="returnDate" formControlName="returnDate" name="returnDate" min="{{date | date :'yyyy-MM-dd' }}" (input)="datas()" required>
                 <span class="text-danger"   class="text-danger" *ngIf="ObjSampleForm.controls['returnDate'].touched && ObjSampleForm.hasError('required','returnDate')"><small>Return Date is required</small>
-                </span><br><br>
+                </span></td></tr>
 
-                <div>Due Date&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  <input  type="date" style="width: 180px; margin:0 auto;" class="text-danger1" placeholder="dueDate" formControlName="dueDate" name="dueDate" min="{{this.val}}"  required></div>
+                <tr><td>Due Date</td><td><input  type="date"  class="text-danger1" placeholder="dueDate" formControlName="dueDate" name="dueDate" min="{{this.val}}"  required>
                 <span class="text-danger"   class="text-danger" *ngIf="ObjSampleForm.controls['dueDate'].touched && ObjSampleForm.hasError('required','dueDate')"><small>Due Date is required</small>
-                  </span><br>
+                  </span><br></td></tr>
                                                
                   
-                  <input class="btn" style="width: 180px;" type="submit" name="onSubmit" value="Submit" [disabled]="!ObjSampleForm.valid"><br><br><br>
-                
-                </table> 
+                <tr><td></td>
+                  <td>
+                  <button  mat-raised-button (click)="submit()" [disabled]="!ObjSampleForm.valid" color="primary" style="position: relative;" class="mycls" >Submit</button>
+                </td></tr></table> 
 
           </form>         
-          </div>
+          
           
 

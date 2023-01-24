@@ -41,7 +41,7 @@ ObjSampleForm:FormGroup=new FormGroup(
 )
 
 
-onSubmit(){
+submit(){
     this.update(this.borrowId)
 }
 

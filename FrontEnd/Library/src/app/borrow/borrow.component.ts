@@ -266,7 +266,7 @@ export class BorrowComponent implements OnInit {
         DetailView(borrow: any) {             
             
         localStorage.setItem('borrowId',borrow.borrowId)
-        this.router.navigate(['/borrow-detail-view'])
+        this.router.navigate(['/borrow-detail-view',borrow.borrowId])
 
             }
 

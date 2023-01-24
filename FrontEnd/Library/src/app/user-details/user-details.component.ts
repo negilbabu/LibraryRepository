@@ -39,7 +39,7 @@ userId: any;
 
   DetailView(user:any){
     localStorage.setItem('userId',user.userId)
-    this.router.navigate(['/user-detailview'])
+    this.router.navigate(['/user-detailview',user.userId])
   }
 
    Load(){

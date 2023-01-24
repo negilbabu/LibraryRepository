@@ -83,7 +83,8 @@ Load() {
     this.result=result.content;
     this.count=result.totalElements
     this.data=this.result; 
-    this.booksdata=this.result;                   
+    this.booksdata=this.result;  
+    console.log("rs=",result)                 
       });
 }  
 
@@ -164,7 +165,7 @@ onTableDataChange(event:any) {
    this.toast.error({detail:'BOOK DELETED',summary:'The book '+booksId.booksName+' Has DELETED',duration:5000}); 
     this.booksService.delete(booksId.booksId).subscribe({next:(res)=>{          
       setTimeout(() => {
-        window.location.reload()       
+       this.Load();   
     }, 1000);
     },
     error:(msg)=>{}      
@@ -212,23 +213,20 @@ selectFile($event:any) {
        if (file) {
          this.currentFile = file;
          this.booksService.uploadCsv(this.currentFile).subscribe(res=>{
-
+console.log("csv-",res)
            if(res!==null){
-            this.toast.success({detail:'SUCCESS',summary:'The CSV File upload is successfull',duration:5000}); 
-
-             
+            this.toast.success({detail:'SUCCESS',summary:'The CSV File upload is successfull',duration:5000});              
           
-      setTimeout(() => {
+        setTimeout(() => {
 
-        window.location.reload()       
-    }, 5000);              
+        // window.location.reload()       
+         }, 5000);              
            }
-         }),
-         (error: any) =>{
-
-          this.toast.error({detail:'CSV upload failed',summary:'Invalid csv file',duration:5000});
-     
-        };  
+         },(error: any) =>{
+          this.toast.error({detail:'CSV Upload Failed',summary:'Invalid CSV File',duration:5000});
+          this.Load();
+           });
+        
  
      
        }

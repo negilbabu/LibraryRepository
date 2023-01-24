@@ -1,81 +1,29 @@
 <app-sidenav></app-sidenav>
 
-<head> 
-  <title>Borrow </title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<style>
-* {
-  box-sizing: border-box;
-}
 
-@media only screen and (max-width: 620px) {
-  /* For mobile phones: */
-  .right {
-    width: 87%;
-
-  }
-  /* .form-control{
-    top:15%;
-  }
-*/
-  .csvv{
-    position: relative;
-    left: 8%;
-    top:65px;
-  } 
-
-  .centered{
-    top: 18%;
-    left:45%;
-  }
-.mat-dialog-container{
-margin-left: 20%;
-}
-
-.form-control{
-  width: 30vh;
-}
-
-}
-</style>
-</head>
-
-
-
-
-<br><br><br><br><br>
-
-
-
-
-
-  
   <div class="split right">
-    <br><br><br>
-    <div class="col-md-6"  >
+    <div class="col-md-6" style="width:100% ;"  >
 
-      <form [formGroup]="search" style="display: inline-flex;padding: 0px;" class="col-md-4">
+      <form [formGroup]="search" style="display: inline-flex;padding: 0px; width: min-content;" class="col-md-4">
         <input type="text" style="position: relative; left:10%; " class="form-control" formControlName="inp" placeholder="Enter Book Name to Search "
             aria-label="Recipient's username" aria-describedby="basic-addon2" (ngModelChange)="search1(this.search.controls['inp'].value)" >
             <button mat-icon-button  style="position: relative; left:10%; "> <i class="material-icons" style="color:rgb(0, 0, 0)" >search</i></button> 
       </form>
-      <span class="csvv">
-      <input type="file" id="myFile" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"  (change)="selectFile($event)" style="position: relative; ">
-      <button mat-icon-button   [disabled]="!selectedFiles" > 
-        <i class="material-icons" style="color:rgb(142, 179, 137);position: relative; "  (click)="upload() " >cloud_upload</i>
-        </button>   </span>
 
-      <div class="centered">  
+      <button  mat-raised-button (click)="openDialog()" color="primary" style="position: relative;margin-left: 10%;" class="mycls" >ADD BOOKS</button>
+
+      <input type="file" id="myFile" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"  (change)="selectFile($event)" style="position: relative;left: 20%; ">
+      <button mat-icon-button   [disabled]="!selectedFiles" > 
+        <i class="material-icons" style="color:rgb(142, 179, 137);position: relative;margin-left: 220px; "  (click)="upload() " >cloud_upload</i>
+        </button>   
+
       
-        <button  mat-raised-button (click)="openDialog()" color="primary" style="text-align: center;" >ADD BOOKS</button>
-    </div>   
-       
     </div>
       
 <br><br><br><br>
     <div class="table-responsive">                    
       <table class=".table-hover"  >
-        <caption>Book Results</caption>
+
         <thead class="bg-primary text-white">
             <tr role="row" *ngIf="this.pkey==null">
              <th id=1 (click)="sortfn('category.categoryName')" >Category-Name

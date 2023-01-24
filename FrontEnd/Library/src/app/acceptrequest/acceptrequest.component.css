@@ -1,67 +1,35 @@
 
 .text-danger1{
 
-    width: 160%;
+    /* width: 160%; */
     padding: 8px 6px;
     margin: 0px;
     box-sizing: border-box;
-    border: 1px ;
+    border: 1px ; 
     background-color: #a7bdb08f;
     color: rgb(0, 0, 0);
-    border-radius: 7px;
+     border-radius: 7px;
   
 }
 
-.date{
-    width: 160%;
-    padding: 8px 6px;
-    margin: 0px;
-    box-sizing: border-box;
-    border: 1px ;
-    background-color: #a7bdb08f;
-    color: rgb(0, 0, 0);
-    border-radius: 7px;
-}
-.btn{
-    width: 100%;
-    padding: 7px 2px;
-    margin: 5px ;
-    box-sizing: border-box;
-    border: 2px solid rgb(27, 26, 26);
-    background-color:rgba(106, 215, 56, 0.682);
-    color: rgb(0, 0, 0);
-    border-radius: 7px;
-}
-.table-bordered{
-    border: 1px solid;
-}
-th {
-    background-color: #232524;
-    color: white;
-    width: 15%;
-    text-align: center;
-  }
+
+
+
+
   td {
-    background-color: #a7bdb08f;
-    color: rgb(0, 0, 0);
-    width: 15%;
-    text-align: center;
+
+    width: 50%;
+    height: 50%;
+    text-align: left;
     margin-top: auto;
-    padding: auto;
+    padding: 5%;
+    padding-left: 4%;
   }
 
 
-  .btnList{
-    border: none;
-    padding: 1px;
-    background: rgb(0, 0, 0);
-    font-size: 13px;
-    font-style: italic ;
-    color: rgb(255, 255, 255);
-    border-radius: 3px;
-}
+
 table{
-    text-align: center;
-    /* margin-left: 40%;
-    margin-top:5%; */
+    text-align: left;
+    /* margin-left: 40%;*/
+    margin-top:5%; 
 }

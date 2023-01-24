@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { BooksService } from '../books.service';
 import { BorrowService } from '../borrow.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-borrow-detail-view',
@@ -14,11 +15,15 @@ export class BorrowDetailViewComponent implements OnInit {
   borrowdata:any;
   booksdata:any;
 
-  constructor(private router:Router ,private service:BorrowService,private booksService:BooksService) { 
+  constructor(private router:Router ,
+    private route: ActivatedRoute,
+    private service:BorrowService,
+    private booksService:BooksService) { 
 
   }
 
     ngOnInit(): void {  
+      this.borrowId = this.route.snapshot.params['id'];
     this.LoadBorrow(this.borrowId) 
 
     }
