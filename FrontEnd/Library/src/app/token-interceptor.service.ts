@@ -20,8 +20,5 @@ export class TokenInterceptorService implements HttpInterceptor {
    });
    return next.handle(jwttoken);
    
-   
-   
-    // throw new Error('Method not implemented.');
   }
 }

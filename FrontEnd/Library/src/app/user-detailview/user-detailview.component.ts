@@ -9,8 +9,7 @@ import { UserserviceService } from '../userservice.service';
 })
 export class UserDetailviewComponent implements OnInit {
   
-  
-    //booksdata:any;
+
     userdata: any;
     userList:any[];
     role: any;

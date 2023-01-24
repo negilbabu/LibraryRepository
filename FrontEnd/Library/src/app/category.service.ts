@@ -13,7 +13,6 @@ export class CategoryService {
   tocken:any;
   constructor(private http:HttpClient,private router:Router) { }
 
-  //error handling
   handleError(err: HttpErrorResponse): any {
     console.log('hhhii');
     if ( err.status === 403) {
@@ -22,7 +21,7 @@ export class CategoryService {
       localStorage.clear()
       this.router.navigateByUrl(`/login`);    }    
   }
-////////////////////////////////////////////////////////
+
 
 
 

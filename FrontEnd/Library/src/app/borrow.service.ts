@@ -4,7 +4,6 @@ import { catchError, Observable } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 function _window() : any {
-  // return the global native browser window object
   return window;
 }
 
@@ -18,13 +17,9 @@ export class BorrowService {
   }
   
 
-  
-
   apiurl='http://localhost:8080';
   accesstocken:any
   constructor(private http:HttpClient,private router:Router) { }
- 
-  ////////////////////////////////////////////////
 
 handleError(err: HttpErrorResponse): any {
   console.log('hhhii');
@@ -35,10 +30,6 @@ handleError(err: HttpErrorResponse): any {
     this.router.navigateByUrl(`/login`);    }    
 }
 
-
-
-
-  //////////////////////////////////////////////
   export(): Observable<Blob> {
     return this.http.get('http://localhost:8080/borrow/admin/export', { responseType: 'blob' });
   }
@@ -103,19 +94,16 @@ handleError(err: HttpErrorResponse): any {
     return this.http.get('http://localhost:8080/borrow/borrowBlock');
   }
 
-
   LoadDue(){
     return this.http.get('http://localhost:8080/borrow/due').pipe((catchError(err => this.handleError(err))));
   }
   LoadFine(){
     return this.http.get('http://localhost:8080/borrow/admin/fine').pipe((catchError(err => this.handleError(err))));
   }
-  //user
+
   LoadDueByUser(){
     return this.http.get('http://localhost:8080/borrow/user/dueByUser').pipe((catchError(err => this.handleError(err))));
   }
-
-
 
   LoadUserList(){
     return this.http.get('http://localhost:8080/borrow/list/user').pipe((catchError(err => this.handleError(err))));
@@ -129,68 +117,24 @@ handleError(err: HttpErrorResponse): any {
     return this.http.get('http://localhost:8080/borrow/user/UserNotification').pipe((catchError(err => this.handleError(err))));
     }
   
-
-
-  
   getBorrowID(borrowId:any){
     return this.http.get('http://localhost:8080/borrow'+borrowId);
   }
-
 
   payment(id: any) {
     return this.http.put(this.apiurl + "/borrow/user/paymentStatus/" + id,{headers:Headers});
   }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
   delete(booksId:any):Observable<any>{
     let tocken=localStorage.getItem('accesstoken')
     let  head_obj=new HttpHeaders({"Authorization":"library " + tocken})
     return this.http.delete(this.apiurl+'/borrow/'+booksId,{headers:head_obj});
   }
   
-  
-  // update(id: any, data: any) {
-  //   const httpOptions = {
-  //     headers: new HttpHeaders({
-  //       'Content-Type': 'application/json',
-  //       'Authorization': 'library ' + localStorage.getItem('accessToken')
-  //     })
-  //   }
-  //   return this.http.put(this.apiurl + "/borrow/" + id, data, httpOptions)
-  // }
-
   update(id: any, data: any) {
     return this.http.put(this.apiurl + "/borrow/admin/accept/" + sessionStorage.getItem('borrowId'), data).pipe((catchError(err => this.handleError(err))));
   }
 
-
-  // updateReject(id: any, data:any) {
-  //   return this.http.put(this.apiurl + "/borrow/reject/" + id,{headers:Headers});
-  // }
   updateReject(id: any, data:any) {
     return this.http.put(this.apiurl + "/borrow/admin/reject/" + sessionStorage.getItem('borrowId'), data).pipe((catchError(err => this.handleError(err))));
   }
@@ -203,8 +147,6 @@ handleError(err: HttpErrorResponse): any {
     return this.http.put(this.apiurl + "/borrow/admin/undo/" + id,{headers:Headers}).pipe((catchError(err => this.handleError(err))));
   }
 
-
-  
   edit(booksId:any): Observable<any>{
     let tocken=localStorage.getItem('accesstoken')
     let  head_obj=new HttpHeaders({"Authorization":"library " + tocken})

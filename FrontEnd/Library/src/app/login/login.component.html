@@ -4,7 +4,6 @@
     <div>Lib<span>rary</span></div>
 </div>
 <br>
-
 <form [formGroup]="loginForm" class="login">
     <span><mat-icon style="color:#c99f14">library_books</mat-icon> <Label style="color: #dddbd5">LIB</Label><Label style="color: #c99f14">RARY</Label></span> 
    
@@ -13,8 +12,6 @@
 
     <span class="text-danger"   class="text-danger" *ngIf="loginForm.controls['email'].touched && loginForm.hasError('required','email')"><small>Email is required</small>
     </span>
-    
-
     <input type="password" placeholder="password" formControlName="password"
         pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"><br>
 

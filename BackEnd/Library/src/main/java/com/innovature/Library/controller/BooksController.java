@@ -42,8 +42,6 @@ public class BooksController {
     @Autowired
     private BooksRepository booksRepository;
 
-
-
     @PostMapping
     public BooksDetailView add(@Valid @RequestBody BooksForm form) {
         return service.add(form);
@@ -60,7 +58,6 @@ public class BooksController {
         {
         return service.listByCategory(categoryId);
        }
-    
 
     @GetMapping("/{booksId}")
     public BooksDetailView list(
@@ -69,7 +66,6 @@ public class BooksController {
      {
         return service.list(booksId);
     }
-
 
     @DeleteMapping("/{booksId}")
     public void deletes(
@@ -84,8 +80,6 @@ public class BooksController {
     ) {
         return service.updates(booksId, form);
     }
-
-
 
     @GetMapping("admin/pagenated/")
     public ResponseEntity<Page<Books>>getAllBooks(

@@ -8,11 +8,8 @@ import { Router } from '@angular/router';
   providedIn: 'root'
 })
 export class UserserviceService {
-  // apiurl = 'http://localhost:8080'
+ 
    accesstocken:any
-  
-
-
   constructor(private http: HttpClient,private router:Router) {
 
   }
@@ -26,21 +23,12 @@ export class UserserviceService {
       this.router.navigateByUrl(`/login`);    }    
   }
 
-  ////////////////////////////////////////////////////////////////////
-
-
   userPaginationAdmin(page:any,tableSize:any,sort:any,direction:any):Observable<any>{
     return this.http.get("http://localhost:8080/users/admin/pagenated/?pageNo="+page+"&pageSize="+tableSize+"&sortBy="+sort+"&direction="+direction).pipe((catchError(err => this.handleError(err))))
   }
-
-
-
-
-
   add(data:any):Observable<any>{
     return this.http.post('http://localhost:8080/users',data)
   }
-
   login(data:any):Observable<any>{
     return this.http.post('http://localhost:8080/login',data)
   }

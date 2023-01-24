@@ -65,11 +65,7 @@ export class FindbyCategoryComponent implements OnInit {
 
     });
   }
-
-
-
-
-  requestBook(booksId: any) {
+requestBook(booksId: any) {
     console.log(booksId)
     let data = booksId
     this.borrowservice.add(data).subscribe({
@@ -83,10 +79,6 @@ export class FindbyCategoryComponent implements OnInit {
     })
   }
 
-  // LoadbyCategory() {
-  //   this.booksService.LoadbyCategory().subscribe((data: any)=>{
-  //     console.log(data)
-  //   this.booksdata=data;
-  //   });  } 
+  
 
 }

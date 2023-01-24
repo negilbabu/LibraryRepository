@@ -12,7 +12,6 @@ import { NgToastModule, NgToastService } from 'ng-angular-popup';
 })
 export class LoginComponent implements OnInit {
 
-
   responsedata: any;
 
   constructor(private router: Router, private service: UserserviceService, private toast: NgToastService) {
@@ -42,7 +41,6 @@ export class LoginComponent implements OnInit {
             this.toast.info({ detail: 'Hello User ', summary: 'LogIn Successfull', duration: 5000 });
             this.router.navigate(['/homepage'])
           }
-
 
           else {
             localStorage.setItem('token', this.responsedata.accessToken.value)

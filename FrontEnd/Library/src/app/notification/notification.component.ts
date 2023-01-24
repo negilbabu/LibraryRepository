@@ -1,8 +1,6 @@
 
 import { BooksService } from './../books.service';
-// import { Borrow } from '././borrow';
 import { BorrowComponent } from '../borrow/borrow.component';
-// import { BorrowComponent } from './borrow/borrow.component';
 import { FineComponent } from './../fine/fine.component';
 import { Component, HostListener, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
@@ -67,11 +65,7 @@ export class NotificationComponent implements OnInit {
   }
 
   DueToday() {
-    // this.service.LoadUserNotification().subscribe((data: any)=>{
-    //   this.returnData=data;
-    //   console.log("=1")
-    //   console.log(data);  
-    // });
+  
 
   }
 
