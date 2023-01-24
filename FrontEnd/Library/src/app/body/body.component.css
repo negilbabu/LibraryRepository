@@ -7,6 +7,7 @@
   /* For mobile phones: */
   .right {
     width: 87%;
+    padding-bottom: 5%;
 
   }
 
@@ -20,6 +21,7 @@
   }
   .chart{
     margin-left: 0%;
+    padding-bottom: 5%;
   }
 
 
@@ -30,7 +32,7 @@
  
  .chart{
     left: 18%; 
-  
+    padding-bottom: 5%;
  }
 
 

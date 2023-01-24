@@ -60,6 +60,7 @@ import { AdminNavbarComponent } from './admin-navbar/admin-navbar.component';
 import { HomepageComponent } from './homepage/homepage.component';
 import { UserDetailviewComponent } from './user-detailview/user-detailview.component';
 import {MatTableModule} from '@angular/material/table';
+import { PageNotfoundComponent } from './page-notfound/page-notfound.component';
 
 
 //  import {MatIconModule} from '@angular/material/icon';
@@ -103,6 +104,7 @@ import {MatTableModule} from '@angular/material/table';
     AdminNavbarComponent,
     HomepageComponent,
     UserDetailviewComponent,
+    PageNotfoundComponent,
     // Chart
     
   //  ModalComponent

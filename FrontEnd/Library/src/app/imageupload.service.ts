@@ -31,7 +31,8 @@ export class ImageuploadService {
     
     LoadBooks(): Observable<any>  
     {
-      return this.http.get(this.baseUrl+'/books/admin').pipe((catchError(err => this.handleError(err))));
+      return this.http.get(this.baseUrl+'/books/admin')
+
     }
   
     imageUpload(image:any,booksId:any):Observable<any>{
@@ -39,7 +40,8 @@ export class ImageuploadService {
       const formData: FormData = new FormData();
       formData.append('image',image );
         
-      return this.http.post(this.baseUrl+'/books/save/image/'+booksId,formData).pipe((catchError(err => this.handleError(err))));
+      return this.http.post(this.baseUrl+'/books/save/image/'+booksId,formData)
+
   
     }
   }

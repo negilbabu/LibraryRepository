@@ -14,7 +14,7 @@ export class ForgotpasswordComponent implements OnInit {
   result:any;
   rslt=0;
   val=0;
-
+  spin=0;
 
   ObjForm:FormGroup=new FormGroup({
     sentto:new FormControl('',[Validators.maxLength(50),Validators.required]),
@@ -37,6 +37,7 @@ export class ForgotpasswordComponent implements OnInit {
   ngOnInit(): void { 
     
     this.ObjForgetForm.reset()
+    this.spin=0;
 
 
     if(this.rslt==1){
@@ -108,17 +109,22 @@ export class ForgotpasswordComponent implements OnInit {
   }
   else{
     this.val=1;
+    this.spin=1;
+    console.log("val=",this.val)
+    console.log("spin=",this.spin)
     this.email=this.ObjForm.value.sentto;    
     this.emails.sendotp(this.ObjForm.value).subscribe((result=>{
       this.rslt=2;
+      this.spin=0;
     this.openSuccess();     
+    console.log("msg=",result)
     }),
     (error)=>{
-
-     if(error.status==406){    
+// console.log("in err-",error.status)
+//      if(error.status===406){    
         this.rslt=1;      
         this.ngOnInit()
-     }
+    //  }
      
 
     });

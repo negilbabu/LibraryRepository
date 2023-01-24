@@ -15,14 +15,7 @@ export class BooksService {
   constructor(private http:HttpClient,private router:Router) { }
 
 
-handleError(err: HttpErrorResponse): any {
 
-  if ( err.status === 403) {
-    alert("UNAUTHORIZED ACCESS DETECTED")
-    sessionStorage.clear()
-    localStorage.clear()
-    this.router.navigateByUrl(`/login`);    }    
-}
 handleCsvError(err: HttpErrorResponse): any {
 
   if ( err.status === 417) {
@@ -43,7 +36,8 @@ handleCsvError(err: HttpErrorResponse): any {
     const formData: FormData = new FormData();
 
     formData.append('file', file);
-    return this.http.post(this.baseUrl+'/csv/admin/upload', formData).pipe((catchError(err => this.handleCsvError(err))))
+    return this.http.post(this.baseUrl+'/csv/admin/upload', formData)
+
 
   }
 //pie
@@ -53,31 +47,37 @@ handleCsvError(err: HttpErrorResponse): any {
 
 
   add(data:any):Observable<any>{
-    return this.http.post(this.baseUrl+'/books',data).pipe((catchError(err => this.handleError(err))))
+    return this.http.post(this.baseUrl+'/books',data)
+
   }
   
   
   Load(){
-    return this.http.get(this.baseUrl+'/books/admin').pipe((catchError(err => this.handleError(err))))
+    return this.http.get(this.baseUrl+'/books/admin')
+
   }
   
   LoadbyCategory(categoryId:any):Observable<any>{
-    return this.http.get(this.baseUrl+'/books/user/findByCategory/'+categoryId).pipe((catchError(err => this.handleError(err))));
+    return this.http.get(this.baseUrl+'/books/user/findByCategory/'+categoryId)
+
   }
   
   
   delete(booksId:any):Observable<any>{
     let tocken=localStorage.getItem('accesstoken')
     let  head_obj=new HttpHeaders({"Authorization":"library " + tocken})
-    return this.http.delete(this.baseUrl+'/books/'+booksId,{headers:head_obj}).pipe((catchError(err => this.handleError(err))));
+    return this.http.delete(this.baseUrl+'/books/'+booksId,{headers:head_obj})
+
   }
   
 
   pagination1(page:any,tableSize:any,sort:any,direction:any):Observable<any>{
-    return this.http.get(this.baseUrl+"/books/admin/pagenated/?pageNo="+page+"&pageSize="+tableSize+"&sortBy="+sort+"&direction="+direction).pipe((catchError(err => this.handleError(err))))
+    return this.http.get(this.baseUrl+"/books/admin/pagenated/?pageNo="+page+"&pageSize="+tableSize+"&sortBy="+sort+"&direction="+direction)
+
   }
   paginationForUser(page:any,tableSize:any,sort:any,direction:any):Observable<any>{
-    return this.http.get(this.baseUrl+"/books/user/pagenated/?pageNo="+page+"&pageSize="+tableSize+"&sortBy="+sort+"&direction="+direction).pipe((catchError(err => this.handleError(err))))
+    return this.http.get(this.baseUrl+"/books/user/pagenated/?pageNo="+page+"&pageSize="+tableSize+"&sortBy="+sort+"&direction="+direction)
+
   }
 
   
@@ -89,13 +89,15 @@ handleCsvError(err: HttpErrorResponse): any {
         'Authorization': 'library ' + localStorage.getItem('accessToken')
       })
     }
-    return this.http.put(this.baseUrl + "/books/" + id, data, httpOptions).pipe((catchError(err => this.handleError(err))))
+    return this.http.put(this.baseUrl + "/books/" + id, data, httpOptions)
+
   }
   
   edit(booksId:any): Observable<any>{
     let tocken=localStorage.getItem('accesstoken')
     let  head_obj=new HttpHeaders({"Authorization":"library " + tocken})
-    return this.http.get(this.baseUrl + '/books/'+ booksId,{headers:head_obj}).pipe((catchError(err => this.handleError(err))));
+    return this.http.get(this.baseUrl + '/books/'+ booksId,{headers:head_obj})
+
   }
   
   }
