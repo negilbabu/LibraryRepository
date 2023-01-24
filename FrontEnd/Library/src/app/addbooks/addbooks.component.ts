@@ -84,7 +84,7 @@ Load() {
     this.count=result.totalElements
     this.data=this.result; 
     this.booksdata=this.result;  
-    console.log("rs=",result)                 
+               
       });
 }  
 
