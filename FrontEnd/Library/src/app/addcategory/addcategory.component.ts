@@ -129,7 +129,8 @@ deleteCategory(category:any): void{
    
     this.toast.error({detail:'Success',summary:'The Category '+category.categoryName+' Deleted',duration:5000}); 
     setTimeout(() => {
-    window.location.reload()       
+    // window.location.reload()    
+    this.LoadCategory()   
   }, 1500);
   
   },

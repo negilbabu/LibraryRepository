@@ -86,10 +86,8 @@ onSubmit(){
 
       if(result.categoryId){  
         this.toast.success({detail:'Success',summary:'The Category '+result.categoryName+' Added',duration:5000});
-      this.router.navigate(['/addCategory'])
-        setTimeout(() => {
-        window.location.reload()       
-      }, 1500);
+      this.router.navigate(['/addcategory'])
+     
       
         
       }
@@ -111,9 +109,9 @@ updateCategory(categoryId:any){
 
 
       this.toast.success({detail:'Success',summary:'The Category - '+Response.categoryName+' Edited',duration:5000});
-      setTimeout(() => {
-        window.location.reload()       
-      }, 1500);
+      // setTimeout(() => {
+        this.router.navigate(['/addcategory'])     
+      // }, 1500);
 
     },
     error: (Response: any) => {
