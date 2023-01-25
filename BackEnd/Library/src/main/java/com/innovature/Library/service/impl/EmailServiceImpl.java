@@ -17,6 +17,7 @@ import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import javax.mail.Session;
+import java.time.LocalTime;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -42,9 +43,18 @@ public class EmailServiceImpl implements EmailService {
         User user=userRepository.findByEmailId(form.getEmail());
         System.out.println(form.getEmail());
         // System.out.println(form.getOtp());
+
+
         System.out.println(otp);
-        if ((form.getOtp().equals(otp.getOtp()))) {
-            System.out.println("----------inside if of otp ==-------");
+
+        LocalTime myObj = LocalTime.now();
+
+        if ((form.getOtp().equals(otp.getOtp())) ) {
+
+
+
+            if(myObj.isBefore(otp.getExpiry())){
+                System.out.println("before otp expired-----------------------------");
 
             if (form.getNewPassword().equals(form.getCnewPassword()))
                        
@@ -59,8 +69,13 @@ public class EmailServiceImpl implements EmailService {
 
         }
         else{
+            System.out.println("----------otp expired-------");
             return false;
         }
+            }
+            return false;
+          
+
     }
    
    

@@ -69,24 +69,33 @@ export class ForgotpasswordComponent implements OnInit {
     this.ObjForgetForm.value.email=this.email;
     
     if(this.ObjForgetForm.value.otp==null ) {
-      this.toast.warning({detail:'OTP =required',summary:'Please Enter valid OTP', duration:10000,position:'tr'}) 
+      this.toast.warning({detail:'OTP =required',summary:'Please Enter 1 valid OTP', duration:10000,position:'tr'}) 
     }
     if(this.ObjForgetForm.value.newPassword==null ) {
-      this.toast.warning({detail:' Password required',summary:'Please EnternewPassword', duration:10000,position:'tr'}) 
+      this.toast.warning({detail:' Password required',summary:'Please 1 EnternewPassword', duration:10000,position:'tr'}) 
     }
 
     
      if(this.ObjForgetForm.value.newPassword==this.ObjForgetForm.value.cnewPassword){    
-    this.emails.verify(this.ObjForgetForm.value).subscribe(result=>{
-      if(result){
+    this.emails.verify(this.ObjForgetForm.value).subscribe({
+      next:(result:any)=>{
+        
+      
         this.toast.success({detail:'password changed',summary:'Please Login', duration:10000,position:'tr'})
         this.router.navigate(['/login'])
-      }
-      else{
+
+    
+    },
+    error: (Response: any) => {
+      console.log(Response)
+      if(Response.status==400){
         this.toast.warning({detail:'Failed',summary:'Please Enter valid OTP', duration:10000,position:'tr'})
       }
-
-    })
+      
+      this.toast.warning({detail:'Failed',summary:'OTP Expired', duration:10000,position:'tr'})
+    }
+    
+  })
   }
 
   else{

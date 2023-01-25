@@ -1,6 +1,10 @@
 package com.innovature.Library.controller;
 
+import java.sql.Date;
+import java.util.Calendar;
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
+import java.time.LocalTime;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -68,7 +72,14 @@ public class EmailController {
                 int otp = 100000 + random.nextInt(900000);
                 Email otp2= new Email();
                 otp2.setOtp(otp);
-                otp2.setEmail(form.getSentto());
+                otp2.setEmail(form.getSentto());      
+
+                LocalTime myObj = LocalTime.now();
+                LocalTime exp=myObj.plusMinutes(1);
+                System.out.println("here############====>>>"+exp);
+                otp2.setExpiry(exp);
+
+                
                 var email=form.getSentto();
                 
                 // emailRepository.save(otp2);
@@ -77,6 +88,7 @@ public class EmailController {
                Email email2= emailRepository.findByEmail(email);
                if(email2!=null){
                email2.setOtp(otp); 
+               email2.setExpiry(exp);   
                emailRepository.save(email2);
                }
                else
@@ -103,9 +115,17 @@ public class EmailController {
 
 
     @PostMapping("verify")
-    public boolean add(@RequestBody OtpForm form){
+    public ResponseEntity add(@RequestBody OtpForm form){
 
-        return emailService.add(form);
+        boolean result = emailService.add(form);
+        if(result)
+        {
+            return new ResponseEntity(null,HttpStatus.ACCEPTED);
+        }
+        else
+        {
+            return new ResponseEntity(null,HttpStatus.BAD_REQUEST);
+        }
     }
 
 
