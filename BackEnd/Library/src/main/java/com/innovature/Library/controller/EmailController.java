@@ -63,14 +63,25 @@ public class EmailController {
 
         User user=userRepository.findByEmailId(form.getSentto());
              if(user!=null){
-                emailRepository.deleteAll();
+                // emailRepository.deleteAll();
                 Random random = new Random();
                 int otp = 100000 + random.nextInt(900000);
                 Email otp2= new Email();
                 otp2.setOtp(otp);
                 otp2.setEmail(form.getSentto());
+                var email=form.getSentto();
                 
-                emailRepository.save(otp2);
+                // emailRepository.save(otp2);
+                // emailRepository.findByEmailId(email,otp2);
+              
+               Email email2= emailRepository.findByEmail(email);
+               if(email2!=null){
+               email2.setOtp(otp); 
+               emailRepository.save(email2);
+               }
+               else
+               emailRepository.save(otp2);
+            
                 boolean result = this.emailService.sendEmail("OTP Verification","Your OTP to change your password is \t"+ otp +"\tuse it to create a new password.", form.getSentto());
                 // "OTP Verification", "Your OTP to change your password is "+"otp"+"use it to create a new password."
                 if(result){

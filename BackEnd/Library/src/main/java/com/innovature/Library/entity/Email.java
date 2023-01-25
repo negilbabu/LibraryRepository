@@ -13,7 +13,7 @@ public class Email {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer otpId;
 
-    
+
     private String email;
     
     private Integer otp;
