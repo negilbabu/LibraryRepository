@@ -44,14 +44,14 @@ export class BorrowComponent implements OnInit {
   result: any;
   direction=1;
   direction1=-1;
-  //borrow_id:any;
+
     constructor(private router:Router ,
       private datePipe:DatePipe,
       private service:BorrowService,
       private toast : NgToastService,
       private booksService:BooksService) {
  
-      // this.borrowList=[];
+
       this.date=new Date();
      }
 
@@ -84,19 +84,12 @@ export class BorrowComponent implements OnInit {
     )
 
     dwn() {
-      // if(this.key==""){
+
     
       this.myDate=this.datePipe.transform(this.curDate,'yyyy-MM-dd');
       this.filename="DataExport_"+this.myDate;
       this.service.export().subscribe((blob:any)=>saveAs(blob,this.filename))
-      // }
-      // else{
-      //   this.myDate=this.datePipe.transform(this.curDate,'yyyy-MM-dd');
-      //   this.filename="DataExport_"+this.myDate;
-      //   this.service.exportSearch(this.search.controls['inp'].value).subscribe((blob:any)=>saveAs(blob,this.filename))
-      // }
-    
-    // throw new Error('Method not implemented.');
+     
     }
     
 

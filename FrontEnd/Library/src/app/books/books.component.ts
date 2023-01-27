@@ -14,18 +14,11 @@ import { MatDialog } from '@angular/material/dialog';
   styleUrls: ['./books.component.css']
 })
 export class BooksComponent implements OnInit {
-
-
-
-
   categoryList: any[];
   categoryId:any;
-
-
   booksList: any[];
   books: any;
   booksId: any;
-
   categorydata:any;
   booksdata:any;
   catdata: any;

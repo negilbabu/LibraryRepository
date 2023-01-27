@@ -45,7 +45,6 @@ handleError(err: HttpErrorResponse): any {
     return this.http.get('http://localhost:8080/books/admin/pie')
   }
 
-
   add(data:any):Observable<any>{
     return this.http.post('http://localhost:8080/books',data).pipe((catchError(err => this.handleError(err))))
   }
@@ -66,7 +65,6 @@ handleError(err: HttpErrorResponse): any {
     return this.http.delete(this.apiurl+'/books/'+booksId,{headers:head_obj}).pipe((catchError(err => this.handleError(err))));
   }
   
-
   pagination1(page:any,tableSize:any,sort:any,direction:any):Observable<any>{
     return this.http.get("http://localhost:8080/books/admin/pagenated/?pageNo="+page+"&pageSize="+tableSize+"&sortBy="+sort+"&direction="+direction).pipe((catchError(err => this.handleError(err))))
   }
@@ -76,7 +74,6 @@ handleError(err: HttpErrorResponse): any {
 
   
   update(id: any, data: any) {
-    // console.log(id)
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',

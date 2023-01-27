@@ -21,21 +21,15 @@ margin-left: 20%;
     flex-wrap: wrap;
     flex-direction: row;
   } */
-
-
 }
 </style>
 </head>
-
-
  <form [formGroup]="ObjSampleForm" class="dialog-form"> 
   <div mat-dialog-content  style="text-align: center; padding-top: 2%;">
    <p *ngIf="booksId==null"><b>ADD BOOKS</b></p>
    <p *ngIf="booksId!=null"><b>EDIT BOOKS</b></p>
   </div>
    <mat-dialog-content>
- 
-
     <mat-form-field appearance="fill">
       <mat-select formControlName="categoryId"  placeholder="Select Category">
          <ng-container>     
@@ -75,7 +69,6 @@ margin-left: 20%;
    <button mat-raised-button (click)="onSubmit()" color="primary" [disabled]="ObjSampleForm.invalid" >Submit</button>
     
  </div>
- 
   </form>
  
 

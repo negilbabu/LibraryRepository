@@ -46,8 +46,6 @@ handleError(err: HttpErrorResponse): any {
   add(data:any):Observable<any>{
     return this.http.post('http://localhost:8080/borrow',data).pipe((catchError(err => this.handleError(err))))
   }
-  
-
   borrowHistoryPagination(page:any,tableSize:any,sort:any){
     return this.http.get("http://localhost:8080/borrow/userBorrow/pagenated/?pageNo="+page+"&pageSize="+tableSize+"&sortBy="+sort).pipe((catchError(err => this.handleError(err))))
   }
@@ -81,7 +79,6 @@ handleError(err: HttpErrorResponse): any {
     return this.http.get(this.apiurl + "/borrow/user/loadByIssueDateUser/"+date1+"/"+date2);
   }
   
-
   Load(){
     return this.http.get('http://localhost:8080/borrow').pipe((catchError(err => this.handleError(err))));
   }

@@ -13,8 +13,6 @@ export class ForgotpasswordComponent implements OnInit {
   displayStyle: any;
   result:any;
   rslt=0;
-
-
   ObjForm:FormGroup=new FormGroup({
     sentto:new FormControl('',[Validators.maxLength(50),Validators.required]),
   })
@@ -26,23 +24,18 @@ export class ForgotpasswordComponent implements OnInit {
     email:new FormControl()
   })
   email: any;
-
-
-  
   constructor(  private emails:EmailService,
     private toast:NgToastService,
     private router:Router) { }
 
   ngOnInit(): void { 
-
-    // this.ObjForgetForm.controls['otp'].value.reset()
     console.log('rslt=',this.rslt)
     if(this.rslt==1){
          this.toast.error({detail:'OTP Sent Failed :(',summary:'Unregistered Email Detected ', duration:5000,position:'tr'}) 
       setTimeout(() => {
         window.location.reload()       
     }, 3000);   
-      // this.rslt=0;
+      
     }
     
   }
@@ -51,9 +44,6 @@ export class ForgotpasswordComponent implements OnInit {
   {
     this.router.navigate(['/login'])
   }
-
-  
-
 
 //verify otp
   SaveData() {
@@ -81,9 +71,7 @@ export class ForgotpasswordComponent implements OnInit {
   else
   this.toast.warning({detail:'Password Mismatch',summary:'Please Enter valid password', duration:10000,position:'tr'})
 
-    
   }
-
 
   //send otp
   openPopup() {

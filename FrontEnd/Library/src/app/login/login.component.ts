@@ -27,10 +27,10 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
   }
 
-
   login() {
 
     if (this.loginForm.valid) {
+      console.log(this.loginForm.value); 
       this.service.login(this.loginForm.value).subscribe(result => {
         if (result.userId) {
           this.responsedata = result
@@ -50,9 +50,8 @@ export class LoginComponent implements OnInit {
           }
 
         }
-
         else {
-          //alert("login not sucessful");
+          
           this.toast.warning({ detail: 'success msg', summary: 'LogIn failed', duration: 5000 });
         }
       }, (error: any) => {
@@ -63,16 +62,12 @@ export class LoginComponent implements OnInit {
 
     }
 
-
-
     else {
       this.toast.error({ detail: 'Login Failed', summary: 'Fill up the fields', duration: 5000 });
     }
   }
 
-
   onSignUp() {
-
     this.router.navigate(['/user-reg'])
 
   }

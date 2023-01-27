@@ -34,26 +34,17 @@ export class FindbyCategoryComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
-
     this.service.LoadCategoryForUser().subscribe((data: any) => {
       this.catdata = data;
       console.log(this.catdata)
     });
-
-
   }
-
 
   home() {
     this.router.navigate(['/userbody'])
   }
-
-
   disp() {
-
     console.log(this.selectedGroup);
-
     this.booksService.LoadbyCategory(this.selectedGroup).subscribe((data: any) => {
       if (data.length>0) {
 
@@ -78,7 +69,4 @@ requestBook(booksId: any) {
       error: (msg) => { }
     })
   }
-
-  
-
 }

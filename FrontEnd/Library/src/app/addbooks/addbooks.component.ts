@@ -94,9 +94,6 @@ Load() {
 
 sortfn(a:any){    
   this.sort=a;      
-  // this.page=this.page;
-  // this.tableSize;
-
   if(this.pkey==null){
   if(this.direction==1){
     this.direction=-1;
@@ -128,7 +125,6 @@ else{
 }
 
 onTableDataChange(event:any) {
-  // this.pkey==this.search.controls['inp'].value;
   console.log("p-",this.pkey)
   if(this.pkey==null){
   console.log("page=",event)
@@ -141,7 +137,7 @@ onTableDataChange(event:any) {
         })      
       }
       else{
-        // this.pkey==this.search.controls['inp'].value;
+     
         console.log("page=",event)
         console.log("pkey in page=",this.pkey)
         this.booksService.search(this.pkey,this.page,this.tableSize,this.sort,this.direction).subscribe(result=>{
@@ -160,7 +156,7 @@ onTableDataChange(event:any) {
     const dialogConfig = new MatDialogConfig();
     this.dialog.open(BooksComponent,
       {
-        // width:'32%',height:'70%'
+       
         width:'55%',height:'auto'
       
       }

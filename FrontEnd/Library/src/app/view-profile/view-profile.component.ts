@@ -10,43 +10,33 @@ import { UserserviceService } from '../userservice.service';
 })
 export class ViewProfileComponent implements OnInit {
 
-  //booksdata:any;
   userdata: any;
-  userList:any[];
+  userList: any[];
   role: any;
-  
-    constructor(private router:Router ,private service:UserserviceService) {
-      this.userList=[];
-     }
-  
-    ngOnInit(): void {
-  
-      
-      this.Load();
-    }
-  
-    Load() {
-      this.service.getUser().subscribe((data: any)=>{
-      this.userdata=data;
-      console.log(this.userdata)
-      sessionStorage.setItem('role',data[0].role)
-      });  }  
-  
-  
-      home()
-      {
-        
-        this.role=sessionStorage.getItem('role.value')|| '';
-        console.log(this.role)
-        // if(role!=2){
-        //   this.router.navigate(['/body'])
-        // }
-        // else{
-          this.router.navigate(['/userbody'])
 
-        // }
-      
-      }
-  
+  constructor(private router: Router, private service: UserserviceService) {
+    this.userList = [];
   }
-  
+
+  ngOnInit(): void {
+   this.Load();
+  }
+
+  Load() {
+    this.service.getUser().subscribe((data: any) => {
+      this.userdata = data;
+      console.log(this.userdata)
+      sessionStorage.setItem('role', data[0].role)
+    });
+  }
+
+
+  home() {
+
+    this.role = sessionStorage.getItem('role.value') || '';
+    console.log(this.role)
+    this.router.navigate(['/userbody'])
+
+  }
+
+}

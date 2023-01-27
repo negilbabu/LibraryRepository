@@ -1,11 +1,8 @@
 package com.innovature.Library.controller;
-
 import java.io.IOException;
 import java.util.Collection;
 import java.util.List;
-
 import javax.validation.Valid;
-
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,14 +20,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-
 import com.innovature.Library.entity.Books;
 import com.innovature.Library.form.BooksForm;
 import com.innovature.Library.repository.BooksRepository;
 import com.innovature.Library.service.BooksService;
 import com.innovature.Library.util.FileUtil;
 import com.innovature.Library.view.BooksDetailView;
-
 
 @RestController
 @RequestMapping("/books")

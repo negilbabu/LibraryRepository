@@ -133,7 +133,7 @@ export class NotificationComponent implements OnInit {
     this.service.payment(this.duedata[0].borrowId).subscribe({
       next: (Response: any) => {
         console.log(Response);
-        // alert("Payment Success")
+
         this.toast.info({summary:'payment Successfull',duration:5000});
         
       },
