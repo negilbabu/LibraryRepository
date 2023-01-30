@@ -22,4 +22,9 @@ export class EmailService {
   verify(data:any):Observable<any>{
     return this.http.post(this.baseUrl+'/email/verify',data)
   }
+
+
+  verifyPassword(data:any):Observable<any>{
+    return this.http.post(this.baseUrl+'/email/verifyPassword',data)
+  }
 }

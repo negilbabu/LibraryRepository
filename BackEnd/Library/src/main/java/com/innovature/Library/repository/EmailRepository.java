@@ -6,14 +6,13 @@ import org.springframework.data.repository.Repository;
 
 import com.innovature.Library.entity.Email;
 
-
-public interface EmailRepository extends Repository<Email,Integer> {
+public interface EmailRepository extends Repository<Email, Integer> {
 
     void deleteAll();
 
     Email save(Email email);
 
-    Collection<Email>findAll();
+    Collection<Email> findAll();
 
     Email findByEmail(String email);
 

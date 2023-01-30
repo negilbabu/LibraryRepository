@@ -87,10 +87,7 @@ public class BorrowServiceImpl implements BorrowService {
         return borrowRepository.findbyUserIdandStatus(SecurityUtil.getCurrentUserId());
     }
 
-    @Override
-    public Collection<Borrow> fine() {
-        return borrowRepository.findbyBorrowIdandDueDateandStatus();
-    }
+  
 
     @Override
     public Borrow BorrowDetail(Integer borrowId) {
@@ -159,8 +156,10 @@ public class BorrowServiceImpl implements BorrowService {
     @Override
     @Transactional
     public BorrowDetailView updateReturn(Integer borrowId, BorrowForm form) {
+
         Borrow borrow = borrowRepository.findByBorrowId(borrowId);
         Books books = booksRepository.findbyBorrowId(borrowId);
+
         borrow.setBookReturnedDate(LocalDateTime.now());
         borrow.setIssueDate(borrow.getIssueDate());
         borrow.setReturnDate(borrow.getReturnDate());
@@ -273,6 +272,9 @@ public class BorrowServiceImpl implements BorrowService {
 
     }
 
+
+
+
     @Override
     @Transactional
     public List<Borrow> getBorrowHistory(Integer pageNo, Integer pageSize, String sortBy) {
@@ -287,6 +289,37 @@ public class BorrowServiceImpl implements BorrowService {
             return new ArrayList<Borrow>();
         }
     }
+
+    @Override
+    public Collection<Borrow> fine() {
+        return borrowRepository.findbyBorrowIdandDueDateandStatus();
+    }
+
+    // @admin borrow oninit
+    @Override
+    @Transactional
+    public Page<Borrow> getAllFine(Integer pageNo, Integer pageSize, String sortBy, Integer direction) {
+
+        var sortByDescending = Sort.by(sortBy).descending();
+
+        var sortByAscending = Sort.by(sortBy).ascending();
+
+        if (direction == 1) {
+
+            Pageable paging = PageRequest.of(pageNo, pageSize, sortByDescending);
+            Page<Borrow> pagedResult = borrowRepository.findbyBorrowIdandDueDateandStatus(paging);
+            return pagedResult;
+        }
+
+        else {
+            Pageable paging = PageRequest.of(pageNo, pageSize, sortByAscending);
+            Page<Borrow> pagedResult = borrowRepository.findbyBorrowIdandDueDateandStatus(paging);
+            return pagedResult;
+        }
+  
+
+    }
+
 
 
     @Override
@@ -411,8 +444,7 @@ public class BorrowServiceImpl implements BorrowService {
 
     @Override
     @Transactional
-    public Page<Borrow> getAllBorrByStat(Integer pageNo, Integer pageSize, String sortBy, Integer direction,
-            Integer status) {
+    public Page<Borrow> getAllBorrByStat(Integer pageNo, Integer pageSize, String sortBy, Integer direction,Integer status) {
 
         var sortByDescending = Sort.by(sortBy).descending();
 
@@ -450,16 +482,19 @@ public class BorrowServiceImpl implements BorrowService {
             Page<Borrow> pagedResult = borrowRepository.findByRejStatusUser(SecurityUtil.getCurrentUserId(), paging);
             return pagedResult;
 
-        } else if (direction == -1 && status == 3) {
+        } 
+        else if (direction == -1 && status == 3) {
             Pageable paging = PageRequest.of(pageNo, pageSize, sortByAscending);
             Page<Borrow> pagedResult = borrowRepository.findByRetStatusUser(SecurityUtil.getCurrentUserId(), paging);
             return pagedResult;
             
-        } else if (direction == -1 && status == 4) {
+        }
+         else if (direction == -1 && status == 4) {
             Pageable paging = PageRequest.of(pageNo, pageSize, sortByAscending);
             Page<Borrow> pagedResult = borrowRepository.findByReqStatusUser(SecurityUtil.getCurrentUserId(), paging);
             return pagedResult;
-        } else {
+        } 
+        else {
             return null;
         }
     }

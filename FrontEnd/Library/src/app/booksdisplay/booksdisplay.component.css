@@ -49,23 +49,25 @@ p {
     border-radius: 7px;
 }
 
-
+.table-bordered {
+    border: 1px solid;
+}
 
 th {
     background-color: #232524;
     color: white;
     width: 15%;
     text-align: center;
-} 
+}
 
- td {
+/* td {
     background-color: #a7bdb08f;
     color: rgb(0, 0, 0);
     width: 15%;
     text-align: center;
     margin-top: auto;
     padding: auto;
-}
+} */
 
 
 .btnList {
@@ -98,6 +100,13 @@ mat-grid-tile {
     height: 100px;
 }
 
+.table {
+    margin-left: 100px;
+width: 300px;
+height: 250px;
+
+
+}
 
 .example-card {
     max-width: 400px;
@@ -107,9 +116,6 @@ mat-grid-tile {
     background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
     background-size: cover;
 }
-
-
-
 @media only screen and (max-width: 600px) {
     body {
       background-color: lightblue;

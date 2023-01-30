@@ -1,77 +1,60 @@
 <app-sidenav2></app-sidenav2>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<head>
-  <style>
-    * {
-      box-sizing: border-box;
-    }
 
-    @media only screen and (max-width: 964px) {
-      .Tables {
-        margin-left: 60%;
-        margin-right: 40%;
-        padding: center;
-      }
-      .th{
-        text-align: center;
-      }
-
-  .td{
-    text-align: center;
-  }
-    }
-  </style>
-</head>
-
-<div style="display: grid; place-items: center;">
-  <div>
-    <form [formGroup]="ObjSampleForm">
-      <div style="display: grid; place-items: center; position: relative;">
+<div class="text-center">
+  <form [formGroup]="ObjSampleForm">
+    <div style="width: 200px; margin-left: 70px; left:520px; top:180px;" class="example-container">
+      <table>
         <br>
-        <div><label for="categoryId" style="margin-top: 10%; margin-left:35%; ">Select Category </label>
-          <select [(ngModel)]="selectedGroup" class="dropbtn" style="margin-left:10%;width: 350px;" type="input"
-            formControlName="categoryId" name="select" placeholder="Select Category" (ngModelChange)="disp()">
-            <option *ngFor="let category of catdata" value={{category.categoryId}}>
-              {{category.categoryName}}
-            </option>
-          </select>
-        </div>
-
-      </div>
-    </form>
-  </div>
-  <br>
-  
-  <table *ngIf="booksdata " class="Tables">
-
-   
-    <thead>
-      <tr role="row">
-        <th>Book Name</th>
-        <th>Category-Name</th>
-        <th>Publication</th>
-        <th>Author</th>
-        <th>Book Copies</th>
-        <th>Book Cover</th>
-        <th>Action</th>
-      </tr>
-    </thead>
-    <tbody>
-
-      <tr *ngFor="let books of  booksdata">
-        <td>{{books.booksName}}</td>
-        <td>{{books.category.categoryName}}</td>
-        <td>{{books.publication}}</td>
-        <td>{{books.auther}}</td>
-        <td>{{books.booksCopies}}</td>
-        <td align="right"><img src="../../assets/BooksImage/item_pics/{{books.image}}" width="70" height="100">
-        </td>
-
-        <td>
-
-          <button type="button" class="btnn2" (click)="requestBook(books)">Request</button>
-    </tbody>
-  </table>
+        <label for="categoryId" style="margin-left: 500px;">Select Category </label>
+        <select [(ngModel)]="selectedGroup" class="dropbtn"style="margin-left: 450px;width: 350px;"type="input" formControlName="categoryId" name="select"
+          placeholder="Select Category" (ngModelChange)="disp()">
+          <option *ngFor="let category of catdata" value={{category.categoryId}}>
+            {{category.categoryName}}
+          </option>
+        </select>
+      </table>
+    </div>
+  </form>
 </div>
+<br>
+<div class="text-center">
+  <form>
+    <div class="card-box">
+   
+      <!-- new table starts -->
+      <table class="table table-striped w-auto " style="margin-left: 25%; position: relative; ">
+
+        <!--Table head-->
+        <thead>
+          <tr role="row">
+            <th>Book Name</th>
+            <th>Category-Name</th>
+            <th>Publication</th>
+            <th>Author</th>
+            <th>Book Copies</th>
+            <th>Book Cover</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <!--Table head-->
+
+        <!--Table body-->
+        <tbody>
+
+          <tr *ngFor="let books of  booksdata">
+            <td>{{books.booksName}}</td>
+            <td>{{books.category.categoryName}}</td>
+            <td>{{books.publication}}</td>
+            <td>{{books.auther}}</td>
+            <td>{{books.booksCopies}}</td>
+            <td align="right"><img src="../../assets/BooksImage/item_pics/{{books.image}}" width="70" height="100">
+            </td>
+
+            <td>
+
+              <button type="button" class="btnn2" (click)="requestBook(books)">Request</button>
+        </tbody>
+        <!--Table body-->
 
 
+      </table>

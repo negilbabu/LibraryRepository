@@ -120,10 +120,7 @@ else{
 }
 
 onTableDataChange(event:any) {
-
-  console.log("p-",this.pkey)
-
-
+  
   if(this.pkey==null){
 
     this.booksService.pagination1(this.page,this.tableSize,this.sort,this.direction).subscribe(result=>{
@@ -134,12 +131,6 @@ onTableDataChange(event:any) {
         })      
       }
       else{
-
-     
-        console.log("page=",event)
-        console.log("pkey in page=",this.pkey)
-
-
         this.booksService.search(this.pkey,this.page,this.tableSize,this.sort,this.direction).subscribe(result=>{
           this.result=result.content;
           this.count=result.totalElements
@@ -155,10 +146,7 @@ onTableDataChange(event:any) {
     const dialogConfig = new MatDialogConfig();
     this.dialog.open(BooksComponent,
       {
-       
-
         closeOnNavigation: true,
-
         width:'55%',height:'auto'
       
       }
@@ -225,14 +213,14 @@ selectFile($event:any) {
        if (file) {
          this.currentFile = file;
          this.booksService.uploadCsv(this.currentFile).subscribe(res=>{
-console.log("csv-",res)
+
            if(res!==null){
             this.toast.success({detail:'SUCCESS',summary:'The CSV File upload is successfull',duration:5000});              
           
         setTimeout(() => {
-
+this.Load()
         // window.location.reload()       
-         }, 5000);              
+         }, 3000);              
            }
          },(error: any) =>{
           this.toast.error({detail:'CSV Upload Failed',summary:'Invalid CSV File',duration:5000});

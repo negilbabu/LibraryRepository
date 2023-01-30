@@ -23,9 +23,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+
+
 import org.supercsv.io.CsvBeanWriter;
 import org.supercsv.io.ICsvBeanWriter;
 import org.supercsv.prefs.CsvPreference;
+
+
 import com.innovature.Library.entity.Borrow;
 import com.innovature.Library.form.BorrowForm;
 import com.innovature.Library.service.BorrowService;
@@ -64,8 +69,27 @@ public class BorrowController {
         return new ResponseEntity<Page<Borrow>>(list,new HttpHeaders(),
         HttpStatus.OK);
     
+
+
     }
 
+    @GetMapping("/admin/statusFilter/")
+    public ResponseEntity<Page<Borrow>>getAllBorrowByStatus(
+                        @RequestParam(defaultValue = "1") Integer pageNo,
+                        @RequestParam(defaultValue = "5") Integer pageSize,
+                        @RequestParam(defaultValue = "borrowId") String sortBy,
+                        @RequestParam(defaultValue = "1") Integer direction,
+                        @RequestParam(defaultValue = "1") Integer status)
+    {
+        Page<Borrow> list = bService.getAllBorrByStat(pageNo-1, pageSize, sortBy,direction,status);
+        return new ResponseEntity<Page<Borrow>>(list,new HttpHeaders(),
+        HttpStatus.OK);
+    
+
+
+    }
+
+  
 
 //BORROW @ADMIN //pagenated borrow list at admin VIEW borrow single api
 @GetMapping("/admin/pagenated/")
@@ -99,8 +123,13 @@ public ResponseEntity<Page<Borrow>>getTestFilterBorrow(
 
 }
 
+
+
+
+
+
 //load results of issuedate filter at User BorrowHistory
-@GetMapping("/user/loadByIssueDate/{date1}/{date2}")
+@GetMapping("user/loadByIssueDate/{date1}/{date2}")
 public ResponseEntity<List<Borrow>> loadByIssueDateUser( 
 @PathVariable("date1") Date date1,
  @PathVariable("date2") Date date2)
@@ -124,6 +153,11 @@ public ResponseEntity<List<Borrow>> loadByIssueDateUser(
         HttpStatus.OK);
 
     }
+
+
+
+
+
     @PostMapping
     public BorrowDetailView add(@Valid @RequestBody BorrowForm form) {
         return bService.add(form);
@@ -143,11 +177,26 @@ public ResponseEntity<List<Borrow>> loadByIssueDateUser(
         return bService.listNotification();
     }
 
+   
 
     @GetMapping("user/due")
     public Collection<Borrow> listDue() {
         return bService.listDue();
     }
+
+
+    @GetMapping("/admin/fine/")
+public ResponseEntity<Page<Borrow>>listfine(
+                    @RequestParam(defaultValue = "1") Integer pageNo,
+                    @RequestParam(defaultValue = "5") Integer pageSize,
+                    @RequestParam(defaultValue = "borrowId") String sortBy,
+                    @RequestParam(defaultValue = "1") Integer direction)
+{
+    Page<Borrow> list = bService.getAllFine(pageNo-1, pageSize, sortBy,direction);
+    return new ResponseEntity<Page<Borrow>>(list,new HttpHeaders(),
+    HttpStatus.OK);
+
+}
 
 
     @GetMapping("admin/fine")
@@ -222,7 +271,7 @@ public ResponseEntity<List<Borrow>> loadByIssueDateUser(
     
 
 
-
+//chart
 @GetMapping("/admin/chart")
     public rentChartView getchart(){
         rentChartView test =borrowServices.getChart();
