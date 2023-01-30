@@ -16,16 +16,6 @@ export class CategoryService {
   constructor(private http:HttpClient,private router:Router) { }
 
 
-  handleError(err: HttpErrorResponse): any {
-    console.log('hhhii');
-    if ( err.status === 403) {
-      alert("UNAUTHORIZED ACCESS DETECTED")
-      sessionStorage.clear()
-      localStorage.clear()
-      this.router.navigateByUrl(`/login`);    }    
-  }
-
-
 
 
   addCategory(data:any):Observable<any>{

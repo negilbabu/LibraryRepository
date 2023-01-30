@@ -50,7 +50,6 @@ var:any;
         else{
           alert("User Not added");
         }
-
       },
       (error: any) =>{
       //  if(error.status==500){
@@ -68,6 +67,7 @@ var:any;
     else{   
       this.toast.error({detail:'User Registration Failed',summary:'Fill up the fields',duration:2000});
          }
+
 
    }
 

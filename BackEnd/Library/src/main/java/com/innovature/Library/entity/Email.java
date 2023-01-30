@@ -3,6 +3,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.time.LocalTime;
+
 
 @Entity
 public class Email {
@@ -13,10 +15,12 @@ public class Email {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer otpId;
 
-    
+
     private String email;
     
     private Integer otp;
+
+    private LocalTime expiry;
 
 
     public String getEmail() {
@@ -36,6 +40,12 @@ public class Email {
     }
     public void setOtp(Integer otp) {
         this.otp = otp;
+    }
+    public LocalTime getExpiry() {
+        return expiry;
+    }
+    public void setExpiry(LocalTime expiry) {
+        this.expiry = expiry;
     }
 
 

@@ -1,23 +1,13 @@
 <app-navbar2></app-navbar2>
 <router-outlet></router-outlet>
 
-<head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style>
-        .main-menu {
-            position: fixed;
-
-        }
-    </style>
-</head>
-
 <div class="area"></div>
-<nav class="main-menu">
+<nav class="main-menu" >
     <ul>
         <br><br><br>
         <li>
             <a href="homepage">
-                <i class="fa fa-home fa-2x"></i>
+                <i class="fa fa-home fa-2x" ></i>
                 <span class="nav-text">
                     HOME
                 </span>
@@ -31,7 +21,7 @@
                 </span>
             </a>
         </li>
-
+      
         <li>
             <a href="borrowhistory">
                 <i class="fa fa-refresh fa-2x"></i>
@@ -56,12 +46,14 @@
                 </span><br>
             </a>
         </li>
+
+      
     </ul>
 
     <ul class="logout">
         <li>
             <a href="#">
-
+                <!-- <button mat-icon-button> -->
                 <i class="fa fa-power-off fa-2x"></i>
                 <span class="nav-text" (click)="logout()">
                     Logout

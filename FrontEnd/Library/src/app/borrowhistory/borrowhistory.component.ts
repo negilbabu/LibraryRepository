@@ -11,12 +11,18 @@ import { UserserviceService } from '../userservice.service';
   styleUrls: ['./borrowhistory.component.css']
 })
 export class BorrowhistoryComponent implements OnInit {
+ 
+  
+
+  // borrowList: any[];
   borrowId: any;
   borrowdata: any;
-  selected = "status";
+
+  ////////////////
+  selected="status";
   result: any;
-  direction = -1;
-  status = 1;
+  direction=-1;
+  status=1;
   date: any;
   data: any;
   page: number = 1;
@@ -34,54 +40,54 @@ export class BorrowhistoryComponent implements OnInit {
   selectedGroup: any;
   constructor(private router: Router,
     private service: BorrowService) {
-
+    // this.borrowList=[];
   }
 
   disp1() {
-    this.status = 1;
-    console.log('stat-------------------=', this.status)
-    if (this.filter.controls['status'].value == 1) {
-      console.log('/////------------=', this.status)
-      this.service.statusfilterBor(this.page, this.tableSize, this.sort, this.direction, 1).subscribe(response => {
-        this.result = response.content;
-        this.count = response.totalElements
-        console.log(this.result);
-        this.data = this.result;
-      });
+    this.status=1;
+    console.log('stat-------------------=',this.status)
+    if(this.filter.controls['status'].value==1){
+      console.log('/////------------=',this.status)
+      this.service.statusfilterBor(this.page,this.tableSize,this.sort,this.direction,1).subscribe(response=>{
+        this.result=response.content;
+        this.count=response.totalElements
+        console.log(this.result);   
+        this.data=this.result;                     
+          }); 
     }
-    else if (this.filter.controls['status'].value == 2) {
+    else if(this.filter.controls['status'].value==2){
 
-      this.service.statusfilterBor(this.page, this.tableSize, this.sort, this.direction, 2).subscribe(response => {
-        this.result = response.content;
-        this.count = response.totalElements
-        console.log(this.result);
-        this.data = this.result;
-      });
-    }
-
-    else if (this.filter.controls['status'].value == 3) {
-
-      this.service.statusfilterBor(this.page, this.tableSize, this.sort, this.direction, 3).subscribe(response => {
-        this.result = response.content;
-        this.count = response.totalElements
-        console.log(this.result);
-        this.data = this.result;
-      });
+      this.service.statusfilterBor(this.page,this.tableSize,this.sort,this.direction,2).subscribe(response=>{
+        this.result=response.content;
+        this.count=response.totalElements
+        console.log(this.result);   
+        this.data=this.result;                     
+          }); 
     }
 
-    else if (this.filter.controls['status'].value == 4) {
+    else if(this.filter.controls['status'].value==3){
 
-      this.service.statusfilterBor(this.page, this.tableSize, this.sort, this.direction, 4).subscribe(response => {
-        this.result = response.content;
-        this.count = response.totalElements
-        console.log(this.result);
-        this.data = this.result;
-      });
-    }
-    else {
-
+      this.service.statusfilterBor(this.page,this.tableSize,this.sort,this.direction,3).subscribe(response=>{
+        this.result=response.content;
+        this.count=response.totalElements
+        console.log(this.result);   
+        this.data=this.result;                     
+          }); 
     }
 
+    else if(this.filter.controls['status'].value==4){
+
+      this.service.statusfilterBor(this.page,this.tableSize,this.sort,this.direction,4).subscribe(response=>{
+        this.result=response.content;
+        this.count=response.totalElements
+        console.log(this.result);   
+        this.data=this.result;                     
+          }); 
+    }
+    else{
+      
+    }
+ 
   }
 
   ngOnInit(): void {
@@ -97,6 +103,7 @@ export class BorrowhistoryComponent implements OnInit {
       //this.data=result;
 
     })
+    //this.onTableDataChange(this.page);
 
     if (this.searchData == null || this.searchData == "") {
       this.service.borrowHistoryPagination(this.page, this.tableSize, this.sort).subscribe((result => {
@@ -130,11 +137,11 @@ export class BorrowhistoryComponent implements OnInit {
 
     }
   )
-  filter: FormGroup = new FormGroup({
-    status: new FormControl('', [Validators.required])
-
-  })
-
+  filter:FormGroup = new FormGroup({
+    status:new FormControl('',[Validators.required])
+  
+    })
+  
 
   // sortData(sort: Sort) {
   //   const data1 = this.data.slice();
@@ -185,23 +192,23 @@ export class BorrowhistoryComponent implements OnInit {
       this.len = result;
       console.log(result)
       this.count = this.len.length;
-      console.log('1111', this.sort);
+      console.log('1111',this.sort);
     })
 
-
-    this.service.filterBorrowPagination2(this.ObjSampleForm.controls['date1'].value, this.ObjSampleForm.controls['date2'].value, this.page, this.tableSize, this.sort).subscribe({
-      next: (res: any) => {
-        console.log('filter', res);
-        console.log(this.ObjSampleForm.controls['date1'].value);
-        this.data = res;
-      },
-    });
+    
+       this.service.filterBorrowPagination2(this.ObjSampleForm.controls['date1'].value, this.ObjSampleForm.controls['date2'].value, this.page, this.tableSize, this.sort).subscribe({
+         next: (res: any) => {
+           console.log('filter',res);
+           console.log(this.ObjSampleForm.controls['date1'].value);
+           this.data = res;
+       },
+       });
   }
 
-  display() {
-    console.log('display works')
+  display(){
+console.log('display works')
   }
-
+  
   clearFilter() {
     this.flag = 0;
     window.location.reload();
