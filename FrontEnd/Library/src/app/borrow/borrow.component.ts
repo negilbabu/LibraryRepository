@@ -40,7 +40,7 @@ export class BorrowComponent implements OnInit {
       private datePipe:DatePipe,
       private service:BorrowService,
       private toast : NgToastService) {
- 
+
       this.date=new Date();
      }
 

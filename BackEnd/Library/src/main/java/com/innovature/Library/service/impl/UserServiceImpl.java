@@ -9,7 +9,6 @@ import static com.innovature.Library.security.AccessTokenUserDetailsService.PURP
 
 import java.util.Collection;
 import javax.transaction.Transactional;
-//import javax.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -19,7 +18,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.Errors;
-
 import com.innovature.Library.entity.User;
 import com.innovature.Library.exception.BadRequestException;
 import com.innovature.Library.exception.NotFoundException;
@@ -30,8 +28,6 @@ import com.innovature.Library.security.config.SecurityConfig;
 import com.innovature.Library.security.util.InvalidTokenException;
 import com.innovature.Library.security.util.SecurityUtil;
 import com.innovature.Library.security.util.TokenExpiredException;
-
-
 import com.innovature.Library.security.util.TokenGenerator;
 import com.innovature.Library.security.util.TokenGenerator.Status;
 import com.innovature.Library.security.util.TokenGenerator.Token;
