@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router,Route } from '@angular/router';
+import { NgToastService } from 'ng-angular-popup';
 import { UserserviceService } from '../userservice.service';
 
 @Component({
@@ -12,7 +13,7 @@ export class UserRegComponent implements OnInit {
 [x: string]: any;
 date: any;
 var:any;
-  constructor(private router:Router ,private service:UserserviceService) { }
+  constructor(private router:Router ,private service:UserserviceService,private toast : NgToastService) { }
   
   
   
@@ -23,7 +24,6 @@ var:any;
       dob:new FormControl('',[Validators.required]),
       address:new FormControl('',[Validators.required]),
       phone:new FormControl('',[Validators.required]),
-     // role:new FormControl('',[Validators.required]),
       password:new FormControl('',[Validators.required]),
       email:new FormControl('',[Validators.required]),
     
@@ -37,21 +37,37 @@ var:any;
 
 
   onSubmit(){
-    console.log("aaaa");
 
-  //  if(this.ObjSampleForm.valid){
+
+   if(this.ObjSampleForm.valid){
      this.var=this.ObjSampleForm.value
       this.service.add(this.ObjSampleForm.value).subscribe(result=>{
         if(result.userId){  
-          console.log("bbb");
-          console.log(result);
-          alert("User added");
+          this.toast.success({detail:'User Registred Successfully',summary:'Please Log in',duration:5000});
           this.router.navigate(['/login'])
+          console.log(result)
         }
         else{
           alert("User Not added");
         }
-      })
+
+      },
+      (error: any) =>{
+      //  if(error.status==500){
+        this.toast.error({detail:'User Registration Failed',summary:'Email Already Registered',duration:5000});
+        // this.ObjSampleForm.reset()
+        setTimeout(() => {
+          // window.location.reload()       
+        }, 1500);
+      // }
+        
+      });    
+      
+      
+    }
+    else{   
+      this.toast.error({detail:'User Registration Failed',summary:'Fill up the fields',duration:2000});
+         }
 
    }
 
@@ -63,11 +79,10 @@ var:any;
      this.router.navigate(['/login'])
    }
 
-  clear(){
-    window.location.reload()
-  }
-
 
 
 
 }
+
+
+

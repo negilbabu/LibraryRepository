@@ -1,6 +1,5 @@
 package com.innovature.Library.view;
 import com.innovature.Library.entity.Category;
-
 public class BooksListView {
     private final int booksId;
     private final String booksName;
@@ -18,6 +17,7 @@ public class BooksListView {
         this.category = new CategoryDetailView(category);
         this.publication = publication;
         this.auther = auther;
+
         this.image = image;
         this.booksCopies = booksCopies;
     }
@@ -33,6 +33,7 @@ public class BooksListView {
     // // this.status = status;
     // this.booksCopies = booksCopies;
     // }
+
 
     public int getBooksId() {
         return booksId;

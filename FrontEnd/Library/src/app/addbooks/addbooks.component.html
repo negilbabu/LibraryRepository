@@ -1,12 +1,5 @@
 <app-sidenav></app-sidenav>
 
-<head> 
-  <title>Borrow </title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<style>
-* {
-  box-sizing: border-box;
-}
 
 @media only screen and (max-width: 620px) {
   /* For mobile phones: */
@@ -42,32 +35,30 @@ margin-left: 20%;
 </style>
 </head>
 <br><br><br><br><br>
-  <div class="split right">
-    <br><br><br>
-    <div class="col-md-6"  >
 
-      <form [formGroup]="search" style="display: inline-flex;padding: 0px;" class="col-md-4">
+  <div class="split right">
+    <div class="col-md-6" style="width:100% ;"  >
+
+      <form [formGroup]="search" style="display: inline-flex;padding: 0px; width: min-content;" class="col-md-4">
         <input type="text" style="position: relative; left:10%; " class="form-control" formControlName="inp" placeholder="Enter Book Name to Search "
             aria-label="Recipient's username" aria-describedby="basic-addon2" (ngModelChange)="search1(this.search.controls['inp'].value)" >
             <button mat-icon-button  style="position: relative; left:10%; "> <i class="material-icons" style="color:rgb(0, 0, 0)" >search</i></button> 
       </form>
-      <span class="csvv">
-      <input type="file" id="myFile" (change)="selectFile($event)" style="position: relative; ">
-      <button mat-icon-button   [disabled]="!selectedFiles" > 
-        <i class="material-icons" style="color:rgb(142, 179, 137);position: relative; "  (click)="upload() " >cloud_upload</i>
-        </button>   </span>
 
-      <div class="centered">  
+      <button  mat-raised-button (click)="openDialog()" color="primary" style="position: relative;margin-left: 10%;" class="mycls" >ADD BOOKS</button>
+
+      <input type="file" id="myFile" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"  (change)="selectFile($event)" style="position: relative;left: 20%; ">
+      <button mat-icon-button   [disabled]="!selectedFiles" > 
+        <i class="material-icons" style="color:rgb(142, 179, 137);position: relative;margin-left: 220px; "  (click)="upload() " >cloud_upload</i>
+        </button>   
+
       
-        <button  mat-raised-button (click)="openDialog()" color="primary" style="text-align: center;" >ADD BOOKS</button>
-    </div>   
-       
     </div>
       
 <br><br><br><br>
     <div class="table-responsive">                    
       <table class=".table-hover"  >
-        <caption>Book Results</caption>
+
         <thead class="bg-primary text-white">
             <tr role="row" *ngIf="this.pkey==null">
              <th id=1 (click)="sortfn('category.categoryName')" >Category-Name
@@ -183,104 +174,3 @@ margin-left: 20%;
 
 
 
-<!-- 
-
-
-<br><br>
-
-                <div class="table-responsive">                    
-                      <table align="center"  class=".table-hover"  >
-                        <caption>Book Results</caption>
-                        <thead class="bg-primary text-white">
-                            <tr role="row" *ngIf="this.pkey==null">
-                             <th (click)="sortfn('category.categoryName')">Category-Name
-                              <button mat-icon-button *ngIf="this.direction==1"> <i class="material-icons" style="color:rgb(0, 0, 0)" >keyboard_arrow_up</i></button>
-                              <button mat-icon-button *ngIf="this.direction==-1"> <i class="material-icons" style="color:rgb(0, 0, 0)" >keyboard_arrow_down</i></button>                            
-                             </th>                                                    
-                                                        
-                              <th (click)="sortfn('publication')">Publication
-                                <button mat-icon-button *ngIf="this.direction==1"> <i class="material-icons" style="color:rgb(0, 0, 0)" >keyboard_arrow_up</i></button>
-                                <button mat-icon-button *ngIf="this.direction==-1"> <i class="material-icons" style="color:rgb(0, 0, 0)" >keyboard_arrow_down</i></button>                                                    
-                              </th>    
-
-                              <th (click)="sortfn('booksName')">Book Name
-                                <button mat-icon-button *ngIf="this.direction==1"> <i class="material-icons" style="color:rgb(0, 0, 0)" >keyboard_arrow_up</i></button>
-                                <button mat-icon-button *ngIf="this.direction==-1"> <i class="material-icons" style="color:rgb(0, 0, 0)" >keyboard_arrow_down</i></button> 
-                              </th>                                
-                              <th (click)="sortfn('auther')">Auther
-                                <button mat-icon-button *ngIf="this.direction==1"> <i class="material-icons" style="color:rgb(0, 0, 0)" >keyboard_arrow_up</i></button>
-                                <button mat-icon-button *ngIf="this.direction==-1"> <i class="material-icons" style="color:rgb(0, 0, 0)" >keyboard_arrow_down</i></button>
-                              </th>
-                              <th (click)="sortfn('booksCopies')">Book Copies
-                                <button mat-icon-button *ngIf="this.direction==1"> <i class="material-icons" style="color:rgb(0, 0, 0)" >keyboard_arrow_up</i></button>
-                                <button mat-icon-button *ngIf="this.direction==-1"> <i class="material-icons" style="color:rgb(0, 0, 0)" >keyboard_arrow_down</i></button>
-                              </th>
-                              <th>Book Cover</th>
-                              <th></th>
-                              </tr>
-
-                              <tr role="row" *ngIf="this.pkey!=null">
-                                <th (click)="sortfn('category_id')">Category-Name
-                                 <button mat-icon-button *ngIf="this.direction==1"> <i class="material-icons" style="color:rgb(0, 0, 0)" >keyboard_arrow_up</i></button>
-                                 <button mat-icon-button *ngIf="this.direction==-1"> <i class="material-icons" style="color:rgb(0, 0, 0)" >keyboard_arrow_down</i></button>                            
-                                </th>                                                    
-                                                           
-                                 <th (click)="sortfn('publication')">Publication
-                                   <button mat-icon-button *ngIf="this.direction==1"> <i class="material-icons" style="color:rgb(0, 0, 0)" >keyboard_arrow_up</i></button>
-                                   <button mat-icon-button *ngIf="this.direction==-1"> <i class="material-icons" style="color:rgb(0, 0, 0)" >keyboard_arrow_down</i></button>                                                    
-                                 </th>    
-   
-                                 <th (click)="sortfn('books_name')">Book Name
-                                   <button mat-icon-button *ngIf="this.direction==1"> <i class="material-icons" style="color:rgb(0, 0, 0)" >keyboard_arrow_up</i></button>
-                                   <button mat-icon-button *ngIf="this.direction==-1"> <i class="material-icons" style="color:rgb(0, 0, 0)" >keyboard_arrow_down</i></button> 
-                                 </th>                                
-                                 <th (click)="sortfn('auther')">Auther
-                                   <button mat-icon-button *ngIf="this.direction==1"> <i class="material-icons" style="color:rgb(0, 0, 0)" >keyboard_arrow_up</i></button>
-                                   <button mat-icon-button *ngIf="this.direction==-1"> <i class="material-icons" style="color:rgb(0, 0, 0)" >keyboard_arrow_down</i></button>
-                                 </th>
-                                 <th (click)="sortfn('books_copies')">Book Copies
-                                   <button mat-icon-button *ngIf="this.direction==1"> <i class="material-icons" style="color:rgb(0, 0, 0)" >keyboard_arrow_up</i></button>
-                                   <button mat-icon-button *ngIf="this.direction==-1"> <i class="material-icons" style="color:rgb(0, 0, 0)" >keyboard_arrow_down</i></button>
-                                 </th>
-                                 <th>Book Cover</th>
-                                 <th></th>
-                                 </tr>
-                        </thead>
-                        <tbody>
-
-                          <tr *ngFor="let books of  data | paginate 
-                          : {
-                              itemsPerPage: tableSize,
-                              currentPage: page,
-                              totalItems: count
-                            };
-                          
-                          
-                          ">
-
-  <td>{{books.category.categoryName}}</td>
-  <td>{{books.publication}}</td>
-  <td>{{books.booksName}}</td>
-  <td>{{books.auther}}</td>
-  <td>{{books.booksCopies}}</td>
-  <td align="right"><img src="../../assets/BooksImage/item_pics/{{books.image}}" width="90" height="110"  ></td>
-
-
-<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-
-<button mat-icon-button> <i class="material-icons" style="color:red" (click)="delete(books)">delete</i></button>&nbsp;
-<button mat-icon-button> <i class="material-icons" style="color:green" (click)="edit(books.booksId)">edit</i></button>
-  </tr> 
-                        </tbody>
-                    </table>
-                 unfold_more 
-                  </div>
-      
-   
-                          Pagenation Controler 
-                          <div class="d-flex justify-content-center">
-                            <pagination-controls (pageChange)="onTableDataChange(page=$event)">
-                            </pagination-controls>
-                  </div>
-
-                  </body> -->

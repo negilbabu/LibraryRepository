@@ -1,3 +1,4 @@
+
 <ul class="nav-mobile">
     <li class="cls">
         <label style="position: relative;text-align: center; left: 8%;">LIBRARY</label>
@@ -6,12 +7,14 @@
         <div class="right">
 
         </div>
+
     </li>
 </ul>
 
 
 
 <router-outlet></router-outlet>
+
 
 <div class="text-center">
     <form [formGroup]="ObjSampleForm" (ngSubmit)="onSubmit()">
@@ -77,6 +80,7 @@
                         is required<br>use (uppercase,lowercase & numbers)<br>minimum 8 character</small>
                 </span>
                 <br><br>
+
             </div>
             <div>
                 <input type="email" class="text-danger1" placeholder="email" formControlName="email" name="email"
@@ -101,3 +105,4 @@
     </form>
 
 </div>
+

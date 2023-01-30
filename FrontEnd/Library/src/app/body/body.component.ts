@@ -34,7 +34,6 @@ export class BodyComponent implements OnInit {
   
 chart(){
 this.borrowService.chartbar().subscribe(res=>{
-console.log("res=",res);
 
 this.bar=res;
 this.barchart = new Chart("bar", {
@@ -65,7 +64,7 @@ this.barchart = new Chart("bar", {
 
 piechart(){
   this.booksService.chart().subscribe(res=>{
-    console.log(res);
+
     this.len=res.length;
     this.inlen=res[0].length;
     for(this.i=0;this.i<this.len;this.i++){
@@ -77,8 +76,7 @@ piechart(){
       }
       
     }
-    console.log(this.label);
-    console.log(this.count);
+
 
     this.mychart = new Chart("MyChart", {
       type: 'pie', //this denotes the type of chart

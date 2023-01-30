@@ -39,6 +39,7 @@ export class LoginComponent implements OnInit {
           if (result.role == 2) {
             localStorage.setItem('token', this.responsedata.accessToken.value)
             this.toast.info({ detail: 'Hello User ', summary: 'LogIn Successfull', duration: 5000 });
+
             this.router.navigate(['/homepage'])
           }
 
@@ -52,12 +53,14 @@ export class LoginComponent implements OnInit {
         }
         else {
           
+
           this.toast.warning({ detail: 'success msg', summary: 'LogIn failed', duration: 5000 });
         }
       }, (error: any) => {
         this.toast.error({ detail: 'Login Failed', summary: 'Invalid Credentials', duration: 5000 });
         console.log(error)
       });
+
 
 
     }

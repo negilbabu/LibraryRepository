@@ -1,3 +1,49 @@
+
+* {
+  box-sizing: border-box;
+}
+
+
+@media only screen and (max-width: 620px) {
+  /* For mobile phones: */
+  .menu, .main, .right {
+    width: 100%;
+  }
+.right{
+right: 0;
+width: 99%;
+float: left;
+background-color: rgb(255, 255, 255);
+overflow-x: scroll;
+overflow-x: visible;
+
+}
+table{
+width: 25%;
+border: none;
+text-align: center;
+position:relative;
+overflow-x: scroll;
+overflow-x: visible;
+font-size: 0.675em;
+}
+.centr{
+
+top: 8%;
+left: 50%;
+position: fixed;
+}
+
+
+
+}
+
+
+
+
+
+
+
 .split {
   height: 100%;
   /* width: 50%; */
@@ -6,6 +52,7 @@
   top: 5%;
   overflow-x: hidden;
   padding-top: 20px;
+  overflow: hidden;
 }
 
 .left {
@@ -17,11 +64,13 @@
 
 .right {
   right: 0;
-  width: 89%;
+  width: 80%;
   background-color: rgb(255, 255, 255);
   position: relative;
-  left: 16%;
+  left: 28%;
   top:10%;
+  overflow: hidden;
+
 }
 
 .centered {
@@ -31,26 +80,35 @@
   transform: translate(-50%, -50%);
   text-align: center;
 }
-
+.centr {
+  position: relative;
+  top: 5%;
+  left: 30%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
 
 
  table{
-    width:70%;
+    width:65%;
     border: none;
-    text-align: center;
+    text-align: left;
     border: none;
     
   }
   th {
     background-color: #ffffff;
     color: rgb(0, 0, 0);
-    text-align: center;
+    text-align: left;
     /* border: none; */
+    border: none;
    
   }
   td {
     border: none;
-    padding-top: 16px;padding-bottom: 16px;
+    text-align: left;
+    padding-top: 12px;padding-bottom: 12px;
+    border: none;
   } 
   .no-touch .scrollable.hover {
     overflow-y:hidden;

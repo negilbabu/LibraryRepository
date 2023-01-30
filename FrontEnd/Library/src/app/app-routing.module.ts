@@ -33,6 +33,8 @@ import { Navbar2Component } from './navbar2/navbar2.component';
 import { AdminNavbarComponent } from './admin-navbar/admin-navbar.component';
 import { HomepageComponent } from './homepage/homepage.component';
 import { UserDetailviewComponent } from './user-detailview/user-detailview.component';
+import { PageNotfoundComponent } from './page-notfound/page-notfound.component';
+
 
 const routes: Routes = [
   {path: '',redirectTo:'login',pathMatch:'full'},
@@ -60,14 +62,18 @@ const routes: Routes = [
   {path : 'addcategory',component:AddcategoryComponent,canActivate: [HomeguardGuard]},
   {path:'demo',component:DemoComponent},
   {path:'addbooks',component:AddbooksComponent,canActivate: [HomeguardGuard]},
-  {path:'borrow-detail-view',component:BorrowDetailViewComponent},
+  {path:'borrow-detail-view/:id',component:BorrowDetailViewComponent},
   {path:'forgotpassword',component:ForgotpasswordComponent},
   {path:'sidenav2',component:Sidenav2Component,canActivate: [HomeguardGuard]},
   {path:'navbar2',component:Navbar2Component,canActivate: [HomeguardGuard]},
   {path:'sidenav2',component:Sidenav2Component,canActivate: [HomeguardGuard]},
   {path:'admin-navbar',component:AdminNavbarComponent,canActivate: [HomeguardGuard]},
   {path:'homepage',component:HomepageComponent,canActivate:[HomeguardGuard]},
-  {path:'user-detailview',component:UserDetailviewComponent,canActivate: [HomeguardGuard]}
+  {path:'user-detailview/:id',component:UserDetailviewComponent,canActivate: [HomeguardGuard]},
+ 
+ //Wild Card Route for 404 request
+ { path: '**', pathMatch: 'full', component: PageNotfoundComponent },
+
 ];
 
 @NgModule({

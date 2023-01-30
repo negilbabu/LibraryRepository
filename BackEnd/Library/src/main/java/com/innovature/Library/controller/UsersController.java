@@ -73,6 +73,10 @@ public class UsersController {
     public Collection<User> viewProfile(){
         return userService.viewProfile(SecurityUtil.getCurrentUserId());
     }
+    @GetMapping("/admin/viewProfile/")
+    public Collection<User> viewAdminProfile(){
+        return userService.viewProfile(SecurityUtil.getCurrentUserId());
+    }
 
     @PutMapping("/{userId}")
     public UserView updates(
@@ -102,7 +106,7 @@ public class UsersController {
 
    
 
-    @GetMapping("admin/pagenated/")
+    @GetMapping("/admin/pagenated/")
     public ResponseEntity<Page<User>>getAllBooks(
                         @RequestParam(defaultValue = "1") Integer pageNo,
                         @RequestParam(defaultValue = "10") Integer pageSize,
