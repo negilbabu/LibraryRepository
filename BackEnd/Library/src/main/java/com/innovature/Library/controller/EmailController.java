@@ -179,7 +179,6 @@ public class EmailController {
     }
     else
     {
-        // return new ResponseEntity(null,HttpStatus.BAD_REQUEST);
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("PASSWORD CHANGE FAILED");
     }
 }
