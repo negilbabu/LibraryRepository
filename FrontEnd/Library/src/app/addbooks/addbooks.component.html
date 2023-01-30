@@ -1,41 +1,6 @@
 <app-sidenav></app-sidenav>
 
 
-@media only screen and (max-width: 620px) {
-  /* For mobile phones: */
-  .right {
-    width: 87%;
-
-  }
-  /* .form-control{
-    top:15%;
-  }
-*/
-  .csvv{
-    position: relative;
-    left: 8%;
-    top:65px;
-  } 
-
-  .centered{
-    top: 18%;
-    left:45%;
-  }
-.mat-dialog-container{
-margin-left: 20%;
-}
-
-.form-control{
-  width: 30vh;
-}
- 
-
-
-}
-</style>
-</head>
-<br><br><br><br><br>
-
   <div class="split right">
     <div class="col-md-6" style="width:100% ;"  >
 
@@ -121,9 +86,12 @@ margin-left: 20%;
       itemsPerPage: tableSize,
       currentPage: page,
       totalItems: count
-    };">
+    };
+  
+  
+  ">
 
- <td>{{books.category.categoryName}}</td> 
+<td>{{books.category.categoryName}}</td>
 <td>{{books.publication}}</td>
 <td>{{books.booksName}}</td>
 <td>{{books.auther}}</td>
@@ -144,5 +112,30 @@ margin-left: 20%;
   <pagination-controls (pageChange)="onTableDataChange(page=$event)">
   </pagination-controls>
 </div>
+
+ </div>
+
+
+       
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
