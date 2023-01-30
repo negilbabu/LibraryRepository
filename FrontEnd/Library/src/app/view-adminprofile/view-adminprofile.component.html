@@ -1,61 +1,5 @@
 <app-sidenav></app-sidenav>   
 
-<head>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
-  * {
-    box-sizing: border-box;
-  }
-  
-  .menu {
-    float: left;
-    width: 20%;
-    text-align: center;
-  }
-  
-  .menu a {
-    background-color: #e5e5e5;
-    padding: 8px;
-    margin-top: 7px;
-    display: block;
-    width: 100%;
-    color: black;
-  }
-  
-  .main {
-    float: left;
-    /* right: 80%; */
-    width: 50%;
-    padding: 0 20px;
-    margin-left: 30%;
-    text-align: center;
-  }
-  .tb{
-    margin-left: 30%;
-  }
-  
-  .right {
-    background-color: #e5e5e5;
-    float: left;
-    width: 20%;
-    padding: 15px;
-    margin-top: 7px;
-    text-align: center;
-  }
- 
-  @media only screen and (max-width: 620px) {
-    /* For mobile phones: */
-    .main {
-      width: 100%;
-      margin-left: 5%;
-    }
-    .tb{
-      margin-left: 15%;
-    }
-  }
-  </style>
-  </head>
-
 
 
 <div class="main">
@@ -63,7 +7,7 @@
   <h2 style="position:relative; "> <button mat-icon-button > <i class="material-icons" style="color:rgb(111, 191, 201);"  >account_circle</i></button> PROFILE</h2>
 
    <table style="border-collapse: collapse; border: none; " class="tb" >
-    <caption>Profile</caption>
+ 
  <tr> <td>NAME </td><td>:</td><td>{{userdata[0].firstName}} {{userdata.lastName}}</td></tr>
  <tr><td>ADDRESS </td> <td>:</td><td>{{userdata[0].address}}</td></tr>
  <tr> <td>PHONE </td><td>:</td><td>{{userdata[0].phone}}</td></tr>

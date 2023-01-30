@@ -1,4 +1,30 @@
 
+* {
+box-sizing: border-box;
+}
+
+@media only screen and (max-width: 620px) {
+/* For mobile phones: */
+.right {
+  width: 57%;
+}
+
+
+.table-responsive{
+  overflow-x: auto;
+}
+
+}
+
+
+  
+  
+  
+  
+  
+  
+  
+  
   .split {
     height: 100%;
     /* width: 50%; */

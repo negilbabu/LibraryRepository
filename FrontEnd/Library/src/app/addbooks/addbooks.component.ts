@@ -67,15 +67,13 @@ currentFile?: File;
   }
 
   search1(key:any){
-    console.log("before api=",key);
+
     this.booksService.search(key,this.page,this.tableSize,this.sort,this.direction).subscribe(response=>{
       this.result=response.content;
-     console.log("searchRslt=",this.result);
       this.data=this.result;
-       this.count=response.totalElements;
-       console.log("count=",this.count);
+       this.count=response.totalElements; 
        this.pkey=this.search.controls['inp'].value;
-       console.log("pk",this.pkey)
+ 
      });
 }
   
@@ -84,43 +82,37 @@ Load() {
   this.booksService.pagination1(this.page,this.tableSize,this.sort,this.direction).subscribe(result=>{
     this.result=result.content;
     this.count=result.totalElements
-    console.log("loaded books=",this.result);   
-    console.log("page=",this.page);  
     this.data=this.result; 
-    this.booksdata=this.result;                   
+    this.booksdata=this.result;  
+               
       });
 }  
 
 
 sortfn(a:any){    
   this.sort=a;      
-  // this.page=this.page;
-  // this.tableSize;
 
   if(this.pkey==null){
-  if(this.direction==1){
+  
+    if(this.direction==1){
     this.direction=-1;
-    console.log("from desc to :",this.direction)
     this.ngOnInit();       
-  }
+   }
 
-  else{
+    else{
     this.direction=1;
-    console.log("from asc to desc",this.direction)
-  this.ngOnInit(); 
+    this.ngOnInit(); 
   }
-}
+ }
 else{
   if(this.direction==1){
     this.direction=-1;
-    console.log("from desc to :",this.direction)
     this.search1(this.search.controls['inp'].value);       
   }
 
   else{
     this.direction=1;
-    console.log("from asc to desc",this.direction)
-  this.search1(this.search.controls['inp'].value); 
+    this.search1(this.search.controls['inp'].value); 
   }
 
 }
@@ -128,26 +120,20 @@ else{
 }
 
 onTableDataChange(event:any) {
-  // this.pkey==this.search.controls['inp'].value;
-  console.log("p-",this.pkey)
+  
   if(this.pkey==null){
-  console.log("page=",event)
+
     this.booksService.pagination1(this.page,this.tableSize,this.sort,this.direction).subscribe(result=>{
       this.result=result.content;
       this.count=result.totalElements
-      console.log("loaded books=",this.result);   
       this.data=this.result;   
       this.booksdata=this.result;                     
         })      
       }
       else{
-        // this.pkey==this.search.controls['inp'].value;
-        console.log("page=",event)
-        console.log("pkey in page=",this.pkey)
         this.booksService.search(this.pkey,this.page,this.tableSize,this.sort,this.direction).subscribe(result=>{
           this.result=result.content;
           this.count=result.totalElements
-          console.log("loaded books=",this.result);   
           this.data=this.result;   
           this.booksdata=this.result;                     
             })  
@@ -161,7 +147,6 @@ onTableDataChange(event:any) {
     this.dialog.open(BooksComponent,
       {
         closeOnNavigation: true,
-        // width:'32%',height:'70%'
         width:'55%',height:'auto'
       
       }
@@ -176,13 +161,11 @@ onTableDataChange(event:any) {
   delete(booksId:any): void{
     if(confirm('Are you sure want to delete?'))
     {
-   console.log(booksId);
-   this.toast.error({detail:'BOOK DELETED',summary:'The book '+booksId.booksName+' Has DELETED',duration:5000}); 
-    this.booksService.delete(booksId.booksId).subscribe({next:(res)=>{
-      console.log(res);            
-      setTimeout(() => {
 
-        window.location.reload()       
+   this.toast.error({detail:'BOOK DELETED',summary:'The book '+booksId.booksName+' Has DELETED',duration:5000}); 
+    this.booksService.delete(booksId.booksId).subscribe({next:(res)=>{          
+      setTimeout(() => {
+       this.Load();   
     }, 1000);
     },
     error:(msg)=>{}      
@@ -194,7 +177,7 @@ onTableDataChange(event:any) {
   }
 
   edit(booksId:any) {
-    // localStorage.setItem('flag',this.flag);
+
      localStorage.setItem('booksId',booksId);
      const dialogConfig = new MatDialogConfig();
      this.dialog.open(BooksComponent,
@@ -214,11 +197,10 @@ onTableDataChange(event:any) {
 
 
 
-////////////////////////////////////
+
 
 selectFile($event:any) {
   this.selectedFiles=$event.target.files;
-  console.log("sel-",this.selectedFiles)
    }
 
    
@@ -231,22 +213,20 @@ selectFile($event:any) {
        if (file) {
          this.currentFile = file;
          this.booksService.uploadCsv(this.currentFile).subscribe(res=>{
-           console.log(res);
+console.log("csv-",res)
            if(res!==null){
-            this.toast.success({detail:'SUCCESS',summary:'The CSV File upload is successfull',duration:5000}); 
-
-             
+            this.toast.success({detail:'SUCCESS',summary:'The CSV File upload is successfull',duration:5000});              
           
-      setTimeout(() => {
+        setTimeout(() => {
 
-        window.location.reload()       
-    }, 5000);              
+        // window.location.reload()       
+         }, 5000);              
            }
-         }),
-         (error: any) =>{
-          console.log("in error")
-          this.toast.error({detail:'CSV upload failed',summary:'Invalid csv file',duration:5000});
-          console.log(error)};  
+         },(error: any) =>{
+          this.toast.error({detail:'CSV Upload Failed',summary:'Invalid CSV File',duration:5000});
+          this.Load();
+           });
+        
  
      
        }

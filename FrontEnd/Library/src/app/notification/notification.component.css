@@ -52,6 +52,8 @@ p{
 }
 .table-bordered{
     border: 1px solid;
+    margin-left: 70px;
+ margin-right: 20px;
 }
 th {
     background-color: #232524;
