@@ -9,18 +9,16 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.Errors;
 
 import com.innovature.Library.view.CategoryDetailView;
-//import com.innovature.Library.view.CategoryListView;
-//import com.innovature.Library.service.CategoryService;
-//import com.innovature.Library.view.CategoryListView;
 import com.innovature.Library.entity.Category;
 import com.innovature.Library.exception.NotFoundException;
 import com.innovature.Library.form.CategoryForm;
 import com.innovature.Library.repository.CategoryRepository;
-// import com.innovature.Library.security.util.SecurityUtil;
-// import com.innovature.Library.security.util.SecurityUtil;
 import com.innovature.Library.service.CategoryService;
+import com.innovature.Library.exception.BadRequestException;
+import com.innovature.Library.exception.NotFoundException;
 
 @Service
 public class CategoryServiceImpl implements CategoryService{
@@ -28,8 +26,18 @@ public class CategoryServiceImpl implements CategoryService{
     @Autowired
     private CategoryRepository categoryRepository;
 
+    private static BadRequestException badRequestException() {
+        return new BadRequestException("Invalid credentials");
+    }
+
+
+
     @Override
-    public CategoryDetailView add(CategoryForm form){
+    public CategoryDetailView add(CategoryForm form, Errors errors)throws BadRequestException{
+        if (errors.hasErrors()) {
+            throw badRequestException();
+        }
+       
         return new CategoryDetailView(categoryRepository.save(new Category(form)));
     }
 

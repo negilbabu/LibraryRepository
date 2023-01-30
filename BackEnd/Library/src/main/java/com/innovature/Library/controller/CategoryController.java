@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.validation.Errors;
 
 import com.innovature.Library.entity.Category;
 import com.innovature.Library.form.CategoryForm;
@@ -42,8 +43,8 @@ public class CategoryController {
 
 
     @PostMapping
-    public CategoryDetailView add(@Valid @RequestBody CategoryForm form) {
-        return service.add(form);
+    public CategoryDetailView add(@Valid @RequestBody CategoryForm form, Errors errors) {
+        return service.add(form,errors);
     }
 
 

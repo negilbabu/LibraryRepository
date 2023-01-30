@@ -3,6 +3,7 @@ package com.innovature.Library.service.impl;
 
 import static com.innovature.Library.security.AccessTokenUserDetailsService.PURPOSE_ACCESS_TOKEN;
 
+import java.security.cert.CertPathValidatorException.Reason;
 import java.util.Collection;
 import javax.transaction.Transactional;
 
@@ -19,6 +20,7 @@ import org.springframework.validation.Errors;
 import com.innovature.Library.entity.User;
 import com.innovature.Library.exception.BadRequestException;
 import com.innovature.Library.exception.NotFoundException;
+import com.innovature.Library.exception.expectationFailedException;
 import com.innovature.Library.form.LoginForm;
 import com.innovature.Library.form.UserForm;
 import com.innovature.Library.repository.UserRepository;
@@ -78,12 +80,18 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public LoginView login(LoginForm form, Errors errors) throws BadRequestException {
-        if (errors.hasErrors()) {
+        // if (errors.hasErrors()) {
+        //     throw badRequestException();
+        // }
+        var data=form.getEmail();
+        var data2=form.getPassword();
+        if("".equals(data) || "".equals(data2)){
             throw badRequestException();
         }
-        User user = userRepository.findByEmail(form.getEmail()).orElseThrow(UserServiceImpl::badRequestException);
+
+        User user = userRepository.findByEmail(form.getEmail()).orElseThrow(UserServiceImpl::expectationFailedException);
         if (!passwordEncoder.matches(form.getPassword(), user.getPassword())) {
-            throw badRequestException();
+            throw expectationFailedException();
         }
 
         String id = String.format("%010d", user.getUserId());
@@ -129,6 +137,9 @@ public class UserServiceImpl implements UserService {
         return new BadRequestException("Invalid credentials");
     }
 
+    private static expectationFailedException expectationFailedException(){
+    return new expectationFailedException("Invalid username or password");
+    }
 
 
 
