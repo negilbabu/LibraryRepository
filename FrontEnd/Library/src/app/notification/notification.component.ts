@@ -1,8 +1,6 @@
 
 import { BooksService } from './../books.service';
-// import { Borrow } from '././borrow';
 import { BorrowComponent } from '../borrow/borrow.component';
-// import { BorrowComponent } from './borrow/borrow.component';
 import { FineComponent } from './../fine/fine.component';
 import { Component, HostListener, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
@@ -53,10 +51,6 @@ export class NotificationComponent implements OnInit {
       if (data[0].borrowId == null) {
         this.toast.success({ detail: 'REMAINDER', summary: 'Nothing here :)', duration: 5000 });
       }
-      //   if(data=[])
-      //   {alert("nothing here")
-      //  // this.router.navigate(['/userbody'])
-      //   }
       console.log("<1")
       console.log(data)
     });
@@ -71,11 +65,7 @@ export class NotificationComponent implements OnInit {
   }
 
   DueToday() {
-    // this.service.LoadUserNotification().subscribe((data: any)=>{
-    //   this.returnData=data;
-    //   console.log("=1")
-    //   console.log(data);  
-    // });
+  
 
   }
 
@@ -143,7 +133,7 @@ export class NotificationComponent implements OnInit {
     this.service.payment(this.duedata[0].borrowId).subscribe({
       next: (Response: any) => {
         console.log(Response);
-        // alert("Payment Success")
+
         this.toast.info({summary:'payment Successfull',duration:5000});
         
       },
@@ -152,8 +142,5 @@ export class NotificationComponent implements OnInit {
         alert("invalid Payment details")
       }
     })
-
-
-
   }
 }

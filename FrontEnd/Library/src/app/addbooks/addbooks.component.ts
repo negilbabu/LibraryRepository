@@ -120,7 +120,10 @@ else{
 }
 
 onTableDataChange(event:any) {
-  
+
+  console.log("p-",this.pkey)
+
+
   if(this.pkey==null){
 
     this.booksService.pagination1(this.page,this.tableSize,this.sort,this.direction).subscribe(result=>{
@@ -131,6 +134,12 @@ onTableDataChange(event:any) {
         })      
       }
       else{
+
+     
+        console.log("page=",event)
+        console.log("pkey in page=",this.pkey)
+
+
         this.booksService.search(this.pkey,this.page,this.tableSize,this.sort,this.direction).subscribe(result=>{
           this.result=result.content;
           this.count=result.totalElements
@@ -146,7 +155,10 @@ onTableDataChange(event:any) {
     const dialogConfig = new MatDialogConfig();
     this.dialog.open(BooksComponent,
       {
+       
+
         closeOnNavigation: true,
+
         width:'55%',height:'auto'
       
       }

@@ -1,27 +1,41 @@
-<router-outlet></router-outlet>
 <app-sidenav2></app-sidenav2>
+
+<head>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    @media only screen and (max-width: 1100px) {
+      .filter {
+        
+      }
+
+      .table-responsive {
+        margin-top: 5%;
+      }
+    }
+  </style>
+</head>
+
 <div class="text-center">
   <form [formGroup]="ObjSampleForm">
     <div class="card-box">
       <div class="row">
         <div class="table-responsive">
-          <h1 style="text-align:center ;">Borrow Details</h1>
-          <!-- fliter starts  -->
-          <div><input type="button" (click)="clearFilter()" value="CLEAR FILTER"
-              style="position:absolute; left:915px; top:95px;"> </div>
-
-          <div>
-            START DATE &nbsp;&nbsp; <input type="date" formControlName="date1" value="date1"
-              max="{{date| date:'yyyy/MM/dd' }}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            END DATE&nbsp;&nbsp; <input type="date" formControlName="date2" value="date2"
-              max="{{date| date:'yyyy/MM/dd' }}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <input type="button" (click)="getFilter()"
-              value="FILTER">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <h1 style="text-align:center ;margin-top: 6%;">Borrow Details</h1>
+          <input type="button" class="filter" (click)="clearFilter()" value="CLEAR"
+              style="position:fixed; left:72%; top:20%;">
+              <label style="margin-right: 10px;">START DATE</label> <input type="date" formControlName="date1"
+              value="date1" style="margin-right: 5%;" max="{{date| date:'yyyy/MM/dd' }}">
+            <label style="margin-right: 10px;">END DATE</label> <input type="date" formControlName="date2" value="date2"
+              max="{{date| date:'yyyy/MM/dd' }}">
+            <input type="button" (click)="getFilter()" value="FILTER">
           </div>
-          <BR>
+          <br>
         </div>
       </div>
-    </div>
+    
     <!-- new table starts -->
     <table class="table table-striped w-auto" style="margin-left: 100px; position: relative;margin-right: 20px;">
 
@@ -33,7 +47,7 @@
           <th>Return Date</th>
           <th (click)="sortfn('dueDate')">Due date</th>
           <th>
-            <form [formGroup]="filter" style="width: 70px;">
+            <form [formGroup]="filter" style="width: 60%;">
               <select name="Status" formControlName="status" [(ngModel)]="selectedGroup" class="dropbtn" id="status"
                 (ngModelChange)="disp1()">
                 <option value="" [selected]="selected">status</option>
@@ -51,9 +65,6 @@
         </tr>
 
       </thead>
-      <!--Table head-->
-
-      <!--Table body-->
       <tbody>
         <tr *ngFor="let borrow of  data | paginate 
         : {

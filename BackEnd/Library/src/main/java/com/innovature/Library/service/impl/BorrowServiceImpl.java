@@ -159,10 +159,8 @@ public class BorrowServiceImpl implements BorrowService {
     @Override
     @Transactional
     public BorrowDetailView updateReturn(Integer borrowId, BorrowForm form) {
-
         Borrow borrow = borrowRepository.findByBorrowId(borrowId);
         Books books = booksRepository.findbyBorrowId(borrowId);
-
         borrow.setBookReturnedDate(LocalDateTime.now());
         borrow.setIssueDate(borrow.getIssueDate());
         borrow.setReturnDate(borrow.getReturnDate());

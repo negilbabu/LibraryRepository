@@ -81,11 +81,17 @@ th {
     border-radius: 3px;
 }
 mat-grid-tile {
+margin-top: 300px;
     background: white;
     color: rgb(39, 54, 104);
+    margin-top: 70%;
   
   }
   button{
     color: white;
     background-color: black;
+  }
+  .mat-grid-list {
+    
+
   }

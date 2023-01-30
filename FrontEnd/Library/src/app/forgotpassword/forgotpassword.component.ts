@@ -27,14 +27,14 @@ export class ForgotpasswordComponent implements OnInit {
     email:new FormControl()
   })
   email: any;
-
-
-  
   constructor(  private emails:EmailService,
     private toast:NgToastService,
     private router:Router) { }
 
   ngOnInit(): void { 
+
+    console.log('rslt=',this.rslt)
+
     
     this.ObjForgetForm.reset()
     this.spin=0;
@@ -47,8 +47,7 @@ export class ForgotpasswordComponent implements OnInit {
         this.rslt=0;
         this.val=0;
     }, 3000);   
-     
-   
+
     }
     
   }
@@ -57,9 +56,6 @@ export class ForgotpasswordComponent implements OnInit {
   {
     this.router.navigate(['/login'])
   }
-
-  
-
 
 //verify otp
   SaveData() {
@@ -104,9 +100,7 @@ export class ForgotpasswordComponent implements OnInit {
   
   }
 
-    
   }
-
 
   //send otp
   openPopup() {

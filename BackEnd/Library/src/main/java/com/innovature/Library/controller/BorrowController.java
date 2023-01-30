@@ -23,14 +23,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-
-
 import org.supercsv.io.CsvBeanWriter;
 import org.supercsv.io.ICsvBeanWriter;
 import org.supercsv.prefs.CsvPreference;
-
-
 import com.innovature.Library.entity.Borrow;
 import com.innovature.Library.form.BorrowForm;
 import com.innovature.Library.service.BorrowService;
@@ -107,13 +102,8 @@ public ResponseEntity<Page<Borrow>>getTestFilterBorrow(
 
 }
 
-
-
-
-
-
 //load results of issuedate filter at User BorrowHistory
-@GetMapping("user/loadByIssueDate/{date1}/{date2}")
+@GetMapping("/user/loadByIssueDate/{date1}/{date2}")
 public ResponseEntity<List<Borrow>> loadByIssueDateUser( 
 @PathVariable("date1") Date date1,
  @PathVariable("date2") Date date2)
@@ -137,11 +127,6 @@ public ResponseEntity<List<Borrow>> loadByIssueDateUser(
         HttpStatus.OK);
 
     }
-
-
-
-
-
     @PostMapping
     public BorrowDetailView add(@Valid @RequestBody BorrowForm form) {
         return bService.add(form);
@@ -161,7 +146,6 @@ public ResponseEntity<List<Borrow>> loadByIssueDateUser(
         return bService.listNotification();
     }
 
-   
 
     @GetMapping("user/due")
     public Collection<Borrow> listDue() {
