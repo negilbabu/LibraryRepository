@@ -161,10 +161,11 @@ public class BorrowServiceImpl implements BorrowService {
         Books books = booksRepository.findbyBorrowId(borrowId);
 
         borrow.setBookReturnedDate(LocalDateTime.now());
-        borrow.setIssueDate(borrow.getIssueDate());
-        borrow.setReturnDate(borrow.getReturnDate());
-        borrow.setDueDate(borrow.getDueDate());
+        // borrow.setIssueDate(borrow.getIssueDate());
+        // borrow.setReturnDate(borrow.getReturnDate());
+        // borrow.setDueDate(borrow.getDueDate());
         borrow.setStatus("RETURNED");
+        borrow.setBookReturnedDate(borrow.getBookReturnedDate());
         books.setBooksCopies(books.getBooksCopies() + 1);
         return new BorrowDetailView(borrowRepository.save(borrow));
     }
