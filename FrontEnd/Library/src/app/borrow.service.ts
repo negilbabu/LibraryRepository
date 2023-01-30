@@ -18,7 +18,9 @@ export class BorrowService {
     return _window();
   }
 
-  apiurl='http://localhost:8080';
+  // apiurl='http://localhost:8080';
+   
+  baseUrl=environment.apiUrl;
   accesstocken:any
   constructor(private http:HttpClient,private router:Router) { }
 
@@ -83,7 +85,7 @@ handleError(err: HttpErrorResponse): any {
   //user
   LoadByIssueDateUser(date1:any,date2:any){
 
-    return this.http.get(this.apiurl + "/borrow/user/loadByIssueDateUser/"+date1+"/"+date2);
+    return this.http.get(this.baseUrl + "/borrow/user/loadByIssueDateUser/"+date1+"/"+date2);
   }
   
 
