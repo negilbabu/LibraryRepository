@@ -121,12 +121,9 @@ margin-left: 20%;
       itemsPerPage: tableSize,
       currentPage: page,
       totalItems: count
-    };
-  
-  
-  ">
+    };">
 
-<td>{{books.category.categoryName}}</td>
+ <td>{{books.category.categoryName}}</td> 
 <td>{{books.publication}}</td>
 <td>{{books.booksName}}</td>
 <td>{{books.auther}}</td>
@@ -147,30 +144,5 @@ margin-left: 20%;
   <pagination-controls (pageChange)="onTableDataChange(page=$event)">
   </pagination-controls>
 </div>
-
- </div>
-
-
-       
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
