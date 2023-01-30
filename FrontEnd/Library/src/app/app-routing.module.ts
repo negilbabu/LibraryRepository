@@ -66,7 +66,7 @@ const routes: Routes = [
   {path:'navbar2',component:Navbar2Component,canActivate: [HomeguardGuard]},
   {path:'sidenav2',component:Sidenav2Component,canActivate: [HomeguardGuard]},
   {path:'admin-navbar',component:AdminNavbarComponent,canActivate: [HomeguardGuard]},
-  {path:'homepage',component:HomepageComponent,canActivate:[HomeguardGuard]}
+  {path:'homepage',component:HomepageComponent,canActivate:[HomeguardGuard]},
   {path:'user-detailview',component:UserDetailviewComponent,canActivate: [HomeguardGuard]}
 ];
 
