@@ -1,9 +1,8 @@
 package com.innovature.Library.controller;
 
-import java.sql.Date;
-import java.util.Calendar;
+
 import java.util.Random;
-import java.util.concurrent.TimeUnit;
+
 import java.time.LocalTime;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,21 +14,17 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-
 import com.innovature.Library.form.EmailForm;
 import com.innovature.Library.form.OtpForm;
 import com.innovature.Library.repository.EmailRepository;
 import com.innovature.Library.service.BorrowService;
 import com.innovature.Library.service.EmailService;
 
-
-
 import com.innovature.Library.entity.Email;
 import com.innovature.Library.entity.User;
 import com.innovature.Library.repository.UserRepository;
 
 
-// tgsrhyrsrthr
 @RestController
 @RequestMapping("/email")
 public class EmailController {
@@ -62,12 +57,17 @@ public class EmailController {
 
 
     @PostMapping("/emailsentotp")
-    public ResponseEntity<?>sendOtpEmail(@RequestBody EmailForm form){
+    public ResponseEntity sendOtpEmail(@RequestBody EmailForm form){
+    String emailid=form.getSentto();
 
+   if("".equals(emailid) ){
 
+    return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("NULL VALUE EXCEPTION-");
+   }
+   else{
         User user=userRepository.findByEmailId(form.getSentto());
              if(user!=null){
-                // emailRepository.deleteAll();
+            
                 Random random = new Random();
                 int otp = 100000 + random.nextInt(900000);
                 Email otp2= new Email();
@@ -75,17 +75,12 @@ public class EmailController {
                 otp2.setEmail(form.getSentto());      
 
                 LocalTime myObj = LocalTime.now();
-                LocalTime exp=myObj.plusMinutes(1);
-                System.out.println("here############====>>>"+exp);
+                LocalTime exp=myObj;
                 otp2.setExpiry(exp);
-
                 
-                var email=form.getSentto();
-                
-                // emailRepository.save(otp2);
-                // emailRepository.findByEmailId(email,otp2);
-              
+               var email=form.getSentto();                      
                Email email2= emailRepository.findByEmail(email);
+
                if(email2!=null){
                email2.setOtp(otp); 
                email2.setExpiry(exp);   
@@ -100,32 +95,100 @@ public class EmailController {
                     return  new ResponseEntity(null,HttpStatus.ACCEPTED);
                 }
                 else{
-                    return new ResponseEntity(null,HttpStatus.BAD_REQUEST);
+                    return new ResponseEntity(null,HttpStatus.EXPECTATION_FAILED);
                 }
             }
             else{
-                return new ResponseEntity(null,HttpStatus.NOT_ACCEPTABLE);
+                return new ResponseEntity(null,HttpStatus.BAD_REQUEST);
 
             }
+
+        }
 
     
     }
 
 
-
-
     @PostMapping("verify")
     public ResponseEntity add(@RequestBody OtpForm form){
+       var otp=form.getOtp();
+        if(otp==null){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("NULL VALUE EXCEPTION");
+        }
+        else{
 
-        boolean result = emailService.add(form);
-        if(result)
-        {
-            return new ResponseEntity(null,HttpStatus.ACCEPTED);
+            ResponseEntity result = emailService.add(form);
+
+    if(result.getStatusCodeValue()==202){
+    return new ResponseEntity(HttpStatus.ACCEPTED);
+
+    }
+    else if(result.getStatusCodeValue()==504){
+    return ResponseEntity.status(HttpStatus.GATEWAY_TIMEOUT).body("OTP EXPIRED");
+    }
+
+    else
+      return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("OTP VERIFICATION FAILED");
+    }
+    }
+
+
+    // @PostMapping("verify")
+    // public ResponseEntity add(@RequestBody OtpForm form){
+    //    var otp=form.getOtp();
+    //     if(otp==null){
+    //         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("NULL VALUE EXCEPTION");
+    //     }
+    //     else{
+
+    //     boolean result = emailService.add(form);
+    //     if(result)
+    //     {
+    //         return new ResponseEntity(null,HttpStatus.ACCEPTED);
+    //         // return new ResponseEntity.status(HttpStatus.ACCEPTED).body("OTP VERIFICATION SUCCESS");
+    //     }
+    //     else
+    //     {
+    //         // return new ResponseEntity(null,HttpStatus.BAD_REQUEST);
+
+    //         return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("OTP VERIFICATION FAILED");
+    //     }
+    // }
+    // }
+
+
+
+    @PostMapping("verifyPassword")
+    public ResponseEntity addPassword(@RequestBody OtpForm form){
+
+    var psd=form.getNewPassword();
+    var npsd=form.getCnewPassword();
+
+    if(psd==null || npsd==null){
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("NULL VALUE EXCEPTION");
         }
-        else
-        {
-            return new ResponseEntity(null,HttpStatus.BAD_REQUEST);
-        }
+    else if(!psd.equals(npsd) ){
+        return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body("PASSWORD MISSMATCH");
+    }
+    else{
+
+        boolean result = emailService.addPassword(form);
+    if(result)
+    {
+        return new ResponseEntity(null,HttpStatus.ACCEPTED);
+    }
+    else
+    {
+        // return new ResponseEntity(null,HttpStatus.BAD_REQUEST);
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("PASSWORD CHANGE FAILED");
+    }
+}
+
+
+
+
+ 
+ 
     }
 
 

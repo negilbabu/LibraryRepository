@@ -24,6 +24,12 @@ public interface BorrowRepository extends PagingAndSortingRepository<Borrow, Int
   // load all @ pagenation
   public Page<Borrow> findAll(Pageable paging);
 
+    // load all @ fine pagenation
+
+  @Query(value = "select * from borrow where borrow_id in(select borrow_id  from borrow where due_date<curdate() and status!='RETURNED')", nativeQuery = true)
+  public Page<Borrow> findbyBorrowIdandDueDateandStatus(Pageable paging);
+
+
   // load all with userId(in user-login)
   public Page<Borrow> findAllByUserUserId(Integer userId, Pageable paging);
 
@@ -81,6 +87,9 @@ public interface BorrowRepository extends PagingAndSortingRepository<Borrow, Int
   Integer findbyUserIdAndStatus(Integer userId);
 
   // @Query(value = "SELECT * FROM borrow",nativeQuery = true)
+  // filter by approved in ADMIN SIDE
+  @Query(value = "select * from borrow where  status='APPROVED' and user_id=?", nativeQuery = true)
+  public Page<Borrow> findByApprovedStatusUser(Pageable paging);
 
   // @Query(value = "select * from borrow where issue_date between
   // date_sub(curdate(),interval 7 day) and curdate()",nativeQuery = true)

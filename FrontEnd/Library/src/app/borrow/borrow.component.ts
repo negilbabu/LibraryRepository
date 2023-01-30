@@ -35,12 +35,14 @@ export class BorrowComponent implements OnInit {
   result: any;
   direction=1;
   direction1=-1;
-
+  status=1;
+  selectedGroup: any;
+  selected="status";
     constructor(private router:Router ,
       private datePipe:DatePipe,
       private service:BorrowService,
       private toast : NgToastService) {
-
+ 
       this.date=new Date();
      }
 
@@ -68,8 +70,80 @@ export class BorrowComponent implements OnInit {
         date1:new FormControl('',[Validators.required]), 
         date2:new FormControl('',[Validators.required]), 
      
+      } )
+
+
+    filter:FormGroup = new FormGroup({
+      status:new FormControl('',[Validators.required])
+    
+      })
+    
+
+
+
+
+
+
+
+
+
+
+    disp1() {
+      // this.status=1;
+      console.log('stat-------------------=',this.status)
+      if(this.filter.controls['status'].value==1){
+        console.log('/////------------=',this.status)
+        this.service.AdminStatusfilterBorrow(this.page,this.tableSize,this.sort,this.direction,1).subscribe(response=>{
+          this.result=response.content;
+          this.count=response.totalElements
+          console.log('in approved',this.result);   
+          this.data=this.result;                     
+            }); 
       }
-    )
+      else if(this.filter.controls['status'].value==2){
+        console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>',this.status)
+        this.service.AdminStatusfilterBorrow(this.page,this.tableSize,this.sort,this.direction,2).subscribe(response=>{
+          this.result=response.content;
+          this.count=response.totalElements
+          console.log(this.result);   
+          this.data=this.result;                     
+            }); 
+      }
+  
+      else if(this.filter.controls['status'].value==3){
+  
+        this.service.AdminStatusfilterBorrow(this.page,this.tableSize,this.sort,this.direction,3).subscribe(response=>{
+          this.result=response.content;
+          this.count=response.totalElements
+          console.log(this.result);   
+          this.data=this.result;                     
+            }); 
+      }
+  
+      else if(this.filter.controls['status'].value==4){
+  
+        this.service.AdminStatusfilterBorrow(this.page,this.tableSize,this.sort,this.direction,4).subscribe(response=>{
+          this.result=response.content;
+          this.count=response.totalElements
+          console.log(this.result);   
+          this.data=this.result;                     
+            }); 
+      }
+      else{
+        
+      }
+   
+    }
+  
+
+
+
+
+
+
+
+
+
 
     dwn() {
 

@@ -54,15 +54,15 @@ p{
     border: 1px solid;
 }
 th {
-    background-color: white;
-    color:black;
+    background-color: #232524;
+    color: white;
     width: 15%;
     text-align: center;
     border: none;
   }
   td {
-    background-color: white;
-    color: black;
+    background-color: #a7bdb08f;
+    color: rgb(0, 0, 0);
     width: 15%;
     text-align: center;
     margin-top: auto;
@@ -79,8 +79,4 @@ th {
     font-style: italic ;
     color: rgb(255, 255, 255);
     border-radius: 3px;
-}
-.btnn2{
-    background-color: black;
-    color: white;
 }
