@@ -18,10 +18,19 @@ export class BorrowService {
     return _window();
   }
 
-  
-  baseUrl=environment.apiUrl;
+  apiurl='http://localhost:8080';
+  accesstocken:any
   constructor(private http:HttpClient,private router:Router) { }
- 
+
+handleError(err: HttpErrorResponse): any {
+  console.log('hhhii');
+  if ( err.status === 403) {
+    alert("UNAUTHORIZED ACCESS DETECTED")
+    sessionStorage.clear()
+    localStorage.clear()
+    this.router.navigateByUrl(`/login`);    }    
+}
+
 
   export(): Observable<Blob> {
     return this.http.get(this.baseUrl+'/borrow/admin/export', { responseType: 'blob' });
@@ -41,8 +50,6 @@ export class BorrowService {
     return this.http.post(this.baseUrl+'/borrow',data)
 
   }
-  
-
   borrowHistoryPagination(page:any,tableSize:any,sort:any){
     return this.http.get(this.baseUrl+"/borrow/userBorrow/pagenated/?pageNo="+page+"&pageSize="+tableSize+"&sortBy="+sort)
 
@@ -75,8 +82,10 @@ export class BorrowService {
   }
   //user
   LoadByIssueDateUser(date1:any,date2:any){
-    return this.http.get(this.baseUrl+"/borrow/user/loadByIssueDateUser/"+date1+"/"+date2);
-  }  
+
+    return this.http.get(this.apiurl + "/borrow/user/loadByIssueDateUser/"+date1+"/"+date2);
+  }
+  
 
   Load(){
     return this.http.get(this.baseUrl+'/borrow')
@@ -100,9 +109,10 @@ export class BorrowService {
     return this.http.get(this.baseUrl+'/borrow/admin/fine')
   
   }
-  //user
+
   LoadDueByUser(){
-    return this.http.get(this.baseUrl+'/borrow/user/dueByUser')
+
+    return this.http.get('http://localhost:8080/borrow/user/dueByUser').pipe((catchError(err => this.handleError(err))));
 
   }
 
@@ -117,27 +127,25 @@ export class BorrowService {
     }
   
   LoadUserNotification(){
-    return this.http.get(this.baseUrl+'/borrow/user/UserNotification')
 
+    return this.http.get('http://localhost:8080/borrow/user/UserNotification').pipe((catchError(err => this.handleError(err))));
     }
-    
+  
+
   getBorrowID(borrowId:any){
     return this.http.get(this.baseUrl+'/borrow'+borrowId);
   }
-
 
   payment(id: any) {
     return this.http.put(this.baseUrl+ "/borrow/user/paymentStatus/" + id,{headers:Headers});
   }
 
- 
   delete(booksId:any):Observable<any>{
     let tocken=localStorage.getItem('accesstoken')
     let  head_obj=new HttpHeaders({"Authorization":"library " + tocken})
     return this.http.delete(this.baseUrl+'/borrow/'+booksId,{headers:head_obj});
   }
   
-
 
   update(id: any, data: any) {
     return this.http.put(this.baseUrl + "/borrow/admin/accept/" + localStorage.getItem('borrowId'), data)
@@ -160,8 +168,6 @@ export class BorrowService {
 
   }
 
-
-  
   edit(booksId:any): Observable<any>{
     let tocken=localStorage.getItem('accesstoken')
     let  head_obj=new HttpHeaders({"Authorization":"library " + tocken})

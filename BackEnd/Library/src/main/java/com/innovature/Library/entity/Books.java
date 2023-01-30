@@ -31,7 +31,6 @@ public class Books {
     private String booksName;
     private String publication;
     private String auther;
-   // private String status;
     private Integer booksCopies;
     @ManyToOne(optional = false, fetch = FetchType.EAGER) 
     private Category category;
@@ -45,14 +44,13 @@ public class Books {
         this.booksId=booksId;
     }
 
-
     public Books(BooksForm form,Category category){
         this.booksName=form.getBooksName(); 
         this.publication= form.getPublication();
         this.auther = form.getAuther();   
         this.booksCopies= form.getBooksCopies();
         this.category = category;   
-        //this.categoryName = new Category(Category);
+        
     }
 
 
@@ -62,8 +60,6 @@ public class Books {
             return null;
         return "/items - photos/" + booksId + image;
     }
-
-
 
     public Integer getBooksId() {
         return booksId;
@@ -113,8 +109,6 @@ public class Books {
         this.category = category;
     }
 
-
-
     public String getImage() {
         return image;
     }
@@ -131,114 +125,10 @@ public class Books {
         this.booksName = booksName;       
         this.publication = publication;
         this.auther = auther;
-        //this.status = status;
+    
         this.booksCopies = booksCopies;
         this.category = category;
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
-
-//     public Integer getBooksId() {
-//         return booksId;
-//     }
-//     public void setBooks(Integer booksId) {
-//         this.booksId = booksId;
-//     }
-
-
-// ////////////category//////////////////
-
-   
-
-
-//     // public String getCategoryName() {
-//     //     return categoryName;
-//     // }
-
-// //////////////////////////////////
-
-
-
-//     public String getBooksName() {
-//         return booksName;
-//     }
-
-//     public void setBooksId(Integer booksId) {
-//         this.booksId = booksId;
-//     }
-
-//     public Category getCategory() {
-//         return category;
-//     }
-
-//     public void setCategory(Category category) {
-//         this.category = category;
-//     }
-
-//     public void setBooksName(String booksName) {
-//         this.booksName = booksName;
-//     }
-
-//     public String getPublication() {
-//         return publication;
-//     }
-
-//     public void setPublication(String publication) {
-//         this.publication = publication;
-//     }
-
-//     public String getAuther() {
-//         return auther;
-//     }
-
-//     public void setAuther(String auther) {
-//         this.auther = auther;
-//     }
-//     // public String getStatus() {
-//     //     return status;
-//     // }
-
-//     // public void setStatus(String status) {
-//     //     this.status = status;
-//     // }
-//     public String getBooksCopies() {
-//         return booksCopies;
-//     }
-
-//     public void setBooksCopies(String bookscopies) {
-//         this.booksCopies = bookscopies;
-//     }
-
-//     public String getBooksName(int booksId2) {
-//         return null;
-//     }
-
-
-
- 
-
-
-
-
-
-
 
     
 }

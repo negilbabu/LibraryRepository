@@ -10,7 +10,6 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class UserDetailviewComponent implements OnInit {
   
-  
 
     userdata: any;
     id: any;

@@ -1,14 +1,12 @@
 <app-sidenav></app-sidenav>   
-
-  
   <div class="text-center"> 
-      <form [formGroup]="ObjSampleForm" ><br>
-              
 
+      <form [formGroup]="ObjSampleForm" (ngSubmit)="onSubmit()"><br>
                   <label><h2>AcceptRequest </h2></label>
-               <table align="center">
-           <tr> <td>
-                Return Date  </td><td><input type="date" class="text-danger1" placeholder="returnDate" formControlName="returnDate" name="returnDate" min="{{date | date :'yyyy-MM-dd' }}" (input)="datas()" required>
+               <table align="center">           
+ <br>             
+                <div>Return Date&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input style="width: 180px; margin:0 auto;"  type="date" class="text-danger1" placeholder="returnDate" formControlName="returnDate" name="returnDate" min="{{date | date :'yyyy-MM-dd' }}" (input)="datas()" required></div>
+
                 <span class="text-danger"   class="text-danger" *ngIf="ObjSampleForm.controls['returnDate'].touched && ObjSampleForm.hasError('required','returnDate')"><small>Return Date is required</small>
                 </span></td></tr>
 
@@ -17,10 +15,11 @@
                   </span><br></td></tr>
                                                
                   
-                <tr><td></td>
-                  <td>
-                  <button  mat-raised-button (click)="submit()" [disabled]="!ObjSampleForm.valid" color="primary" style="position: relative;" class="mycls" >Submit</button>
-                </td></tr></table> 
+
+                  <input class="btn" style="width: 180px;" type="submit" name="onSubmit" value="Submit" [disabled]="!ObjSampleForm.valid"><br><br><br>
+                
+                </table> 
+          
 
           </form>         
           

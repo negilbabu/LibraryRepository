@@ -1,76 +1,108 @@
-<ul class="nav-mobile"  > 
-    <li class="cls"> 
-      <label  style="position: relative;text-align: center; left: 8%;">LIBRARY</label>
-       <button type="button" style="position: relative;float: right;" class="button" (click)="Login()">Back to LOGIN</button>
-     
-  <div class="right">                    
-  
-  
-     
-  </div> 
+
+<ul class="nav-mobile">
+    <li class="cls">
+        <label style="position: relative;text-align: center; left: 8%;">LIBRARY</label>
+        <button type="button" style="position: relative;float: right;" class="button" (click)="Login()">LOGIN</button>
+
+        <div class="right">
+
+        </div>
+
     </li>
-    </ul>
-  
+</ul>
+
 
 
 <router-outlet></router-outlet>
 
-<div class="text-center"> 
-    <form [formGroup]="ObjSampleForm" >
-            
-            <div style="width: 180px; margin:0 auto;" class="example-container" ><br>
-               <div style="width: 50px; margin:0 auto;"> <label ><h2>SignUp</h2></label></div>
-                <br>                
-                            
-                <div>
-                <input  type="text" class="text-danger1" placeholder="First Name" formControlName="firstName" name="firstName" maxlength="30" pattern='[a-zA-z]+' required> 
-                <span class="text-danger"    *ngIf="ObjSampleForm.controls['firstName'].touched && ObjSampleForm.hasError('required','firstName')"><small>Firstname is required</small>    </span>
-               <span class="text-danger" *ngIf="ObjSampleForm.controls['firstName'].touched && ObjSampleForm.hasError('pattern','firstName')"><small>Firstname Should be Characters </small></span>
-            <span class="text-danger" *ngIf="ObjSampleForm.controls['firstName'].touched && ObjSampleForm.hasError('maxlength(30)','firstName')"><small>Firstname must be less than 30</small></span>
+
+<div class="text-center">
+    <form [formGroup]="ObjSampleForm" (ngSubmit)="onSubmit()">
+
+        <div style="width: 180px; margin:0 auto;" class="example-container"><br>
+            <div style="width: 50px; margin:0 auto;"> <label>
+                    <h2>SignUp</h2>
+                </label></div>
+            <br>
+
+            <div>
+                <input type="text" class="text-danger1" placeholder="First Name" formControlName="firstName"
+                    name="firstName" maxlength="30" pattern='[a-zA-z]+' required>
+                <span class="text-danger"
+                    *ngIf="ObjSampleForm.controls['firstName'].touched && ObjSampleForm.hasError('required','firstName')"><small>Firstname
+                        is required</small> </span>
+                <span class="text-danger"
+                    *ngIf="ObjSampleForm.controls['firstName'].touched && ObjSampleForm.hasError('pattern','firstName')"><small>Firstname
+                        Should be Characters </small></span>
+                <span class="text-danger"
+                    *ngIf="ObjSampleForm.controls['firstName'].touched && ObjSampleForm.hasError('maxlength(30)','firstName')"><small>Firstname
+                        must be less than 30</small></span>
             </div> <br>
 
-                <div>
-                    <input  type="text" class="text-danger1" placeholder="Last Name" formControlName="lastName" name="lastName" maxlength="100" required> 
-                    <span class="text-danger"   *ngIf="ObjSampleForm.controls['lastName'].touched && ObjSampleForm.hasError('required','lastName')"><small>Lastname is required</small> </span>
-                    </div> <br>
-
-                <div>
-                    <input  type="date" class="text-danger1" placeholder="DOB" formControlName="dob" name="dob" max="{{date | date :'yyyy-MM-dd' }}"  required>    
-                    <span class="text-danger"   *ngIf="ObjSampleForm.controls['dob'].touched && ObjSampleForm.hasError('required','dob')"><small>Date-of-birth is required</small> </span> 
-    
-                </div> <br>
-                <div>
-                    <input  type="text" class="text-danger1" placeholder="Address" formControlName="address" name="address" maxlength="100" required>
-                    <span class="text-danger"   *ngIf="ObjSampleForm.controls['address'].touched && ObjSampleForm.hasError('required','address')"><small>Address is required</small></span>     
-                     </div> <br>
-                <div>
-                    <input  type="text" class="text-danger1" placeholder="phone" formControlName="phone" name="phone" maxlength="10" required> 
-                    <span class="text-danger"    *ngIf="ObjSampleForm.controls['phone'].touched && ObjSampleForm.hasError('required','phone')"><small>Phone n.o is required</small> </span>
-                    </div> <br>
-           
             <div>
-                <input type="password" class="text-danger1" placeholder="password" formControlName="password" name="password" pattern='(?=.*\d)(?=.*[a-z])(?=.*[#$@!%&*?])(?=.*[A-Z]).{8,}' minlength="8" required> 
-                <span class="text-danger"   *ngIf="ObjSampleForm.controls['password'].touched && ObjSampleForm.hasError('required','password')"><small>pswd is required</small></span>            
-                <span class="text-danger" *ngIf=" ObjSampleForm.hasError('pattern','password')"><small>use alphanumeric & special characters &nbsp;</small></span> 
-                <span class="text-danger" *ngIf="ObjSampleForm.controls['password'].touched && ObjSampleForm.hasError('minlength','password')"><small>minimum 8 character</small></span>   
-                 <br><br>                
+                <input type="text" class="text-danger1" placeholder="Last Name" formControlName="lastName"
+                    name="lastName" maxlength="100" required>
+                <span class="text-danger"
+                    *ngIf="ObjSampleForm.controls['lastName'].touched && ObjSampleForm.hasError('required','lastName')"><small>Lastname
+                        is required</small> </span>
+            </div> <br>
+
+            <div>
+                <input type="date" class="text-danger1" placeholder="DOB" formControlName="dob" name="dob"
+                    max="{{date | date :'yyyy-MM-dd' }}" required>
+                <span class="text-danger"
+                    *ngIf="ObjSampleForm.controls['dob'].touched && ObjSampleForm.hasError('required','dob')"><small>Date-of-birth
+                        is required</small> </span>
+            </div> <br>
+            <div>
+                <input type="text" class="text-danger1" placeholder="Address" formControlName="address" name="address"
+                    maxlength="100" required>
+                <span class="text-danger"
+                    *ngIf="ObjSampleForm.controls['address'].touched && ObjSampleForm.hasError('required','address')"><small>Address
+                        is required</small></span>
+            </div> <br>
+            <div>
+                <input type="text" class="text-danger1" placeholder="phone" formControlName="phone" name="phone"
+                    maxlength="10" required>
+                <span class="text-danger"
+                    *ngIf="ObjSampleForm.controls['phone'].touched && ObjSampleForm.hasError('required','phone')"><small>Phone
+                        n.o is required</small> </span>
+            </div> <br>
+            <!-- <div>
+                    <input  type="number" class="text-danger1" placeholder="role" formControlName="role" name="role" maxlength="20" required>    
+                    </div> <br><br> -->
+            <div>
+                <input type="password" class="text-danger1" placeholder="password" formControlName="password"
+                    name="password" pattern='(?=.*\d)(?=.*[a-z])(?=.*[#$@!%&*?])(?=.*[A-Z]).{8,}' minlength="8"
+                    required>
+                <span class="text-danger"
+                    *ngIf="ObjSampleForm.controls['password'].touched && ObjSampleForm.hasError('required','password')"><small>pswd
+                        is required<br>use (uppercase,lowercase & numbers)<br>minimum 8 character</small>
+                </span>
+                <br><br>
+
             </div>
             <div>
-            <input  type="email" class="text-danger1" placeholder="email" formControlName="email" name="email"  maxlength="100" required>
-           
-    <span class="text-danger"    *ngIf="ObjSampleForm.controls['email'].touched && ObjSampleForm.hasError('required','email')"><small>Email is required</small>
-    </span>
-                  
-            </div> <br><br>            
-            
+                <input type="email" class="text-danger1" placeholder="email" formControlName="email" name="email"
+                    maxlength="100" required>
 
-            <button mat-raised-button color="warn" class="b1" type="reset">Clear</button>
-                &nbsp;  &nbsp; 
-            <button mat-raised-button (click)="onSubmit()"  color="primary"  >Submit</button>
-        
-            </div>
-          
-    </form>     
-    
-    </div>
-    
+                <span class="text-danger"
+                    *ngIf="ObjSampleForm.controls['email'].touched && ObjSampleForm.hasError('required','email')"><small>Email
+                        is required</small>
+                </span>
+
+            </div> <br><br>
+
+
+            <button mat-raised-button color="warn" (click)="clear()">Clear</button>
+            &nbsp; &nbsp;
+            <button mat-raised-button (click)="onSubmit()" color="primary"
+                [disabled]="ObjSampleForm.invalid">Submit</button>
+
+
+        </div>
+
+    </form>
+
+</div>
+

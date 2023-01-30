@@ -36,10 +36,6 @@ public interface UserService {
 
     LoginView refresh(String refreshToken) throws BadRequestException;
 
-    // Collection<User> list();
-
-   // UserView edit(UserForm form);
-
     UserView updates(Integer userId, UserForm form);
 
     void deletes(Integer userId);
@@ -48,12 +44,10 @@ public interface UserService {
 
     Collection<User> listAll();
 
-   // Collection<User> list();
-
     UserView edit(Integer userId, UserForm form);
 
     Collection<User> viewProfile(Integer userId);
 
-    Page<User> getAllUser(Integer pageNo, Integer pageSize, String sortBy,Integer direction);
+    Page<User> getAllUser(Integer pageNo, Integer pageSize, String sortBy, Integer direction);
 
 }

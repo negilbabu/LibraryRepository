@@ -45,7 +45,6 @@ handleCsvError(err: HttpErrorResponse): any {
     return this.http.get(this.baseUrl+'/books/admin/pie')
   }
 
-
   add(data:any):Observable<any>{
     return this.http.post(this.baseUrl+'/books',data)
 
@@ -70,7 +69,6 @@ handleCsvError(err: HttpErrorResponse): any {
 
   }
   
-
   pagination1(page:any,tableSize:any,sort:any,direction:any):Observable<any>{
     return this.http.get(this.baseUrl+"/books/admin/pagenated/?pageNo="+page+"&pageSize="+tableSize+"&sortBy="+sort+"&direction="+direction)
 
