@@ -17,7 +17,6 @@ import { ViewProfileComponent } from './view-profile/view-profile.component';
 import { FindbyCategoryComponent } from './findby-category/findby-category.component';
 import { RejectrequestComponent } from './rejectrequest/rejectrequest.component';
 import { NotificationComponent } from './notification/notification.component';
-import { BookreturnComponent } from './bookreturn/bookreturn.component';
 import { ViewAdminprofileComponent } from './view-adminprofile/view-adminprofile.component';
 import { ImageuploadComponent } from './imageupload/imageupload.component';
 import { FineComponent } from './fine/fine.component';
@@ -53,7 +52,6 @@ const routes: Routes = [
   {path : 'view-profile',component:ViewProfileComponent},
   {path : 'findby-category',component:FindbyCategoryComponent},
   {path : 'notification',component:NotificationComponent},
-  {path : 'bookreturn',component:BookreturnComponent},
   {path : 'view-adminprofile',component:ViewAdminprofileComponent,canActivate: [HomeguardGuard]},
   {path : 'imageupload',component:ImageuploadComponent,canActivate: [HomeguardGuard]},
   {path : 'fine',component:FineComponent,canActivate: [HomeguardGuard]},

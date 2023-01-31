@@ -2,7 +2,6 @@ package com.innovature.Library.entity;
 
 import java.time.LocalDateTime;
 import java.util.Date;
-//import java.util.Objects;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -32,7 +31,6 @@ public class Borrow {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer borrowId;
 
-   // @Temporal(TemporalType.DATE)
     private LocalDateTime issueDate;
 
     @Temporal(TemporalType.DATE)
@@ -41,7 +39,6 @@ public class Borrow {
     @Temporal(TemporalType.DATE)
     private Date dueDate;
 
-    //@Temporal(TemporalType.DATE)
     private LocalDateTime bookReturnedDate;
 
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
@@ -55,11 +52,6 @@ public class Borrow {
     private String reason;
     public Long fine;
     public Long dueDays;
-    
-
-
-
-    
 
     public Borrow() {
     }
@@ -75,27 +67,27 @@ public class Borrow {
         this.books = books;
         this.user = user2;
         this.status = getStatus();
-        this.paymentStatus=getPaymentStatus();
+        this.paymentStatus = getPaymentStatus();
         this.reason = form.getReason();
-        
-        LocalDateTime dt =LocalDateTime.now();
+
+        LocalDateTime dt = LocalDateTime.now();
         this.issueDate = dt;
 
-        LocalDateTime date =LocalDateTime.now();
+        LocalDateTime date = LocalDateTime.now();
         this.bookReturnedDate = date;
-        this.dueDays=0L;
-        this.fine=0L;
+        this.dueDays = 0L;
+        this.fine = 0L;
 
     }
 
     public Borrow(Books book, User user) {
         this.books = book;
-        this.user = user;      
+        this.user = user;
         this.status = "REQUESTED";
-        this.paymentStatus="UNBILLED";
+        this.paymentStatus = "UNBILLED";
         this.reason = "NA";
-        this.dueDays=(long) 0;
-        this.fine=(long) 0;
+        this.dueDays = (long) 0;
+        this.fine = (long) 0;
     }
 
     public Integer getBorrowId() {
@@ -173,14 +165,15 @@ public class Borrow {
     public Long getDueDays() {
         return dueDays;
     }
+
     public void setDueDays(Long dueDays) {
         this.dueDays = dueDays;
     }
 
-
     public Long getFine() {
         return fine;
     }
+
     public void setFine(Long fine) {
         this.fine = fine;
     }
@@ -193,11 +186,11 @@ public class Borrow {
         this.paymentStatus = paymentStatus;
     }
 
-    public String getFirstName(){
+    public String getFirstName() {
         return user.getFirstName();
     }
 
-    public String getBooksName(){
+    public String getBooksName() {
         return books.getBooksName();
     }
 

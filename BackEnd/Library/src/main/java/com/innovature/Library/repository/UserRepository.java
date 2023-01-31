@@ -13,12 +13,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 
 import com.innovature.Library.entity.User;
-import com.innovature.Library.view.UserView;
 
-/**
- *
- * @author nirmal
- */
 public interface UserRepository extends Repository<User, Integer> {
 
     User findById(Integer userId);
@@ -28,19 +23,18 @@ public interface UserRepository extends Repository<User, Integer> {
     Optional<User> findByEmail(String email);
 
     User save(User user);
+
     void delete(User user);
-    
+
     Collection<User> findAll();
 
     Collection<User> findByUserId(Integer userId);
 
-    // UserView<User>findByUserId1(Integer userId);
-
     public Page<User> findAll(Pageable paging);
 
-
-    @Query(value = "SELECT * FROM user WHERE email=?",nativeQuery = true)
+    @Query(value = "SELECT * FROM user WHERE email=?", nativeQuery = true)
     User findByEmailId(String email);
 
-  //  User findById(User userId);
+    @Query(value = "SELECT * FROM user WHERE email=?", nativeQuery = true)
+    boolean findByEmails(String email);
 }

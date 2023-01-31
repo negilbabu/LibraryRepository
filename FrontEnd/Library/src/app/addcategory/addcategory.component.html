@@ -1,7 +1,8 @@
 <app-sidenav></app-sidenav>
 <br><br><br><br>
 <div style="text-align: center;">
-      <button  mat-raised-button (click)="openDialog()" color="primary"  >ADD CATEGORY</button></div> 
+  <button mat-raised-button (click)="openDialog()" color="primary">ADD CATEGORY</button>
+</div>
 <br><br>
 
 <div class="card-box">
@@ -11,10 +12,12 @@
         <thead class="bg-primary text-white">
           <tr role="row">
 
-            <th (click)="sortfn('categoryName')"> 
-               Category Name
-              <button mat-icon-button *ngIf="this.direction==1"> <i class="material-icons" style="color:rgb(0, 0, 0)" >keyboard_arrow_up</i></button>
-              <button mat-icon-button *ngIf="this.direction==-1"> <i class="material-icons" style="color:rgb(0, 0, 0)" >keyboard_arrow_down</i></button>                            
+            <th (click)="sortfn('categoryName')">
+              Category Name
+              <button mat-icon-button *ngIf="this.direction==1"> <i class="material-icons"
+                  style="color:rgb(0, 0, 0)">keyboard_arrow_up</i></button>
+              <button mat-icon-button *ngIf="this.direction==-1"> <i class="material-icons"
+                  style="color:rgb(0, 0, 0)">keyboard_arrow_down</i></button>
             </th>
             <th></th>
           </tr>
@@ -34,10 +37,12 @@
             <td>{{category.categoryName}}</td>
 
             <td>
-              <button mat-icon-button><i class="material-icons" style="color:red;" (click)="deleteCategory(category)">delete</i> </button>
-              
-            <button mat-icon-button> <i class="material-icons" style="color:green" (click)="editCategory(category.categoryId)">edit</i></button>
-          
+              <button mat-icon-button><i class="material-icons" style="color:red;"
+                  (click)="deleteCategory(category)">delete</i> </button>
+
+              <button mat-icon-button> <i class="material-icons" style="color:green"
+                  (click)="editCategory(category.categoryId)">edit</i></button>
+
             </td>
           </tr>
 
@@ -46,9 +51,7 @@
       <div class="d-flex justify-content-center">
         <pagination-controls (pageChange)="onTableDataChange(page=$event)">
         </pagination-controls>
-</div>
+      </div>
     </div>
   </div>
 </div>
-
-

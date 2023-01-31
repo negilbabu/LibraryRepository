@@ -8,7 +8,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 
+import com.innovature.Library.entity.Books;
 import com.innovature.Library.entity.Borrow;
+import com.innovature.Library.entity.User;
 import com.innovature.Library.view.BorrowListView;
 
 public interface BorrowRepository extends PagingAndSortingRepository<Borrow, Integer> {
@@ -24,11 +26,10 @@ public interface BorrowRepository extends PagingAndSortingRepository<Borrow, Int
   // load all @ pagenation
   public Page<Borrow> findAll(Pageable paging);
 
-    // load all @ fine pagenation
+  // load all @ fine pagenation
 
   @Query(value = "select * from borrow where borrow_id in(select borrow_id  from borrow where due_date<curdate() and status!='RETURNED')", nativeQuery = true)
   public Page<Borrow> findbyBorrowIdandDueDateandStatus(Pageable paging);
-
 
   // load all with userId(in user-login)
   public Page<Borrow> findAllByUserUserId(Integer userId, Pageable paging);
@@ -52,19 +53,11 @@ public interface BorrowRepository extends PagingAndSortingRepository<Borrow, Int
   @Query(value = "select * from borrow where borrow_id in(select borrow_id  from borrow where due_date<curdate() and status='APPROVED' and payment_status!='PAID' and user_id=?1 )", nativeQuery = true)
   Collection<Borrow> findbyUserIdandStatus(Integer userId);
 
-  // @Query(value = "select email from user where user_id in(select user_id from
-  // borrow where borrow_id in(select borrow_id from borrow where
-  // due_date<curdate() and status='APPROVED'))", nativeQuery = true)
-
   @Query(value = "select * from borrow where status='APPROVED' and due_date<curdate()", nativeQuery = true)
   Collection<Borrow> findbyBorrowId();
 
   @Query(value = "update borrow set due_days=DATEDIFF(curdate(),due_date) WHERE borrow_id=?", nativeQuery = true)
   void findDueDays(Integer borrowId);
-
-  // total sum of fine /user
-  // @Query(value=" select sum(fine) from borrow where
-  // user_id=?",nativeQuery=true)
 
   // LOAD-FILTER @ADMIN ### ON-Load Filterd results
   @Query(value = "select * from borrow where issue_date between DATE(?1) and DATE(?2) and status!='REQUESTED'", nativeQuery = true)
@@ -82,9 +75,12 @@ public interface BorrowRepository extends PagingAndSortingRepository<Borrow, Int
   @Query(value = "select * from borrow where issue_date between DATE(?1) and DATE(?2) and user_id=?1", nativeQuery = true)
   List<Borrow> findbyIssuDateAndUserId(java.sql.Date date1, java.sql.Date date2);
 
-  // to get total books in-hand by user
+  // to get total books in-hand by user ie. borrow block
   @Query(value = "select count(user_id) from borrow where status='APPROVED' and user_id=?1", nativeQuery = true)
   Integer findbyUserIdAndStatus(Integer userId);
+
+  @Query(value = "select count(borrow_id) from borrow where borrow_id in(select borrow_id from borrow where books_id=?1 and status='APPROVED' and user_id=?2)", nativeQuery = true)
+  Integer borrowBlockByBook(Books booksId, User userId);
 
   // @Query(value = "SELECT * FROM borrow",nativeQuery = true)
   // filter by approved in ADMIN SIDE

@@ -18,7 +18,9 @@ import org.springframework.validation.Errors;
 
 import com.innovature.Library.entity.User;
 import com.innovature.Library.exception.BadRequestException;
+import com.innovature.Library.exception.ConflictException;
 import com.innovature.Library.exception.NotFoundException;
+import com.innovature.Library.exception.expectationFailedException;
 import com.innovature.Library.form.LoginForm;
 import com.innovature.Library.form.UserForm;
 import com.innovature.Library.repository.UserRepository;
@@ -27,7 +29,6 @@ import com.innovature.Library.security.util.InvalidTokenException;
 import com.innovature.Library.security.util.SecurityUtil;
 import com.innovature.Library.security.util.TokenExpiredException;
 
-
 import com.innovature.Library.security.util.TokenGenerator;
 import com.innovature.Library.security.util.TokenGenerator.Status;
 import com.innovature.Library.security.util.TokenGenerator.Token;
@@ -35,10 +36,6 @@ import com.innovature.Library.service.UserService;
 import com.innovature.Library.view.LoginView;
 import com.innovature.Library.view.UserView;
 
-/**
- *
- * @author nirmal
- */
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -57,42 +54,66 @@ public class UserServiceImpl implements UserService {
     private SecurityConfig securityConfig;
 
     @Override
-    public UserView add(UserForm form) {
-        return new UserView(userRepository.save(new User(
-                form.getFirstName(),
-                form.getLastName(),
-                form.getDob(),
-                form.getAddress(),
-                form.getPhone(),              
-                form.getEmail(),
-                passwordEncoder.encode(form.getPassword())
-        )));
+    public UserView add(UserForm form, Errors errors) {
+        var data1 = form.getFirstName();
+        var data2 = form.getLastName();
+        var data3 = form.getAddress();
+        var data4 = form.getDob();
+        var data5 = form.getEmail();
+        var data6 = form.getPhone();
+        var data7 = form.getPassword();
+
+        if ("".equals(data1) || "".equals(data2) || "".equals(data3) || data4 == null || "".equals(data5) ||
+                "".equals(data6) || "".equals(data7)) {
+            throw badRequestException();
+        }
+
+        User email = userRepository.findByEmailId(form.getEmail());
+
+        if (email == null) {
+            return new UserView(userRepository.save(new User(
+                    form.getFirstName(),
+                    form.getLastName(),
+                    form.getDob(),
+                    form.getAddress(),
+                    form.getPhone(),
+                    form.getEmail(),
+                    passwordEncoder.encode(form.getPassword()))));
+
+        } else if (email.getEmail() != null) {
+            throw conflictException();
+        } else
+            return null;
+
     }
 
     @Override
     public UserView currentUser() {
         return new UserView(
-                userRepository.findById(SecurityUtil.getCurrentUserId())
-        );
+                userRepository.findById(SecurityUtil.getCurrentUserId()));
     }
 
     @Override
     public LoginView login(LoginForm form, Errors errors) throws BadRequestException {
-        if (errors.hasErrors()) {
-            throw badRequestException();
-        }
-        User user = userRepository.findByEmail(form.getEmail()).orElseThrow(UserServiceImpl::badRequestException);
-        if (!passwordEncoder.matches(form.getPassword(), user.getPassword())) {
-            throw badRequestException();
-        }
 
-        String id = String.format("%010d", user.getUserId());
-        Token accessToken = tokenGenerator.create(PURPOSE_ACCESS_TOKEN, id, securityConfig.getAccessTokenExpiry());
-        Token refreshToken = tokenGenerator.create(PURPOSE_REFRESH_TOKEN, id + user.getPassword(), securityConfig.getRefreshTokenExpiry());
-        return new LoginView(user, accessToken, refreshToken);
+        var data = form.getEmail();
+        var data2 = form.getPassword();
+        if ("".equals(data) || "".equals(data2)) {
+            throw badRequestException();
+        } else {
+            User user = userRepository.findByEmail(form.getEmail())
+                    .orElseThrow(UserServiceImpl::expectationFailedException);
+            if (!passwordEncoder.matches(form.getPassword(), user.getPassword())) {
+                throw expectationFailedException();
+            }
+
+            String id = String.format("%010d", user.getUserId());
+            Token accessToken = tokenGenerator.create(PURPOSE_ACCESS_TOKEN, id, securityConfig.getAccessTokenExpiry());
+            Token refreshToken = tokenGenerator.create(PURPOSE_REFRESH_TOKEN, id + user.getPassword(),
+                    securityConfig.getRefreshTokenExpiry());
+            return new LoginView(user, accessToken, refreshToken);
+        }
     }
-
-
 
     @Override
     public LoginView refresh(String refreshToken) throws BadRequestException {
@@ -114,76 +135,71 @@ public class UserServiceImpl implements UserService {
 
         String password = status.data.substring(10);
 
-        User user = userRepository.findByUserIdAndPassword(userId, password).orElseThrow(UserServiceImpl::badRequestException);
+        User user = userRepository.findByUserIdAndPassword(userId, password)
+                .orElseThrow(UserServiceImpl::badRequestException);
 
         String id = String.format("%010d", user.getUserId());
         Token accessToken = tokenGenerator.create(PURPOSE_ACCESS_TOKEN, id, securityConfig.getAccessTokenExpiry());
         return new LoginView(
                 user,
                 new LoginView.TokenView(accessToken.value, accessToken.expiry),
-                new LoginView.TokenView(refreshToken, status.expiry)
-        );
+                new LoginView.TokenView(refreshToken, status.expiry));
     }
 
     private static BadRequestException badRequestException() {
         return new BadRequestException("Invalid credentials");
     }
 
+    private static expectationFailedException expectationFailedException() {
+        return new expectationFailedException("Invalid username or password");
+    }
 
-
+    private static ConflictException conflictException() {
+        return new ConflictException("Email id Already Registered");
+    }
 
     @Override
-    public  Collection<User> listAll() {
-    return userRepository.findAll();
-    } 
-
-
+    public Collection<User> listAll() {
+        return userRepository.findAll();
+    }
 
     @Override
     @Transactional
-    public Page<User>getAllUser(Integer pageNo, Integer pageSize, String sortBy,Integer direction){
-  
-        var sortByDescending=Sort.by(sortBy).descending();
-        var sortByAscending=Sort.by(sortBy).ascending();
+    public Page<User> getAllUser(Integer pageNo, Integer pageSize, String sortBy, Integer direction) {
 
-        if(direction==1){
+        var sortByDescending = Sort.by(sortBy).descending();
+        var sortByAscending = Sort.by(sortBy).ascending();
+
+        if (direction == 1) {
 
             Pageable paging = PageRequest.of(pageNo, pageSize, sortByDescending);
             Page<User> pagedResult = userRepository.findAll(paging);
-            return pagedResult;    
+            return pagedResult;
         }
 
-        else 
-        {
+        else {
             Pageable paging = PageRequest.of(pageNo, pageSize, sortByAscending);
             Page<User> pagedResult = userRepository.findAll(paging);
-            return pagedResult; 
+            return pagedResult;
         }
-     }
-
-
-
-
-
-    
+    }
 
     @Override
-    public UserView edit(Integer userId,UserForm form) {
+    public UserView edit(Integer userId, UserForm form) {
 
-        User user=userRepository.findById(userId);
+        User user = userRepository.findById(userId);
 
         user.edit(
-            form.getFirstName(),
-            form.getLastName(),
-            form.getDob(),
-            form.getAddress(),
-            form.getPhone(),
-           // form.getRole(), 
-            form.getEmail(),   
-            passwordEncoder.encode(form.getPassword())
-        );
-        return new UserView( userRepository.save(user));
+                form.getFirstName(),
+                form.getLastName(),
+                form.getDob(),
+                form.getAddress(),
+                form.getPhone(),
+                form.getEmail(),
+                passwordEncoder.encode(form.getPassword()));
+        return new UserView(userRepository.save(user));
     }
+
     @Override
     public Collection<User> viewProfile(Integer userId) {
 
@@ -191,51 +207,38 @@ public class UserServiceImpl implements UserService {
 
     }
 
-
-
-
     @Override
-    public UserView updates(Integer userId, UserForm form)  {
+    public UserView updates(Integer userId, UserForm form) {
 
-        User user=userRepository.findById(userId);
+        User user = userRepository.findById(userId);
 
         user.edit(
-            form.getFirstName(),
-            form.getLastName(),
-            form.getDob(),
-            form.getAddress(),
-            form.getPhone(),
-            //form.getRole(), 
-            form.getEmail(),   
-            passwordEncoder.encode(form.getPassword())
-        );
+                form.getFirstName(),
+                form.getLastName(),
+                form.getDob(),
+                form.getAddress(),
+                form.getPhone(),
+                form.getEmail(),
+                passwordEncoder.encode(form.getPassword()));
 
-        return new UserView( userRepository.save(user));
+        return new UserView(userRepository.save(user));
     }
 
-
-    
     @Override
     public void deletes(Integer userId) throws NotFoundException {
         userRepository.delete(
                 userRepository.findById(userId)
-                        
+
         );
 
     }
 
-
-
     @Override
     public Collection getUserById(Integer userId) {
-      
+
         userRepository.findById(userId);
-        return userRepository.findByUserId(userId);              
-    
+        return userRepository.findByUserId(userId);
 
     }
-
-
-
 
 }

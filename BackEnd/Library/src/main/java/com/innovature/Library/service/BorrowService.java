@@ -25,8 +25,6 @@ public interface BorrowService {
 
     BorrowDetailView updates(Integer borrowId, BorrowForm form);
 
-    BorrowDetailView listByUser(Integer borrowId, BorrowForm form);
-
     Collection<BorrowListView> list1();
 
     Collection<Borrow> listNotification();
@@ -36,13 +34,14 @@ public interface BorrowService {
     BorrowDetailView updatereject(Integer borrowId, BorrowForm form);
 
     List<Borrow> getAllBorrows(Integer pageNo, Integer pageSize, String sortBy);
-    Page<Borrow> getAllBorr(Integer pageNo, Integer pageSize, String sortBy,Integer direction);
 
-    Page<Borrow> getAllFine(Integer pageNo, Integer pageSize, String sortBy,Integer direction); //fine
+    Page<Borrow> getAllBorr(Integer pageNo, Integer pageSize, String sortBy, Integer direction);
+
+    Page<Borrow> getAllFine(Integer pageNo, Integer pageSize, String sortBy, Integer direction); // fine
 
     List<Borrow> getAllBorrow(Date date1, Date date2, Integer pageNo, Integer pageSize, String sortBy);
-    Page<Borrow> getAllBor(Date date1, Date date2, Integer pageNo, Integer pageSize, String sortBy,Integer direction);
 
+    Page<Borrow> getAllBor(Date date1, Date date2, Integer pageNo, Integer pageSize, String sortBy, Integer direction);
 
     List<Borrow> getBorrowHistory(Integer pageNo, Integer pageSize, String sortBy);
 
@@ -51,8 +50,6 @@ public interface BorrowService {
     BorrowDetailView undo(Integer borrowId, @Valid BorrowForm form);
 
     Collection<Borrow> listDue();
-
-    void sendMail(Integer userId, String subject, String text);
 
     Collection<Borrow> listDueByUser();
 
@@ -66,14 +63,10 @@ public interface BorrowService {
 
     Integer BorrowBlock();
 
-    Page<Borrow>getAllBorrByStat(Integer pageNo, Integer pageSize, String sortBy,Integer direction,Integer status);
-  
+    Page<Borrow> getAllBorrByStat(Integer pageNo, Integer pageSize, String sortBy, Integer direction, Integer status);
+
     BorrowDetailView updatePaymentStatus(Integer borrowId, BorrowForm form);
 
-    List<Borrow>listcsv();
-
-    // Page<Borrow>getAllBorrowedUserSearch(String keyword, Integer pageNo,Integer pageSize);
-    // public  RentCharView getChart();
-    
+    List<Borrow> listcsv();
 
 }

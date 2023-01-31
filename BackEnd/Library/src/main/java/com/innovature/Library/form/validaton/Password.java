@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-//package com.innovature.HotelManagement.form.validaton;
 package com.innovature.Library.form.validaton;
 import java.lang.annotation.Documented;
 import static java.lang.annotation.ElementType.ANNOTATION_TYPE;
@@ -20,10 +14,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
-/**
- *
- * @author nirmal
- */
+
 @NotNull
 @Size(min = 8, max = 20)
 @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9 \\!\"#\\$%&'\\(\\)\\*\\+,\\-\\.\\/\\:;\\<\\=\\>\\?@\\[\\\\\\]\\^_`\\{\\|\\}~]+$")

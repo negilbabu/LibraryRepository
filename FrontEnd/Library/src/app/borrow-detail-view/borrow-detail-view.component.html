@@ -1,31 +1,65 @@
-<app-sidenav></app-sidenav>    
-<div class="text-center"> 
-    <form>
-      <div class="card-box" >         
-                  <div class="row">
-                    <div class="table-responsive"><br>
-                      <h2 style="text-align:center ;margin-top: 5%;">Borrow Details</h2>
+<app-sidenav></app-sidenav>
+<div class="text-center">
+  <form>
+    <div class="card-box">
+      <div class="row">
+        <div class="table-responsive"><br>
+          <h2 style="text-align:center ;margin-top: 5%;">Borrow Details</h2>
 
- <table align="center"  class=".table-hover" >
-                           
-              <tbody>
-        <tr> 
-    </tr>
-          <tr> <td>NAME </td><td>:</td>         <td>{{this.borrowdata.user.firstName}}</td>
-          <tr> <td>BOOK NAME </td><td>:</td>    <td>{{this.borrowdata.books.booksName}}</td>
-          <tr> <td>ISSUE DATE </td><td>:</td>   <td>{{this.borrowdata.issueDate| date:'dd/MM/yyyy'}}</td>                 
-          <tr> <td>RETURN DATE </td><td>:</td>  <td>{{this.borrowdata.returnDate| date:'dd/MM/yyyy'}}</td>
-          <tr> <td>DUE DATE </td><td>:</td>     <td>{{this.borrowdata.dueDate| date:'dd/MM/yyyy'}}</td>
-          <tr> <td>DUE DAYS </td><td>:</td>     <td>{{this.borrowdata.dueDays}}</td>
-           <tr> <td>FINE (INR) </td><td>:</td>  <td>{{this.borrowdata.fine}}</td>
-          <tr> <td>PAYMENT </td><td>:</td>  <td>{{this.borrowdata.paymentStatus}}</td>
-          <tr> <td>RETURNED DATE </td><td>:</td><td>{{this.borrowdata.bookReturnedDate| date:'dd/MM/yyyy'}}</td>
-          <tr> <td>STATUS </td><td>:</td>       <td>{{this.borrowdata.status}}</td>
-           <tr> <td>Reason</td><td>:</td>       <td>{{this.borrowdata.reason}}</td></tr>
-      
-                            </tbody>
-                        </table>
-                      
-                    </div>
-                </div>
-              </div>
+          <table align="center" class=".table-hover">
+
+            <tbody>
+              <tr>
+              </tr>
+              <tr>
+                <td>NAME </td>
+                <td>:</td>
+                <td>{{this.borrowdata.user.firstName}}</td>
+              <tr>
+                <td>BOOK NAME </td>
+                <td>:</td>
+                <td>{{this.borrowdata.books.booksName}}</td>
+              <tr>
+                <td>ISSUE DATE </td>
+                <td>:</td>
+                <td>{{this.borrowdata.issueDate| date:'dd/MM/yyyy'}}</td>
+              <tr>
+                <td>RETURN DATE </td>
+                <td>:</td>
+                <td>{{this.borrowdata.returnDate| date:'dd/MM/yyyy'}}</td>
+              <tr>
+                <td>DUE DATE </td>
+                <td>:</td>
+                <td>{{this.borrowdata.dueDate| date:'dd/MM/yyyy'}}</td>
+              <tr>
+                <td>DUE DAYS </td>
+                <td>:</td>
+                <td>{{this.borrowdata.dueDays}}</td>
+              <tr>
+                <td>FINE (INR) </td>
+                <td>:</td>
+                <td>{{this.borrowdata.fine}}</td>
+              <tr>
+                <td>PAYMENT </td>
+                <td>:</td>
+                <td>{{this.borrowdata.paymentStatus}}</td>
+              <tr>
+                <td>RETURNED DATE </td>
+                <td>:</td>
+                <td>{{this.borrowdata.bookReturnedDate| date:'dd/MM/yyyy'}}</td>
+              <tr>
+                <td>STATUS </td>
+                <td>:</td>
+                <td>{{this.borrowdata.status}}</td>
+              <tr>
+                <td>Reason</td>
+                <td>:</td>
+                <td>{{this.borrowdata.reason}}</td>
+              </tr>
+
+            </tbody>
+          </table>
+
+        </div>
+      </div>
+    </div>

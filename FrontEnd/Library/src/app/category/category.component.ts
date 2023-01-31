@@ -68,6 +68,7 @@ export class CategoryComponent implements OnInit {
   onSubmit() {
 
     let categoryId = localStorage.getItem("categoryId")
+console.log("cat=",categoryId);
 
     if (categoryId != undefined) {
       this.updateCategory(categoryId)
@@ -92,12 +93,11 @@ export class CategoryComponent implements OnInit {
           window.location.reload();
           }, 1000);
   
-      }
-      
+      }      
       
     },
     error: (Response: any) => {
-      console.log(Response)
+
       if (Response.status == 400) {
         this.toast.warning({ detail: 'Failed', summary: 'Please Fill up the fields', duration: 10000, position: 'tr' })
       }
@@ -140,7 +140,6 @@ export class CategoryComponent implements OnInit {
 
   }
   clear() {
-    localStorage.removeItem('categoryId');
     this.ObjSampleForm.reset()
   }
 

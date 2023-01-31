@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package com.innovature.Library.form;
 
 import java.util.Date;
@@ -14,10 +10,7 @@ import javax.validation.constraints.Size;
 import com.innovature.Library.form.validaton.Password;
 import com.innovature.Library.json.Json.DateFormat;
 
-/**
- *
- * @author nirmal
- */
+
 public class UserForm {
 
     @NotBlank
@@ -47,9 +40,6 @@ public class UserForm {
     @Password
     private String password;
   
-    //@NotBlank
-    //private int role;
-
     public String getFirstName() {
         return firstName;
     }
@@ -89,17 +79,7 @@ public class UserForm {
     public void setPhone(String phone) {
         this.phone = phone;
     }
-
-    // public int getRole() {
-    //     return role;
-    // }
-
-    // public void setRole(int role) {
-    //     this.role = role;
-    // }
-
-    
-    
+     
     public String getEmail() {
         return email;
     }

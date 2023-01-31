@@ -2,22 +2,14 @@ package com.innovature.Library.csv_helper;
 
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.io.BufferedReader;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-
-import javax.mail.Multipart;
 
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
-import org.apache.commons.csv.CSVPrinter;
 import org.apache.commons.csv.CSVRecord;
-import org.apache.commons.csv.QuoteMode;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.innovature.Library.entity.csvUpload;
@@ -29,8 +21,7 @@ public class csvHelper {
     static String[] HEADERs = { "books_name", "publications", "books_author", "booksCopies", "categoryId", "status" };
 
     public static boolean hasCSVFormat(MultipartFile file) {
-        System.out.println(file.getContentType());
-        if (TYPE.equals(file.getContentType()) || file.getContentType().equals("application/vnd.ms-excel")) {
+         if (TYPE.equals(file.getContentType()) || file.getContentType().equals("application/vnd.ms-excel")) {
             return true;
         }
         return false;
@@ -50,7 +41,6 @@ public class csvHelper {
                         Integer.parseInt(csvRecord.get("booksCopies")),
                         Integer.parseInt(csvRecord.get("categoryId")),
                         Integer.parseInt(csvRecord.get("status"))
-                // csvRecord.get("image")
 
                 );
                 csvList.add(csvob);
