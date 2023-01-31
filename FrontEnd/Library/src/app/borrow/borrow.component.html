@@ -193,7 +193,7 @@
 
 
             <!-- Pagenation Controler -->
-            <div class="d-flex justify-content-center">
+            <div class="d-flex justify-content-center" *ngIf="this.data1!=1">
               <pagination-controls (pageChange)="onTableDataChange(page=$event)">
               </pagination-controls>
 

@@ -163,10 +163,10 @@ export class BooksComponent implements OnInit {
           this.dialog.closeAll();
           this.toast.info({ detail: 'Success ', summary: this.ObjSampleForm.controls['booksName'].value + ' Edited Successfully', duration: 5000 });
 
-          setTimeout(() => {
-            this.router.navigate(['/addbooks'])
+          // setTimeout(() => {
+            // this.router.navigate(['/addbooks'])
             window.location.reload()
-          }, 3000);
+          // }, 3000);
         }
 
 

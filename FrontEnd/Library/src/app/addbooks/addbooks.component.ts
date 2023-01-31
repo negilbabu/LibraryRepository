@@ -41,6 +41,7 @@ export class AddbooksComponent implements OnInit {
   result: any;
   booksCount: any;
   direction = -1;
+  noValue=0;
 
   selectedFiles?: FileList;
   currentFile?: File;
@@ -64,6 +65,11 @@ export class AddbooksComponent implements OnInit {
 
     this.booksService.search(key, this.page, this.tableSize, this.sort, this.direction).subscribe(response => {
       this.result = response.content;
+
+      if (this.result.length == 0) {
+        this.noValue = 1;
+        
+      }
       this.data = this.result;
       this.count = response.totalElements;
       this.pkey = this.search.controls['inp'].value;
@@ -158,9 +164,9 @@ export class AddbooksComponent implements OnInit {
       this.toast.error({ detail: 'BOOK DELETED', summary: 'The book ' + booksId.booksName + ' Has DELETED', duration: 5000 });
       this.booksService.delete(booksId.booksId).subscribe({
         next: (res) => {
-          setTimeout(() => {
+         
             this.Load();
-          }, 1000);
+
         },
         error: (msg) => { }
       })
@@ -184,6 +190,7 @@ export class AddbooksComponent implements OnInit {
     this.router.events
       .subscribe(() => {
         this.dialog.closeAll();
+        this.Load();
       });
 
   }

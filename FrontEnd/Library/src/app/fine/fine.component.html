@@ -53,7 +53,7 @@
       
                             </tbody>
                         </table>
-                        <div class="d-flex justify-content-center">
+                        <div class="d-flex justify-content-center" *ngIf="this.data!=1">
                           <pagination-controls (pageChange)="onTableDataChange(page=$event)">
                           </pagination-controls>
                     </div>

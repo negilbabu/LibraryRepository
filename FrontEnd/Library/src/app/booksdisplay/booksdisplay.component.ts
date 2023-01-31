@@ -145,8 +145,12 @@ onTableDataChange(event:any) {
           this.toast.info({detail:'Booking Failed',summary: 'Selected book already rented to you',duration:5000});
         }
         else if(msg.status=400){
+          this.toast.info({detail:'Booking Failed',summary: 'You have already requested this book ',duration:5000});
+        }
+        else if(msg.status=417){
           this.toast.info({detail:'Booking Failed',summary: 'You have 3 books in hand, please return current books ',duration:5000});
         }
+ 
 
         }
       })

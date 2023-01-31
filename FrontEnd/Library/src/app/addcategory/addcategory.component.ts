@@ -97,6 +97,7 @@ export class AddcategoryComponent implements OnInit {
 
       }
     );
+    
 
 
   }
@@ -114,11 +115,12 @@ export class AddcategoryComponent implements OnInit {
 
     );
 
-
     this.LoadCategory();
     // this.ngOnInit();
 
   }
+
+
 
 
 
