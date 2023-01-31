@@ -1,59 +1,31 @@
-<head> 
-  <title>Borrow </title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<style>
-* {
-  box-sizing: border-box;
-}
 
-@media only screen and (max-width: 620px) {
-  /* For mobile phones: */
-  .right {
-    width: 87%;
-
-  }
-
-.mat-dialog-container{
-margin-left: 20%;
-}
-  /* .col-md-6{
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: row;
-  } */
-
-
-}
-</style>
-</head>
-
-
- <form [formGroup]="ObjSampleForm" class="dialog-form"> 
-  <div mat-dialog-content  style="text-align: center; padding-top: 2%;">
-   <p *ngIf="booksId==null"><b>ADD BOOKS</b></p>
-   <p *ngIf="booksId!=null"><b>EDIT BOOKS</b></p>
+<form [formGroup]="ObjSampleForm" class="dialog-form">
+  <div mat-dialog-content style="text-align: center; padding-top: 2%;">
+    <p *ngIf="booksId==null"><b>ADD BOOKS</b></p>
+    <p *ngIf="booksId!=null"><b>EDIT BOOKS</b></p>
   </div>
-   <mat-dialog-content>
- 
+  <mat-dialog-content>
+
 
     <mat-form-field appearance="fill">
-      <mat-select formControlName="categoryId"  placeholder="Select Category">
-         <ng-container>     
-        <mat-option  *ngFor="let category of catdata"   [value]="category.categoryId" (click)="disp(category.categoryId)" >   
-           {{category.categoryName}} </mat-option>
-        </ng-container> 
-       </mat-select>
+      <mat-select formControlName="categoryId" placeholder="Select Category">
+        <ng-container>
+          <mat-option *ngFor="let category of catdata" [value]="category.categoryId"
+            (click)="disp(category.categoryId)">
+            {{category.categoryName}} </mat-option>
+        </ng-container>
+      </mat-select>
     </mat-form-field>
-    
-    
+
+
     <br>
 
-     <mat-form-field>
-       <input formControlName="publication" matInput placeholder="publication" maxlength="30" />
-       <mat-error>This field is mandatory.</mat-error>
-     </mat-form-field>
-<br>
-     <mat-form-field>
+    <mat-form-field>
+      <input formControlName="publication" matInput placeholder="publication" maxlength="30" />
+      <mat-error>This field is mandatory.</mat-error>
+    </mat-form-field>
+    <br>
+    <mat-form-field>
       <input formControlName="booksName" matInput placeholder="booksName" maxlength="30" />
       <mat-error>This field is mandatory.</mat-error>
     </mat-form-field>
@@ -66,41 +38,16 @@ margin-left: 20%;
     <mat-form-field>
       <input formControlName="booksCopies" matInput placeholder="booksCopies" pattern="[0-9]+" type="number" min="0" />
       <mat-error>This field is mandatory.</mat-error>
-      <!-- <mat-error>Numeric values only</mat-error> -->
+
     </mat-form-field>
     <br>
- </mat-dialog-content>
- 
- <div mat-dialog-actions >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-   <button mat-raised-button color="warn" (click)="clear()" type="reset">Clear</button> &nbsp;&nbsp;&nbsp;
-   <button mat-raised-button (click)="onSubmit()" color="primary" [disabled]="ObjSampleForm.invalid"  >Submit</button>
-    
- </div>
- 
-  </form>
- 
+  </mat-dialog-content>
 
+  <div mat-dialog-actions>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <button mat-raised-button color="warn" (click)="clear()" type="reset">Clear</button> &nbsp;&nbsp;&nbsp;
+    <button mat-raised-button (click)="onSubmit()" color="primary" [disabled]="ObjSampleForm.invalid">Submit</button>
 
+  </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+</form>

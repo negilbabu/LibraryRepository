@@ -52,14 +52,13 @@ var:any;
         }
       },
       (error: any) =>{
-      //  if(error.status==500){
+       if(error.status==409){
         this.toast.error({detail:'User Registration Failed',summary:'Email Already Registered',duration:5000});
-        // this.ObjSampleForm.reset()
-        setTimeout(() => {
-          // window.location.reload()       
-        }, 1500);
-      // }
-        
+        }
+        else if(error.status==400){
+          this.toast.error({detail:'User Registration Failed',summary:'FILL UP ALL FIELDS',duration:5000});
+          }
+  
       });    
       
       

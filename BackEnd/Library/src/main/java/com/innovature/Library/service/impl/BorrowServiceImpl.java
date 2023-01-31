@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 
-
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -26,6 +25,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import com.innovature.Library.entity.Books;
 import com.innovature.Library.entity.Borrow;
 import com.innovature.Library.entity.User;
+import com.innovature.Library.exception.ConflictException;
 import com.innovature.Library.form.BorrowForm;
 import com.innovature.Library.repository.BooksRepository;
 import com.innovature.Library.repository.BorrowRepository;
@@ -37,11 +37,10 @@ import com.innovature.Library.view.BorrowDetailView;
 import com.innovature.Library.view.BorrowListView;
 import com.innovature.Library.view.rentChartView;
 
-
+import com.innovature.Library.exception.expectationFailedException;
 
 @Service
 public class BorrowServiceImpl implements BorrowService {
-
 
     @Autowired
     private JavaMailSender mailSender;
@@ -55,16 +54,41 @@ public class BorrowServiceImpl implements BorrowService {
     @Autowired
     UserRepository userRepository;
 
-  
+    private static ConflictException conflictException() {
+        return new ConflictException("Book Already Rented to you");
+    }
+
+    private static expectationFailedException expectationFailedException() {
+        return new expectationFailedException("Invalid username or password");
+    }
 
     @Override
     public BorrowDetailView add(BorrowForm form) {
         Books books = booksRepository.findByBooksId(form.getBooksId());
         User user = userRepository.findById(SecurityUtil.getCurrentUserId());
- 
 
-        return new BorrowDetailView(borrowRepository.save(new Borrow(books, user)));
+        Integer inHand = borrowRepository.findbyUserIdAndStatus(SecurityUtil.getCurrentUserId());
 
+        if (inHand > 3) {
+
+            throw expectationFailedException();
+        } else {
+
+            Integer stat = borrowRepository.borrowBlockByBook(books, user);
+
+            if (stat >= 1) {
+
+                throw conflictException();
+            } else
+                return new BorrowDetailView(borrowRepository.save(new Borrow(books, user)));
+        }
+
+    }
+
+    @Override
+    public Integer BorrowBlock() {
+
+        return borrowRepository.findbyUserIdAndStatus(SecurityUtil.getCurrentUserId());
     }
 
     @Override
@@ -87,19 +111,10 @@ public class BorrowServiceImpl implements BorrowService {
         return borrowRepository.findbyUserIdandStatus(SecurityUtil.getCurrentUserId());
     }
 
-  
-
     @Override
     public Borrow BorrowDetail(Integer borrowId) {
 
         return borrowRepository.findByBorrowId(borrowId);
-    }
-
-    /////////////////////////////////////////////////////////////////////////////////////////////
-    @Override
-    public Integer BorrowBlock() {
-
-        return borrowRepository.findbyUserIdAndStatus(SecurityUtil.getCurrentUserId());
     }
 
     @Override
@@ -161,9 +176,6 @@ public class BorrowServiceImpl implements BorrowService {
         Books books = booksRepository.findbyBorrowId(borrowId);
 
         borrow.setBookReturnedDate(LocalDateTime.now());
-        // borrow.setIssueDate(borrow.getIssueDate());
-        // borrow.setReturnDate(borrow.getReturnDate());
-        // borrow.setDueDate(borrow.getDueDate());
         borrow.setStatus("RETURNED");
         borrow.setBookReturnedDate(borrow.getBookReturnedDate());
         books.setBooksCopies(books.getBooksCopies() + 1);
@@ -183,12 +195,6 @@ public class BorrowServiceImpl implements BorrowService {
         return new BorrowDetailView(borrowRepository.save(borrow));
     }
 
-    @Override
-    public BorrowDetailView listByUser(Integer borrowId, BorrowForm form) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
     /// pagenation and sort///
     @Override
     @Transactional
@@ -206,13 +212,11 @@ public class BorrowServiceImpl implements BorrowService {
         }
     }
 
-    //////////////////////////////////
     @Override
     @Transactional
     public Page<Borrow> getAllBor(java.sql.Date date1, java.sql.Date date2, Integer pageNo, Integer pageSize,
             String sortBy, Integer direction) {
 
- 
         var sortByDescending = Sort.by(sortBy).descending();
         var sortByAscending = Sort.by(sortBy).ascending();
 
@@ -228,8 +232,6 @@ public class BorrowServiceImpl implements BorrowService {
             Page<Borrow> pagedResult = borrowRepository.findbyIssuDat(date1, date2, paging);
             return pagedResult;
         }
-
- 
 
     }
 
@@ -269,12 +271,8 @@ public class BorrowServiceImpl implements BorrowService {
             Page<Borrow> pagedResult = borrowRepository.findAll(paging);
             return pagedResult;
         }
-  
 
     }
-
-
-
 
     @Override
     @Transactional
@@ -317,18 +315,15 @@ public class BorrowServiceImpl implements BorrowService {
             Page<Borrow> pagedResult = borrowRepository.findbyBorrowIdandDueDateandStatus(paging);
             return pagedResult;
         }
-  
 
     }
-
-
 
     @Override
     @Transactional
     // @Scheduled(cron="* */1 * * * * ")
-     @Scheduled(cron = "0 0 12 * * ?")
+    @Scheduled(cron = "0 0 12 * * ?")
     public void sendMails() {
-    
+
         Collection<Borrow> borrow = borrowRepository.findbyBorrowIdandStatus();
         for (Borrow bor : borrow) {
             User user = userRepository.findById(bor.getUser().getUserId()); // fetching uid from user
@@ -346,20 +341,14 @@ public class BorrowServiceImpl implements BorrowService {
     }
 
     @Override
-    public void sendMail(Integer userId, String subject, String text) {
-        // TODO Auto-generated method stub
-    }
-
-
-    @Override
     @Transactional
     // @Scheduled(cron="* */1 * * * * ")
     @Scheduled(cron = "0 0 10 * * ?")
-    public void fineGeneration() {   
+    public void fineGeneration() {
 
         Collection<Borrow> borrow = borrowRepository.findbyBorrowId();
         for (Borrow bor : borrow) {
-        
+
             Date d = new Date();
             Long due = d.getTime() - bor.getDueDate().getTime(); // date conversion to time
             due = due / 86400000; // time conversion to date
@@ -389,10 +378,9 @@ public class BorrowServiceImpl implements BorrowService {
         List<Borrow> s = borrowRepository.findAllL7();
 
         for (Borrow a : s) {
-            if(a.getIssueDate()!=null) {
-            
+            if (a.getIssueDate() != null) {
+
                 LocalDateTime b = a.getIssueDate();
-             
 
                 hm.put(b.getDayOfWeek().getValue(), new Result(hm.get(b.getDayOfWeek().getValue()).getIssueCount() + 1,
                         hm.get(b.getDayOfWeek().getValue()).getReturnedCount()));
@@ -445,7 +433,8 @@ public class BorrowServiceImpl implements BorrowService {
 
     @Override
     @Transactional
-    public Page<Borrow> getAllBorrByStat(Integer pageNo, Integer pageSize, String sortBy, Integer direction,Integer status) {
+    public Page<Borrow> getAllBorrByStat(Integer pageNo, Integer pageSize, String sortBy, Integer direction,
+            Integer status) {
 
         var sortByDescending = Sort.by(sortBy).descending();
 
@@ -483,19 +472,16 @@ public class BorrowServiceImpl implements BorrowService {
             Page<Borrow> pagedResult = borrowRepository.findByRejStatusUser(SecurityUtil.getCurrentUserId(), paging);
             return pagedResult;
 
-        } 
-        else if (direction == -1 && status == 3) {
+        } else if (direction == -1 && status == 3) {
             Pageable paging = PageRequest.of(pageNo, pageSize, sortByAscending);
             Page<Borrow> pagedResult = borrowRepository.findByRetStatusUser(SecurityUtil.getCurrentUserId(), paging);
             return pagedResult;
-            
-        }
-         else if (direction == -1 && status == 4) {
+
+        } else if (direction == -1 && status == 4) {
             Pageable paging = PageRequest.of(pageNo, pageSize, sortByAscending);
             Page<Borrow> pagedResult = borrowRepository.findByReqStatusUser(SecurityUtil.getCurrentUserId(), paging);
             return pagedResult;
-        } 
-        else {
+        } else {
             return null;
         }
     }
@@ -505,7 +491,6 @@ public class BorrowServiceImpl implements BorrowService {
     public BorrowDetailView updatePaymentStatus(Integer borrowId, BorrowForm form) {
 
         Borrow borrow = borrowRepository.findByBorrowId(borrowId);
-     
 
         borrow.setPaymentStatus("PAID");
         return new BorrowDetailView(borrowRepository.save(borrow));
@@ -515,13 +500,5 @@ public class BorrowServiceImpl implements BorrowService {
     public List<Borrow> listcsv() {
         return borrowRepository.findAllC();
     }
-
-
-
-
-
-
-
-
 
 }

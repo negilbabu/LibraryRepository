@@ -34,8 +34,6 @@ public class EmailServiceImpl implements EmailService {
     @Autowired
     private UserRepository userRepository;
 
-
-
     @Override
     public ResponseEntity add(OtpForm form) {
 
@@ -49,63 +47,33 @@ public class EmailServiceImpl implements EmailService {
 
             if (exp < 181) {
 
-                return new ResponseEntity(null,HttpStatus.ACCEPTED);
+                return new ResponseEntity(null, HttpStatus.ACCEPTED);
 
             }
-            //otp expiry
-            return new ResponseEntity(null,HttpStatus.GATEWAY_TIMEOUT);
+            // otp expiry
+            return new ResponseEntity(null, HttpStatus.GATEWAY_TIMEOUT);
 
         }
-        return new ResponseEntity(null,HttpStatus.NOT_ACCEPTABLE);
-}
+        return new ResponseEntity(null, HttpStatus.NOT_ACCEPTABLE);
+    }
 
+   
+    @Override
+    public boolean addPassword(OtpForm form) {
 
-//     @Override
-//     public boolean add(OtpForm form) {
+        User user = userRepository.findByEmailId(form.getEmail());
 
-//         Email otp = emailRepository.findByEmail(form.getEmail());
+        if (form.getNewPassword().equals(form.getCnewPassword()))
 
-//         LocalTime myObj = LocalTime.now();
+        {
 
-//         var exp = otp.getExpiry().until(myObj, ChronoUnit.SECONDS);
+            user.setPassword(passwordEncoder.encode(form.getNewPassword()));
+            userRepository.save(user);
+            return true;
+        }
+        return false;
 
-//         if ((form.getOtp().equals(otp.getOtp()))) {
-
-//             if (exp < 181) {
-
-//                 return true;
-
-//             }
-//             return false;
-
-//         }
-//         return false;
-// }
-
-
-
-
-@Override
-public boolean addPassword(OtpForm form) {
-
-    User user = userRepository.findByEmailId(form.getEmail());
-
-
-            if (form.getNewPassword().equals(form.getCnewPassword()))
-
-            {
-
-                user.setPassword(passwordEncoder.encode(form.getNewPassword()));
-                userRepository.save(user);
-                return true;
-            }
-            return false;
-
-   }
-
-
-
-
+    }
 
     @Override
     public boolean sendEmail(String subject, String message, String to) {

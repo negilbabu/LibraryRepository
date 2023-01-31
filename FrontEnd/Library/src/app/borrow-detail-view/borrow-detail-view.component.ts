@@ -11,30 +11,31 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class BorrowDetailViewComponent implements OnInit {
 
-  borrowId:any;
-  borrowdata:any;
-  booksdata:any;
+  borrowId: any;
+  borrowdata: any;
+  booksdata: any;
 
-  constructor(private router:Router ,
+  constructor(private router: Router,
     private route: ActivatedRoute,
-    private service:BorrowService,
-    private booksService:BooksService) { 
+    private service: BorrowService,
+    private booksService: BooksService) {
 
   }
 
-    ngOnInit(): void {  
-      this.borrowId = this.route.snapshot.params['id'];
-    this.LoadBorrow(this.borrowId) 
+  ngOnInit(): void {
+    this.borrowId = this.route.snapshot.params['id'];
+    this.LoadBorrow(this.borrowId)
 
-    }
+  }
 
-    LoadBorrow(borrow:any){
-      this.service.LoadBorrowDetailView(borrow).subscribe((data)=>{
-      this.borrowdata=data;
-     
-      ;});
-      
-}
+  LoadBorrow(borrow: any) {
+    this.service.LoadBorrowDetailView(borrow).subscribe((data) => {
+      this.borrowdata = data;
+
+      ;
+    });
+
+  }
 
 
 }

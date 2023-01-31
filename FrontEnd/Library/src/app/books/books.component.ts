@@ -100,10 +100,15 @@ export class BooksComponent implements OnInit {
           this.router.navigate(['/imageupload'])
           this.displayStyle = "none";
         }
-        else {
-          this.toast.error({ detail: 'Invalid', summary: 'Add new Book Failed', duration: 5000 });
+ 
+      },
+        (error: any) => {
+          if (error.status == 400) {
+            this.toast.error({ detail: 'Books add Failed', summary: 'Fill Up the Fields', duration: 5000 });
+          }
         }
-      })
+
+      )
 
     }
   }
@@ -124,7 +129,7 @@ export class BooksComponent implements OnInit {
           this.ObjSampleForm.controls['booksName'].setValue(res.booksName)
           this.ObjSampleForm.controls['auther'].setValue(res.auther)
           this.ObjSampleForm.controls['booksCopies'].setValue(res.booksCopies)
-   
+
 
         },
         error: (msg) => { }

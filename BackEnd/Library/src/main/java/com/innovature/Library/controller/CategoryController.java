@@ -41,12 +41,10 @@ public class CategoryController {
         return service.listAll();
     }
 
-
     @PostMapping
     public CategoryDetailView add(@Valid @RequestBody CategoryForm form, Errors errors) {
-        return service.add(form,errors);
+        return service.add(form, errors);
     }
-
 
     @DeleteMapping("/{catogoryId}")
     public void deletes(
@@ -54,40 +52,31 @@ public class CategoryController {
         service.deletes(catogoryId);
     }
 
-
     @PutMapping("/{catogoryId}")
     public CategoryDetailView update(
             @PathVariable("catogoryId") Integer catogoryId,
-            @Valid @RequestBody CategoryForm form
-    ) {
+            @Valid @RequestBody CategoryForm form) {
         return service.updates(catogoryId, form);
     }
 
-
     @GetMapping("/{catogoryId}")
     public CategoryDetailView list(
-        @PathVariable("catogoryId") Integer catogoryId
-      
-    ) 
-     {
+            @PathVariable("catogoryId") Integer catogoryId
+
+    ) {
         return service.list(catogoryId);
     }
 
     @GetMapping("admin/pagenated/")
-    public ResponseEntity<Page<Category>>getAllCategory(
-                        @RequestParam(defaultValue = "1") Integer pageNo,
-                        @RequestParam(defaultValue = "10") Integer pageSize,
-                        @RequestParam(defaultValue = "categoryId") String sortBy,
-                        @RequestParam(defaultValue = "1") Integer direction)
-    {
-        Page<Category> list = service.getAllCategory(pageNo-1, pageSize, sortBy,direction);
-        return new ResponseEntity<Page<Category>>(list,new HttpHeaders(),
-        HttpStatus.OK);
+    public ResponseEntity<Page<Category>> getAllCategory(
+            @RequestParam(defaultValue = "1") Integer pageNo,
+            @RequestParam(defaultValue = "10") Integer pageSize,
+            @RequestParam(defaultValue = "categoryId") String sortBy,
+            @RequestParam(defaultValue = "1") Integer direction) {
+        Page<Category> list = service.getAllCategory(pageNo - 1, pageSize, sortBy, direction);
+        return new ResponseEntity<Page<Category>>(list, new HttpHeaders(),
+                HttpStatus.OK);
 
     }
-
-
-  
-   
 
 }

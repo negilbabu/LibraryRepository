@@ -8,10 +8,7 @@ package com.innovature.Library.exception;
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
 import org.springframework.web.server.ResponseStatusException;
 
-/**
- *
- * @author nirmal
- */
+
 public class BadRequestException extends ResponseStatusException {
 
     public BadRequestException() {

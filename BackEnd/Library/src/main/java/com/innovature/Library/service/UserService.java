@@ -1,13 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.innovature.Library.service;
 
 import java.util.Collection;
 
-//import javax.validation.Valid;
 
 import org.springframework.data.domain.Page;
 import org.springframework.validation.Errors;
@@ -19,13 +13,10 @@ import com.innovature.Library.form.UserForm;
 import com.innovature.Library.view.LoginView;
 import com.innovature.Library.view.UserView;
 
-/**
- *
- * @author nirmal
- */
+
 public interface UserService {
 
-    UserView add(UserForm form);
+    UserView add(UserForm form,Errors errors);
 
     UserView currentUser();
 

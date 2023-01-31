@@ -1,4 +1,5 @@
 package com.innovature.Library.view;
+
 import java.util.Date;
 
 import com.innovature.Library.entity.User;
@@ -13,7 +14,6 @@ public class UserListView {
     private final String phone;
     private final String email;
     private final int role;
-    
 
     private final short status;
     @Json.DateFormat
@@ -26,65 +26,33 @@ public class UserListView {
     public UserListView(User user) {
         this.userId = user.getUserId();
         this.firstName = user.getFirstName();
-        this.lastName=user.getLastName();
-        this.dob=user.getDob();
-        this.address=user.getAddress();
-        this.phone=user.getPhone();
+        this.lastName = user.getLastName();
+        this.dob = user.getDob();
+        this.address = user.getAddress();
+        this.phone = user.getPhone();
         this.email = user.getEmail();
-        this.role=user.getRole();
+        this.role = user.getRole();
         this.status = user.getStatus();
         this.createDate = user.getCreateDate();
         this.updateDate = user.getUpdateDate();
     }
 
-
- 
-
-    // public UserListView(String firstName, String lastName, String address2, Date dob2, String phone2, int role2) {
-    
-    //     //this.userId = user.getUserId();
-    //     this.firstName = firstName;
-    //     this.lastName=lastName;
-    //     this.dob=dob2;
-    //     this.address=address2;
-    //     this.phone=phone2;
-    //     this.email = user.getEmail();
-    //     this.role=user.getRole();
-    //     this.status = user.getStatus();
-    //     this.createDate = user.getCreateDate();
-    //     this.updateDate = user.getUpdateDate();
-    
-    
-    // }
-
-
-
-
-    public UserListView(Integer userId,String firstName, String lastName, String address2, Date dob2, String phone2, int role2,
-            Date createDate2, Date updateDate2, String email2,byte status) {
+    public UserListView(Integer userId, String firstName, String lastName, String address2, Date dob2, String phone2,
+            int role2,
+            Date createDate2, Date updateDate2, String email2, byte status) {
 
         this.userId = userId;
         this.firstName = firstName;
-        this.lastName=lastName;
-        this.dob=dob2;
-        this.address=address2;
-        this.phone=phone2;
+        this.lastName = lastName;
+        this.dob = dob2;
+        this.address = address2;
+        this.phone = phone2;
         this.email = email2;
-        this.role=role2;
+        this.role = role2;
         this.status = status;
         this.createDate = createDate2;
         this.updateDate = updateDate2;
     }
-
-
-
-
-    // public UserListView(Integer userId2, String firstName2, String lastName2, String address2, Date dob2, String phone2,
-    //         int role2, Date createDate2, Date updateDate2, String email2, byte status2) {
-    // }
-
-
-
 
     public int getRole() {
         return role;
@@ -130,5 +98,4 @@ public class UserListView {
         return updateDate;
     }
 
-    
 }

@@ -8,7 +8,6 @@ import { LoginComponent } from './login/login.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BodyComponent } from './body/body.component';
 
-//import { ModalComponent } from './modal/modal.component';
 import {MatDialogConfig, MatDialogModule, MAT_DIALOG_DEFAULT_OPTIONS,} from '@angular/material/dialog';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { DatePipe, provideCloudflareLoader } from '@angular/common';
@@ -29,12 +28,10 @@ import { FindbyCategoryComponent } from './findby-category/findby-category.compo
 import { NgToastModule } from 'ng-angular-popup';
 import { RejectrequestComponent } from './rejectrequest/rejectrequest.component';
 import { NotificationComponent } from './notification/notification.component';
-import { BookreturnComponent } from './bookreturn/bookreturn.component';
 import { ViewAdminprofileComponent } from './view-adminprofile/view-adminprofile.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatGridListModule } from '@angular/material/grid-list';
 
-// import { MatIconModule, MatToolbarModule, MatTooltipModule } from '@angular/material';
 import { MatListModule } from '@angular/material/list';
 import {MatIconModule} from '@angular/material/icon';
 import { ImageuploadComponent } from './imageupload/imageupload.component';
@@ -63,11 +60,6 @@ import {MatTableModule} from '@angular/material/table';
 import { PageNotfoundComponent } from './page-notfound/page-notfound.component';
 
 
-//  import {MatIconModule} from '@angular/material/icon';
-// import { MatToolbarModule } from '@angular/material';
-// import {MatTooltipModule} from '@angular/material/tooltip';
-// import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-// import { ImageUpComponent } from './image-up/image-up.component';
 
 
 @NgModule({
@@ -88,7 +80,6 @@ import { PageNotfoundComponent } from './page-notfound/page-notfound.component';
     FindbyCategoryComponent,
     RejectrequestComponent,
     NotificationComponent,
-    BookreturnComponent,
     ViewAdminprofileComponent,
     ImageuploadComponent,
     FineComponent,
@@ -105,9 +96,7 @@ import { PageNotfoundComponent } from './page-notfound/page-notfound.component';
     HomepageComponent,
     UserDetailviewComponent,
     PageNotfoundComponent,
-    // Chart
-    
-  //  ModalComponent
+
     
 
   ],
@@ -132,15 +121,8 @@ import { PageNotfoundComponent } from './page-notfound/page-notfound.component';
     MatGridListModule,
     MatTableModule
     
-    // Chart
-    
 
-   ///MatIconModule,
-    // MatToolbarModule,
-    // MatTooltipModule,
-    //BrowserAnimationsModule
   ],
-  // ,{provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: false}}
   providers: [ {provide:HTTP_INTERCEPTORS,useClass:TokenInterceptorService,multi:true},[HomeguardGuard, GuardserviceService],[DatePipe] ],
   bootstrap: [AppComponent],
   entryComponents:[CategoryComponent,DemoComponent],

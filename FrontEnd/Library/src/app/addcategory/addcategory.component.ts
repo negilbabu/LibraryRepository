@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CategoryComponent } from '../category/category.component';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { CategoryService } from '../category.service';
 import { NgToastService } from 'ng-angular-popup';
@@ -104,7 +104,7 @@ export class AddcategoryComponent implements OnInit {
   editCategory(categoryId: any) {
 
     localStorage.setItem('categoryId', categoryId);
-
+    const dialogConfig = new MatDialogConfig();
     this.dialog.open(CategoryComponent,
       {
         closeOnNavigation: true,

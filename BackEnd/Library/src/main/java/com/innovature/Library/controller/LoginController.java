@@ -19,7 +19,7 @@ import com.innovature.Library.view.UserView;
 @RestController
 @RequestMapping("/login")
 public class LoginController {
-    
+
     @Autowired
     private UserService userService;
 
@@ -37,5 +37,5 @@ public class LoginController {
     public LoginView refresh(@RequestBody String refreshToken) {
         return userService.refresh(refreshToken);
     }
-    
+
 }
