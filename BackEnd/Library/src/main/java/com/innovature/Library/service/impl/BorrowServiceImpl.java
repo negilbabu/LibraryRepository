@@ -25,6 +25,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import com.innovature.Library.entity.Books;
 import com.innovature.Library.entity.Borrow;
 import com.innovature.Library.entity.User;
+import com.innovature.Library.exception.BadRequestException;
 import com.innovature.Library.exception.ConflictException;
 import com.innovature.Library.form.BorrowForm;
 import com.innovature.Library.repository.BooksRepository;
@@ -61,6 +62,9 @@ public class BorrowServiceImpl implements BorrowService {
     private static expectationFailedException expectationFailedException() {
         return new expectationFailedException("Invalid username or password");
     }
+    private static BadRequestException badRequestException() {
+        return new BadRequestException("Invalid credentials");
+    }
 
     @Override
     public BorrowDetailView add(BorrowForm form) {
@@ -68,18 +72,26 @@ public class BorrowServiceImpl implements BorrowService {
         User user = userRepository.findById(SecurityUtil.getCurrentUserId());
 
         Integer inHand = borrowRepository.findbyUserIdAndStatus(SecurityUtil.getCurrentUserId());
-
+      
         if (inHand > 3) {
 
             throw expectationFailedException();
-        } else {
+        } 
+                              
+        else {
 
             Integer stat = borrowRepository.borrowBlockByBook(books, user);
+            Integer status = borrowRepository.borrowBlockByRequestedStatus(books, user);
 
             if (stat >= 1) {
 
                 throw conflictException();
-            } else
+            } 
+            else if(status >=1){
+                throw badRequestException();
+            }
+            
+            else
                 return new BorrowDetailView(borrowRepository.save(new Borrow(books, user)));
         }
 

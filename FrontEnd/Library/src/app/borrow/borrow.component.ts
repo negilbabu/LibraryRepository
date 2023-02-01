@@ -78,16 +78,6 @@ export class BorrowComponent implements OnInit {
 
   })
 
-
-
-
-
-
-
-
-
-
-
   disp1() {
 
     if (this.filter.controls['status'].value == 1) {
@@ -212,7 +202,9 @@ export class BorrowComponent implements OnInit {
 
   clearFilter() {
     this.flag = 0;
-    window.location.reload();
+    // window.location.reload();
+    this.ObjSampleForm.reset();
+    this.LoadData();
   }
 
 

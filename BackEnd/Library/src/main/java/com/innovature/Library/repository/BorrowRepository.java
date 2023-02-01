@@ -79,8 +79,16 @@ public interface BorrowRepository extends PagingAndSortingRepository<Borrow, Int
   @Query(value = "select count(user_id) from borrow where status='APPROVED' and user_id=?1", nativeQuery = true)
   Integer findbyUserIdAndStatus(Integer userId);
 
-  @Query(value = "select count(borrow_id) from borrow where borrow_id in(select borrow_id from borrow where books_id=?1 and status='APPROVED' and user_id=?2)", nativeQuery = true)
+  @Query(value = "select count(user_id) from borrow where status='REQUESTED' and user_id=?1", nativeQuery = true)
+  Integer findbyUserIdAndStat(Integer userId);
+
+  //borrow block to restrict user to request same boook
+  @Query(value = "select count(borrow_id) from borrow where borrow_id in(select borrow_id from borrow where books_id=?1 and status='APPROVED'  and user_id=?2)", nativeQuery = true)
   Integer borrowBlockByBook(Books booksId, User userId);
+
+    //borrow block to restrict user to request same boook
+    @Query(value = "select count(borrow_id) from borrow where borrow_id in(select borrow_id from borrow where books_id=?1 and status='REQUESTED'   and user_id=?2)", nativeQuery = true)
+    Integer borrowBlockByRequestedStatus(Books booksId, User userId);
 
   // @Query(value = "SELECT * FROM borrow",nativeQuery = true)
   // filter by approved in ADMIN SIDE

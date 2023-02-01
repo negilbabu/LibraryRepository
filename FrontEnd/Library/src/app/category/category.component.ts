@@ -26,6 +26,23 @@ export class CategoryComponent implements OnInit {
   test: any;
 
 
+  categorydata: any;
+
+
+  page: number = 1;
+  count: any;
+  tableSize: number = 5;
+  a: any;
+  b: any;
+
+  sort: string = "categoryId";
+  sort1: string = "categoryName";
+  len: any;
+  result: any;
+  booksCount: any;
+  direction = -1;
+  category_id: any;
+  category_name: any;
   ObjSampleForm: FormGroup;
 
   constructor(
@@ -63,7 +80,7 @@ export class CategoryComponent implements OnInit {
 
   }
 
-  categorydata: any;
+
 
   onSubmit() {
 
@@ -107,9 +124,18 @@ console.log("cat=",categoryId);
 
     }
   })
-
+this.LoadCategory();
   }
 
+  LoadCategory() {
+    this.service.CatPageAdmin(this.page, this.tableSize, this.sort, this.direction).subscribe(result => {
+      this.result = result.content;
+      this.count = result.totalElements
+      this.data = this.result;
+      this.categorydata = this.result;
+    });
+
+  }
 
   updateCategory(categoryId: any) {
     let body = {
@@ -120,21 +146,21 @@ console.log("cat=",categoryId);
       next: (Response: any) => {
 
         this.toast.success({ detail: 'Success', summary: 'The Category - ' + Response.categoryName + ' Edited', duration: 5000 });
-        setTimeout(() => {
+        // setTimeout(() => {
      
-        this.router.navigate(['/addcategory'])
+        // this.router.navigate(['/addcategory'])
         this.dialog.closeAll();
         window.location.reload();
-        }, 1000);
+        // }, 1000);
 
       },
       error: (Response: any) => {
-        console.log(Response)
         alert("invalid Category credentials")
       }
     })
 
-    
+        this.router.navigate(['/addcategory'])
+    this.LoadCategory();
     localStorage.removeItem('categoryId');
 
 
