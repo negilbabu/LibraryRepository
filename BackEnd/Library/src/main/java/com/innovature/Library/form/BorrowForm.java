@@ -1,12 +1,16 @@
 package com.innovature.Library.form;
-
+import javax.persistence.Column;
+import javax.validation.constraints.Size;
 import java.sql.Date;
 
 public class BorrowForm {
 
     private Date returnDate;
     private Date dueDate;
+
+    @Column(name = "booksId", nullable = false)
     private Integer booksId;
+    @Size(max = 1000)
     private String reason;
     private Date startDate;
     private Date endDate;

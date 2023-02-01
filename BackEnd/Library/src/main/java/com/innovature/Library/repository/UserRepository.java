@@ -32,6 +32,9 @@ public interface UserRepository extends Repository<User, Integer> {
 
     public Page<User> findAll(Pageable paging);
 
+    @Query(value = "select * from user where role=2", nativeQuery = true)
+    public Page<User> findAUser(Pageable paging);
+
     @Query(value = "SELECT * FROM user WHERE email=?", nativeQuery = true)
     User findByEmailId(String email);
 

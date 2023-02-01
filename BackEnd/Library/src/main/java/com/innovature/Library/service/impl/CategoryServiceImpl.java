@@ -50,6 +50,22 @@ public class CategoryServiceImpl implements CategoryService {
         return categoryRepository.findAll();
     }
 
+    // @Override
+    // public boolean deletes(Integer categoryId,Errors errors) throws NotFoundException {
+    //     boolean val= categoryRepository.delete(categoryRepository.findByCategoryId(categoryId));
+    //     System.out.println("....................................."+val);
+    //     if(val){
+    //         throw badRequestException();
+    //         // return true;
+    //     }
+    //     else{
+    //         throw badRequestException();
+    //     }
+            
+      
+
+    // }
+
     @Override
     public void deletes(Integer categoryId) throws NotFoundException {
         categoryRepository.delete(

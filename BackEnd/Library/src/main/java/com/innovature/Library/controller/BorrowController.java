@@ -72,9 +72,8 @@ public class BorrowController {
             @RequestParam(defaultValue = "borrowId") String sortBy,
             @RequestParam(defaultValue = "1") Integer direction,
             @RequestParam(defaultValue = "1") Integer status) {
-        Page<Borrow> list = bService.getAllBorrByStat(pageNo - 1, pageSize, sortBy, direction, status);
-        return new ResponseEntity<Page<Borrow>>(list, new HttpHeaders(),
-                HttpStatus.OK);
+        Page<Borrow> list = bService.getAllBorrByStatus(pageNo - 1, pageSize, sortBy, direction, status);
+        return new ResponseEntity<Page<Borrow>>(list, new HttpHeaders(),HttpStatus.OK);
 
     }
 

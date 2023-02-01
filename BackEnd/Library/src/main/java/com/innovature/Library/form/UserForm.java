@@ -5,6 +5,7 @@ import java.util.Date;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 import com.innovature.Library.form.validaton.Password;
@@ -22,21 +23,24 @@ public class UserForm {
     private String lastName;
 
     
+    // @NotBlank
     @DateFormat
     private Date dob;
 
     @NotBlank
-    @Size(min = 1)
+    @Size(max = 255)
     private String address;
 
     @NotBlank
-    @Size(min = 5)
+    @Size(min = 10,max = 11)
+    @Pattern(regexp="[0-9]+",message="length must be 10")  
     private String phone;
 
     @NotBlank
     @Size(max = 255)
     @Email
     private String email;
+
     @Password
     private String password;
   

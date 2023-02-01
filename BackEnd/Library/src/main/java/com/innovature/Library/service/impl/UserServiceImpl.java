@@ -55,19 +55,24 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserView add(UserForm form, Errors errors) {
-        var data1 = form.getFirstName();
-        var data2 = form.getLastName();
-        var data3 = form.getAddress();
-        var data4 = form.getDob();
-        var data5 = form.getEmail();
-        var data6 = form.getPhone();
-        var data7 = form.getPassword();
+        // var data1 = form.getFirstName();
+        // var data2 = form.getLastName();
+        // var data3 = form.getAddress();
+        // var data4 = form.getDob();
+        // var data5 = form.getEmail();
+        // var data6 = form.getPhone();
+        // var data7 = form.getPassword();
 
-        if ("".equals(data1) || "".equals(data2) || "".equals(data3) || data4 == null || "".equals(data5) ||
-                "".equals(data6) || "".equals(data7)) {
+        // if ("".equals(data1) || "".equals(data2) || "".equals(data3) || data4 == null || "".equals(data5) ||
+        //         "".equals(data6) || "".equals(data7)) {
+        //     throw badRequestException();
+        // }
+
+        if (errors.hasErrors()) {
             throw badRequestException();
-        }
-
+        } 
+        else{
+        
         User email = userRepository.findByEmailId(form.getEmail());
 
         if (email == null) {
@@ -84,7 +89,8 @@ public class UserServiceImpl implements UserService {
             throw conflictException();
         } else
             return null;
-
+    
+        }
     }
 
     @Override
@@ -173,13 +179,13 @@ public class UserServiceImpl implements UserService {
         if (direction == 1) {
 
             Pageable paging = PageRequest.of(pageNo, pageSize, sortByDescending);
-            Page<User> pagedResult = userRepository.findAll(paging);
+            Page<User> pagedResult = userRepository.findAUser(paging);
             return pagedResult;
         }
 
         else {
             Pageable paging = PageRequest.of(pageNo, pageSize, sortByAscending);
-            Page<User> pagedResult = userRepository.findAll(paging);
+            Page<User> pagedResult = userRepository.findAUser(paging);
             return pagedResult;
         }
     }

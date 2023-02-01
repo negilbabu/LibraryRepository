@@ -18,6 +18,8 @@ public interface CategoryService {
 
     void deletes(Integer catogoryId);
 
+    // boolean deletes(Integer catogoryId,Errors errors);
+
     CategoryDetailView updates(Integer categoryId, CategoryForm form);
 
     Page<Category> getAllCategory(Integer pageNo, Integer pageSize, String sortBy, Integer direction);

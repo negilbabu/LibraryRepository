@@ -98,7 +98,7 @@ public interface BorrowRepository extends PagingAndSortingRepository<Borrow, Int
   // @Query(value = "select * from borrow where issue_date between
   // date_sub(curdate(),interval 7 day) and curdate()",nativeQuery = true)
 
-  // filter by approved
+  // filter by approved @userside
   @Query(value = "select * from borrow where  status='APPROVED' and user_id=?", nativeQuery = true)
   public Page<Borrow> findByAppStatusUser(Integer userId, Pageable paging);
 
@@ -113,6 +113,23 @@ public interface BorrowRepository extends PagingAndSortingRepository<Borrow, Int
   // filter by requested
   @Query(value = "select * from borrow where  status='REQUESTED' and user_id=?", nativeQuery = true)
   public Page<Borrow> findByReqStatusUser(Integer userId, Pageable paging);
+
+
+  // filter by approved @admin
+  @Query(value = "select * from borrow where  status='APPROVED'", nativeQuery = true)
+  public Page<Borrow> findByAppStatusAdmin( Pageable paging);
+
+    // filter by rejected @admin
+    @Query(value = "select * from borrow where  status='REJECTED'", nativeQuery = true)
+    public Page<Borrow> findByRejStatusUser( Pageable paging);
+  
+    // filter by returned @admin
+    @Query(value = "select * from borrow where  status='RETURNED' ", nativeQuery = true)
+    public Page<Borrow> findByRetStatusUser( Pageable paging);
+  
+    // filter by requested @admin
+    @Query(value = "select * from borrow where  status='REQUESTED'", nativeQuery = true)
+    public Page<Borrow> findByReqStatusUser( Pageable paging);
 
   @Query(value = "SELECT * FROM borrow", nativeQuery = true)
   List<Borrow> findAllC();

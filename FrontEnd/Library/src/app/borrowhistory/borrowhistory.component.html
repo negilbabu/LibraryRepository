@@ -22,10 +22,9 @@
         </div>
       </div>
     </div>
-    <!-- new table starts -->
+
     <table class="table table-striped w-auto" style="margin-left: 100px; position: relative;margin-right: 20px;">
 
-      <!--Table head-->
       <thead>
         <tr role="row">
           <th (click)="sortfn('books.booksName')">Book Name</th>
@@ -51,9 +50,7 @@
         </tr>
 
       </thead>
-      <!--Table head-->
-
-      <!--Table body-->
+ 
       <tbody>
         <tr *ngFor="let borrow of  data | paginate 
         : {

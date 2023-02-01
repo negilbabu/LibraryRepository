@@ -157,13 +157,21 @@ public class BorrowServiceImpl implements BorrowService {
         Borrow borrow = borrowRepository.findByBorrowId(borrowId);
         Books books = booksRepository.findbyBorrowId(borrowId);
 
-        borrow.setIssueDate(LocalDateTime.now());
-        borrow.setDueDate(form.getDueDate());
-        borrow.setReturnDate(form.getReturnDate());
-        borrow.setReason("NA");
-        borrow.setStatus("APPROVED");
-        books.setBooksCopies(books.getBooksCopies() - 1);
-        return new BorrowDetailView(borrowRepository.save(borrow));
+        if(books.getBooksCopies()==0){
+            throw expectationFailedException();
+        }
+
+        else {
+            borrow.setIssueDate(LocalDateTime.now());
+
+            borrow.setDueDate(form.getDueDate());
+            borrow.setReturnDate(form.getReturnDate());
+            borrow.setReason("NA");
+            borrow.setStatus("APPROVED");
+            books.setBooksCopies(books.getBooksCopies() - 1);
+            return new BorrowDetailView(borrowRepository.save(borrow));
+    
+        }
     }
 
     @Override
@@ -497,6 +505,62 @@ public class BorrowServiceImpl implements BorrowService {
             return null;
         }
     }
+
+    @Override
+    @Transactional
+    public Page<Borrow> getAllBorrByStatus(Integer pageNo, Integer pageSize, String sortBy, Integer direction,
+            Integer status) {
+
+        var sortByDescending = Sort.by(sortBy).descending();
+
+        var sortByAscending = Sort.by(sortBy).ascending();
+
+        if (direction == 1 && status == 1) {
+
+            Pageable paging = PageRequest.of(pageNo, pageSize, sortByDescending);
+            Page<Borrow> pagedResult = borrowRepository.findByAppStatusAdmin(paging);
+            return pagedResult;
+        }
+
+        else if (direction == 1 && status == 2) {
+            Pageable paging = PageRequest.of(pageNo, pageSize, sortByAscending);
+            Page<Borrow> pagedResult = borrowRepository.findByRejStatusUser(paging);
+            return pagedResult;
+        } else if (direction == 1 && status == 3) {
+            Pageable paging = PageRequest.of(pageNo, pageSize, sortByAscending);
+            Page<Borrow> pagedResult = borrowRepository.findByRetStatusUser(paging);
+            return pagedResult;
+        } else if (direction == 1 && status == 4) {
+            Pageable paging = PageRequest.of(pageNo, pageSize, sortByAscending);
+            Page<Borrow> pagedResult = borrowRepository.findByReqStatusUser(paging);
+            return pagedResult;
+        }
+
+        else if (direction == -1 && status == 1) {
+            Pageable paging = PageRequest.of(pageNo, pageSize, sortByAscending);
+            Page<Borrow> pagedResult = borrowRepository.findByAppStatusAdmin(paging);
+            return pagedResult;
+        }
+
+        else if (direction == -1 && status == 2) {
+            Pageable paging = PageRequest.of(pageNo, pageSize, sortByAscending);
+            Page<Borrow> pagedResult = borrowRepository.findByRejStatusUser(paging);
+            return pagedResult;
+
+        } else if (direction == -1 && status == 3) {
+            Pageable paging = PageRequest.of(pageNo, pageSize, sortByAscending);
+            Page<Borrow> pagedResult = borrowRepository.findByRetStatusUser( paging);
+            return pagedResult;
+
+        } else if (direction == -1 && status == 4) {
+            Pageable paging = PageRequest.of(pageNo, pageSize, sortByAscending);
+            Page<Borrow> pagedResult = borrowRepository.findByReqStatusUser(SecurityUtil.getCurrentUserId(), paging);
+            return pagedResult;
+        } else {
+            return null;
+        }
+    }
+
 
     @Override
     @Transactional
