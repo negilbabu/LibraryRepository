@@ -20,7 +20,7 @@
 
         <span class="text-danger"   class="text-danger" *ngIf="loginForm.controls['password'].touched && loginForm.hasError('required','password')"><small>password is required<br>use (uppercase ,lowercase and numbers)<br>minimum 8 character</small></span>
         <span class="text-danger" *ngIf=" loginForm.hasError('pattern','password')"><small>use alphanumeric & special characters &nbsp;</small></span> 
-    <input type="button" value="Login" (click)="login()" >
+    <input type="submit" value="Login" (click)="login()" >
 
     <input type="button" value="Register" routerLink="/user-reg">  
     <br><br>

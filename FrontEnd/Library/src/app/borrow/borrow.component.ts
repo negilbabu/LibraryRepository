@@ -202,7 +202,9 @@ export class BorrowComponent implements OnInit {
 
   clearFilter() {
     this.flag = 0;
-    window.location.reload();
+    // window.location.reload();
+    this.ObjSampleForm.reset();
+    this.LoadData();
   }
 
 
