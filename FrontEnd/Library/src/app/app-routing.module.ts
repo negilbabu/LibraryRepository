@@ -67,11 +67,11 @@ const routes: Routes = [
   {path:'sidenav2',component:Sidenav2Component,canActivate: [HomeguardGuard]},
   {path:'admin-navbar',component:AdminNavbarComponent,canActivate: [HomeguardGuard]},
   {path:'homepage',component:HomepageComponent,canActivate:[HomeguardGuard]},
+
   {path:'user-detailview/:id',component:UserDetailviewComponent,canActivate: [HomeguardGuard]},
  
  //Wild Card Route for 404 request
  { path: '**', pathMatch: 'full', component: PageNotfoundComponent },
-
 ];
 
 @NgModule({
