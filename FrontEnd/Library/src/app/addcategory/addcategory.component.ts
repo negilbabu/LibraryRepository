@@ -4,6 +4,7 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { CategoryService } from '../category.service';
 import { NgToastService } from 'ng-angular-popup';
+import { FormGroup, FormControl } from '@angular/forms';
 
 
 @Component({
@@ -23,8 +24,8 @@ export class AddcategoryComponent implements OnInit {
   tableSize: number = 5;
   a: any;
   b: any;
-
-  sort: string = "categoryId";
+  key: any;
+  sort: string = "category_name";
   sort1: string = "categoryName";
   len: any;
   result: any;
@@ -42,6 +43,12 @@ export class AddcategoryComponent implements OnInit {
 
   }
 
+  search: FormGroup = new FormGroup({
+    inp: new FormControl()
+  })
+
+  
+
   ngOnInit(): void {
 
     this.LoadCategory();
@@ -49,7 +56,18 @@ export class AddcategoryComponent implements OnInit {
   }
 
   LoadCategory() {
-    this.service.CatPageAdmin(this.page, this.tableSize, this.sort, this.direction).subscribe(result => {
+    this.key="";
+    this.service.CatPageAdmin(this.key,this.page, this.tableSize, this.sort, this.direction).subscribe(result => {
+      this.result = result.content;
+      this.count = result.totalElements
+      this.data = this.result;
+      this.categorydata = this.result;
+    });
+
+  }
+
+  Search(key:any) {
+    this.service.CatPageAdmin(key,this.page, this.tableSize, this.sort, this.direction).subscribe(result => {
       this.result = result.content;
       this.count = result.totalElements
       this.data = this.result;
@@ -77,8 +95,8 @@ export class AddcategoryComponent implements OnInit {
   }
 
   onTableDataChange(event: any) {
-
-    this.service.CatPageAdmin(this.page, this.tableSize, this.sort, this.direction).subscribe(result => {
+    // this.key="";
+    this.service.CatPageAdmin(this.key,this.page, this.tableSize, this.sort, this.direction).subscribe(result => {
       this.result = result.content;
       this.count = result.totalElements
       this.data = this.result;

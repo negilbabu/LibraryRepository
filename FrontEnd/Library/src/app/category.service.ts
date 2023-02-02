@@ -29,8 +29,8 @@ export class CategoryService {
 
   }
 
-  CatPageAdmin(page:any,tableSize:any,sort:any,direction:any):Observable<any>{
-    return this.http.get(this.baseUrl+"/category/admin/pagenated/?pageNo="+page+"&pageSize="+tableSize+"&sortBy="+sort+"&direction="+direction);
+  CatPageAdmin(key:any,page:any,tableSize:any,sort:any,direction:any):Observable<any>{
+    return this.http.get(this.baseUrl+"/category/admin/pagenated/?keyword="+key+"&pageNo="+page+"&pageSize="+tableSize+"&sortBy="+sort+"&direction="+direction);
 
   }
 

@@ -237,14 +237,18 @@ public class BorrowController {
     }
 
     @GetMapping("admin/export")
-    public void Exportcsv(HttpServletResponse httpServletResponse) throws IOException {
+    public void Exportcsv( 
+    @RequestParam(defaultValue = "") Date date1,
+    @RequestParam(defaultValue = "") Date date2,
+    HttpServletResponse httpServletResponse) throws IOException {
         httpServletResponse.setContentType("text/csv");
         java.text.DateFormat datefFormat = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss");
         String currentDateTime = datefFormat.format(new java.util.Date());
         String headerKey = "Content-Disposition";
         String headerValue = "attachment; filename=users_" + currentDateTime + ".csv";
         httpServletResponse.setHeader(headerKey, headerValue);
-        List<Borrow> rents = bService.listcsv();
+        
+        List<Borrow> rents = bService.listcsv(date1, date2);
 
         ICsvBeanWriter csvWriter = new CsvBeanWriter(httpServletResponse.getWriter(),
                 CsvPreference.STANDARD_PREFERENCE);
@@ -259,5 +263,19 @@ public class BorrowController {
         csvWriter.flush();
         csvWriter.close();
     }
+    // GET FILTER RESULT@ADMIN//filtered single api
+//     @GetMapping("/admin/{date1}/{date2}")
+//     public ResponseEntity<Page<Borrow>> getTestFilterBorrow1(
+//             // @PathVariable Date date1, @PathVariable Date date2,
+//             @PathVariable("date1") Date date1,
+//             @PathVariable("date2") Date date2,
+//             @RequestParam(defaultValue = "1") Integer pageNo,
+//             @RequestParam(defaultValue = "5") Integer pageSize,
+//             @RequestParam(defaultValue = "borrow_id") String sortBy,
+//             @RequestParam(defaultValue = "1") Integer direction) {
 
+//         Page<Borrow> list = bService.getAllBor(date1, date2, pageNo - 1, pageSize, sortBy, direction);
+//         return new ResponseEntity<Page<Borrow>>(list, new HttpHeaders(), HttpStatus.OK);
+
+//     }
 }

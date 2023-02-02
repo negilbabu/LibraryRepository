@@ -1,8 +1,22 @@
 <app-sidenav></app-sidenav>
 <br><br><br><br>
-<div style="text-align: center;">
-  <button mat-raised-button (click)="openDialog()" color="primary">ADD CATEGORY</button>
+<div style="text-align: center;top:50%">
+
+
+  <button mat-raised-button (click)="openDialog()" style="left: 11%;" color="primary">ADD CATEGORY</button>
+  
+  <form [formGroup]="search" style="display: inline-flex;padding: 0px; width: min-content;" class="col-md-4">
+
+    <input type="text" style="position: relative; left:90%; top:10% ;width: 250px;" class="form-control" formControlName="inp"
+      placeholder="Enter Category Name to Search " aria-label="Recipient's username" aria-describedby="basic-addon2"
+      (ngModelChange)="Search(this.search.controls['inp'].value)">
+      <button mat-icon-button style="position: relative;left: 90%; "> <i class="material-icons"
+        style="color:rgb(0, 0, 0)">search</i></button>
+
+  </form>
 </div>
+
+
 <br><br>
 
 <div class="card-box">
@@ -12,7 +26,7 @@
         <thead class="bg-primary text-white">
           <tr role="row">
 
-            <th (click)="sortfn('categoryName')">
+            <th (click)="sortfn('category_name')">
               Category Name
               <button mat-icon-button *ngIf="this.direction==1"> <i class="material-icons"
                   style="color:rgb(0, 0, 0)">keyboard_arrow_up</i></button>

@@ -87,23 +87,51 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     @Transactional
-    public Page<Category> getAllCategory(Integer pageNo, Integer pageSize, String sortBy, Integer direction) {
+    public Page<Category> getAllCategory(String keyword,Integer pageNo, Integer pageSize, String sortBy, Integer direction) {
 
         var sortByDescending = Sort.by(sortBy).descending();
         var sortByAscending = Sort.by(sortBy).ascending();
+if(keyword == null){
+
 
         if (direction == 1) {
-
             Pageable paging = PageRequest.of(pageNo, pageSize, sortByDescending);
-            Page<Category> pagedResult = categoryRepository.findAll(paging);
+                
+            Page<Category> pagedResult = categoryRepository.findAll( paging);
             return pagedResult;
         }
 
         else {
             Pageable paging = PageRequest.of(pageNo, pageSize, sortByAscending);
-            Page<Category> pagedResult = categoryRepository.findAll(paging);
+
+            Page<Category> pagedResult = categoryRepository.findAll( paging);
             return pagedResult;
         }
+    }
+    else{
+
+        if (direction == 1) {
+            Pageable paging = PageRequest.of(pageNo, pageSize, sortByDescending);
+            String k = keyword;
+            String k1 = keyword;
+            String k2 = keyword;
+          
+            Page<Category> pagedResult = categoryRepository.findByKeywords(keyword, k, k1, k2, paging);
+            return pagedResult;
+        }
+
+        else {
+            Pageable paging = PageRequest.of(pageNo, pageSize, sortByAscending);
+
+            String k = keyword;
+            String k1 = keyword;
+            String k2 = keyword;
+            Page<Category> pagedResult = categoryRepository.findByKeywords(keyword, k, k1, k2, paging);
+            return pagedResult;
+        }
+
+    }
+
     }
 
 }

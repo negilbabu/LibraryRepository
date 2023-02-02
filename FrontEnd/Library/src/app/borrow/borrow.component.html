@@ -62,11 +62,6 @@
                     <button mat-icon-button *ngIf="this.direction==-1"> <i class="material-icons"
                         style="color:rgb(0, 0, 0)">keyboard_arrow_down</i></button>
                   </th>
-                  <!-- <th (click)="sortfn('status')">Status 
-                                        <button mat-icon-button *ngIf="this.direction==1"> <i class="material-icons" style="color:rgb(0, 0, 0)" >keyboard_arrow_up</i></button>
-                                        <button mat-icon-button *ngIf="this.direction==-1"> <i class="material-icons" style="color:rgb(0, 0, 0)" >keyboard_arrow_down</i></button>
-                                      </th> -->
-
                   <th>
                     <form [formGroup]="filter" style="width: 70px;">
                       <select name="Status" formControlName="status" [(ngModel)]="selectedGroup" class="dropbtn"

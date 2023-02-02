@@ -69,6 +69,6 @@ public interface BorrowService {
 
     BorrowDetailView updatePaymentStatus(Integer borrowId, BorrowForm form);
 
-    List<Borrow> listcsv();
+    List<Borrow> listcsv(Date date1, Date date2);
 
 }

@@ -85,14 +85,20 @@ public class CategoryController {
 
     @GetMapping("admin/pagenated/")
     public ResponseEntity<Page<Category>> getAllCategory(
+            @RequestParam(defaultValue = "") String keyword,
             @RequestParam(defaultValue = "1") Integer pageNo,
             @RequestParam(defaultValue = "10") Integer pageSize,
-            @RequestParam(defaultValue = "categoryId") String sortBy,
+            @RequestParam(defaultValue = "category_name") String sortBy,
             @RequestParam(defaultValue = "1") Integer direction) {
-        Page<Category> list = service.getAllCategory(pageNo - 1, pageSize, sortBy, direction);
+
+              
+        Page<Category> list = service.getAllCategory(keyword,pageNo - 1, pageSize, sortBy, direction);
+        System.out.println("-----------------------------------------"+keyword);
         return new ResponseEntity<Page<Category>>(list, new HttpHeaders(),
                 HttpStatus.OK);
 
     }
+
+
 
 }

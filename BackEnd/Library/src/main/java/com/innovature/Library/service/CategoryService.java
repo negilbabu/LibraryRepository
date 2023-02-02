@@ -24,6 +24,6 @@ public interface CategoryService {
 
     CategoryDetailView updates(Integer categoryId, CategoryForm form);
 
-    Page<Category> getAllCategory(Integer pageNo, Integer pageSize, String sortBy, Integer direction);
+    Page<Category> getAllCategory(String keyword,Integer pageNo, Integer pageSize, String sortBy, Integer direction);
 
 }

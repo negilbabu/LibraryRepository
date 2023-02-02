@@ -508,8 +508,7 @@ public class BorrowServiceImpl implements BorrowService {
 
     @Override
     @Transactional
-    public Page<Borrow> getAllBorrByStatus(Integer pageNo, Integer pageSize, String sortBy, Integer direction,
-            Integer status) {
+    public Page<Borrow> getAllBorrByStatus(Integer pageNo, Integer pageSize, String sortBy, Integer direction, Integer status) {
 
         var sortByDescending = Sort.by(sortBy).descending();
 
@@ -573,7 +572,25 @@ public class BorrowServiceImpl implements BorrowService {
     }
 
     @Override
-    public List<Borrow> listcsv() {
+    public List<Borrow> listcsv(java.sql.Date date1, java.sql.Date date2) {
+
+        // return borrowRepository.findAllC();
+        System.out.println("--------------------------------------"+date1);
+        Date d1=date1;
+
+        if (! d1.equals( null ) ){
+
+            System.out.println("----hyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy-------"+date1);
+}
+else 
+
+        System.out.println("----elseeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee-------"+date1);
+
+        // if("".equals(date1) && "".equals(date2)){
+        //     return borrowRepository.findAsFilter(date1,date2);
+
+        // }
+
         return borrowRepository.findAllC();
     }
 

@@ -28,7 +28,7 @@ export class CategoryComponent implements OnInit {
 
   categorydata: any;
 
-
+key:any;
   page: number = 1;
   count: any;
   tableSize: number = 5;
@@ -128,7 +128,7 @@ this.LoadCategory();
   }
 
   LoadCategory() {
-    this.service.CatPageAdmin(this.page, this.tableSize, this.sort, this.direction).subscribe(result => {
+    this.service.CatPageAdmin(this.key,this.page, this.tableSize, this.sort, this.direction).subscribe(result => {
       this.result = result.content;
       this.count = result.totalElements
       this.data = this.result;
