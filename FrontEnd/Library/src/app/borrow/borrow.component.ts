@@ -32,6 +32,7 @@ export class BorrowComponent implements OnInit {
   sort1: string = "borrowId";
   sort: string = "borrow_id";
   flag: number = 0;
+  flag1: number=0;
   result: any;
   direction = 1;
   direction1 = -1;
@@ -54,6 +55,8 @@ export class BorrowComponent implements OnInit {
     sessionStorage.clear();
     localStorage.removeItem('borrowId');
     this.LoadData();
+    console.log("flg=",this.flag);
+    
 
   }
 
@@ -87,6 +90,8 @@ export class BorrowComponent implements OnInit {
         this.count = response.totalElements
         console.log('in approved', this.result);
         this.data = this.result;
+        this.flag=2;
+        console.log('flag', this.flag);
       });
     }
     else if (this.filter.controls['status'].value == 2) {
@@ -96,6 +101,8 @@ export class BorrowComponent implements OnInit {
         this.count = response.totalElements
         console.log(this.result);
         this.data = this.result;
+        this.flag=3;
+        console.log('flag', this.flag);
       });
     }
 
@@ -106,6 +113,8 @@ export class BorrowComponent implements OnInit {
         this.count = response.totalElements
         console.log(this.result);
         this.data = this.result;
+        this.flag=4;
+        console.log('flag', this.flag);
       });
     }
 
@@ -116,9 +125,12 @@ export class BorrowComponent implements OnInit {
         this.count = response.totalElements
         console.log(this.result);
         this.data = this.result;
+        this.flag=5;
+        console.log('flag', this.flag);
       });
     }
     else {
+      this.flag=0;
       this.LoadData();
       // this.filter.reset();
     }
@@ -234,6 +246,36 @@ export class BorrowComponent implements OnInit {
     else if (this.flag == 2) {
 
       this.service.AdminStatusfilterBorrow(this.page, this.tableSize, this.sort, this.direction, 1).subscribe(response => {
+        this.result = response.content;
+        this.count = response.totalElements
+
+        this.data = this.result;
+
+      });
+    }
+    else if (this.flag == 3) {
+
+      this.service.AdminStatusfilterBorrow(this.page, this.tableSize, this.sort, this.direction, 2).subscribe(response => {
+        this.result = response.content;
+        this.count = response.totalElements
+
+        this.data = this.result;
+
+      });
+    }
+    else if (this.flag == 4) {
+
+      this.service.AdminStatusfilterBorrow(this.page, this.tableSize, this.sort, this.direction, 3).subscribe(response => {
+        this.result = response.content;
+        this.count = response.totalElements
+
+        this.data = this.result;
+
+      });
+    }
+    else if (this.flag == 5) {
+
+      this.service.AdminStatusfilterBorrow(this.page, this.tableSize, this.sort, this.direction, 4).subscribe(response => {
         this.result = response.content;
         this.count = response.totalElements
 
