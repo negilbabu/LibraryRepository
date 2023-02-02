@@ -54,20 +54,25 @@ public class UserServiceImpl implements UserService {
     private SecurityConfig securityConfig;
 
     @Override
-    public UserView add(UserForm form, Errors errors) {
-        var data1 = form.getFirstName();
-        var data2 = form.getLastName();
-        var data3 = form.getAddress();
-        var data4 = form.getDob();
-        var data5 = form.getEmail();
-        var data6 = form.getPhone();
-        var data7 = form.getPassword();
+    public UserView add(UserForm form) {
+        // var data1 = form.getFirstName();
+        // var data2 = form.getLastName();
+        // var data3 = form.getAddress();
+        // var data4 = form.getDob();
+        // var data5 = form.getEmail();
+        // var data6 = form.getPhone();
+        // var data7 = form.getPassword();
 
-        if ("".equals(data1) || "".equals(data2) || "".equals(data3) || data4 == null || "".equals(data5) ||
-                "".equals(data6) || "".equals(data7)) {
-            throw badRequestException();
-        }
+        // if ("".equals(data1) || "".equals(data2) || "".equals(data3) || data4 == null || "".equals(data5) ||
+        //         "".equals(data6) || "".equals(data7)) {
+        //     throw badRequestException();
+        // }
 
+        // if (errors.hasErrors()) {
+        //     throw badRequestException();
+        // } 
+        // else{
+        
         User email = userRepository.findByEmailId(form.getEmail());
 
         if (email == null) {
@@ -84,7 +89,8 @@ public class UserServiceImpl implements UserService {
             throw conflictException();
         } else
             return null;
-
+    // 
+        // }
     }
 
     @Override
@@ -94,13 +100,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public LoginView login(LoginForm form, Errors errors) throws BadRequestException {
+    public LoginView login(LoginForm form) throws BadRequestException {
 
-        var data = form.getEmail();
-        var data2 = form.getPassword();
-        if ("".equals(data) || "".equals(data2)) {
-            throw badRequestException();
-        } else {
+        // var data = form.getEmail();
+        // var data2 = form.getPassword();
+        // if ("".equals(data) || "".equals(data2)) {
+        //     throw badRequestException();
+        // } else {
             User user = userRepository.findByEmail(form.getEmail())
                     .orElseThrow(UserServiceImpl::expectationFailedException);
             if (!passwordEncoder.matches(form.getPassword(), user.getPassword())) {
@@ -112,7 +118,7 @@ public class UserServiceImpl implements UserService {
             Token refreshToken = tokenGenerator.create(PURPOSE_REFRESH_TOKEN, id + user.getPassword(),
                     securityConfig.getRefreshTokenExpiry());
             return new LoginView(user, accessToken, refreshToken);
-        }
+        // }
     }
 
     @Override
@@ -173,13 +179,13 @@ public class UserServiceImpl implements UserService {
         if (direction == 1) {
 
             Pageable paging = PageRequest.of(pageNo, pageSize, sortByDescending);
-            Page<User> pagedResult = userRepository.findAll(paging);
+            Page<User> pagedResult = userRepository.findAUser(paging);
             return pagedResult;
         }
 
         else {
             Pageable paging = PageRequest.of(pageNo, pageSize, sortByAscending);
-            Page<User> pagedResult = userRepository.findAll(paging);
+            Page<User> pagedResult = userRepository.findAUser(paging);
             return pagedResult;
         }
     }

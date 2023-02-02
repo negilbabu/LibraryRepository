@@ -16,11 +16,11 @@ import com.innovature.Library.view.UserView;
 
 public interface UserService {
 
-    UserView add(UserForm form,Errors errors);
+    UserView add(UserForm form);
 
     UserView currentUser();
 
-    LoginView login(LoginForm form, Errors errors) throws BadRequestException;
+    LoginView login(LoginForm form) throws BadRequestException;
 
     LoginView refresh(String refreshToken) throws BadRequestException;
 

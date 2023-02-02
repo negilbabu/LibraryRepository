@@ -38,6 +38,8 @@ public class Category {
         this.categoryName = categoryName;
     }
 
+
+    
     public Category(CategoryForm form) {
         this.categoryName = form.getCategoryName();
     }

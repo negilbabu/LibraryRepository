@@ -35,8 +35,8 @@ public class UsersController {
     private UserService userService;
 
     @PostMapping
-    public UserView add(@Valid @RequestBody UserForm form, Errors errors) {
-        return userService.add(form, errors);
+    public UserView add(@Valid @RequestBody UserForm form) {
+        return userService.add(form);
     }
 
     @PutMapping
@@ -82,7 +82,7 @@ public class UsersController {
     public ResponseEntity<Page<User>> getAllBooks(
             @RequestParam(defaultValue = "1") Integer pageNo,
             @RequestParam(defaultValue = "10") Integer pageSize,
-            @RequestParam(defaultValue = "userId") String sortBy,
+            @RequestParam(defaultValue = "role") String sortBy,
             @RequestParam(defaultValue = "1") Integer direction) {
         Page<User> list = userService.getAllUser(pageNo - 1, pageSize, sortBy, direction);
         return new ResponseEntity<Page<User>>(list, new HttpHeaders(),

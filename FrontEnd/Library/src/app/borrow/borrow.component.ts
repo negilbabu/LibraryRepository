@@ -90,7 +90,7 @@ export class BorrowComponent implements OnInit {
       });
     }
     else if (this.filter.controls['status'].value == 2) {
-
+      console.log('------------=', this.status)
       this.service.AdminStatusfilterBorrow(this.page, this.tableSize, this.sort, this.direction, 2).subscribe(response => {
         this.result = response.content;
         this.count = response.totalElements
@@ -100,7 +100,7 @@ export class BorrowComponent implements OnInit {
     }
 
     else if (this.filter.controls['status'].value == 3) {
-
+      console.log('}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}', this.status)
       this.service.AdminStatusfilterBorrow(this.page, this.tableSize, this.sort, this.direction, 3).subscribe(response => {
         this.result = response.content;
         this.count = response.totalElements
@@ -119,7 +119,8 @@ export class BorrowComponent implements OnInit {
       });
     }
     else {
-
+      this.LoadData();
+      // this.filter.reset();
     }
 
   }
@@ -229,6 +230,18 @@ export class BorrowComponent implements OnInit {
 
       });
     }
+
+    else if (this.flag == 2) {
+
+      this.service.AdminStatusfilterBorrow(this.page, this.tableSize, this.sort, this.direction, 1).subscribe(response => {
+        this.result = response.content;
+        this.count = response.totalElements
+
+        this.data = this.result;
+
+      });
+    }
+
   }
 
 
@@ -256,10 +269,9 @@ export class BorrowComponent implements OnInit {
         next: (Response: any) => {
 
           this.toast.success({ detail: 'Book Returned', summary: 'Book ' + borrow.books.booksName + ' Returned by ' + borrow.user.firstName, duration: 5000 });
-          setTimeout(() => {
-
-            window.location.reload()
-          }, 2500);
+          // setTimeout(() => {
+            this.LoadData()
+          // }, 2500);
         },
         error: (Response: any) => {
           alert("invalid Borrow details")
@@ -317,7 +329,7 @@ export class BorrowComponent implements OnInit {
 
   DetailView(borrow: any) {
 
-      this.router.navigate(['/borrow-detail-view', borrow.borrowId])
+    this.router.navigate(['/borrow-detail-view', borrow.borrowId])
 
   }
 

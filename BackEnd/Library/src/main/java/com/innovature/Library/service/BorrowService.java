@@ -65,6 +65,8 @@ public interface BorrowService {
 
     Page<Borrow> getAllBorrByStat(Integer pageNo, Integer pageSize, String sortBy, Integer direction, Integer status);
 
+    Page<Borrow> getAllBorrByStatus(Integer pageNo, Integer pageSize, String sortBy, Integer direction, Integer status);
+
     BorrowDetailView updatePaymentStatus(Integer borrowId, BorrowForm form);
 
     List<Borrow> listcsv();

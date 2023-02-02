@@ -59,8 +59,11 @@ export class AcceptrequestComponent implements OnInit {
         this.router.navigate(['/borrow'])
       },
       error: (Response: any) => {
-        this.toast.info({ detail: 'INVALID', summary: 'Something went wrong', duration: 5000 });
+        if(Response.status==417){
+        this.toast.info({ detail: 'Oops, Book stock is empty', summary: 'Unable to approve at this moment', duration: 15000 });
+        alert("UNABLE TO APPROVE REQUEST ")
         this.router.navigate(['/borrow'])
+      }
       }
     })
 

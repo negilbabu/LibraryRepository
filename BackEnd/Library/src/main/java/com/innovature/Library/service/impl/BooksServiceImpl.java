@@ -1,6 +1,5 @@
 package com.innovature.Library.service.impl;
 
-import java.io.IOException;
 import java.util.Collection;
 import java.util.List;
 
@@ -12,8 +11,6 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.Errors;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.view.RedirectView;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -49,21 +46,21 @@ public class BooksServiceImpl implements BooksService {
     }
 
     @Override
-    public BooksDetailView add(BooksForm form, Errors errors) throws BadRequestException {
-        var data1 = form.getAuther();
-        var data2 = form.getBooksCopies();
-        var data3 = form.getBooksName();
-        var data4 = form.getCategoryId();
-        var data5 = form.getPublication();
-        if ("".equals(data1) || data2 == null || "".equals(data3) || data4 == null || "".equals(data5)) {
-            throw badRequestException();
-        } else {
+    public BooksDetailView add(BooksForm form) throws BadRequestException {
+        // var data1 = form.getAuther();
+        // var data2 = form.getBooksCopies();
+        // var data3 = form.getBooksName();
+        // var data4 = form.getCategoryId();
+        // var data5 = form.getPublication();
+        // if ("".equals(data1) || data2 == null || "".equals(data3) || data4 == null || "".equals(data5)) {
+        //     throw badRequestException();
+        // } else {
             Category category = catRepo.findByCategoryId(form.getCategoryId());
             if ("".equals(category)) {
                 throw expectationFailedException();
             } else
                 return new BooksDetailView(booksRepository.save(new Books(form, category)));
-        }
+        // }
     }
 
     @Override

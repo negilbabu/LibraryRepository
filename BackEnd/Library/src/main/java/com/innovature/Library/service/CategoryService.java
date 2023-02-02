@@ -12,11 +12,15 @@ public interface CategoryService {
 
     Collection<Category> listAll();
 
-    CategoryDetailView add(CategoryForm form, Errors errors);
+    CategoryDetailView add(CategoryForm form);
 
     CategoryDetailView list(Integer categoryId);
 
     void deletes(Integer catogoryId);
+
+
+
+    // boolean deletes(Integer catogoryId,Errors errors);
 
     CategoryDetailView updates(Integer categoryId, CategoryForm form);
 

@@ -3,6 +3,7 @@ package com.innovature.Library.entity;
 import java.util.Date;
 import java.util.Objects;
 import javax.persistence.Entity;
+import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -43,9 +44,13 @@ public class User {
     private String address;
 
     private String phone;
+
+    @Column(unique = true)
     private String email;
+
     private String password;
     private byte status;
+    
     private int role;
     @Temporal(TemporalType.DATE)
     private Date dob;

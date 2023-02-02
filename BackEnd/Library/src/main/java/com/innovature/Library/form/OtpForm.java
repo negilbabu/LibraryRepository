@@ -1,12 +1,16 @@
 package com.innovature.Library.form;
 import javax.validation.constraints.NotBlank;
-
+import com.innovature.Library.form.validaton.Password;
+import javax.validation.constraints.Pattern;
 public class OtpForm {
     private String email;
 
     @NotBlank
+    @Pattern(regexp="[0-9]+",message="length must be 10") 
     private Integer otp;
+    @Password
     private String newPassword;
+    @Password
     private String cnewPassword;
 
 

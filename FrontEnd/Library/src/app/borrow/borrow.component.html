@@ -64,23 +64,23 @@
                     <button mat-icon-button *ngIf="this.direction==-1"> <i class="material-icons"
                         style="color:rgb(0, 0, 0)">keyboard_arrow_down</i></button>
                   </th>
-                  <th (click)="sortfn('status')">Status 
+                  <!-- <th (click)="sortfn('status')">Status 
                                         <button mat-icon-button *ngIf="this.direction==1"> <i class="material-icons" style="color:rgb(0, 0, 0)" >keyboard_arrow_up</i></button>
                                         <button mat-icon-button *ngIf="this.direction==-1"> <i class="material-icons" style="color:rgb(0, 0, 0)" >keyboard_arrow_down</i></button>
-                                      </th>
+                                      </th> -->
 
-                  <!-- <th>
+                  <th>
                     <form [formGroup]="filter" style="width: 70px;">
                       <select name="Status" formControlName="status" [(ngModel)]="selectedGroup" class="dropbtn"
                         id="status" (ngModelChange)="disp1()">
-                        <option value="" [selected]="selected">status</option>
+                        <option value="" [selected]="selected"><b>Status</b></option>
                         <option value=1>APPROVED</option>
                         <option value=2>REJECTED </option>
                         <option value=3>RETURNED </option>
                         <option value=4>REQUESTED</option>
                       </select>
                     </form>
-                  </th> -->
+                  </th>
                   <th></th>
 
                   <th></th>
