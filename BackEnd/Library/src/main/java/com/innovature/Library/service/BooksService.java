@@ -16,7 +16,7 @@ import com.innovature.Library.view.BooksDetailView;
 
 public interface BooksService {
 
-    BooksDetailView add(BooksForm form, Errors errors);
+    BooksDetailView add(BooksForm form);
 
     Collection<Books> listAll();
 

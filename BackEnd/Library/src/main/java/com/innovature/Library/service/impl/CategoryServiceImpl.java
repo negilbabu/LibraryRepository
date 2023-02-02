@@ -31,17 +31,21 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public CategoryDetailView add(CategoryForm form, Errors errors) throws BadRequestException {
+    public CategoryDetailView add(CategoryForm form) throws BadRequestException {
 
-        var data = form.getCategoryName();
-        if ("".equals(data)) {
-            throw badRequestException();
-        }
+        // var data = form.getCategoryName();
+        // if ("".equals(data)) {
+        //     throw badRequestException();
+        // }
 
-        else {
+
+        // if (errors.hasErrors()) {
+        //     throw badRequestException();
+        // } 
+        // else {
             return new CategoryDetailView(categoryRepository.save(new Category(form)));
 
-        }
+        // }
 
     }
 
@@ -50,30 +54,19 @@ public class CategoryServiceImpl implements CategoryService {
         return categoryRepository.findAll();
     }
 
-    // @Override
-    // public boolean deletes(Integer categoryId,Errors errors) throws NotFoundException {
-    //     boolean val= categoryRepository.delete(categoryRepository.findByCategoryId(categoryId));
-    //     System.out.println("....................................."+val);
-    //     if(val){
-    //         throw badRequestException();
-    //         // return true;
-    //     }
-    //     else{
-    //         throw badRequestException();
-    //     }
-            
-      
-
-    // }
-
     @Override
     public void deletes(Integer categoryId) throws NotFoundException {
-        categoryRepository.delete(
-                categoryRepository.findByCategoryId(categoryId)
 
-        );
-
+        try{
+            categoryRepository.delete(categoryRepository.findByCategoryId(categoryId) );
+          } catch(Exception reason){
+            throw new BadRequestException("Unable to delete parent class", reason);
+          }
     }
+
+
+    
+
 
     @Override
     public CategoryDetailView list(Integer categoryId) {

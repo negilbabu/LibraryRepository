@@ -43,8 +43,8 @@ public class BooksController {
     private BooksRepository booksRepository;
 
     @PostMapping
-    public BooksDetailView add(@Valid @RequestBody BooksForm form, Errors errors) {
-        return service.add(form, errors);
+    public BooksDetailView add(@Valid @RequestBody BooksForm form) {
+        return service.add(form);
     }
 
     @GetMapping("/admin")

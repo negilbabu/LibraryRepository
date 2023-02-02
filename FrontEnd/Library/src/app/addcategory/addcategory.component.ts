@@ -140,7 +140,11 @@ export class AddcategoryComponent implements OnInit {
 
         },
         error: (msg) => {
-          this.toast.warning({ detail: 'Failed', summary: 'Category ' + category.categoryName + ' cannot be Deleted', duration: 15000 });
+          if(msg.status==400){
+            this.toast.warning({ detail: 'Failed', summary: 'Category ' + category.categoryName + ' cannot be Deleted', duration: 15000 });
+          }
+          else
+          this.toast.warning({ detail: 'Failed', summary: 'Something went wrong', duration: 5000 });
          }
       })
     }

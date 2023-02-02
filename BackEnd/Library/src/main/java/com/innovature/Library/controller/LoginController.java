@@ -29,8 +29,8 @@ public class LoginController {
     }
 
     @PostMapping
-    public LoginView login(@Valid @RequestBody LoginForm form, Errors errors) {
-        return userService.login(form, errors);
+    public LoginView login(@Valid @RequestBody LoginForm form) {
+        return userService.login(form);
     }
 
     @PutMapping

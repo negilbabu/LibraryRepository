@@ -7,19 +7,19 @@ import javax.persistence.Column;
 
 public class BooksForm {
 
-    @Size(max = 30)
     @NotBlank
+    @Size(max = 30)  
     private String booksName;
 
     @Column(name = "categoryId", nullable = false)
     private Integer categoryId;
 
-    @Size(max = 30)
     @NotBlank
+    @Size(max = 30)
     private String publication;
 
-    @Size(max = 100)
     @NotBlank
+    @Size(max = 100)
     private String auther;
 
    @Column(name = "booksCopies", nullable = false)

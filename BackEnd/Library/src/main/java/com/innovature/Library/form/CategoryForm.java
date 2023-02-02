@@ -4,9 +4,9 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 public class CategoryForm {
-
-    @Size(max = 30)
+  
     @NotBlank
+    @Size(max = 30)
     private String categoryName;
 
     public String getCategoryName() {

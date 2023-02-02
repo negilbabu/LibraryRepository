@@ -42,8 +42,8 @@ public class CategoryController {
     }
 
     @PostMapping
-    public CategoryDetailView add(@Valid @RequestBody CategoryForm form, Errors errors) {
-        return service.add(form, errors);
+    public CategoryDetailView add(@Valid @RequestBody CategoryForm form) {
+        return service.add(form);
     }
 
     @DeleteMapping("/{catogoryId}")
@@ -51,6 +51,8 @@ public class CategoryController {
             @PathVariable("catogoryId") Integer catogoryId) {
         service.deletes(catogoryId);
     }
+
+
     
     // @PostMapping
     // public CategoryDetailView add(@Valid @RequestBody CategoryForm form, Errors errors) {

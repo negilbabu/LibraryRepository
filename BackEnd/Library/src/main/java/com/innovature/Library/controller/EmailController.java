@@ -17,6 +17,7 @@ import com.innovature.Library.form.OtpForm;
 import com.innovature.Library.repository.EmailRepository;
 import com.innovature.Library.service.BorrowService;
 import com.innovature.Library.service.EmailService;
+import javax.validation.Valid;
 
 import com.innovature.Library.entity.Email;
 import com.innovature.Library.entity.User;
@@ -39,13 +40,13 @@ public class EmailController {
     private UserRepository userRepository;
 
     @PostMapping("/emailsentotp")
-    public ResponseEntity sendOtpEmail(@RequestBody EmailForm form) {
+    public ResponseEntity sendOtpEmail(@Valid @RequestBody EmailForm form) {
         String emailid = form.getSentto();
 
-        if ("".equals(emailid)) {
+        // if ("".equals(emailid)) {
 
-            return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("NULL VALUE EXCEPTION-");
-        } else {
+        //     return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("NULL VALUE EXCEPTION-");
+        // } else {
             User user = userRepository.findByEmailId(form.getSentto());
             if (user != null) {
 
@@ -83,7 +84,7 @@ public class EmailController {
 
             }
 
-        }
+        // }
 
     }
 

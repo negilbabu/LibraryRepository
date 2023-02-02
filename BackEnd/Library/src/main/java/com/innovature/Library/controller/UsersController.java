@@ -35,8 +35,8 @@ public class UsersController {
     private UserService userService;
 
     @PostMapping
-    public UserView add(@Valid @RequestBody UserForm form, Errors errors) {
-        return userService.add(form, errors);
+    public UserView add(@Valid @RequestBody UserForm form) {
+        return userService.add(form);
     }
 
     @PutMapping

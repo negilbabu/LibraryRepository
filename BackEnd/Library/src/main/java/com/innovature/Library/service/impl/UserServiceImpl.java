@@ -54,7 +54,7 @@ public class UserServiceImpl implements UserService {
     private SecurityConfig securityConfig;
 
     @Override
-    public UserView add(UserForm form, Errors errors) {
+    public UserView add(UserForm form) {
         // var data1 = form.getFirstName();
         // var data2 = form.getLastName();
         // var data3 = form.getAddress();
@@ -68,10 +68,10 @@ public class UserServiceImpl implements UserService {
         //     throw badRequestException();
         // }
 
-        if (errors.hasErrors()) {
-            throw badRequestException();
-        } 
-        else{
+        // if (errors.hasErrors()) {
+        //     throw badRequestException();
+        // } 
+        // else{
         
         User email = userRepository.findByEmailId(form.getEmail());
 
@@ -89,8 +89,8 @@ public class UserServiceImpl implements UserService {
             throw conflictException();
         } else
             return null;
-    
-        }
+    // 
+        // }
     }
 
     @Override
@@ -100,13 +100,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public LoginView login(LoginForm form, Errors errors) throws BadRequestException {
+    public LoginView login(LoginForm form) throws BadRequestException {
 
-        var data = form.getEmail();
-        var data2 = form.getPassword();
-        if ("".equals(data) || "".equals(data2)) {
-            throw badRequestException();
-        } else {
+        // var data = form.getEmail();
+        // var data2 = form.getPassword();
+        // if ("".equals(data) || "".equals(data2)) {
+        //     throw badRequestException();
+        // } else {
             User user = userRepository.findByEmail(form.getEmail())
                     .orElseThrow(UserServiceImpl::expectationFailedException);
             if (!passwordEncoder.matches(form.getPassword(), user.getPassword())) {
@@ -118,7 +118,7 @@ public class UserServiceImpl implements UserService {
             Token refreshToken = tokenGenerator.create(PURPOSE_REFRESH_TOKEN, id + user.getPassword(),
                     securityConfig.getRefreshTokenExpiry());
             return new LoginView(user, accessToken, refreshToken);
-        }
+        // }
     }
 
     @Override
