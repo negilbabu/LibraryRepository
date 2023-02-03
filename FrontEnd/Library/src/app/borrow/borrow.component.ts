@@ -131,10 +131,21 @@ export class BorrowComponent implements OnInit {
 
   dwn() {
 
+    if(this.flag==0){
 
-    this.myDate = this.datePipe.transform(this.curDate, 'yyyy-MM-dd');
-    this.filename = "LibraryBorrowExport_" + this.myDate;
-    this.service.export().subscribe((blob: any) => saveAs(blob, this.filename))
+      this.myDate = this.datePipe.transform(this.curDate, 'yyyy-MM-dd');
+      this.filename = "LibraryBorrowExport_" + this.myDate;
+      this.service.export().subscribe((blob: any) => saveAs(blob, this.filename))
+    }
+
+     else if(this.flag==1){
+
+      this.myDate = this.datePipe.transform(this.curDate, 'yyyy-MM-dd');
+      this.filename = "LibraryBorrowExport_" + this.myDate;
+      this.service.exportOnFilter(this.ObjSampleForm.controls['date1'].value, this.ObjSampleForm.controls['date2'].value).subscribe((blob: any) => saveAs(blob, this.filename))
+     }
+
+
 
   }
 

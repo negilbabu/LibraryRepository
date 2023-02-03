@@ -27,6 +27,10 @@ export class BorrowService {
     return this.http.get(this.baseUrl+'/borrow/admin/export', { responseType: 'blob' });
   }
 
+  exportOnFilter(date1:any,date2:any): Observable<Blob> {
+    return this.http.get(this.baseUrl+'/borrow/admin/export?date1='+date1+'&date2='+date2, { responseType: 'blob' });
+  }
+
   chartbar():Observable<any>{
     return this.http.get(this.baseUrl+'/borrow/admin/chart')
   }
@@ -60,13 +64,11 @@ export class BorrowService {
   }
 
   filterBorrowPagination(date1:any,date2:any,page:any,tableSize:any,sort:any,direction:any):Observable<any>{
-    console.log(date1,' to ',date2)
     return this.http.get(this.baseUrl+"/borrow/admin/"+date1+"/"+date2+"/?pageNo="+page+"&pageSize="+tableSize+"&sortBy="+sort+"&direction="+direction)
 
   }
     // user filer
     filterBorrowPagination2(date1:any,date2:any,page:any,tableSize:any,sort:any){
-      console.log(date1)
       return this.http.get(this.baseUrl+"/borrow/user/loadByIssueDate/"+date1+"/"+date2)
     }
 

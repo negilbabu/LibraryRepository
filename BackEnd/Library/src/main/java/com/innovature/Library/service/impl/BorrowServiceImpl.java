@@ -62,6 +62,7 @@ public class BorrowServiceImpl implements BorrowService {
     private static expectationFailedException expectationFailedException() {
         return new expectationFailedException("Invalid username or password");
     }
+
     private static BadRequestException badRequestException() {
         return new BadRequestException("Invalid credentials");
     }
@@ -72,12 +73,12 @@ public class BorrowServiceImpl implements BorrowService {
         User user = userRepository.findById(SecurityUtil.getCurrentUserId());
 
         Integer inHand = borrowRepository.findbyUserIdAndStatus(SecurityUtil.getCurrentUserId());
-      
+
         if (inHand > 3) {
 
             throw expectationFailedException();
-        } 
-                              
+        }
+
         else {
 
             Integer stat = borrowRepository.borrowBlockByBook(books, user);
@@ -86,11 +87,10 @@ public class BorrowServiceImpl implements BorrowService {
             if (stat >= 1) {
 
                 throw conflictException();
-            } 
-            else if(status >=1){
+            } else if (status >= 1) {
                 throw badRequestException();
             }
-            
+
             else
                 return new BorrowDetailView(borrowRepository.save(new Borrow(books, user)));
         }
@@ -157,7 +157,7 @@ public class BorrowServiceImpl implements BorrowService {
         Borrow borrow = borrowRepository.findByBorrowId(borrowId);
         Books books = booksRepository.findbyBorrowId(borrowId);
 
-        if(books.getBooksCopies()==0){
+        if (books.getBooksCopies() == 0) {
             throw expectationFailedException();
         }
 
@@ -170,7 +170,7 @@ public class BorrowServiceImpl implements BorrowService {
             borrow.setStatus("APPROVED");
             books.setBooksCopies(books.getBooksCopies() - 1);
             return new BorrowDetailView(borrowRepository.save(borrow));
-    
+
         }
     }
 
@@ -508,7 +508,8 @@ public class BorrowServiceImpl implements BorrowService {
 
     @Override
     @Transactional
-    public Page<Borrow> getAllBorrByStatus(Integer pageNo, Integer pageSize, String sortBy, Integer direction, Integer status) {
+    public Page<Borrow> getAllBorrByStatus(Integer pageNo, Integer pageSize, String sortBy, Integer direction,
+            Integer status) {
 
         var sortByDescending = Sort.by(sortBy).descending();
 
@@ -548,7 +549,7 @@ public class BorrowServiceImpl implements BorrowService {
 
         } else if (direction == -1 && status == 3) {
             Pageable paging = PageRequest.of(pageNo, pageSize, sortByAscending);
-            Page<Borrow> pagedResult = borrowRepository.findByRetStatusUser( paging);
+            Page<Borrow> pagedResult = borrowRepository.findByRetStatusUser(paging);
             return pagedResult;
 
         } else if (direction == -1 && status == 4) {
@@ -559,7 +560,6 @@ public class BorrowServiceImpl implements BorrowService {
             return null;
         }
     }
-
 
     @Override
     @Transactional
@@ -572,26 +572,17 @@ public class BorrowServiceImpl implements BorrowService {
     }
 
     @Override
-    public List<Borrow> listcsv(java.sql.Date date1, java.sql.Date date2) {
+    public List<Borrow> listcsv(String date1, String date2) {
 
-        // return borrowRepository.findAllC();
-        System.out.println("--------------------------------------"+date1);
-        Date d1=date1;
+        String d1 = date1;
 
-        if (! d1.equals( null ) ){
+        if (!d1.equals("")) {
 
-            System.out.println("----hyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy-------"+date1);
-}
-else 
+            return borrowRepository.findAsFilter(date1, date2);
+        } else {
 
-        System.out.println("----elseeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee-------"+date1);
-
-        // if("".equals(date1) && "".equals(date2)){
-        //     return borrowRepository.findAsFilter(date1,date2);
-
-        // }
-
-        return borrowRepository.findAllC();
+            return borrowRepository.findAllC();
+        }
     }
 
 }

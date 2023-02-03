@@ -2,6 +2,7 @@ package com.innovature.Library.service.impl;
 
 import com.innovature.Library.entity.Email;
 import com.innovature.Library.entity.User;
+import com.innovature.Library.form.ChangePasswordForm;
 import com.innovature.Library.form.OtpForm;
 import com.innovature.Library.repository.EmailRepository;
 import com.innovature.Library.repository.UserRepository;
@@ -59,7 +60,7 @@ public class EmailServiceImpl implements EmailService {
 
    
     @Override
-    public boolean addPassword(OtpForm form) {
+    public boolean addPassword(ChangePasswordForm form) {
 
         User user = userRepository.findByEmailId(form.getEmail());
 

@@ -37,7 +37,7 @@ export class ForgotpasswordComponent implements OnInit {
 
     this.ObjForgetForm.reset()
     this.spin = 0;
-
+    this.val = 0;
 
     if (this.rslt == 1) {
       this.toast.error({ detail: 'OTP Sent Failed :(', summary: 'Unregistered Email Detected ', duration: 5000, position: 'tr' })
@@ -79,20 +79,24 @@ export class ForgotpasswordComponent implements OnInit {
     }),
       (error) => {
 
-        if (error.status == 406) {
-          this.toast.error({ detail: 'OTP Sent Failed :(', summary: 'Fill the fields', duration: 5000, position: 'tr' })
+        if (error.status == 412) {
+          // this.toast.error({ detail: 'OTP Sent Failed :(', summary: 'Fill the fields', duration: 5000, position: 'tr' })
           this.spin = 0;
           this.val = 0;
-        }
-
-        else if (error.status == 400) {
           this.rslt = 1;
-          this.spin = 0;
           this.ngOnInit()
         }
 
-        else if (error.status == 417) {
-          this.toast.error({ detail: 'OTP Sent Failed :(', summary: 'Internal server error', duration: 5000, position: 'tr' })
+        else if (error.status == 400) {
+          this.rslt = 0;
+          this.spin = 0;
+          this.toast.error({ detail: 'OTP Sent Failed :(', summary: 'Fill the fields', duration: 5000, position: 'tr' })
+          this.ngOnInit()
+        }
+
+        else if (error.status == 422) {
+          this.toast.error({ detail: 'OTP Sent Failed :(', summary: 'Unable to process OTP Generation right Now', duration: 5000, position: 'tr' })
+          this.ngOnInit()
         }
 
 

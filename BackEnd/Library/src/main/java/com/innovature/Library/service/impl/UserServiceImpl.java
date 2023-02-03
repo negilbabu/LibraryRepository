@@ -93,11 +93,18 @@ public class UserServiceImpl implements UserService {
         // }
     }
 
-    @Override
-    public UserView currentUser() {
-        return new UserView(
-                userRepository.findById(SecurityUtil.getCurrentUserId()));
+    private static BadRequestException badRequestException() {
+        return new BadRequestException("Invalid credentials");
     }
+
+    private static expectationFailedException expectationFailedException() {
+        return new expectationFailedException("Invalid username or password");
+    }
+
+    private static ConflictException conflictException() {
+        return new ConflictException("Email id Already Registered");
+    }
+
 
     @Override
     public LoginView login(LoginForm form) throws BadRequestException {
@@ -107,8 +114,7 @@ public class UserServiceImpl implements UserService {
         // if ("".equals(data) || "".equals(data2)) {
         //     throw badRequestException();
         // } else {
-            User user = userRepository.findByEmail(form.getEmail())
-                    .orElseThrow(UserServiceImpl::expectationFailedException);
+            User user = userRepository.findByEmail(form.getEmail()).orElseThrow(UserServiceImpl::expectationFailedException);
             if (!passwordEncoder.matches(form.getPassword(), user.getPassword())) {
                 throw expectationFailedException();
             }
@@ -119,6 +125,13 @@ public class UserServiceImpl implements UserService {
                     securityConfig.getRefreshTokenExpiry());
             return new LoginView(user, accessToken, refreshToken);
         // }
+    }
+
+
+    @Override
+    public UserView currentUser() {
+        return new UserView(
+                userRepository.findById(SecurityUtil.getCurrentUserId()));
     }
 
     @Override
@@ -152,17 +165,7 @@ public class UserServiceImpl implements UserService {
                 new LoginView.TokenView(refreshToken, status.expiry));
     }
 
-    private static BadRequestException badRequestException() {
-        return new BadRequestException("Invalid credentials");
-    }
 
-    private static expectationFailedException expectationFailedException() {
-        return new expectationFailedException("Invalid username or password");
-    }
-
-    private static ConflictException conflictException() {
-        return new ConflictException("Email id Already Registered");
-    }
 
     @Override
     public Collection<User> listAll() {
