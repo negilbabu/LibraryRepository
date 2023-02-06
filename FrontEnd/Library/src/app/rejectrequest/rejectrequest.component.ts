@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { NgToastService } from 'ng-angular-popup';
 import { BooksService } from '../books.service';
 import { BorrowService } from '../borrow.service';
 
@@ -11,16 +12,20 @@ import { BorrowService } from '../borrow.service';
 })
 export class RejectrequestComponent implements OnInit {
 
+
   borrowList: any[];
   borrowId:any;
 
-  constructor(private router:Router ,private booksService:BooksService,private borrowService:BorrowService) {  
+  constructor(private router:Router ,private booksService:BooksService,private borrowService:BorrowService,private toast : NgToastService) {  
   this.borrowList=[];
  }
  ngOnInit(): void {
 
  
 }
+closePopup() {
+this.ObjSampleForm.reset();
+  }
    
 ObjSampleForm:FormGroup=new FormGroup(
   { 
@@ -35,6 +40,9 @@ onSubmit(){
 }
 
 rejectRequest(borrowId:any){
+
+  if(this.ObjSampleForm.valid){
+
   let body={
     reason: this.ObjSampleForm.controls['reason'].value
   
@@ -42,7 +50,7 @@ rejectRequest(borrowId:any){
 
   this.borrowService.updateReject(borrowId, body).subscribe({
     next: (Response: any) => {
-      alert(" Book Rejected")
+      this.toast.error({detail:' Book Rejected Success',duration:2000});
       window.location.reload()
     },
     error: (Response: any) => {
@@ -51,6 +59,10 @@ rejectRequest(borrowId:any){
   })
   this.router.navigate(['/borrow'])
 
+}
+else{
+  this.toast.error({detail:' Failed',summary:'Invalid Data',duration:2000});
+}
 }
 
 }

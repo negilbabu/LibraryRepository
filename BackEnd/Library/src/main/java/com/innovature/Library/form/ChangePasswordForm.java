@@ -7,7 +7,7 @@ import javax.validation.constraints.NotNull;
 import com.innovature.Library.form.validaton.Password;
 
 public class ChangePasswordForm {
-
+    @NotBlank
     private String email;
     @NotBlank(message="new password cannot be null") 
     @Password

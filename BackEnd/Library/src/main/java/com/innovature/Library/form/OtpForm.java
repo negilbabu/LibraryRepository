@@ -6,6 +6,7 @@ import com.innovature.Library.form.validaton.Password;
 import javax.validation.constraints.Pattern;
 public class OtpForm {
 
+    @NotBlank
     private String email;
 
     @NotNull(message="OTP cannot be null") 

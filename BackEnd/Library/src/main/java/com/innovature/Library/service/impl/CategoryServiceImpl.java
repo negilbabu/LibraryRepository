@@ -19,6 +19,7 @@ import com.innovature.Library.form.CategoryForm;
 import com.innovature.Library.repository.CategoryRepository;
 import com.innovature.Library.service.CategoryService;
 import com.innovature.Library.exception.BadRequestException;
+import com.innovature.Library.exception.NotAcceptableException;
 
 @Service
 public class CategoryServiceImpl implements CategoryService {
@@ -60,7 +61,7 @@ public class CategoryServiceImpl implements CategoryService {
         try{
             categoryRepository.delete(categoryRepository.findByCategoryId(categoryId) );
           } catch(Exception reason){
-            throw new BadRequestException("Unable to delete parent class", reason);
+            throw new NotAcceptableException("Unable to delete parent class");
           }
     }
 

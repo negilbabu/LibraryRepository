@@ -161,18 +161,20 @@ export class AddbooksComponent implements OnInit {
   delete(booksId: any): void {
     if (confirm('Are you sure want to delete?')) {
 
-      this.toast.error({ detail: 'BOOK DELETED', summary: 'The book ' + booksId.booksName + ' Has DELETED', duration: 5000 });
       this.booksService.delete(booksId.booksId).subscribe({
         next: (res) => {
          
+      this.toast.error({ detail: 'BOOK DELETED', summary: 'The book ' + booksId.booksName + ' Has DELETED', duration: 5000 });
             this.Load();
 
         },
-        error: (msg) => { }
+        error: (msg) => {
+          alert("Book cannot be deleted")
+         }
       })
     }
     else {
-      this.router.navigate(['/books'])
+      this.router.navigate(['/addbooks'])
     }
   }
 

@@ -19,6 +19,7 @@ import org.springframework.data.domain.Sort;
 import com.innovature.Library.entity.Books;
 import com.innovature.Library.entity.Category;
 import com.innovature.Library.exception.BadRequestException;
+import com.innovature.Library.exception.NotAcceptableException;
 import com.innovature.Library.exception.NotFoundException;
 import com.innovature.Library.form.BooksForm;
 import com.innovature.Library.repository.BooksRepository;
@@ -96,10 +97,13 @@ public class BooksServiceImpl implements BooksService {
 
     @Override
     public void deletes(Integer categoryId) throws NotFoundException {
-        booksRepository.delete(
-                booksRepository.findByBooksId(categoryId)
-
-        );
+        try{
+            booksRepository.delete( booksRepository.findByBooksId(categoryId));
+        }
+        catch(Exception reason){
+            throw new NotAcceptableException("Unable to delete parent class");
+        }
+   
 
     }
 

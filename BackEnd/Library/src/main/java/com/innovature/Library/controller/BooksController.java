@@ -64,8 +64,8 @@ public class BooksController {
     }
 
     @DeleteMapping("/{booksId}")
-    public void deletes(
-            @PathVariable("booksId") Integer booksId) {
+    public void deletes(@PathVariable("booksId") Integer booksId)
+    {
         service.deletes(booksId);
     }
 

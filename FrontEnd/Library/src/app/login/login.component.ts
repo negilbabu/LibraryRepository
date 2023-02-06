@@ -33,7 +33,7 @@ export class LoginComponent implements OnInit {
 
   login(){
 
-    //  if(this.loginForm.valid){
+     if(this.loginForm.valid){
         this.service.login(this.loginForm.value).subscribe(result=>{
           if(result.userId){
             this.responsedata=result
@@ -66,13 +66,13 @@ export class LoginComponent implements OnInit {
            });
         
         
-    //  }
+     }
      
        
    
-  //  else{   
-    // this.toast.error({detail:'Login Failed',summary:'Fill up the fields',duration:5000});
-      //  }
+   else{   
+    this.toast.error({detail:'Login Failed',summary:'Fill up the fields',duration:5000});
+       }
   }
 
 

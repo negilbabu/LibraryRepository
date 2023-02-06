@@ -21,7 +21,11 @@ import javax.validation.Valid;
 
 import com.innovature.Library.entity.Email;
 import com.innovature.Library.entity.User;
+import com.innovature.Library.exception.BadRequestException;
+import com.innovature.Library.exception.GatewayTimeoutException;
+import com.innovature.Library.exception.NotAcceptableException;
 import com.innovature.Library.exception.PreconditionFailedException;
+import com.innovature.Library.exception.expectationFailedException;
 import com.innovature.Library.repository.UserRepository;
 
 @RestController
@@ -41,11 +45,9 @@ public class EmailController {
     public ResponseEntity sendOtpEmail(@Valid @RequestBody EmailForm form) {
    
             User user = userRepository.findByEmailId(form.getSentto());
-            try{
-                System.out.println("ssssssssssssssssssssssssssssssssss"+user);
-            
+      
             if (user != null) {
-System.out.println("ssasdfghjklkjhgfds"+user);
+
                 Random random = new Random();
                 int otp = 100000 + random.nextInt(900000);
                 Email otp2 = new Email();
@@ -70,15 +72,6 @@ System.out.println("ssasdfghjklkjhgfds"+user);
                         "Your OTP to change your password is \t" + otp + "\t use it to create a new password. OTP will EXPIRE after 3 MINUTES. Thank you",
                         form.getSentto());
 
-            //     if (result) {
-            //         return new ResponseEntity(null, HttpStatus.ACCEPTED);
-            //     } else {
-            //         return new ResponseEntity(null, HttpStatus.EXPECTATION_FAILED);
-            //     }
-            // } else {
-            //     return new ResponseEntity(null, HttpStatus.BAD_REQUEST);
-
-            // }
             if(result){
                 return new ResponseEntity(null, HttpStatus.ACCEPTED);
             }
@@ -93,48 +86,29 @@ System.out.println("ssasdfghjklkjhgfds"+user);
         }
         else
         {
-            throw new PreconditionFailedException("user email is not registered");
+            throw new PreconditionFailedException("user email is not  registered");
         }
         
 
-    } catch(PreconditionFailedException e){
-        throw new PreconditionFailedException("user email is not registered", e);
-    }
-        // String message = String.format("user email is not registered ");
-        //     return ResponseEntity.status(HttpStatus.PRECONDITION_FAILED).body("UNREGISTERED EMAIL ID DETECTED");
-    //   return null;
        }
 
-
-    //    try {
-    //     status = tokenGenerator.verify(PURPOSE_REFRESH_TOKEN, refreshToken);
-    // } catch (InvalidTokenException e) {
-    //     throw new BadRequestException("Invalid token", e);
-
-    private static PreconditionFailedException preconditionFailedException() {
-     throw  new PreconditionFailedException("UNREGISTERED EMAIL ID DETECTED");
-        }
-    
+   
 
     @PostMapping("verify")
     public ResponseEntity add(@Valid @RequestBody OtpForm form) {
-        // var otp = form.getOtp();
-        // if (otp == null) {
-        //     return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("NULL VALUE EXCEPTION");
-        // } else {
-
-            ResponseEntity result = emailService.add(form);
+    
+        ResponseEntity result = emailService.add(form);
 
             if (result.getStatusCodeValue() == 202) {
                 return new ResponseEntity(HttpStatus.ACCEPTED);
 
             } else if (result.getStatusCodeValue() == 504) {
-                return ResponseEntity.status(HttpStatus.GATEWAY_TIMEOUT).body("OTP EXPIRED");
+               
+                throw new GatewayTimeoutException("OTP VALIDITY EXPIRED ");
             }
 
             else
-                return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("OTP VERIFICATION FAILED");
-        // }
+                throw new NotAcceptableException("OTP VERIFICATION FAILED");
     }
 
     @PostMapping("verifyPassword")
@@ -143,17 +117,17 @@ System.out.println("ssasdfghjklkjhgfds"+user);
         var psd = form.getNewPassword();
         var npsd = form.getCnewPassword();
 
-        if (psd == null || npsd == null) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("NULL VALUE EXCEPTION");
-        } else if (!psd.equals(npsd)) {
-            return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body("PASSWORD MISSMATCH");
+         if (!psd.equals(npsd)) {
+            throw new expectationFailedException("PASSWORD - MISSMATCH");
+        
         } else {
 
             boolean result = emailService.addPassword(form);
             if (result) {
                 return new ResponseEntity(null, HttpStatus.ACCEPTED);
             } else {
-                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("PASSWORD CHANGE FAILED");
+                throw new BadRequestException("PASSWORD CHANGE FAILED");
+          
             }
         }
 
