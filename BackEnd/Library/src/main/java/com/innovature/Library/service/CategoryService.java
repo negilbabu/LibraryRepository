@@ -6,7 +6,6 @@ import org.springframework.data.domain.Page;
 import com.innovature.Library.view.CategoryDetailView;
 import com.innovature.Library.entity.Category;
 import com.innovature.Library.form.CategoryForm;
-import org.springframework.validation.Errors;
 
 public interface CategoryService {
 
@@ -17,10 +16,6 @@ public interface CategoryService {
     CategoryDetailView list(Integer categoryId);
 
     void deletes(Integer catogoryId);
-
-
-
-    // boolean deletes(Integer catogoryId,Errors errors);
 
     CategoryDetailView updates(Integer categoryId, CategoryForm form);
 

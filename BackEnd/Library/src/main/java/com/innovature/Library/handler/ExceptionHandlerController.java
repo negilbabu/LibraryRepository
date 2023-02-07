@@ -13,11 +13,11 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import com.innovature.Library.exception.PreconditionFailedException;
 import com.innovature.Library.exception.ConflictException;
 import com.innovature.Library.exception.expectationFailedException;
+import com.innovature.Library.security.util.InvalidTokenException;
 import com.innovature.Library.exception.GatewayTimeoutException;
 import com.innovature.Library.exception.NotAcceptableException;
 
 import javax.validation.ConstraintViolation;
-
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -73,15 +73,19 @@ public class ExceptionHandlerController {
             this.message = message;
             series=httpStatus.series();
 
+
         }
 
     }
 
+
     @ExceptionHandler(PreconditionFailedException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ResponseEntity<ErrorDto1> handlePreconditionFailedException(PreconditionFailedException ex) {
+
+        
         var msg=ex.getMessage();
-        ErrorDto1 dto = new ErrorDto1(HttpStatus.PRECONDITION_FAILED,msg);      
+        ErrorDto1 dto = new ErrorDto1(HttpStatus.PRECONDITION_FAILED,msg);   
         return ResponseEntity.status(HttpStatus.PRECONDITION_FAILED).body(dto);
 
     }
@@ -121,8 +125,19 @@ public class ExceptionHandlerController {
         var msg=ex.getMessage();
         ErrorDto1 dto = new ErrorDto1(HttpStatus.NOT_ACCEPTABLE, msg);      
         return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body(dto);
-
     }
+
+
+    @ExceptionHandler(InvalidTokenException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ResponseEntity<ErrorDto1> invalidToken(InvalidTokenException ex) {
+        // System.out.println("----------------------------------");
+        var msg=ex.getMessage();
+        ErrorDto1 dto = new ErrorDto1(HttpStatus.FORBIDDEN, msg);      
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(dto);
+    }
+
+
 
 
 

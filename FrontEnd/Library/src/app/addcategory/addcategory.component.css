@@ -1,3 +1,84 @@
+* {
+  box-sizing: border-box;
+  }
+  
+  @media only screen and (max-width: 620px) {
+  /* For mobile phones: */
+  .right {
+    width: 87%;
+  
+  }
+  /* .form-control{
+    top:15%;
+  }
+  */
+  .csvv{
+    position: relative;
+    left: 8%;
+    top:65px;
+  } 
+  
+  .centered{
+    top: 18%;
+    left:45%;
+  }
+  .mat-dialog-container{
+  margin-left: 20%;
+  }
+  
+  .form-control{
+  width: 10%;
+  left: 0%;
+  }
+  
+  .mycls{
+    left: 35%;
+    margin-left: 20%;
+  }
+  
+  .csvv{
+    /* position: relative; */
+    left: -55%;
+    /* top:65px; */
+  } 
+  
+  
+  }
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   table{
     width: auto;

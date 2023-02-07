@@ -10,7 +10,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-import org.springframework.validation.Errors;
 
 import com.innovature.Library.view.CategoryDetailView;
 import com.innovature.Library.entity.Category;
@@ -27,26 +26,10 @@ public class CategoryServiceImpl implements CategoryService {
     @Autowired
     private CategoryRepository categoryRepository;
 
-    private static BadRequestException badRequestException() {
-        return new BadRequestException("Invalid credentials");
-    }
-
     @Override
     public CategoryDetailView add(CategoryForm form) throws BadRequestException {
 
-        // var data = form.getCategoryName();
-        // if ("".equals(data)) {
-        //     throw badRequestException();
-        // }
-
-
-        // if (errors.hasErrors()) {
-        //     throw badRequestException();
-        // } 
-        // else {
             return new CategoryDetailView(categoryRepository.save(new Category(form)));
-
-        // }
 
     }
 

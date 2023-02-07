@@ -2,8 +2,6 @@ package com.innovature.Library.form;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
-import com.innovature.Library.form.validaton.Password;
-import javax.validation.constraints.Pattern;
 public class OtpForm {
 
     @NotBlank
@@ -12,10 +10,6 @@ public class OtpForm {
     @NotNull(message="OTP cannot be null") 
     private Integer otp;
 
-    // @Password
-    // private String newPassword;
-    // @Password
-    // private String cnewPassword;
 
 
     
@@ -31,18 +25,6 @@ public class OtpForm {
     public void setOtp(Integer otp) {
         this.otp = otp;
     }
-    // public String getNewPassword() {
-    //     return newPassword;
-    // }
-    // public void setNewPassword(String newPassword) {
-    //     this.newPassword = newPassword;
-    // }
-    // public String getCnewPassword() {
-    //     return cnewPassword;
-    // }
-    // public void setCnewPassword(String cnewPassword) {
-    //     this.cnewPassword = cnewPassword;
-    // }
 
     
 }

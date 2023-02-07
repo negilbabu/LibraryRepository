@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.validation.Errors;
+
 
 import com.innovature.Library.entity.Category;
 import com.innovature.Library.form.CategoryForm;
@@ -53,21 +53,6 @@ public class CategoryController {
     }
 
 
-    
-    // @PostMapping
-    // public CategoryDetailView add(@Valid @RequestBody CategoryForm form, Errors errors) {
-    //     return service.add(form, errors);
-    // }
-    
-    // @DeleteMapping("/{catogoryId}")
-    // public boolean deletes(
-    //         @PathVariable("catogoryId") Integer catogoryId,Errors errors) {
-    //             return service.deletes(catogoryId,errors);
-  
-    //     // return service.add(form, errors);
-    // }
-
-
     @PutMapping("/{catogoryId}")
     public CategoryDetailView update(
             @PathVariable("catogoryId") Integer catogoryId,
@@ -93,7 +78,6 @@ public class CategoryController {
 
               
         Page<Category> list = service.getAllCategory(keyword,pageNo - 1, pageSize, sortBy, direction);
-        System.out.println("-----------------------------------------"+keyword);
         return new ResponseEntity<Page<Category>>(list, new HttpHeaders(),
                 HttpStatus.OK);
 

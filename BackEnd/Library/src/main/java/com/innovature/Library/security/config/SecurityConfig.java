@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-//package com.innovaturelabs.training.contacts.security.config;
+
 package com.innovature.Library.security.config;
 import java.time.Duration;
 import javax.validation.constraints.NotNull;

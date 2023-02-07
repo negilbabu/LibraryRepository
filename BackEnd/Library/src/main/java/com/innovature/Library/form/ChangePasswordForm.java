@@ -2,8 +2,6 @@ package com.innovature.Library.form;
 
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-
 import com.innovature.Library.form.validaton.Password;
 
 public class ChangePasswordForm {

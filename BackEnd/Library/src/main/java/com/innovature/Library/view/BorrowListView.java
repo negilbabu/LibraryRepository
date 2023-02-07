@@ -1,7 +1,10 @@
 package com.innovature.Library.view;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.Date;
+
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import com.innovature.Library.entity.Books;
 import com.innovature.Library.entity.User;
@@ -12,21 +15,23 @@ public class BorrowListView {
     private final UserDetailView user;
     private final BooksDetailView books;
 
-    private final LocalDateTime issueDate;
-    @Json.DateFormat
+    private final LocalDate issueDate;
+
+    @Temporal(TemporalType.DATE)
     private final Date returnDate;
-    @Json.DateFormat
+ 
+    @Temporal(TemporalType.DATE)
     private final Date dueDate;
 
-    private final LocalDateTime bookReturnedDate;
+    private final LocalDate bookReturnedDate;
     private String status;
     private String paymentStatus;
     private String reason;
     public Long fine;
     public Long dueDays;
 
-    public BorrowListView(int borrowId, User user, Books books, LocalDateTime issueDate, Date returnDate,
-            LocalDateTime bookReturnedDate, Date dueDate, String status, String reason, Long dueDays, Long fine,
+    public BorrowListView(int borrowId, User user, Books books, LocalDate issueDate, Date returnDate,
+            LocalDate bookReturnedDate, Date dueDate, String status, String reason, Long dueDays, Long fine,
             String paymentStatus) {
         this.borrowId = borrowId;
         this.user = new UserDetailView(user);
@@ -56,7 +61,7 @@ public class BorrowListView {
         return books;
     }
 
-    public LocalDateTime getIssueDate() {
+    public LocalDate getIssueDate() {
         return issueDate;
     }
 
@@ -78,7 +83,7 @@ public class BorrowListView {
 
     }
 
-    public LocalDateTime getBookReturnedDate() {
+    public LocalDate getBookReturnedDate() {
         return bookReturnedDate;
     }
 

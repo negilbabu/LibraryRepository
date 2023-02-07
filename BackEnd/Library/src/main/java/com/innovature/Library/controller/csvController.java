@@ -40,19 +40,18 @@ public class csvController {
         message = "Uploaded the file successfully: " + file.getOriginalFilename();
         
         String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
-                .path("/api/csv/download/")
-                .path(file.getOriginalFilename())
+                .path("/api/csv/download/").path(file.getOriginalFilename())
                 .toUriString();
 
         return ResponseEntity.status(HttpStatus.OK).body(new ResponseMessage(message,fileDownloadUri));
       } catch (Exception e) {
         message = "Could not upload the file: " + file.getOriginalFilename() + "!";
-        return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new ResponseMessage(message,""));
+        return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new ResponseMessage(message,"The CSV headers are different,Error:"+HttpStatus.EXPECTATION_FAILED));
       }
     }
 
     message = "Please upload a csv file!";
-    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ResponseMessage(message,""));
+    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ResponseMessage(message,"upload a.csv file,Error:"+HttpStatus.BAD_REQUEST));
   }
     
   

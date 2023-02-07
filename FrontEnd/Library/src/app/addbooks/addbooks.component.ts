@@ -169,7 +169,7 @@ export class AddbooksComponent implements OnInit {
 
         },
         error: (msg) => {
-          alert("Book cannot be deleted")
+          this.toast.warning({ detail: 'UNABLE TO DELETE', summary: 'The book ' + booksId.booksName + ' cannot be DELETED', duration: 5000 });
          }
       })
     }
@@ -216,10 +216,10 @@ export class AddbooksComponent implements OnInit {
           if (res !== null) {
             this.toast.success({ detail: 'SUCCESS', summary: 'The CSV File upload is successfull', duration: 5000 });
 
-            setTimeout(() => {
+            // setTimeout(() => {
               this.Load()
 
-            }, 3000);
+            // }, 3000);
           }
         }, (error: any) => {
           this.toast.error({ detail: 'CSV Upload Failed', summary: 'Invalid CSV File', duration: 5000 });

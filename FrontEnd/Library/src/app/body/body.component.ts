@@ -34,7 +34,7 @@ export class BodyComponent implements OnInit {
 
   chart() {
     this.borrowService.chartbar().subscribe(res => {
-
+console.log("=>",res)
       this.bar = res;
       this.barchart = new Chart("bar", {
         type: 'bar', //this denotes the type of chart

@@ -58,7 +58,6 @@ public class EmailServiceImpl implements EmailService {
         return new ResponseEntity(null, HttpStatus.NOT_ACCEPTABLE);
     }
 
-   
     @Override
     public boolean addPassword(ChangePasswordForm form) {
 
