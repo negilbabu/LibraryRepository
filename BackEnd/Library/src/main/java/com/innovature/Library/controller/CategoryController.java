@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.validation.Errors;
+
 
 import com.innovature.Library.entity.Category;
 import com.innovature.Library.form.CategoryForm;
@@ -53,21 +53,6 @@ public class CategoryController {
     }
 
 
-    
-    // @PostMapping
-    // public CategoryDetailView add(@Valid @RequestBody CategoryForm form, Errors errors) {
-    //     return service.add(form, errors);
-    // }
-    
-    // @DeleteMapping("/{catogoryId}")
-    // public boolean deletes(
-    //         @PathVariable("catogoryId") Integer catogoryId,Errors errors) {
-    //             return service.deletes(catogoryId,errors);
-  
-    //     // return service.add(form, errors);
-    // }
-
-
     @PutMapping("/{catogoryId}")
     public CategoryDetailView update(
             @PathVariable("catogoryId") Integer catogoryId,
@@ -85,14 +70,19 @@ public class CategoryController {
 
     @GetMapping("admin/pagenated/")
     public ResponseEntity<Page<Category>> getAllCategory(
+            @RequestParam(defaultValue = "") String keyword,
             @RequestParam(defaultValue = "1") Integer pageNo,
             @RequestParam(defaultValue = "10") Integer pageSize,
-            @RequestParam(defaultValue = "categoryId") String sortBy,
+            @RequestParam(defaultValue = "category_name") String sortBy,
             @RequestParam(defaultValue = "1") Integer direction) {
-        Page<Category> list = service.getAllCategory(pageNo - 1, pageSize, sortBy, direction);
+
+              
+        Page<Category> list = service.getAllCategory(keyword,pageNo - 1, pageSize, sortBy, direction);
         return new ResponseEntity<Page<Category>>(list, new HttpHeaders(),
                 HttpStatus.OK);
 
     }
+
+
 
 }

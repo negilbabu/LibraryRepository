@@ -5,7 +5,7 @@
   <h2 class="centr" style="text-align:center ;">Borrow Details</h2>
 
 
-  <button class=" btn-success btn-sm mb-1" *ngIf="this.flag==0" style=" border: none;position:relative; top:80% "
+  <button class=" btn-success btn-sm mb-1" *ngIf="this.flag==0 || this.flag==1" style=" border: none;position:relative; top:80% "
     (click)="dwn()"> Download CSV</button>
   <div class="text-center">
     <form [formGroup]="ObjSampleForm">
@@ -17,17 +17,15 @@
                 style="position:absolute; left:83%; top:12%;"> </div>
 
             <div class="centered">
-              <label> START DATE</label> &nbsp;&nbsp; <input type="date" formControlName="date1" value="date1"
-                max="{{date| date:'yyyy/MM/dd' }}" (input)="datas()">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              <label> START DATE</label> &nbsp;&nbsp; <input type="date" formControlName="date1" value="date1" max="{{date| date:'yyyy/MM/dd' }}" (input)="datas()">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
-              <label class="end">END DATE</label>&nbsp;&nbsp; <input type="date" formControlName="date2" value="date2"
-                min="{{this.val}}" (input)="datas1()" max="{{date| date:'yyyy/MM/dd' }}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              <label class="end">END DATE</label>&nbsp;&nbsp; <input type="date" formControlName="date2" value="date2" min="{{this.val}}" (input)="datas1()" max="{{date| date:'yyyy/MM/dd' }}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
               <input type="button" (click)="getFilter()"
                 value="FILTER">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             </div>
             <br>
 
-            <table *ngIf="flag==0" class=".table-hover" id="datatable" role="grid">
+            <table *ngIf="flag==0 || flag==2 || flag==3 || flag==4 || flag==5" class=".table-hover" id="datatable" role="grid">
 
               <thead class="bg-primary text-white">
                 <tr role="row">
@@ -64,11 +62,6 @@
                     <button mat-icon-button *ngIf="this.direction==-1"> <i class="material-icons"
                         style="color:rgb(0, 0, 0)">keyboard_arrow_down</i></button>
                   </th>
-                  <!-- <th (click)="sortfn('status')">Status 
-                                        <button mat-icon-button *ngIf="this.direction==1"> <i class="material-icons" style="color:rgb(0, 0, 0)" >keyboard_arrow_up</i></button>
-                                        <button mat-icon-button *ngIf="this.direction==-1"> <i class="material-icons" style="color:rgb(0, 0, 0)" >keyboard_arrow_down</i></button>
-                                      </th> -->
-
                   <th>
                     <form [formGroup]="filter" style="width: 70px;">
                       <select name="Status" formControlName="status" [(ngModel)]="selectedGroup" class="dropbtn"

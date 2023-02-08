@@ -5,7 +5,7 @@ import javax.validation.constraints.NotBlank;
 public class EmailForm {
 
     @Email
-    @NotBlank
+    @NotBlank(message="email id cannot be null") 
     public String sentto;
 
     public String getSentto() {

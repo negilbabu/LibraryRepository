@@ -90,7 +90,8 @@ export class BooksComponent implements OnInit {
       this.update(this.booksId)
     } else {
 
-
+      if(this.ObjSampleForm.valid){
+        
       this.booksService.add(this.ObjSampleForm.value).subscribe(result => {
 
         if (result.booksId) {
@@ -111,6 +112,11 @@ export class BooksComponent implements OnInit {
       )
 
     }
+    else{
+      this.toast.success({ detail: 'Invalid', summary: 'Enter valid book details ', duration: 5000 });
+    }
+
+  }
   }
 
   closePopup() {
@@ -139,7 +145,7 @@ export class BooksComponent implements OnInit {
 
 
   update(booksId: any) {
-
+    if(this.ObjSampleForm.valid){
     let body = {
       categoryId: this.ObjSampleForm.controls['categoryId'].value,
       publication: this.ObjSampleForm.controls['publication'].value,
@@ -173,10 +179,15 @@ export class BooksComponent implements OnInit {
       },
       error: (Response: any) => {
         console.log(Response)
-        this.toast.success({ detail: 'Invalid', summary: 'Enter valid details ', duration: 5000 });
+        this.toast.success({ detail: 'Invalid', summary: 'Enter valid book details ', duration: 5000 });
       }
     })
     localStorage.removeItem('booksId');
+  }
+    else{
+      this.toast.success({ detail: 'Invalid', summary: 'Enter valid book details ', duration: 5000 });
+    }
+    
   }
 
 

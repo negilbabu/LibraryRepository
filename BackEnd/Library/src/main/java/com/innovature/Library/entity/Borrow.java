@@ -1,6 +1,7 @@
 package com.innovature.Library.entity;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.time.LocalDate;
 import java.util.Date;
 
 import javax.persistence.Entity;
@@ -31,7 +32,7 @@ public class Borrow {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer borrowId;
 
-    private LocalDateTime issueDate;
+    private LocalDate issueDate;
 
     @Temporal(TemporalType.DATE)
     private Date returnDate;
@@ -39,7 +40,7 @@ public class Borrow {
     @Temporal(TemporalType.DATE)
     private Date dueDate;
 
-    private LocalDateTime bookReturnedDate;
+    private LocalDate bookReturnedDate;
 
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private Books books;
@@ -70,15 +71,38 @@ public class Borrow {
         this.paymentStatus = getPaymentStatus();
         this.reason = form.getReason();
 
-        LocalDateTime dt = LocalDateTime.now();
+        LocalDate dt = LocalDate.now();
         this.issueDate = dt;
 
-        LocalDateTime date = LocalDateTime.now();
+        LocalDate date = LocalDate.now();
         this.bookReturnedDate = date;
         this.dueDays = 0L;
         this.fine = 0L;
 
     }
+    public Borrow Edit () {
+
+        // this.returnDate = form.getReturnDate();
+        // this.dueDate = form.getDueDate();
+        // this.books = books;
+        // this.user = user2;
+        // this.status = getStatus();
+        // this.paymentStatus = getPaymentStatus();
+        // this.reason = form.getReason();
+
+        // LocalDate dt = LocalDate.now();
+        // this.issueDate = dt;
+        this.setStatus("RETURNED");
+        books.setBooksCopies(books.getBooksCopies() + 1);
+
+        LocalDate date = LocalDate.now();
+        this.bookReturnedDate = date;
+        // this.dueDays = 0L;
+        // this.fine = 0L;
+        return this;
+
+    }
+
 
     public Borrow(Books book, User user) {
         this.books = book;
@@ -98,11 +122,11 @@ public class Borrow {
         this.borrowId = borrowId;
     }
 
-    public LocalDateTime getIssueDate() {
+    public LocalDate getIssueDate() {
         return issueDate;
     }
 
-    public void setIssueDate(LocalDateTime issueDate) {
+    public void setIssueDate(LocalDate issueDate) {
         this.issueDate = issueDate;
     }
 
@@ -154,11 +178,11 @@ public class Borrow {
         this.reason = reason;
     }
 
-    public LocalDateTime getBookReturnedDate() {
+    public LocalDate getBookReturnedDate() {
         return bookReturnedDate;
     }
 
-    public void setBookReturnedDate(LocalDateTime bookReturnedDate) {
+    public void setBookReturnedDate(LocalDate bookReturnedDate) {
         this.bookReturnedDate = bookReturnedDate;
     }
 

@@ -137,6 +137,9 @@ public interface BorrowRepository extends PagingAndSortingRepository<Borrow, Int
   @Query(value = "select * from borrow where issue_date between date_sub(curdate(),interval 7 day) and curdate()", nativeQuery = true)
   List<Borrow> findAllL7();
 
+  @Query(value = "select * from borrow where issue_date between DATE(?1) and DATE(?2) ", nativeQuery = true)
+  List<Borrow> findAsFilter(String date1, String date2);
+
   // @Query(value = "Select * from borrow where books_name like %?1% order by
   // books_name like ?2% DESC,books_name like %?3 DESC,books_name like %?4% ",
   // nativeQuery = true)

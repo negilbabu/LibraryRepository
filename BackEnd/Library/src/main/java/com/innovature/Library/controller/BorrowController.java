@@ -213,6 +213,7 @@ public class BorrowController {
             @PathVariable("borrowId") Integer borrowId,
             @Valid @RequestBody BorrowForm form) {
         return bService.updateReturn(borrowId, form);
+        
     }
 
     @PutMapping("admin/undo/{borrowId}")
@@ -237,14 +238,18 @@ public class BorrowController {
     }
 
     @GetMapping("admin/export")
-    public void Exportcsv(HttpServletResponse httpServletResponse) throws IOException {
+    public void Exportcsv( 
+    @RequestParam(defaultValue = "") String date1,
+    @RequestParam(defaultValue = "") String date2,
+    HttpServletResponse httpServletResponse) throws IOException {
         httpServletResponse.setContentType("text/csv");
         java.text.DateFormat datefFormat = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss");
         String currentDateTime = datefFormat.format(new java.util.Date());
         String headerKey = "Content-Disposition";
         String headerValue = "attachment; filename=users_" + currentDateTime + ".csv";
         httpServletResponse.setHeader(headerKey, headerValue);
-        List<Borrow> rents = bService.listcsv();
+        
+        List<Borrow> rents = bService.listcsv(date1, date2);
 
         ICsvBeanWriter csvWriter = new CsvBeanWriter(httpServletResponse.getWriter(),
                 CsvPreference.STANDARD_PREFERENCE);

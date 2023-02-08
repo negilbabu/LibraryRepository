@@ -22,10 +22,19 @@ export class ForgotpasswordComponent implements OnInit {
 
   ObjForgetForm: FormGroup = new FormGroup({
     otp: new FormControl('', [Validators.maxLength(50), Validators.required]),
+    email: new FormControl()
+  })
+
+  changePasswordForm: FormGroup = new FormGroup({
     newPassword: new FormControl('', [Validators.maxLength(50), Validators.required]),
     cnewPassword: new FormControl('', [Validators.maxLength(50), Validators.required]),
     email: new FormControl()
   })
+
+
+
+
+
   email: any;
 
 
@@ -37,7 +46,7 @@ export class ForgotpasswordComponent implements OnInit {
 
     this.ObjForgetForm.reset()
     this.spin = 0;
-
+    this.val = 0;
 
     if (this.rslt == 1) {
       this.toast.error({ detail: 'OTP Sent Failed :(', summary: 'Unregistered Email Detected ', duration: 5000, position: 'tr' })
@@ -60,6 +69,7 @@ export class ForgotpasswordComponent implements OnInit {
   closePopup() {
     this.displayStyle = "none";
     this.ObjForgetForm.reset()
+    this.changePasswordForm.reset()
   }
 
   openSuccess() {
@@ -68,6 +78,8 @@ export class ForgotpasswordComponent implements OnInit {
 
 
   openPopup() {
+
+    if(this.ObjForm.valid){
 
     this.val = 1;
     this.spin = 1;
@@ -79,31 +91,39 @@ export class ForgotpasswordComponent implements OnInit {
     }),
       (error) => {
 
-        if (error.status == 406) {
-          this.toast.error({ detail: 'OTP Sent Failed :(', summary: 'Fill the fields', duration: 5000, position: 'tr' })
+        if (error.status == 412) {
           this.spin = 0;
           this.val = 0;
-        }
-
-        else if (error.status == 400) {
           this.rslt = 1;
-          this.spin = 0;
           this.ngOnInit()
         }
 
-        else if (error.status == 417) {
-          this.toast.error({ detail: 'OTP Sent Failed :(', summary: 'Internal server error', duration: 5000, position: 'tr' })
+        else if (error.status == 400) {
+          this.rslt = 0;
+          this.spin = 0;
+          this.toast.error({ detail: 'OTP Sent Failed :(', summary: 'Fill the fields', duration: 5000, position: 'tr' })
+          this.ngOnInit()
+        }
+
+        else if (error.status == 422) {
+          this.toast.error({ detail: 'OTP Sent Failed :(', summary: 'Unable to process OTP Generation right Now', duration: 5000, position: 'tr' })
+          this.ngOnInit()
         }
 
 
       });
 
     this.displayStyle = "block";
-
+    }
+    else{
+      this.toast.error({ detail: 'OTP Sent Failed :(', summary: 'Email cannot be null', duration: 5000, position: 'tr' })  
+    }
   }
 
   //verify otp
   Otp() {
+
+    if(this.ObjForgetForm.valid){
 
     this.ObjForgetForm.value.email = this.email;
     this.emails.verify(this.ObjForgetForm.value).subscribe({
@@ -113,8 +133,7 @@ export class ForgotpasswordComponent implements OnInit {
 
       },
       error: (Response: any) => {
-        console.log("response-", Response.error)
-        if (Response.status == 400) {
+           if (Response.status == 400) {
           this.toast.warning({ detail: 'Failed', summary: 'Please Fill in the fields', duration: 5000, position: 'tr' })
         }
         else if (Response.status == 406) {
@@ -126,35 +145,42 @@ export class ForgotpasswordComponent implements OnInit {
       }
     })
   }
+  else{
+    this.toast.warning({ detail: 'Failed', summary: 'Please Fill in the fields', duration: 5000, position: 'tr' })
+  }
+}
 
 
 
 
   ChangePassword() {
 
-    this.ObjForgetForm.value.email = this.email;
-    this.emails.verifyPassword(this.ObjForgetForm.value).subscribe({
+    if(this.changePasswordForm.valid){
+
+    this.changePasswordForm.value.email = this.email;
+    this.emails.verifyPassword(this.changePasswordForm.value).subscribe({
       next: (result: any) => {
-        console.log("log", result)
-        this.toast.success({ detail: 'Success', summary: 'Changed Password, please Login', duration: 10000, position: 'tr' })
+        this.toast.success({ detail: 'Password Changed Successfully', summary: ' Please Login', duration: 10000, position: 'tr' })
         this.router.navigate(['/login'])
       },
       error: (Response: any) => {
-        console.log(Response)
-        if (Response.status == 400) {
-          this.toast.warning({ detail: 'Failed', summary: 'Please Fill up the fields', duration: 10000, position: 'tr' })
-        }
-        else if (Response.status == 502) {
-          this.toast.warning({ detail: 'Failed', summary: 'Password missmatch', duration: 10000, position: 'tr' })
-        }
-        else if (Response.status == 500) {
+         if (Response.status == 400) {
           this.toast.warning({ detail: 'Failed to change password', summary: 'INTERNAL SERVER ERROR', duration: 10000, position: 'tr' })
         }
-
+        else if (Response.status == 417) {
+          this.toast.warning({ detail: 'Failed', summary: 'Password missmatch', duration: 10000, position: 'tr' })
+        }
+    
       }
 
     })
 
   }
+  else{
+    this.toast.warning({ detail: 'Validation Failed', summary: 'Please Fill up the fields', duration: 10000, position: 'tr' })
+  }
+
+}
+
 
 }

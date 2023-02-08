@@ -28,7 +28,7 @@ export class CategoryComponent implements OnInit {
 
   categorydata: any;
 
-
+key:any;
   page: number = 1;
   count: any;
   tableSize: number = 5;
@@ -97,6 +97,8 @@ console.log("cat=",categoryId);
   }
   
   addCategory() {
+
+    if(this.ObjSampleForm.valid){
     this.service.addCategory(this.ObjSampleForm.value).subscribe({
       next: (result: any) => {
 
@@ -126,9 +128,17 @@ console.log("cat=",categoryId);
   })
 this.LoadCategory();
   }
+  else{
+    this.toast.warning({ detail: 'Failed', summary: 'Please Fill up the fields', duration: 10000, position: 'tr' })
+  }
+  }
+
+
+
+
 
   LoadCategory() {
-    this.service.CatPageAdmin(this.page, this.tableSize, this.sort, this.direction).subscribe(result => {
+    this.service.CatPageAdmin(this.key,this.page, this.tableSize, this.sort, this.direction).subscribe(result => {
       this.result = result.content;
       this.count = result.totalElements
       this.data = this.result;
@@ -138,6 +148,7 @@ this.LoadCategory();
   }
 
   updateCategory(categoryId: any) {
+    if(this.ObjSampleForm.valid){
     let body = {
       categoryName: this.ObjSampleForm.controls['categoryName'].value
     }
@@ -162,8 +173,10 @@ this.LoadCategory();
         this.router.navigate(['/addcategory'])
     this.LoadCategory();
     localStorage.removeItem('categoryId');
-
-
+  }
+else{
+  this.toast.warning({ detail: 'Failed', summary: 'Please Fill up the fields', duration: 10000, position: 'tr' })
+}
   }
   clear() {
     this.ObjSampleForm.reset()

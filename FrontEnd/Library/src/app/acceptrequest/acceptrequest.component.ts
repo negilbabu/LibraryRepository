@@ -47,6 +47,8 @@ export class AcceptrequestComponent implements OnInit {
 
 
   update(borrowId: any) {
+    if(this.ObjSampleForm.valid){
+    
     let body = {
 
       returnDate: this.ObjSampleForm.controls['returnDate'].value,
@@ -69,11 +71,18 @@ export class AcceptrequestComponent implements OnInit {
 
 
   }
+  else{
+    this.toast.warning({ detail: 'Error', summary: 'Fill up all fields', duration: 5000 });
+  }
+}
 
   datas() {
     this.val = this.ObjSampleForm.controls['returnDate'].value;
 
   }
+  closePopup() {
+    this.ObjSampleForm.reset();
+      }
 
 
 }

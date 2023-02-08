@@ -16,7 +16,7 @@ import java.lang.annotation.RetentionPolicy;
  */
 public final class Json {
 
-    public static final String TIME_ZONE = "UTC";
+    public static final String TIME_ZONE = "IST";
     public static final String DATE_FORMAT = "yyyy-MM-dd";
     public static final String DATE_TIME_FORMAT = "yyyy-MM-dd HH:mm:ss";
 

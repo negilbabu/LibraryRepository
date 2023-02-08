@@ -10,7 +10,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-import org.springframework.validation.Errors;
 
 import com.innovature.Library.view.CategoryDetailView;
 import com.innovature.Library.entity.Category;
@@ -19,6 +18,7 @@ import com.innovature.Library.form.CategoryForm;
 import com.innovature.Library.repository.CategoryRepository;
 import com.innovature.Library.service.CategoryService;
 import com.innovature.Library.exception.BadRequestException;
+import com.innovature.Library.exception.NotAcceptableException;
 
 @Service
 public class CategoryServiceImpl implements CategoryService {
@@ -26,26 +26,10 @@ public class CategoryServiceImpl implements CategoryService {
     @Autowired
     private CategoryRepository categoryRepository;
 
-    private static BadRequestException badRequestException() {
-        return new BadRequestException("Invalid credentials");
-    }
-
     @Override
     public CategoryDetailView add(CategoryForm form) throws BadRequestException {
 
-        // var data = form.getCategoryName();
-        // if ("".equals(data)) {
-        //     throw badRequestException();
-        // }
-
-
-        // if (errors.hasErrors()) {
-        //     throw badRequestException();
-        // } 
-        // else {
             return new CategoryDetailView(categoryRepository.save(new Category(form)));
-
-        // }
 
     }
 
@@ -60,7 +44,7 @@ public class CategoryServiceImpl implements CategoryService {
         try{
             categoryRepository.delete(categoryRepository.findByCategoryId(categoryId) );
           } catch(Exception reason){
-            throw new BadRequestException("Unable to delete parent class", reason);
+            throw new NotAcceptableException("Unable to delete parent class");
           }
     }
 
@@ -87,23 +71,51 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     @Transactional
-    public Page<Category> getAllCategory(Integer pageNo, Integer pageSize, String sortBy, Integer direction) {
+    public Page<Category> getAllCategory(String keyword,Integer pageNo, Integer pageSize, String sortBy, Integer direction) {
 
         var sortByDescending = Sort.by(sortBy).descending();
         var sortByAscending = Sort.by(sortBy).ascending();
+if(keyword == null){
+
 
         if (direction == 1) {
-
             Pageable paging = PageRequest.of(pageNo, pageSize, sortByDescending);
-            Page<Category> pagedResult = categoryRepository.findAll(paging);
+                
+            Page<Category> pagedResult = categoryRepository.findAll( paging);
             return pagedResult;
         }
 
         else {
             Pageable paging = PageRequest.of(pageNo, pageSize, sortByAscending);
-            Page<Category> pagedResult = categoryRepository.findAll(paging);
+
+            Page<Category> pagedResult = categoryRepository.findAll( paging);
             return pagedResult;
         }
+    }
+    else{
+
+        if (direction == 1) {
+            Pageable paging = PageRequest.of(pageNo, pageSize, sortByDescending);
+            String k = keyword;
+            String k1 = keyword;
+            String k2 = keyword;
+          
+            Page<Category> pagedResult = categoryRepository.findByKeywords(keyword, k, k1, k2, paging);
+            return pagedResult;
+        }
+
+        else {
+            Pageable paging = PageRequest.of(pageNo, pageSize, sortByAscending);
+
+            String k = keyword;
+            String k1 = keyword;
+            String k2 = keyword;
+            Page<Category> pagedResult = categoryRepository.findByKeywords(keyword, k, k1, k2, paging);
+            return pagedResult;
+        }
+
+    }
+
     }
 
 }

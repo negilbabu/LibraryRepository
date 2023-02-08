@@ -13,7 +13,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.StringUtils;
-import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -65,8 +64,8 @@ public class BooksController {
     }
 
     @DeleteMapping("/{booksId}")
-    public void deletes(
-            @PathVariable("booksId") Integer booksId) {
+    public void deletes(@PathVariable("booksId") Integer booksId)
+    {
         service.deletes(booksId);
     }
 

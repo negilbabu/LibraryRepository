@@ -12,23 +12,25 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.innovature.Library.form.ChangePasswordForm;
 import com.innovature.Library.form.EmailForm;
 import com.innovature.Library.form.OtpForm;
 import com.innovature.Library.repository.EmailRepository;
-import com.innovature.Library.service.BorrowService;
 import com.innovature.Library.service.EmailService;
 import javax.validation.Valid;
 
 import com.innovature.Library.entity.Email;
 import com.innovature.Library.entity.User;
+import com.innovature.Library.exception.BadRequestException;
+import com.innovature.Library.exception.GatewayTimeoutException;
+import com.innovature.Library.exception.NotAcceptableException;
+import com.innovature.Library.exception.PreconditionFailedException;
+import com.innovature.Library.exception.expectationFailedException;
 import com.innovature.Library.repository.UserRepository;
 
 @RestController
 @RequestMapping("/email")
 public class EmailController {
-
-    @Autowired
-    private BorrowService service;
 
     @Autowired
     private EmailService emailService;
@@ -41,13 +43,9 @@ public class EmailController {
 
     @PostMapping("/emailsentotp")
     public ResponseEntity sendOtpEmail(@Valid @RequestBody EmailForm form) {
-        String emailid = form.getSentto();
-
-        // if ("".equals(emailid)) {
-
-        //     return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("NULL VALUE EXCEPTION-");
-        // } else {
+   
             User user = userRepository.findByEmailId(form.getSentto());
+      
             if (user != null) {
 
                 Random random = new Random();
@@ -71,61 +69,65 @@ public class EmailController {
                     emailRepository.save(otp2);
 
                 boolean result = this.emailService.sendEmail("OTP Verification",
-                        "Your OTP to change your password is \t" + otp + "\tuse it to create a new password.",
+                        "Your OTP to change your password is \t" + otp + "\t use it to create a new password. OTP will EXPIRE after 3 MINUTES. Thank you",
                         form.getSentto());
 
-                if (result) {
-                    return new ResponseEntity(null, HttpStatus.ACCEPTED);
-                } else {
-                    return new ResponseEntity(null, HttpStatus.EXPECTATION_FAILED);
-                }
-            } else {
-                return new ResponseEntity(null, HttpStatus.BAD_REQUEST);
-
+            if(result){
+                return new ResponseEntity(null, HttpStatus.ACCEPTED);
             }
+            else{
+              String message = String.format("UNABLE TO PROCESS OTP GENERATION");
+             return ResponseEntity
+            .unprocessableEntity()
+            .body(message);
+    
+            }
+         
+        }
+        else
+        {
+            throw new PreconditionFailedException("user email is not  registered");
+        }
+        
 
-        // }
+       }
 
-    }
+   
 
     @PostMapping("verify")
-    public ResponseEntity add(@RequestBody OtpForm form) {
-        var otp = form.getOtp();
-        if (otp == null) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("NULL VALUE EXCEPTION");
-        } else {
-
-            ResponseEntity result = emailService.add(form);
+    public ResponseEntity add(@Valid @RequestBody OtpForm form) {
+    
+        ResponseEntity result = emailService.add(form);
 
             if (result.getStatusCodeValue() == 202) {
                 return new ResponseEntity(HttpStatus.ACCEPTED);
 
             } else if (result.getStatusCodeValue() == 504) {
-                return ResponseEntity.status(HttpStatus.GATEWAY_TIMEOUT).body("OTP EXPIRED");
+               
+                throw new GatewayTimeoutException("OTP VALIDITY EXPIRED ");
             }
 
             else
-                return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("OTP VERIFICATION FAILED");
-        }
+                throw new NotAcceptableException("OTP VERIFICATION FAILED");
     }
 
     @PostMapping("verifyPassword")
-    public ResponseEntity addPassword(@RequestBody OtpForm form) {
+    public ResponseEntity addPassword(@Valid @RequestBody ChangePasswordForm form) {
 
         var psd = form.getNewPassword();
         var npsd = form.getCnewPassword();
 
-        if (psd == null || npsd == null) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("NULL VALUE EXCEPTION");
-        } else if (!psd.equals(npsd)) {
-            return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body("PASSWORD MISSMATCH");
+         if (!psd.equals(npsd)) {
+            throw new expectationFailedException("PASSWORD - MISSMATCH");
+        
         } else {
 
             boolean result = emailService.addPassword(form);
             if (result) {
                 return new ResponseEntity(null, HttpStatus.ACCEPTED);
             } else {
-                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("PASSWORD CHANGE FAILED");
+                throw new BadRequestException("PASSWORD CHANGE FAILED");
+          
             }
         }
 

@@ -47,6 +47,8 @@ public interface BorrowService {
 
     BorrowDetailView updateReturn(Integer borrowId, BorrowForm form);
 
+
+
     BorrowDetailView undo(Integer borrowId, @Valid BorrowForm form);
 
     Collection<Borrow> listDue();
@@ -69,6 +71,6 @@ public interface BorrowService {
 
     BorrowDetailView updatePaymentStatus(Integer borrowId, BorrowForm form);
 
-    List<Borrow> listcsv();
+    List<Borrow> listcsv(String date1, String date2);
 
 }

@@ -18,7 +18,34 @@ box-sizing: border-box;
 
 
   
-  
+.text-danger1{
+
+  /* width: 160%; */
+  padding: 8px 6px;
+  margin: 0px;
+  box-sizing: border-box;
+  border: 1px ; 
+  background-color: #a7bdb08f;
+  color: rgb(0, 0, 0);
+   border-radius: 7px;
+
+}
+.myclass input[type=date]{
+	width: auto;
+	height: auto;
+	background: rgb(201, 6, 6);
+	border: 1px solid rgb(39, 28, 28);
+	cursor: pointer;
+	border-radius: 10px;
+	color: #a18d6c;
+	font-family: 'Exo', sans-serif;
+	font-size: 16px;
+	font-weight: 400;
+	padding: 6px;
+	margin-top: 10px;
+	/* margin-left: 20%; */
+	text-align: center;
+}
   
   
   

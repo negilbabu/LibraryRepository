@@ -34,9 +34,12 @@
 
 
       <tr>
-        <td></td>
+       
         <td>
-          <button mat-raised-button (click)="submit()" [disabled]="!ObjSampleForm.valid" color="primary"
+          <button mat-raised-button (click)="closePopup()" color="warn" style="margin-right:3%; margin-right: 0%;" >Clear</button>
+        </td>
+        <td>
+          <button mat-raised-button (click)="submit()" color="primary"
             style="position: relative;" class="mycls">Submit</button>
         </td>
       </tr>

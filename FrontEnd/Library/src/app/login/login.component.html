@@ -19,8 +19,7 @@
         pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"><br>
 
         <span class="text-danger"   class="text-danger" *ngIf="loginForm.controls['password'].touched && loginForm.hasError('required','password')"><small>password is required</small></span>
-        <!-- <span class="text-danger" *ngIf=" loginForm.hasError('pattern','password')"><small>use alphanumeric & special characters &nbsp;</small></span>  -->
-    <input type="submit" value="Login" (click)="login()" >
+          <input type="submit" value="Login" (click)="login()" >
 
     <input type="button" value="Register" routerLink="/user-reg">  
     <br><br>

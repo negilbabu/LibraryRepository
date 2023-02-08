@@ -32,6 +32,7 @@ export class BorrowComponent implements OnInit {
   sort1: string = "borrowId";
   sort: string = "borrow_id";
   flag: number = 0;
+  flag1: number = 0;
   result: any;
   direction = 1;
   direction1 = -1;
@@ -54,6 +55,8 @@ export class BorrowComponent implements OnInit {
     sessionStorage.clear();
     localStorage.removeItem('borrowId');
     this.LoadData();
+    console.log("flg=", this.flag);
+
 
   }
 
@@ -85,27 +88,27 @@ export class BorrowComponent implements OnInit {
       this.service.AdminStatusfilterBorrow(this.page, this.tableSize, this.sort, this.direction, 1).subscribe(response => {
         this.result = response.content;
         this.count = response.totalElements
-        console.log('in approved', this.result);
         this.data = this.result;
+        this.flag = 2;
       });
     }
     else if (this.filter.controls['status'].value == 2) {
-      console.log('------------=', this.status)
+
       this.service.AdminStatusfilterBorrow(this.page, this.tableSize, this.sort, this.direction, 2).subscribe(response => {
         this.result = response.content;
         this.count = response.totalElements
-        console.log(this.result);
         this.data = this.result;
+        this.flag = 3;
       });
     }
 
     else if (this.filter.controls['status'].value == 3) {
-      console.log('}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}', this.status)
+
       this.service.AdminStatusfilterBorrow(this.page, this.tableSize, this.sort, this.direction, 3).subscribe(response => {
         this.result = response.content;
-        this.count = response.totalElements
-        console.log(this.result);
         this.data = this.result;
+        this.flag = 4;
+
       });
     }
 
@@ -114,13 +117,13 @@ export class BorrowComponent implements OnInit {
       this.service.AdminStatusfilterBorrow(this.page, this.tableSize, this.sort, this.direction, 4).subscribe(response => {
         this.result = response.content;
         this.count = response.totalElements
-        console.log(this.result);
         this.data = this.result;
+        this.flag = 5;
       });
     }
     else {
+      this.flag = 0;
       this.LoadData();
-      // this.filter.reset();
     }
 
   }
@@ -128,10 +131,21 @@ export class BorrowComponent implements OnInit {
 
   dwn() {
 
+    if(this.flag==0){
 
-    this.myDate = this.datePipe.transform(this.curDate, 'yyyy-MM-dd');
-    this.filename = "DataExport_" + this.myDate;
-    this.service.export().subscribe((blob: any) => saveAs(blob, this.filename))
+      this.myDate = this.datePipe.transform(this.curDate, 'yyyy-MM-dd');
+      this.filename = "LibraryBorrowExport_" + this.myDate;
+      this.service.export().subscribe((blob: any) => saveAs(blob, this.filename))
+    }
+
+     else if(this.flag==1){
+
+      this.myDate = this.datePipe.transform(this.curDate, 'yyyy-MM-dd');
+      this.filename = "LibraryBorrowExport_" + this.myDate;
+      this.service.exportOnFilter(this.ObjSampleForm.controls['date1'].value, this.ObjSampleForm.controls['date2'].value).subscribe((blob: any) => saveAs(blob, this.filename))
+     }
+
+
 
   }
 
@@ -140,9 +154,6 @@ export class BorrowComponent implements OnInit {
   sortfn(a: any) {
 
     this.sort1 = a;
-    this.page = this.page;
-    this.tableSize;
-
 
     if (this.direction == 1) {
       this.direction = -1;
@@ -160,8 +171,6 @@ export class BorrowComponent implements OnInit {
   sortfilter(a: any) {
 
     this.sort = a;
-    this.page = this.page;
-    this.tableSize;
 
     if (this.direction1 == 1) {
       this.direction1 = -1;
@@ -203,7 +212,6 @@ export class BorrowComponent implements OnInit {
 
   clearFilter() {
     this.flag = 0;
-    // window.location.reload();
     this.ObjSampleForm.reset();
     this.LoadData();
   }
@@ -241,6 +249,36 @@ export class BorrowComponent implements OnInit {
 
       });
     }
+    else if (this.flag == 3) {
+
+      this.service.AdminStatusfilterBorrow(this.page, this.tableSize, this.sort, this.direction, 2).subscribe(response => {
+        this.result = response.content;
+        this.count = response.totalElements
+
+        this.data = this.result;
+
+      });
+    }
+    else if (this.flag == 4) {
+
+      this.service.AdminStatusfilterBorrow(this.page, this.tableSize, this.sort, this.direction, 3).subscribe(response => {
+        this.result = response.content;
+        this.count = response.totalElements
+
+        this.data = this.result;
+
+      });
+    }
+    else if (this.flag == 5) {
+
+      this.service.AdminStatusfilterBorrow(this.page, this.tableSize, this.sort, this.direction, 4).subscribe(response => {
+        this.result = response.content;
+        this.count = response.totalElements
+
+        this.data = this.result;
+
+      });
+    }
 
   }
 
@@ -270,7 +308,7 @@ export class BorrowComponent implements OnInit {
 
           this.toast.success({ detail: 'Book Returned', summary: 'Book ' + borrow.books.booksName + ' Returned by ' + borrow.user.firstName, duration: 5000 });
           // setTimeout(() => {
-            this.LoadData()
+          this.LoadData()
           // }, 2500);
         },
         error: (Response: any) => {

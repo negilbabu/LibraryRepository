@@ -14,7 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.validation.Errors;
 
 import com.innovature.Library.entity.User;
 import com.innovature.Library.exception.BadRequestException;
@@ -55,23 +54,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserView add(UserForm form) {
-        // var data1 = form.getFirstName();
-        // var data2 = form.getLastName();
-        // var data3 = form.getAddress();
-        // var data4 = form.getDob();
-        // var data5 = form.getEmail();
-        // var data6 = form.getPhone();
-        // var data7 = form.getPassword();
 
-        // if ("".equals(data1) || "".equals(data2) || "".equals(data3) || data4 == null || "".equals(data5) ||
-        //         "".equals(data6) || "".equals(data7)) {
-        //     throw badRequestException();
-        // }
-
-        // if (errors.hasErrors()) {
-        //     throw badRequestException();
-        // } 
-        // else{
         
         User email = userRepository.findByEmailId(form.getEmail());
 
@@ -89,26 +72,26 @@ public class UserServiceImpl implements UserService {
             throw conflictException();
         } else
             return null;
-    // 
-        // }
+ 
     }
 
-    @Override
-    public UserView currentUser() {
-        return new UserView(
-                userRepository.findById(SecurityUtil.getCurrentUserId()));
+    private static BadRequestException badRequestException() {
+        return new BadRequestException("Invalid credentials");
     }
+
+    private static expectationFailedException expectationFailedException() {
+        return new expectationFailedException("Invalid username or password");
+    }
+
+    private static ConflictException conflictException() {
+        return new ConflictException("Email id Already Registered");
+    }
+
 
     @Override
     public LoginView login(LoginForm form) throws BadRequestException {
 
-        // var data = form.getEmail();
-        // var data2 = form.getPassword();
-        // if ("".equals(data) || "".equals(data2)) {
-        //     throw badRequestException();
-        // } else {
-            User user = userRepository.findByEmail(form.getEmail())
-                    .orElseThrow(UserServiceImpl::expectationFailedException);
+            User user = userRepository.findByEmail(form.getEmail()).orElseThrow(UserServiceImpl::expectationFailedException);
             if (!passwordEncoder.matches(form.getPassword(), user.getPassword())) {
                 throw expectationFailedException();
             }
@@ -118,7 +101,14 @@ public class UserServiceImpl implements UserService {
             Token refreshToken = tokenGenerator.create(PURPOSE_REFRESH_TOKEN, id + user.getPassword(),
                     securityConfig.getRefreshTokenExpiry());
             return new LoginView(user, accessToken, refreshToken);
-        // }
+
+    }
+
+
+    @Override
+    public UserView currentUser() {
+        return new UserView(
+                userRepository.findById(SecurityUtil.getCurrentUserId()));
     }
 
     @Override
@@ -152,17 +142,7 @@ public class UserServiceImpl implements UserService {
                 new LoginView.TokenView(refreshToken, status.expiry));
     }
 
-    private static BadRequestException badRequestException() {
-        return new BadRequestException("Invalid credentials");
-    }
 
-    private static expectationFailedException expectationFailedException() {
-        return new expectationFailedException("Invalid username or password");
-    }
-
-    private static ConflictException conflictException() {
-        return new ConflictException("Email id Already Registered");
-    }
 
     @Override
     public Collection<User> listAll() {
