@@ -364,8 +364,8 @@ System.out.println("---======="+borrow.getIssueDate());
         Collection<Borrow> borrow = borrowRepository.findbyBorrowIdandStatus();
         for (Borrow bor : borrow) {
             User user = userRepository.findById(bor.getUser().getUserId()); // fetching uid from user
+          
             SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
-
             simpleMailMessage.setFrom("testnegspam@gmail.com");
             simpleMailMessage.setTo(user.getEmail());
             simpleMailMessage.setSubject("Books are due");

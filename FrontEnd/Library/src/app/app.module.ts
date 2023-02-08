@@ -58,6 +58,7 @@ import { HomepageComponent } from './homepage/homepage.component';
 import { UserDetailviewComponent } from './user-detailview/user-detailview.component';
 import {MatTableModule} from '@angular/material/table';
 import { PageNotfoundComponent } from './page-notfound/page-notfound.component';
+import { RestpasswordComponent } from './restpassword/restpassword.component';
 
 
 
@@ -96,6 +97,7 @@ import { PageNotfoundComponent } from './page-notfound/page-notfound.component';
     HomepageComponent,
     UserDetailviewComponent,
     PageNotfoundComponent,
+    RestpasswordComponent,
 
     
 

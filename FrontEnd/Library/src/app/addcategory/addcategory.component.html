@@ -14,15 +14,56 @@
         style="color:rgb(0, 0, 0)">search</i></button>
 
   </form>
+
 </div>
+
+
+
+
+<div class="modal" tabindex="-1" role="dialog" *ngIf=" this.rslt==1" [ngStyle]="{'display':displayStyle}" style="margin-top: 5%;">
+  <div class="modal-dialog" role="document"  >
+     <div class="modal-content">
+      <div class="modal-header">
+       <h4 class="modal-title" style="padding-left:38% ;" ><b>Select Table size</b></h4>
+         </div>
+      <div class="modal-body">
+
+        <form [formGroup]="filter" (ngSubmit)="disp1">
+          <div class="form-group">            
+            <select name="tableSize" formControlName="status"  [(ngModel)]="selectedGroup"
+            id="tableSize" (ngModelChange)="disp1()"  class="form-control" style="width: 15%;text-align: center;margin-left: 45%;">
+            <option value=5 selected>5 </option>
+            <option value=10>10 </option>
+            <option value=15>15 </option>
+            <option value=20>20</option>
+          </select>                   
+          
+          </div>           
+     <div class="modal-footer" style="border: none;">
+             <button type="button" class="btn btn-danger" (click)="closePopup()">Close</button>
+
+          </div>       
+       
+        </form>
+      </div>
+    </div>
+ </div></div>
+
+
+
+
+
+
 
 
 <br><br>
 
 <div class="card-box">
   <div class="row">
-    <div class="table-responsive">
+    <div class="table-responsive"> 
+      
       <table align="center" class=".table-hover">
+
         <thead class="bg-primary text-white">
           <tr role="row">
 
@@ -34,6 +75,10 @@
                   style="color:rgb(0, 0, 0)">keyboard_arrow_down</i></button>
             </th>
             <th></th>
+            <th >
+                   <button mat-icon-button (click)="openPopup()"> <i class="material-icons"
+                style="color:rgb(0, 0, 0)">tune</i></button>
+            </th>
           </tr>
         </thead>
 

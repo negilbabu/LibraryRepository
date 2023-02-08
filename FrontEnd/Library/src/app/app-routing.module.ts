@@ -33,6 +33,7 @@ import { AdminNavbarComponent } from './admin-navbar/admin-navbar.component';
 import { HomepageComponent } from './homepage/homepage.component';
 import { UserDetailviewComponent } from './user-detailview/user-detailview.component';
 import { PageNotfoundComponent } from './page-notfound/page-notfound.component';
+import { RestpasswordComponent } from './restpassword/restpassword.component';
 
 
 const routes: Routes = [
@@ -68,6 +69,7 @@ const routes: Routes = [
   {path:'admin-navbar',component:AdminNavbarComponent,canActivate: [HomeguardGuard]},
   {path:'homepage',component:HomepageComponent,canActivate:[HomeguardGuard]},
   {path:'user-detailview/:id',component:UserDetailviewComponent,canActivate: [HomeguardGuard]},
+  {path:'restpassword',component:RestpasswordComponent,canActivate: [HomeguardGuard]},
  
  //Wild Card Route for 404 request
  { path: '**', pathMatch: 'full', component: PageNotfoundComponent },
