@@ -24,7 +24,9 @@ export class UserserviceService {
   add(data:any):Observable<any>{
     return this.http.post(this.baseUrl+'/users',data)
   }
-
+  currentUserProfileEdit(data:any):Observable<any>{
+    return this.http.put(this.baseUrl+'/users',data)
+  }
   login(data:any):Observable<any>{
     return this.http.post(this.baseUrl+'/login',data)
   }
@@ -43,8 +45,15 @@ export class UserserviceService {
   }
   LoadUserDetailView(id: any){
     return this.http.get(this.baseUrl+'/users/admin/'+ id)
+  }
 
-}
+  sendotp(data:any):Observable<any>{
+    return this.http.post(this.baseUrl+'/users/verify/oldPassword',data)
+  }
+
+  verifyPassword(data:any):Observable<any>{
+    return this.http.post(this.baseUrl+'/users/reset/Password',data)
+  }
 }
 
 

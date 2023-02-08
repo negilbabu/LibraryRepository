@@ -14,6 +14,7 @@ import { FormGroup, FormControl } from '@angular/forms';
 })
 export class AddcategoryComponent implements OnInit {
 
+
   categoryList: any[];
   categoryId: any;
   categorydata: any;
@@ -27,13 +28,15 @@ export class AddcategoryComponent implements OnInit {
   key: any;
   sort: string = "category_name";
   sort1: string = "categoryName";
-  len: any;
   result: any;
-  booksCount: any;
   direction = -1;
   category_id: any;
   categoryName: any;
   category_name: any;
+  selected = 5;
+  selectedGroup= 5;
+displayStyle: any;
+rslt=0;
   constructor(private dialog: MatDialog,
     private router: Router,
     private service: CategoryService,
@@ -47,9 +50,13 @@ export class AddcategoryComponent implements OnInit {
     inp: new FormControl()
   })
 
-  
+  filter: FormGroup = new FormGroup({
+    status: new FormControl()
+
+  })
 
   ngOnInit(): void {
+    // this.disp1()
 
     this.LoadCategory();
     localStorage.removeItem('categoryId');
@@ -63,6 +70,25 @@ export class AddcategoryComponent implements OnInit {
       this.data = this.result;
       this.categorydata = this.result;
     });
+
+  }
+
+  openPopup() {
+    this.rslt=1;
+    
+    this.displayStyle = "block";
+   
+  }
+  
+  closePopup() {
+this.rslt=0;
+this.displayStyle = "none"
+    }
+
+  disp1() {
+    
+      this.tableSize=this.filter.controls['status'].value;
+      this.LoadCategory();
 
   }
 

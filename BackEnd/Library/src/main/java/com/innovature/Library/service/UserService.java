@@ -9,6 +9,8 @@ import org.springframework.data.domain.Page;
 import com.innovature.Library.entity.User;
 import com.innovature.Library.exception.BadRequestException;
 import com.innovature.Library.form.LoginForm;
+import com.innovature.Library.form.ResetNewPswd;
+import com.innovature.Library.form.ResetPasswordForm;
 import com.innovature.Library.form.UserForm;
 import com.innovature.Library.view.LoginView;
 import com.innovature.Library.view.UserView;
@@ -37,5 +39,9 @@ public interface UserService {
     Collection<User> viewProfile(Integer userId);
 
     Page<User> getAllUser(Integer pageNo, Integer pageSize, String sortBy,Integer direction);
+
+    boolean validatePassword(ResetPasswordForm form);
+
+    boolean addPassword(ResetNewPswd form);
 
 }

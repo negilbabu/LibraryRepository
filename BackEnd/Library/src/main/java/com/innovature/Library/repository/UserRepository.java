@@ -12,6 +12,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 
+import com.innovature.Library.entity.Email;
 import com.innovature.Library.entity.User;
 
 public interface UserRepository extends Repository<User, Integer> {
@@ -31,6 +32,10 @@ public interface UserRepository extends Repository<User, Integer> {
     Collection<User> findByUserId(Integer userId);
 
     public Page<User> findAll(Pageable paging);
+
+    User findEmailByUserId(Integer userId);
+
+    // Email findEmailByUserId(Integer userId);
 
     @Query(value = "select * from user where role=2", nativeQuery = true)
     public Page<User> findAUser(Pageable paging);

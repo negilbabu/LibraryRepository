@@ -27,6 +27,8 @@ public class Email {
         this.email = email;
     }
 
+    
+
     public Integer getOtpId() {
         return otpId;
     }

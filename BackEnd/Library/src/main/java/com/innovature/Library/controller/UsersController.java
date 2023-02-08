@@ -21,10 +21,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 
 import com.innovature.Library.entity.User;
+import com.innovature.Library.exception.BadRequestException;
+import com.innovature.Library.exception.expectationFailedException;
 import com.innovature.Library.form.UserForm;
 import com.innovature.Library.security.util.SecurityUtil;
 import com.innovature.Library.service.UserService;
 import com.innovature.Library.view.UserView;
+import com.innovature.Library.form.ResetNewPswd;
+import com.innovature.Library.form.ResetPasswordForm;
 
 @RestController
 @RequestMapping("/users")
@@ -88,5 +92,45 @@ public class UsersController {
                 HttpStatus.OK);
 
     }
+
+    @PostMapping("/verify/oldPassword")
+    public ResponseEntity validatePassword(@Valid @RequestBody ResetPasswordForm form) {
+
+
+            boolean result = userService.validatePassword(form);
+            if (result) {
+                return new ResponseEntity(null, HttpStatus.ACCEPTED);
+            } else {
+                throw new BadRequestException("PASSWORD VERIFICATION FAILED");
+          
+            }
+
+    }
+
+    @PostMapping("/reset/Password")
+    public ResponseEntity changePassword(@Valid @RequestBody ResetNewPswd form) {
+
+var psd=form.getNewPassword();
+var cpsd=form.getCnewPassword();
+
+if (!psd.equals(cpsd)) {
+    throw new expectationFailedException("PASSWORD - MISSMATCH");
+
+} else {
+
+    boolean result = userService.addPassword(form);
+    if (result) {
+        return new ResponseEntity(null, HttpStatus.ACCEPTED);
+    } else {
+        throw new BadRequestException("PASSWORD CHANGE FAILED");
+  
+    }
+}
+    
+
+  
+
+    }
+
 
 }

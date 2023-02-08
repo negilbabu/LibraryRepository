@@ -4,6 +4,9 @@ package com.innovature.Library.service.impl;
 import static com.innovature.Library.security.AccessTokenUserDetailsService.PURPOSE_ACCESS_TOKEN;
 
 import java.util.Collection;
+import java.util.Random;
+import java.time.LocalTime;
+
 import javax.transaction.Transactional;
 
 import org.springframework.data.domain.Page;
@@ -11,17 +14,22 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.beans.factory.annotation.Autowired;
-
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.innovature.Library.entity.Email;
 import com.innovature.Library.entity.User;
 import com.innovature.Library.exception.BadRequestException;
 import com.innovature.Library.exception.ConflictException;
 import com.innovature.Library.exception.NotFoundException;
 import com.innovature.Library.exception.expectationFailedException;
 import com.innovature.Library.form.LoginForm;
+import com.innovature.Library.form.ResetNewPswd;
+import com.innovature.Library.form.ResetPasswordForm;
 import com.innovature.Library.form.UserForm;
+import com.innovature.Library.repository.EmailRepository;
 import com.innovature.Library.repository.UserRepository;
 import com.innovature.Library.security.config.SecurityConfig;
 import com.innovature.Library.security.util.InvalidTokenException;
@@ -47,10 +55,16 @@ public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
 
     @Autowired
+    private EmailRepository emailRepository;
+
+    @Autowired
     private TokenGenerator tokenGenerator;
 
     @Autowired
     private SecurityConfig securityConfig;
+
+    @Autowired
+    private JavaMailSender mailSender;
 
     @Override
     public UserView add(UserForm form) {
@@ -174,6 +188,8 @@ public class UserServiceImpl implements UserService {
     public UserView edit(Integer userId, UserForm form) {
 
         User user = userRepository.findById(userId);
+System.out.println(user.getEmail());
+System.out.println(user.getPassword());
 
         user.edit(
                 form.getFirstName(),
@@ -181,8 +197,12 @@ public class UserServiceImpl implements UserService {
                 form.getDob(),
                 form.getAddress(),
                 form.getPhone(),
-                form.getEmail(),
-                passwordEncoder.encode(form.getPassword()));
+                user.getEmail(),
+                // form.getEmail(),
+                user.getPassword()
+                // passwordEncoder.encode(form.getPassword())
+                );
+                System.out.println("-----------------------------------"+user.getPassword());
         return new UserView(userRepository.save(user));
     }
 
@@ -224,6 +244,46 @@ public class UserServiceImpl implements UserService {
 
         userRepository.findById(userId);
         return userRepository.findByUserId(userId);
+
+    }
+
+    @Transactional
+    @Override
+    public boolean validatePassword(ResetPasswordForm form) {
+        
+
+        User user = userRepository.findById(SecurityUtil.getCurrentUserId());
+      
+        if ( (!passwordEncoder.matches(form.getOldPassword(), user.getPassword()))){
+
+            throw new expectationFailedException("Incorrect Password ");
+        }
+        else
+        {       
+        
+            return true;
+        }
+      
+
+    }
+
+    @Override
+    public boolean addPassword(ResetNewPswd form) {
+
+        User user = userRepository.findById(SecurityUtil.getCurrentUserId());
+        var email=userRepository.findEmailByUserId(SecurityUtil.getCurrentUserId());
+
+        // User user = userRepository.findByEmailId(form.getEmail());
+
+        if (form.getNewPassword().equals(form.getCnewPassword()))
+
+        {
+
+            user.setPassword(passwordEncoder.encode(form.getNewPassword()));
+            userRepository.save(user);
+            return true;
+        }
+        return false;
 
     }
 
