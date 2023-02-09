@@ -21,12 +21,18 @@ export class UserserviceService {
     return this.http.get(this.baseUrl+"/users/admin/pagenated/?pageNo="+page+"&pageSize="+tableSize+"&sortBy="+sort+"&direction="+direction);
       }
 
-  add(data:any):Observable<any>{
-    return this.http.post(this.baseUrl+'/users',data)
+  verifyUser(val:any):Observable<any>{
+    console.log("----",val);
+    
+    return this.http.post(this.baseUrl+'/users',val)
   }
-  currentUserProfileEdit(data:any):Observable<any>{
-    return this.http.put(this.baseUrl+'/users',data)
+  addUser(data:any):Observable<any>{
+  console.log("service email=",data);
+  
+    return this.http.post(this.baseUrl+'/users/register',data)
   }
+
+
   login(data:any):Observable<any>{
     return this.http.post(this.baseUrl+'/login',data)
   }
@@ -48,12 +54,24 @@ export class UserserviceService {
   }
 
   sendotp(data:any):Observable<any>{
+    console.log("email=",data);
+    
     return this.http.post(this.baseUrl+'/users/verify/oldPassword',data)
   }
 
   verifyPassword(data:any):Observable<any>{
     return this.http.post(this.baseUrl+'/users/reset/Password',data)
   }
+  currentUserProfileEdit(data:any):Observable<any>{
+    return this.http.put(this.baseUrl+'/users',data)
+  }
+
+  editCurrentUser(): Observable<any>{
+   
+    return this.http.get(this.baseUrl + '/users/admin/viewProfile/')
+
+  }
+  
 }
 
 

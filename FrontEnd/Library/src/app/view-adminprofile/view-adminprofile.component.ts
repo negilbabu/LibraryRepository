@@ -27,11 +27,8 @@ export class ViewAdminprofileComponent implements OnInit {
         dob:new FormControl('',[Validators.required]),
         address:new FormControl('',[Validators.required]),
         phone:new FormControl('',[Validators.required]),
-        password:new FormControl('',[Validators.required]),
-        email:new FormControl('',[Validators.required]),
-      
-        
-      }
+         
+        }
     )
   
     ngOnInit(): void {
@@ -50,6 +47,20 @@ export class ViewAdminprofileComponent implements OnInit {
       EditProfile() {
 
       this.rslt=2;
+ 
+
+      this.service.editCurrentUser().subscribe({
+        next:(result) =>{
+          console.log("name-",result[0].role);
+          
+          this.ObjSampleForm.controls['firstName'].setValue(result[0].firstName)
+          this.ObjSampleForm.controls['lastName'].setValue(result[0].lastName)
+          this.ObjSampleForm.controls['address'].setValue(result[0].address)
+          this.ObjSampleForm.controls['dob'].setValue(result[0].dob)
+          this.ObjSampleForm.controls['phone'].setValue(result[0].phone)
+
+        },
+      })
       this.displayStyle = "block";
         }
 
@@ -67,13 +78,12 @@ export class ViewAdminprofileComponent implements OnInit {
 
          this.service.currentUserProfileEdit(this.ObjSampleForm.value).subscribe(result=>{
            if(result.userId){  
-             this.toast.success({detail:'User Profile Successfully',duration:5000});
+             this.toast.success({detail:' Profile Updated Successfully',duration:5000});
              this.router.navigate(['/view-adminprofile'])
              console.log(result)
+             this.rslt=0;
            }
-           else{
-             alert("User Not added");
-           }
+           this.Load()
          },
          (error: any) =>{
        
@@ -88,7 +98,7 @@ export class ViewAdminprofileComponent implements OnInit {
       //  else{   
       //    this.toast.error({detail:'User Registration Failed',summary:'Fill up the fields',duration:2000});
       //       }
-   
+   this.Load()
           
     }
 

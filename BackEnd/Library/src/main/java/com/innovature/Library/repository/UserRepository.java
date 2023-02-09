@@ -8,6 +8,7 @@ package com.innovature.Library.repository;
 import java.util.Collection;
 import java.util.Optional;
 import org.springframework.data.repository.Repository;
+import org.springframework.http.HttpStatus;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
@@ -22,6 +23,8 @@ public interface UserRepository extends Repository<User, Integer> {
     Optional<User> findByUserIdAndPassword(Integer userId, String password);
 
     Optional<User> findByEmail(String email);
+
+    // HttpStatus save(User user);
 
     User save(User user);
 

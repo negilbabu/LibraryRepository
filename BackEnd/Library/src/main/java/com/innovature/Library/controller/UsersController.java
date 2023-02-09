@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 
 import com.innovature.Library.entity.User;
 import com.innovature.Library.exception.BadRequestException;
+import com.innovature.Library.exception.NotAcceptableException;
 import com.innovature.Library.exception.expectationFailedException;
 import com.innovature.Library.form.UserForm;
 import com.innovature.Library.security.util.SecurityUtil;
@@ -29,6 +30,8 @@ import com.innovature.Library.service.UserService;
 import com.innovature.Library.view.UserView;
 import com.innovature.Library.form.ResetNewPswd;
 import com.innovature.Library.form.ResetPasswordForm;
+import com.innovature.Library.form.EditProfileForm;
+import com.innovature.Library.form.EmailForm;
 
 @RestController
 @RequestMapping("/users")
@@ -38,12 +41,27 @@ public class UsersController {
     private UserService userService;
 
     @PostMapping
-    public UserView add(@Valid @RequestBody UserForm form) {
-        return userService.add(form);
+    public ResponseEntity add(@Valid @RequestBody EmailForm form
+    ) {
+        ResponseEntity result =   userService.add(form);
+
+        if(result.getStatusCodeValue()==202){
+            return new ResponseEntity(HttpStatus.ACCEPTED);
+        }
+        else{
+            throw new BadRequestException(" VERIFICATION FAILED");
+        }
+
+    }
+    @PostMapping("/register")
+    public UserView register(@Valid @RequestBody UserForm form
+    ) {
+        System.out.println("-0-=-++++++++++++++++++--------------"+form.getEmail());
+        return userService.register(form);
     }
 
     @PutMapping
-    public UserView edit(@Valid @RequestBody UserForm form) {
+    public UserView edit(@Valid @RequestBody EditProfileForm form) {
         return userService.edit(SecurityUtil.getCurrentUserId(), form);
     }
 

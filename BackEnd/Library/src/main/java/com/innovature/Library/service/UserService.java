@@ -4,10 +4,12 @@ import java.util.Collection;
 
 
 import org.springframework.data.domain.Page;
-
+import org.springframework.http.ResponseEntity;
 
 import com.innovature.Library.entity.User;
 import com.innovature.Library.exception.BadRequestException;
+import com.innovature.Library.form.EditProfileForm;
+import com.innovature.Library.form.EmailForm;
 import com.innovature.Library.form.LoginForm;
 import com.innovature.Library.form.ResetNewPswd;
 import com.innovature.Library.form.ResetPasswordForm;
@@ -18,7 +20,9 @@ import com.innovature.Library.view.UserView;
 
 public interface UserService {
 
-    UserView add(UserForm form);
+    ResponseEntity add(EmailForm form);
+
+    UserView register(UserForm form);
 
     UserView currentUser();
 
@@ -34,7 +38,7 @@ public interface UserService {
 
     Collection<User> listAll();
 
-    UserView edit(Integer userId, UserForm form);
+    UserView edit(Integer userId, EditProfileForm form);
 
     Collection<User> viewProfile(Integer userId);
 
