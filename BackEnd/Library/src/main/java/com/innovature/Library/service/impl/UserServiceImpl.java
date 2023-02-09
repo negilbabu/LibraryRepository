@@ -6,6 +6,7 @@ import static com.innovature.Library.security.AccessTokenUserDetailsService.PURP
 import java.util.Collection;
 import java.util.Random;
 import java.time.LocalTime;
+import java.time.temporal.ChronoUnit;
 
 import javax.transaction.Transactional;
 
@@ -13,6 +14,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -23,8 +26,12 @@ import com.innovature.Library.entity.Email;
 import com.innovature.Library.entity.User;
 import com.innovature.Library.exception.BadRequestException;
 import com.innovature.Library.exception.ConflictException;
+import com.innovature.Library.exception.GatewayTimeoutException;
+import com.innovature.Library.exception.NotAcceptableException;
 import com.innovature.Library.exception.NotFoundException;
 import com.innovature.Library.exception.expectationFailedException;
+import com.innovature.Library.form.EditProfileForm;
+import com.innovature.Library.form.EmailForm;
 import com.innovature.Library.form.LoginForm;
 import com.innovature.Library.form.ResetNewPswd;
 import com.innovature.Library.form.ResetPasswordForm;
@@ -67,13 +74,77 @@ public class UserServiceImpl implements UserService {
     private JavaMailSender mailSender;
 
     @Override
-    public UserView add(UserForm form) {
+    public ResponseEntity add(EmailForm form) {
 
         
-        User email = userRepository.findByEmailId(form.getEmail());
+        User email = userRepository.findByEmailId(form.getSentto());
 
         if (email == null) {
-            return new UserView(userRepository.save(new User(
+
+            Random random = new Random();
+            int otp = 100000 + random.nextInt(900000);
+            LocalTime myObj = LocalTime.now();
+            LocalTime exp = myObj;
+
+            Email otp2 = new Email();
+            otp2.setOtp(otp);
+            otp2.setEmail(form.getSentto());        
+            otp2.setExpiry(exp);
+
+            var emails = form.getSentto();
+            Email email2 = emailRepository.findByEmail(emails);
+
+            if (email2 != null) {
+                email2.setOtp(otp);
+                email2.setExpiry(exp);
+                emailRepository.save(email2);
+            } else
+                emailRepository.save(otp2);
+              
+            SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
+            simpleMailMessage.setFrom("testnegspam@gmail.com");
+            simpleMailMessage.setTo(form.getSentto());
+            simpleMailMessage.setSubject("Email verification");
+            simpleMailMessage.setText(
+                    "OTP for create account in Library is : "+otp);
+
+          this.mailSender.send(simpleMailMessage);
+          return new ResponseEntity(null, HttpStatus.ACCEPTED);
+
+        } else if (email.getEmail() != null) {
+            throw conflictException();
+        } else
+            return null;
+        // return null;
+ 
+    }
+
+
+
+
+
+
+
+
+
+
+    @Override
+    public UserView register(UserForm form) {  
+
+        Email otp = emailRepository.findByEmail(form.getEmail());
+        System.out.println("--------------------------"+form.getEmail());
+        System.out.println("--------------------------"+otp);
+
+        LocalTime myObj = LocalTime.now();
+
+        var exp = otp.getExpiry().until(myObj, ChronoUnit.SECONDS);
+
+        if ((form.getOtp().equals(otp.getOtp()))) {
+
+            if (exp < 181) {
+
+                // return new ResponseEntity(null, HttpStatus.ACCEPTED);
+                return new UserView(userRepository.save(new User(
                     form.getFirstName(),
                     form.getLastName(),
                     form.getDob(),
@@ -81,13 +152,16 @@ public class UserServiceImpl implements UserService {
                     form.getPhone(),
                     form.getEmail(),
                     passwordEncoder.encode(form.getPassword()))));
-
-        } else if (email.getEmail() != null) {
-            throw conflictException();
-        } else
-            return null;
- 
+            }
+            else{
+                throw new GatewayTimeoutException("OTP VALIDITY EXPIRED "); 
+            } 
+          
     }
+    else{
+        throw new NotAcceptableException("OTP VERIFICATION FAILED");
+    }
+}
 
     private static BadRequestException badRequestException() {
         return new BadRequestException("Invalid credentials");
@@ -185,24 +259,25 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserView edit(Integer userId, UserForm form) {
+    public UserView edit(Integer userId, EditProfileForm form) {
 
         User user = userRepository.findById(userId);
-System.out.println(user.getEmail());
-System.out.println(user.getPassword());
+// System.out.println(user.getEmail());
+// System.out.println(user.getPassword());
 
         user.edit(
                 form.getFirstName(),
                 form.getLastName(),
                 form.getDob(),
                 form.getAddress(),
-                form.getPhone(),
-                user.getEmail(),
+                form.getPhone()
+                // user.getEmail(),
                 // form.getEmail(),
-                user.getPassword()
+                // form.getRole(),
+                // user.getPassword()
                 // passwordEncoder.encode(form.getPassword())
                 );
-                System.out.println("-----------------------------------"+user.getPassword());
+                // System.out.println("-----------------------------------"+user.getPassword());
         return new UserView(userRepository.save(user));
     }
 

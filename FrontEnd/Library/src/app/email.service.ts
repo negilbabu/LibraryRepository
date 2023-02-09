@@ -16,6 +16,7 @@ export class EmailService {
 
 
   sendotp(data:any):Observable<any>{
+    console.log("email=",data);
     return this.http.post(this.baseUrl+'/email/emailsentotp',data)
   }
 

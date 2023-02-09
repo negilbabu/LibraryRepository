@@ -129,7 +129,7 @@ public class ExceptionHandlerController {
 
 
     @ExceptionHandler(InvalidTokenException.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    //@ResponseStatus(HttpStatus.BAD_REQUEST)
     public ResponseEntity<ErrorDto1> invalidToken(InvalidTokenException ex) {
         // System.out.println("----------------------------------");
         var msg=ex.getMessage();

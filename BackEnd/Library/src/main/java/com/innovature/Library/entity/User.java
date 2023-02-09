@@ -50,7 +50,7 @@ public class User {
 
     private String password;
     private byte status;
-    
+
     private int role;
     @Temporal(TemporalType.DATE)
     private Date dob;
@@ -91,10 +91,21 @@ public class User {
         this.dob = dob;
         this.address = address;
         this.phone = phone;
-        this.role = 2;
+        this.role = 1;
         this.email = email;
         this.password = password;
 
+        this.updateDate = new Date();
+        return this;
+    }
+
+    public User edit(String firstName, String lastName, Date dob, String address, String phone) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.dob = dob;
+        this.address = address;
+        this.phone = phone;
+        this.role = 1;
         this.updateDate = new Date();
         return this;
     }

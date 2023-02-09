@@ -1,7 +1,9 @@
 <ul class="nav-mobile">
     <li class="cls">
         <label style="position: relative;text-align: center; left: 8%;">LIBRARY</label>
-        <button type="button" style="position: relative;float: right;padding-top: 1%;"   class="button" (click)="Login()"><h5>LOGIN HERE</h5> </button>
+        <button type="button" style="position: relative;float: right;padding-top: 1%;" class="button" (click)="Login()">
+            <h5>LOGIN HERE</h5>
+        </button>
 
 
         <div class="right">
@@ -17,25 +19,38 @@
 <router-outlet></router-outlet>
 
 <div class="text-center" style="padding-top: 3%">
+
+    <form [formGroup]="EmailForm">
+        <div style="width: 180px; margin:0 auto;" class="example-container"><br>
+            <div style="width: 50px; margin:0 auto;"> <label>
+                <h2>SignUp</h2>
+            </label></div>
+    <div>
+        <input type="email" class="text-danger1" placeholder="email" formControlName="sentto" name="sentto" maxlength="100" pattern="[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*"
+            required>
+        <span class="text-danger"
+            *ngIf="EmailForm.controls['sentto'].touched && EmailForm.hasError('required','sentto')"><small>Email is required</small>
+        </span>
+        <span class="text-danger" *ngIf=" EmailForm.hasError('pattern','sentto')"><small>Please enter a valid email Id</small>
+        </span>
+
+    </div> </div>
+    </form>
+
     <form [formGroup]="ObjSampleForm">
 
         <div style="width: 180px; margin:0 auto;" class="example-container"><br>
-            <div style="width: 50px; margin:0 auto;"> <label>
-                    <h2>SignUp</h2>
-                </label></div>
-            <br>
-
+        
+           
             <div>
                 <input type="text" class="text-danger1" placeholder="First Name" formControlName="firstName"
                     name="firstName" maxlength="30" minlength="3" pattern='[a-zA-z]+' required>
                 <span class="text-danger"
                     *ngIf="ObjSampleForm.controls['firstName'].touched && ObjSampleForm.hasError('required','firstName')"><small>Firstname
                         is required</small> </span>
-                <span class="text-danger"
-                    *ngIf="ObjSampleForm.hasError('pattern','firstName')"><small>Firstname
+                <span class="text-danger" *ngIf="ObjSampleForm.hasError('pattern','firstName')"><small>Firstname
                         Should contain uppercase and lowercase only</small></span>
-                <span class="text-danger"
-                    *ngIf=" ObjSampleForm.hasError('minlength','firstName')"><small>Firstname
+                <span class="text-danger" *ngIf=" ObjSampleForm.hasError('minlength','firstName')"><small>Firstname
                         must be minimum 3 character</small></span>
             </div> <br>
 
@@ -46,12 +61,11 @@
                     *ngIf="ObjSampleForm.controls['lastName'].touched && ObjSampleForm.hasError('required','lastName')"><small>Lastname
                         is required</small> </span>
 
-                        <span class="text-danger"
-                        *ngIf=" ObjSampleForm.hasError('minlength','lastName')"><small>Lastname
-                            must be minimum 3 character</small> </span>
-                            <span class="text-danger"
-                            *ngIf=" ObjSampleForm.hasError('pattern','lastName')"><small>Lastname should be contain uppercase and lowercase only
-                            </small> </span>
+                <span class="text-danger" *ngIf=" ObjSampleForm.hasError('minlength','lastName')"><small>Lastname
+                        must be minimum 3 character</small> </span>
+                <span class="text-danger" *ngIf=" ObjSampleForm.hasError('pattern','lastName')"><small>Lastname should
+                        be contain uppercase and lowercase only
+                    </small> </span>
             </div> <br>
 
             <div>
@@ -70,18 +84,17 @@
                         is required</small></span>
             </div> <br>
             <div>
-                <input type="text" class="text-danger1" placeholder="phone" formControlName="phone" name="phone" pattern="[0-9]+"
-                    maxlength="10" minlength="10" required>
+                <input type="text" class="text-danger1" placeholder="phone" formControlName="phone" name="phone"
+                    pattern="[0-9]+" maxlength="10" minlength="10" required>
                 <span class="text-danger"
                     *ngIf="ObjSampleForm.controls['phone'].touched && ObjSampleForm.hasError('required','phone')"><small>Phone
                         number is required</small> </span>
-                        <span class="text-danger"
-                        *ngIf=" ObjSampleForm.hasError('maxlength','phone') && ObjSampleForm.hasError('minlength','phone')"><small>Phone
-                            number must be 10 digit</small> </span>
-                            <span class="text-danger"
-                        *ngIf=" ObjSampleForm.hasError('pattern','phone')"><small>Phone
-                            number must be digits only</small> </span>
-                            
+                <span class="text-danger"
+                    *ngIf=" ObjSampleForm.hasError('maxlength','phone') && ObjSampleForm.hasError('minlength','phone')"><small>Phone
+                        number must be 10 digit</small> </span>
+                <span class="text-danger" *ngIf=" ObjSampleForm.hasError('pattern','phone')"><small>Phone
+                        number must be digits only</small> </span>
+
             </div> <br>
 
             <div>
@@ -91,28 +104,30 @@
                 <span class="text-danger"
                     *ngIf="ObjSampleForm.controls['password'].touched && ObjSampleForm.hasError('required','password')"><small>pswd
                         is required</small></span>
-                <span class="text-danger" *ngIf=" ObjSampleForm.hasError('pattern','password')"><small>use alphanumeric & special characters &nbsp;</small></span>
-                <span class="text-danger"
-                    *ngIf=" ObjSampleForm.hasError('minlength','password')"><small>minimum
+                <span class="text-danger" *ngIf=" ObjSampleForm.hasError('pattern','password')"><small>use alphanumeric
+                        & special characters &nbsp;</small></span>
+                <span class="text-danger" *ngIf=" ObjSampleForm.hasError('minlength','password')"><small>minimum
                         8 character</small></span>
                 <br><br>
             </div>
-            <div>
-                <input type="email" class="text-danger1" placeholder="email" formControlName="email" name="email"
-                    maxlength="100" pattern="[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*" required>
-                <span class="text-danger"
-                    *ngIf="ObjSampleForm.controls['email'].touched && ObjSampleForm.hasError('required','email')"><small>Email   is required</small>
+             <div *ngIf="this.stat==1">
+                <input type="number" class="text-danger1" placeholder="OTP" formControlName="otp" name="otp"
+                    maxlength="6" pattern="[0-9]+">
+                <!-- <span class="text-danger"
+                    *ngIf="ObjSampleForm.controls['otp'].touched && ObjSampleForm.hasError('required','otp')"><small>otp   is required</small>
+                </span> -->
+                <span class="text-danger" *ngIf=" ObjSampleForm.hasError('pattern','otp')"><small>Please enter a valid
+                        otp </small>
                 </span>
-                <span class="text-danger"
-                *ngIf=" ObjSampleForm.hasError('pattern','email')"><small>Please enter a valid email Id</small>
-            </span>
 
-            </div> <br><br>
+            </div>
 
+            <div style="padding-top: 3%;">
+                <button mat-raised-button color="warn" class="b1" type="reset">Clear</button>
+                &nbsp; &nbsp;
+                <button mat-raised-button (click)="onSubmit()" color="primary">Submit</button>
+            </div>
 
-            <button mat-raised-button color="warn" class="b1" type="reset">Clear</button>
-            &nbsp; &nbsp;
-            <button mat-raised-button (click)="onSubmit()" color="primary">Submit</button>
 
         </div>
 

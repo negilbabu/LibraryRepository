@@ -85,6 +85,7 @@ export class ForgotpasswordComponent implements OnInit {
     this.spin = 1;
     this.email = this.ObjForm.value.sentto;
     this.emails.sendotp(this.ObjForm.value).subscribe((result => {
+      console.log("rss",result)
       this.rslt = 2;
       this.spin = 0;
       this.openSuccess();
