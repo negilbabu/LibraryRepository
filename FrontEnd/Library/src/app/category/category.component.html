@@ -9,7 +9,9 @@
 
   <mat-dialog-content>
     <mat-form-field  style="width: 100% ; padding-left:'15%'" >
-      <input  formControlName="categoryName" matInput placeholder="categoryName" maxlength="30" />
+      <input  formControlName="categoryName" matInput placeholder="categoryName" maxlength="30" minlength="3" />
+      <span class="text-danger" *ngIf=" ObjSampleForm.hasError('minlength','categoryName')"><small>minimum 3 character</small> </span>
+      <span class="text-danger" *ngIf=" ObjSampleForm.hasError('maxlength','categoryName')"><small>maximum 30 character</small> </span>
       <mat-error style="text-align: center;">This field is mandatory.</mat-error>
     </mat-form-field>
 

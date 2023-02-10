@@ -380,7 +380,7 @@ System.out.println("---======="+borrow.getIssueDate());
     @Override
     @Transactional
     // @Scheduled(cron="* */1 * * * * ")
-    // @Scheduled(cron = "0 0 10 * * ?")
+    @Scheduled(cron = "0 0 */12 * * ?")
     public void fineGeneration() {
 
         Collection<Borrow> borrow = borrowRepository.findbyBorrowId();

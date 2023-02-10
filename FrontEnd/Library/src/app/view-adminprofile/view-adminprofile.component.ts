@@ -74,7 +74,7 @@ export class ViewAdminprofileComponent implements OnInit {
   
       openPopup() {
 
-      // if(this.ObjSampleForm.valid){
+      if(this.ObjSampleForm.valid){
 
          this.service.currentUserProfileEdit(this.ObjSampleForm.value).subscribe(result=>{
            if(result.userId){  
@@ -94,10 +94,10 @@ export class ViewAdminprofileComponent implements OnInit {
          });    
          
          
-      //  }
-      //  else{   
-      //    this.toast.error({detail:'User Registration Failed',summary:'Fill up the fields',duration:2000});
-      //       }
+       }
+       else{   
+         this.toast.error({detail:'User Registration Failed',summary:'Fill up the fields',duration:2000});
+            }
    this.Load()
           
     }
