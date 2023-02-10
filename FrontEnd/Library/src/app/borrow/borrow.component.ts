@@ -90,6 +90,14 @@ export class BorrowComponent implements OnInit {
         this.count = response.totalElements
         this.data = this.result;
         this.flag = 2;
+
+        if (response.content.length !== 0) {
+          this.data1 = 0;
+        }
+        else if (response.content.length == 0) {
+          this.data1 = 1;
+        }
+
       });
     }
     else if (this.filter.controls['status'].value == 2) {
@@ -99,6 +107,14 @@ export class BorrowComponent implements OnInit {
         this.count = response.totalElements
         this.data = this.result;
         this.flag = 3;
+
+        if (response.content.length != 0) {
+          this.data1 = 0;
+        }
+        else if (response.content.length == 0) {
+          this.data1 = 1;
+        }
+
       });
     }
 
@@ -108,6 +124,13 @@ export class BorrowComponent implements OnInit {
         this.result = response.content;
         this.data = this.result;
         this.flag = 4;
+
+        if (response.content.length != 0) {
+          this.data1 = 0;
+        }
+        else if (response.content.length == 0) {
+          this.data1 = 1;
+        }
 
       });
     }
@@ -119,10 +142,22 @@ export class BorrowComponent implements OnInit {
         this.count = response.totalElements
         this.data = this.result;
         this.flag = 5;
+        console.log("--", response.content.length);
+
+        if (response.content.length != 0) {
+          this.data1 = 0;
+        }
+        else if (response.content.length == 0) {
+          this.data1 = 1;
+        }
+
       });
     }
     else {
       this.flag = 0;
+
+      this.data1 = 0;
+
       this.LoadData();
     }
 
@@ -131,19 +166,19 @@ export class BorrowComponent implements OnInit {
 
   dwn() {
 
-    if(this.flag==0){
+    if (this.flag == 0) {
 
       this.myDate = this.datePipe.transform(this.curDate, 'yyyy-MM-dd');
       this.filename = "LibraryBorrowExport_" + this.myDate;
       this.service.export().subscribe((blob: any) => saveAs(blob, this.filename))
     }
 
-     else if(this.flag==1){
+    else if (this.flag == 1) {
 
       this.myDate = this.datePipe.transform(this.curDate, 'yyyy-MM-dd');
       this.filename = "LibraryBorrowExport_" + this.myDate;
       this.service.exportOnFilter(this.ObjSampleForm.controls['date1'].value, this.ObjSampleForm.controls['date2'].value).subscribe((blob: any) => saveAs(blob, this.filename))
-     }
+    }
 
 
 
@@ -194,7 +229,6 @@ export class BorrowComponent implements OnInit {
 
         if (this.result.length !== 0) {
           this.data1 = 0;
-
         }
         else if (this.result.length == 0) {
           this.data1 = 1;

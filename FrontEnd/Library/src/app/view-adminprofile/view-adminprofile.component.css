@@ -76,3 +76,6 @@ border: none;
      text-align: left;
   }
 
+  input[type=text],input[type=date] {
+text-align: center;
+  }

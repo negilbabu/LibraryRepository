@@ -15,28 +15,44 @@
             {{category.categoryName}} </mat-option>
         </ng-container>
       </mat-select>
+      <mat-error>This field is mandatory.</mat-error>
     </mat-form-field>
 
 
     <br>
 
     <mat-form-field>
-      <input formControlName="publication" matInput placeholder="publication" maxlength="30" />
+      <input formControlName="publication" matInput placeholder="publication" maxlength="30" minlength="3" />
+      <span class="text-danger" *ngIf=" ObjSampleForm.hasError('minlength','publication')"><small>minimum 3 character</small> </span>
+      <span class="text-danger" *ngIf=" ObjSampleForm.hasError('maxlength','publication')"><small>maximum 30 character</small> </span>
+    
+      
       <mat-error>This field is mandatory.</mat-error>
     </mat-form-field>
     <br>
     <mat-form-field>
-      <input formControlName="booksName" matInput placeholder="booksName" maxlength="30" />
+      <input formControlName="booksName" matInput placeholder="booksName" maxlength="30" minlength="3"/>
+      <span class="text-danger" *ngIf=" ObjSampleForm.hasError('minlength','booksName')"><small>minimum 3 character</small> </span>
+      <span class="text-danger" *ngIf=" ObjSampleForm.hasError('maxlength','booksName')"><small>maximum 30 character</small> </span>
+    
+     
       <mat-error>This field is mandatory.</mat-error>
     </mat-form-field>
     <br>
     <mat-form-field>
-      <input formControlName="auther" matInput placeholder="auther" maxlength="30" />
+      <input formControlName="auther" matInput placeholder="auther" maxlength="30" minlength="3"/>
+      <span class="text-danger" *ngIf=" ObjSampleForm.hasError('minlength','auther')"><small>minimum 3 character</small> </span>
+      <span class="text-danger" *ngIf=" ObjSampleForm.hasError('maxlength','auther')"><small>maximum 30 character</small> </span>
+    
+   
       <mat-error>This field is mandatory.</mat-error>
     </mat-form-field>
     <br>
     <mat-form-field>
       <input formControlName="booksCopies" matInput placeholder="booksCopies" pattern="[0-9]+" type="number" min="0" />
+      <span class="text-danger" *ngIf=" ObjSampleForm.hasError('pattern','booksCopies')"><small>minimum 3 character</small> </span>
+   
+   
       <mat-error>This field is mandatory.</mat-error>
 
     </mat-form-field>
