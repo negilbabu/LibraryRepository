@@ -1,3 +1,4 @@
+import { SocialAuthService } from '@abacritt/angularx-social-login';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router,Route } from '@angular/router';
@@ -15,7 +16,17 @@ date: any;
 var:any;
 stat=0;
 email:any;
-  constructor(private router:Router ,private service:UserserviceService,private toast : NgToastService) { }
+//google sign
+title = 'angular-google';
+user:any;
+loggedIn:any;
+idToken:any;
+  constructor(private router:Router ,
+    private service:UserserviceService,
+    private toast : NgToastService,
+    private authService: SocialAuthService
+    
+    ) { }
   
   
   
@@ -41,11 +52,49 @@ email:any;
     }
   )
 
+  googleForm:FormGroup=new FormGroup(
+    { 
+      idToken:new FormControl('',[Validators.required]), 
+      
+    }
+  )
+
   ngOnInit(): void {
     this.date = new Date();
     this.email=null;
     this.ObjSampleForm.reset()
+
+    this.authService.authState.subscribe((user) => {
+      this.user = user;
+      this.loggedIn = (user != null);
+      this.googleSign(user);
+
+  
+    });
   }
+
+
+  googleSign(user:any){
+  
+    console.log("googleSignIn:",user)
+    // this.idToken=user.idToken;
+
+    let body={
+      idToken: user.idToken
+    }
+    console.log("body here:",body)
+      this.service.googleSignIn(body).subscribe(result=>{           
+        this.toast.success({detail:'User Registration Success',summary:'Please update your profile',duration:5000});      
+      this.router.navigate(['/login'])
+    
+      }, (error: any) =>{
+       alert("aaaaaaa aaaa aaa ")
+       
+         });
+
+
+  }
+
 
 
   onSubmit(){

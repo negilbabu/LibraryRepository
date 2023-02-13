@@ -40,6 +40,8 @@ public interface UserRepository extends Repository<User, Integer> {
 
     // Email findEmailByUserId(Integer userId);
 
+    public boolean existsByEmail(String email);
+
     @Query(value = "select * from user where role=2", nativeQuery = true)
     public Page<User> findAUser(Pageable paging);
 

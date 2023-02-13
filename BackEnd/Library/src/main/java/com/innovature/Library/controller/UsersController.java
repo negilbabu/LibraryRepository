@@ -3,6 +3,7 @@ package com.innovature.Library.controller;
 
 import java.security.Principal;
 import java.util.Collection;
+import java.util.Collections;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -20,11 +21,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 
+import com.google.api.client.http.javanet.NetHttpTransport;
+import com.google.api.client.json.gson.GsonFactory;
 import com.innovature.Library.entity.User;
 import com.innovature.Library.exception.BadRequestException;
 import com.innovature.Library.exception.NotAcceptableException;
 import com.innovature.Library.exception.expectationFailedException;
 import com.innovature.Library.form.UserForm;
+import com.innovature.Library.form.googleForm;
 import com.innovature.Library.security.util.SecurityUtil;
 import com.innovature.Library.service.UserService;
 import com.innovature.Library.view.UserView;
@@ -32,6 +36,27 @@ import com.innovature.Library.form.ResetNewPswd;
 import com.innovature.Library.form.ResetPasswordForm;
 import com.innovature.Library.form.EditProfileForm;
 import com.innovature.Library.form.EmailForm;
+
+
+import org.apache.http.protocol.HTTP;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
+
+import com.fasterxml.jackson.core.JsonFactory;
+// import org.springframework.social.facebook.api.Facebook;
+import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
+import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
+import com.google.api.client.http.javanet.NetHttpTransport;
+// import com.google.api.client.json.jackson2.JacksonFactory;
+import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
+import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken.Payload;
+import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
+import com.google.api.client.http.javanet.NetHttpTransport;
+import com.google.api.client.json.gson.GsonFactory;
+
 
 @RestController
 @RequestMapping("/users")
@@ -144,11 +169,51 @@ if (!psd.equals(cpsd)) {
   
     }
 }
-    
+     
+}
 
+
+ 
+// @PostMapping("/google")
+// public ResponseEntity loginWithGoogle(@Valid   @PathVariable("idToken") String idToken) throws Exception {
+
+// System.out.println("---------------------------------"+idToken);
+
+//     boolean result = userService.googleSignIn(idToken);
+//     if (result) {
+//         return new ResponseEntity(null, HttpStatus.ACCEPTED);
+//     } else {
+//         throw new BadRequestException("Email verification failed");
   
+//     }       
+// }
 
+
+@PostMapping("/google")
+public ResponseEntity loginWithGoogle(@Valid @RequestBody googleForm google) throws Exception {
+
+System.out.println("---------------------------------"+google.getIdToken());
+
+    boolean result = userService.googleSignIn(google);
+    if (result) {
+        return new ResponseEntity(null, HttpStatus.ACCEPTED);
+    } else {
+        throw new BadRequestException("Email verification failed");
+  
     }
+
+
+
+
+       
+}
+
+
+
+
+
+
+
 
 
 }

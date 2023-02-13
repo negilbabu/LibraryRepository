@@ -37,7 +37,9 @@ export class BooksComponent implements OnInit {
     private service: CategoryService,
     private imageService: ImageuploadService,
     private toast: NgToastService,
-    private dialog: MatDialog,) {
+    private dialog: MatDialog,)
+    
+    {
     this.booksList = [];
     this.categoryList = [];
 

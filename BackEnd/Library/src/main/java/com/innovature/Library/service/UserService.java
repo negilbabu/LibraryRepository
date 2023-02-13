@@ -1,5 +1,7 @@
 package com.innovature.Library.service;
 
+import java.io.IOException;
+import java.security.GeneralSecurityException;
 import java.util.Collection;
 
 
@@ -14,6 +16,7 @@ import com.innovature.Library.form.LoginForm;
 import com.innovature.Library.form.ResetNewPswd;
 import com.innovature.Library.form.ResetPasswordForm;
 import com.innovature.Library.form.UserForm;
+import com.innovature.Library.form.googleForm;
 import com.innovature.Library.view.LoginView;
 import com.innovature.Library.view.UserView;
 
@@ -47,5 +50,9 @@ public interface UserService {
     boolean validatePassword(ResetPasswordForm form);
 
     boolean addPassword(ResetNewPswd form);
+
+    // boolean googleSignIn(String idToken) throws GeneralSecurityException, IOException;
+
+    boolean googleSignIn(googleForm form) throws GeneralSecurityException, IOException;
 
 }

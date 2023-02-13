@@ -32,6 +32,22 @@ export class UserserviceService {
     return this.http.post(this.baseUrl+'/users/register',data)
   }
 
+  
+
+  googleSignIn(body:any){
+    console.log("------------",body.idToken);
+    
+      return this.http.post(this.baseUrl+"/users/google",body)
+    }
+
+
+  // googleSignIn(idToken:any):Observable<any>{
+    
+  //   return this.http.post(this.baseUrl+"/users/google", idToken)
+  // }
+
+  
+
 
   login(data:any):Observable<any>{
     return this.http.post(this.baseUrl+'/login',data)

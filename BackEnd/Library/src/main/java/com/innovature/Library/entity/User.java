@@ -66,8 +66,7 @@ public class User {
         this.userId = userId;
     }
 
-    public User(String firstName, String lastName, Date dob, String address, String phone, String email,
-            String password) {
+    public User(String firstName, String lastName, Date dob, String address, String phone, String email, String password) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.dob = dob;
@@ -82,6 +81,17 @@ public class User {
         Date dt = new Date();
         this.createDate = dt;
         this.updateDate = dt;
+    }
+
+    public User(String firstName, String lastName, String email){
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        Date dt = new Date();
+        this.createDate = dt;
+        this.updateDate = dt;
+        this.role = 2;
+        this.status = Status.ACTIVE.value;
     }
 
     public User edit(String firstName, String lastName, Date dob, String address, String phone, String email,

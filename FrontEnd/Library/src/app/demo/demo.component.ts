@@ -1,5 +1,9 @@
+import { SocialAuthService } from '@abacritt/angularx-social-login';
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { NgToastService } from 'ng-angular-popup';
+import { UserserviceService } from '../userservice.service';
 
 @Component({
   selector: 'app-demo',
@@ -7,43 +11,56 @@ import { Router } from '@angular/router';
   styleUrls: ['./demo.component.css']
 })
 export class DemoComponent implements OnInit {
-  status: any = 0;
+  title = 'angular-google';
+  user:any;
+  loggedIn:any;
+  idToken:any;
+  constructor(private authService: SocialAuthService,
+    private userService: UserserviceService,
+    private router:Router,
+    private toast : NgToastService 
+    ) {
+    
 
-  constructor(private router:Router) { }
+     }
 
-  ngOnInit(): void {
+     googleForm:FormGroup=new FormGroup(
+      { 
+        idToken:new FormControl('',[Validators.required]), 
+        
+      }
+    )
+
+  ngOnInit() {
+    this.authService.authState.subscribe((user) => {
+      this.user = user;
+      this.loggedIn = (user != null);
+      this.googleSign(user);
+
+  
+    });
   }
 
-
-close()
-{
-  this.status=1
-}
-
-logout()
-{
-if (confirm('Are you sure want to Logout?')) {
-  localStorage. clear()   
-  this.router.navigate(['/login'])
-} else {
+  googleSign(user:any){
   
-  this.router.navigate(['/sidenav'])
-} 
-}
-home()
-{
-  this.router.navigate(['/sidenav'])
-}
+    console.log("googleSignIn:",user)
+    // this.idToken=user.idToken;
 
-profile()
-{
-  this.router.navigate(['/view-adminprofile'])
-}
+    let body={
+      idToken: user.idToken
+    }
+    console.log("body here:",body)
+      this.userService.googleSignIn(body).subscribe(result=>{           
+                
+      this.router.navigate(['/login'])
+    
+      }, (error: any) =>{
+       alert("aaaaaaa aaaa aaa ")
+       
+         });
 
-dash()
-{
-  this.router.navigate(['/sidenav'])
-}
+
+  }
 
 
 }

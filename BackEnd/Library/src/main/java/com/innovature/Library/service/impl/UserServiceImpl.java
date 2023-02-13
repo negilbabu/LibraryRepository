@@ -4,7 +4,10 @@ package com.innovature.Library.service.impl;
 import static com.innovature.Library.security.AccessTokenUserDetailsService.PURPOSE_ACCESS_TOKEN;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Random;
+import java.io.IOException;
+import java.security.GeneralSecurityException;
 import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
 
@@ -36,6 +39,7 @@ import com.innovature.Library.form.LoginForm;
 import com.innovature.Library.form.ResetNewPswd;
 import com.innovature.Library.form.ResetPasswordForm;
 import com.innovature.Library.form.UserForm;
+import com.innovature.Library.form.googleForm;
 import com.innovature.Library.repository.EmailRepository;
 import com.innovature.Library.repository.UserRepository;
 import com.innovature.Library.security.config.SecurityConfig;
@@ -50,10 +54,33 @@ import com.innovature.Library.service.UserService;
 import com.innovature.Library.view.LoginView;
 import com.innovature.Library.view.UserView;
 
+import org.apache.http.protocol.HTTP;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
+
+import com.fasterxml.jackson.core.JsonFactory;
+// import org.springframework.social.facebook.api.Facebook;
+import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
+import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
+import com.google.api.client.http.javanet.NetHttpTransport;
+// import com.google.api.client.json.jackson2.JacksonFactory;
+import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
+import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken.Payload;
+import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
+import com.google.api.client.http.javanet.NetHttpTransport;
+import com.google.api.client.json.gson.GsonFactory;
+
 @Service
 public class UserServiceImpl implements UserService {
 
     private static final String PURPOSE_REFRESH_TOKEN = "REFRESH_TOKEN";
+
+    private String email;
+    private String firstName;
+    private String lastName;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -76,7 +103,6 @@ public class UserServiceImpl implements UserService {
     @Override
     public ResponseEntity add(EmailForm form) {
 
-        
         User email = userRepository.findByEmailId(form.getSentto());
 
         if (email == null) {
@@ -88,7 +114,7 @@ public class UserServiceImpl implements UserService {
 
             Email otp2 = new Email();
             otp2.setOtp(otp);
-            otp2.setEmail(form.getSentto());        
+            otp2.setEmail(form.getSentto());
             otp2.setExpiry(exp);
 
             var emails = form.getSentto();
@@ -100,24 +126,76 @@ public class UserServiceImpl implements UserService {
                 emailRepository.save(email2);
             } else
                 emailRepository.save(otp2);
-              
+
             SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
             simpleMailMessage.setFrom("testnegspam@gmail.com");
             simpleMailMessage.setTo(form.getSentto());
             simpleMailMessage.setSubject("Email verification");
             simpleMailMessage.setText(
-                    "OTP for create account in Library is : "+otp);
+                    "OTP for create account in Library is : " + otp);
 
-          this.mailSender.send(simpleMailMessage);
-          return new ResponseEntity(null, HttpStatus.ACCEPTED);
+            this.mailSender.send(simpleMailMessage);
+            return new ResponseEntity(null, HttpStatus.ACCEPTED);
 
         } else if (email.getEmail() != null) {
             throw conflictException();
         } else
             return null;
         // return null;
- 
+
     }
+
+    // @Override
+    // public boolean googleSignIn(String idToken) throws GeneralSecurityException, IOException {
+       
+
+    //     var token =idToken;
+
+    //     // Create verifier
+    //     GoogleIdTokenVerifier verifier = new GoogleIdTokenVerifier.Builder(new NetHttpTransport(), new GsonFactory())
+    //             .setAudience(Collections
+    //                     .singletonList("508399831720-cai87nbnl4updp779c21a4br40kqc77s.apps.googleusercontent.com"))
+    //             .build();
+
+    //     // Verify it
+    //     GoogleIdToken idToken1 = verifier.verify(token);
+    //     System.out.println("Email: " + idToken1.getPayload().getEmail());
+    //     System.out.println("Email: " + idToken1.getPayload().getAudience());
+    //     System.out.println("-------------: " + idToken);
+
+
+    //     if (idToken != null) {
+
+    //     System.out.println("Email: " + idToken1.getPayload().getEmail());
+    //     GoogleIdToken.Payload payload = idToken1.getPayload();
+    //     email = payload.getEmail();
+   
+    //     if(userRepository.existsByEmail(email)){
+
+    //       System.out.println("Email alreayd registered: " + email);   
+
+    //     }
+    //     else{
+    //         System.out.println("Email not registered: " + email); 
+    //         String firstName = (String) payload.get("given_name");
+    //         String lastName = (String) payload.get("family_name");
+ 
+    //          new UserView(userRepository.save(new User(
+    //             firstName,
+    //             lastName,
+    //             email
+    //         )));
+
+    //     }
+    //     return true;
+    //     }
+
+    //     else{          
+    //         return false;
+    //      }      
+
+    // }
+
 
 
 
@@ -129,11 +207,76 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public UserView register(UserForm form) {  
+    public boolean googleSignIn(googleForm form) throws GeneralSecurityException, IOException {       
+
+        var token = form.getIdToken();
+
+        // Create verifier
+        GoogleIdTokenVerifier verifier = new GoogleIdTokenVerifier.Builder(new NetHttpTransport(), new GsonFactory())
+                .setAudience(Collections
+                        .singletonList("508399831720-cai87nbnl4updp779c21a4br40kqc77s.apps.googleusercontent.com"))
+                .build();
+
+        // Verify it
+        GoogleIdToken idToken = verifier.verify(token);
+
+        if (idToken != null) {
+        GoogleIdToken.Payload payload = idToken.getPayload();
+
+        email = payload.getEmail();
+   
+        if(userRepository.existsByEmail(email)){
+
+          System.out.println("Email alreayd registered: " + email);   
+          throw conflictException(); 
+
+        }
+        else{
+            System.out.println("Email not registered: " + email); 
+            String firstName = (String) payload.get("given_name");
+            String lastName = (String) payload.get("family_name");
+ 
+             new UserView(userRepository.save(new User(
+                firstName,
+                lastName,
+                email
+            )));
+
+        }
+
+
+
+
+
+
+
+
+        return true;
+        }
+
+        else{          
+            return false;
+         }      
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+    @Override
+    public UserView register(UserForm form) {
 
         Email otp = emailRepository.findByEmail(form.getEmail());
-        System.out.println("--------------------------"+form.getEmail());
-        System.out.println("--------------------------"+otp);
+        System.out.println("--------------------------" + form.getEmail());
+        System.out.println("--------------------------" + otp);
 
         LocalTime myObj = LocalTime.now();
 
@@ -145,23 +288,21 @@ public class UserServiceImpl implements UserService {
 
                 // return new ResponseEntity(null, HttpStatus.ACCEPTED);
                 return new UserView(userRepository.save(new User(
-                    form.getFirstName(),
-                    form.getLastName(),
-                    form.getDob(),
-                    form.getAddress(),
-                    form.getPhone(),
-                    form.getEmail(),
-                    passwordEncoder.encode(form.getPassword()))));
+                        form.getFirstName(),
+                        form.getLastName(),
+                        form.getDob(),
+                        form.getAddress(),
+                        form.getPhone(),
+                        form.getEmail(),
+                        passwordEncoder.encode(form.getPassword()))));
+            } else {
+                throw new GatewayTimeoutException("OTP VALIDITY EXPIRED ");
             }
-            else{
-                throw new GatewayTimeoutException("OTP VALIDITY EXPIRED "); 
-            } 
-          
+
+        } else {
+            throw new NotAcceptableException("OTP VERIFICATION FAILED");
+        }
     }
-    else{
-        throw new NotAcceptableException("OTP VERIFICATION FAILED");
-    }
-}
 
     private static BadRequestException badRequestException() {
         return new BadRequestException("Invalid credentials");
@@ -175,23 +316,22 @@ public class UserServiceImpl implements UserService {
         return new ConflictException("Email id Already Registered");
     }
 
-
     @Override
     public LoginView login(LoginForm form) throws BadRequestException {
 
-            User user = userRepository.findByEmail(form.getEmail()).orElseThrow(UserServiceImpl::expectationFailedException);
-            if (!passwordEncoder.matches(form.getPassword(), user.getPassword())) {
-                throw expectationFailedException();
-            }
+        User user = userRepository.findByEmail(form.getEmail())
+                .orElseThrow(UserServiceImpl::expectationFailedException);
+        if (!passwordEncoder.matches(form.getPassword(), user.getPassword())) {
+            throw expectationFailedException();
+        }
 
-            String id = String.format("%010d", user.getUserId());
-            Token accessToken = tokenGenerator.create(PURPOSE_ACCESS_TOKEN, id, securityConfig.getAccessTokenExpiry());
-            Token refreshToken = tokenGenerator.create(PURPOSE_REFRESH_TOKEN, id + user.getPassword(),
-                    securityConfig.getRefreshTokenExpiry());
-            return new LoginView(user, accessToken, refreshToken);
+        String id = String.format("%010d", user.getUserId());
+        Token accessToken = tokenGenerator.create(PURPOSE_ACCESS_TOKEN, id, securityConfig.getAccessTokenExpiry());
+        Token refreshToken = tokenGenerator.create(PURPOSE_REFRESH_TOKEN, id + user.getPassword(),
+                securityConfig.getRefreshTokenExpiry());
+        return new LoginView(user, accessToken, refreshToken);
 
     }
-
 
     @Override
     public UserView currentUser() {
@@ -230,8 +370,6 @@ public class UserServiceImpl implements UserService {
                 new LoginView.TokenView(refreshToken, status.expiry));
     }
 
-
-
     @Override
     public Collection<User> listAll() {
         return userRepository.findAll();
@@ -262,8 +400,8 @@ public class UserServiceImpl implements UserService {
     public UserView edit(Integer userId, EditProfileForm form) {
 
         User user = userRepository.findById(userId);
-// System.out.println(user.getEmail());
-// System.out.println(user.getPassword());
+        // System.out.println(user.getEmail());
+        // System.out.println(user.getPassword());
 
         user.edit(
                 form.getFirstName(),
@@ -271,13 +409,13 @@ public class UserServiceImpl implements UserService {
                 form.getDob(),
                 form.getAddress(),
                 form.getPhone()
-                // user.getEmail(),
-                // form.getEmail(),
-                // form.getRole(),
-                // user.getPassword()
-                // passwordEncoder.encode(form.getPassword())
-                );
-                // System.out.println("-----------------------------------"+user.getPassword());
+        // user.getEmail(),
+        // form.getEmail(),
+        // form.getRole(),
+        // user.getPassword()
+        // passwordEncoder.encode(form.getPassword())
+        );
+        // System.out.println("-----------------------------------"+user.getPassword());
         return new UserView(userRepository.save(user));
     }
 
@@ -325,20 +463,16 @@ public class UserServiceImpl implements UserService {
     @Transactional
     @Override
     public boolean validatePassword(ResetPasswordForm form) {
-        
 
         User user = userRepository.findById(SecurityUtil.getCurrentUserId());
-      
-        if ( (!passwordEncoder.matches(form.getOldPassword(), user.getPassword()))){
+
+        if ((!passwordEncoder.matches(form.getOldPassword(), user.getPassword()))) {
 
             throw new expectationFailedException("Incorrect Password ");
-        }
-        else
-        {       
-        
+        } else {
+
             return true;
         }
-      
 
     }
 
@@ -346,7 +480,7 @@ public class UserServiceImpl implements UserService {
     public boolean addPassword(ResetNewPswd form) {
 
         User user = userRepository.findById(SecurityUtil.getCurrentUserId());
-        var email=userRepository.findEmailByUserId(SecurityUtil.getCurrentUserId());
+        var email = userRepository.findEmailByUserId(SecurityUtil.getCurrentUserId());
 
         // User user = userRepository.findByEmailId(form.getEmail());
 

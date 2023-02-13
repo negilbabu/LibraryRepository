@@ -1,6 +1,10 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
+import { SocialLoginModule, SocialAuthServiceConfig } from '@abacritt/angularx-social-login';
+import { GoogleLoginProvider, FacebookLoginProvider} from '@abacritt/angularx-social-login';
+
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { UserRegComponent } from './user-reg/user-reg.component';
@@ -121,11 +125,38 @@ import { RestpasswordComponent } from './restpassword/restpassword.component';
     MatInputModule,
     MatListModule,
     MatGridListModule,
-    MatTableModule
+    MatTableModule,
+    SocialLoginModule
     
 
   ],
-  providers: [ {provide:HTTP_INTERCEPTORS,useClass:TokenInterceptorService,multi:true},[HomeguardGuard, GuardserviceService],[DatePipe] ],
+  providers: [ {provide:HTTP_INTERCEPTORS,useClass:TokenInterceptorService,multi:true},
+    [HomeguardGuard, GuardserviceService],
+    [DatePipe],
+    [
+    {
+      provide: 'SocialAuthServiceConfig',
+      useValue: {
+        autoLogin: false,
+        providers: [
+          {
+            id: GoogleLoginProvider.PROVIDER_ID,
+            provider: new GoogleLoginProvider(
+              '508399831720-cai87nbnl4updp779c21a4br40kqc77s.apps.googleusercontent.com'
+            )
+          },
+          {
+            id: FacebookLoginProvider.PROVIDER_ID,
+            provider: new FacebookLoginProvider('clientId')
+          }
+        ],
+        onError: (err) => {
+          console.error(err);
+        }
+      } as SocialAuthServiceConfig,
+    }
+  ]
+],
   bootstrap: [AppComponent],
   entryComponents:[CategoryComponent,DemoComponent],
 })

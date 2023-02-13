@@ -54,12 +54,13 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .anonymous().and()
                 .authorizeRequests()
 
-                .antMatchers(GET,"/users/admin/**/").access("hasRole('ROLE_ADMIN')")
-                .antMatchers(GET,"/users/admin/viewProfile").access("hasRole('ROLE_ADMIN')")
+                // .antMatchers(GET,"/users/admin/**/").access("hasRole('ROLE_ADMIN')")
+                // .antMatchers(GET,"/users/admin/viewProfile").access("hasRole('ROLE_ADMIN')")
 
                 .antMatchers(OPTIONS, "/users").anonymous()
                 .antMatchers(POST, "/users").anonymous()
                 .antMatchers(POST, "/users/register").anonymous()
+                .antMatchers(POST, "/users/google").anonymous()
                 .antMatchers(OPTIONS, "/login").anonymous()
                 .antMatchers(POST, "/login").anonymous()
                 .antMatchers(POST, "/email/**").anonymous()
