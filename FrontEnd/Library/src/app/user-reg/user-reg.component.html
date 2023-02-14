@@ -22,9 +22,21 @@
 
     <form [formGroup]="EmailForm">
         <div style="width: 180px; margin:0 auto;" class="example-container"><br>
-            <div style="width: 50px; margin:0 auto;"> <label>
-                <h2>SignUp</h2>
-            </label></div>
+            <div style="width: 50px; margin:0 auto;">
+                
+                <table><tr><td>
+                    <h2 style="padding-top: 13px;">SignUp_with_ </h2>
+                </td>
+                <td>
+                    <asl-google-signin-button *ngIf="!user"></asl-google-signin-button>
+                </td>
+            
+            </tr></table>
+                
+                
+                 
+             
+           </div>
     <div>
         <input type="email" class="text-danger1" placeholder="email" formControlName="sentto" name="sentto" maxlength="100" pattern="[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*"
             required>
@@ -110,20 +122,26 @@
                         8 character</small></span>
                 <br><br>
             </div>
-             <div *ngIf="this.stat==1">
-                <input type="number" class="text-danger1" placeholder="OTP" formControlName="otp" name="otp"
-                    maxlength="6" pattern="[0-9]+">
-                <!-- <span class="text-danger"
-                    *ngIf="ObjSampleForm.controls['otp'].touched && ObjSampleForm.hasError('required','otp')"><small>otp   is required</small>
-                </span> -->
-                <span class="text-danger" *ngIf=" ObjSampleForm.hasError('pattern','otp')"><small>Please enter a valid
-                        otp </small>
-                </span>
+            <div class="loader" *ngIf="this.spin==1"></div>
+            <table *ngIf="this.spin==0"><tr><td>
+                <div *ngIf="this.stat==1">
+                    <input type="number" class="text-danger1" placeholder="Please enter OTP sent to registered mail " formControlName="otp" name="otp"
+                        maxlength="6" pattern="[0-9]+">
+           
+                        <span class="text-danger" *ngIf=" ObjSampleForm.hasError('pattern','otp')"><small>Please enter a valid otp </small>
+                    </span>                
+                </div>
+            </td>
+            <td>
+                <button mat-button *ngIf="this.resend==1" (click)="onSubmit()" color="accent" >Resend OTP</button>
+            </td>
+        </tr></table>
+        
+            
+          
+          
 
-            </div>
-            <div><asl-google-signin-button *ngIf="!user"></asl-google-signin-button></div>
-
-            <div style="padding-top: 3%;">
+            <div style="padding-top: 3%;" *ngIf="this.spin==0 && this.resend!=1">
                 <button mat-raised-button color="warn" class="b1" type="reset">Clear</button>
                 &nbsp; &nbsp;
                 <button mat-raised-button (click)="onSubmit()" color="primary">Submit</button>

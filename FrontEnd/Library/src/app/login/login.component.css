@@ -96,10 +96,10 @@ body{
 	margin-top: 10px;
 }
 a{
-	margin-left: 35%;
+	margin-left: 15%;
 }
 .login input[type=button]{
-	width: 350px;
+	width: 220px;
 	height: 35px;
 	background: #fff;
 	border: 1px solid #fff;
@@ -115,7 +115,7 @@ a{
 	text-align: center;
 }
 .login input[type=submit]{
-	width: 350px;
+	width: 220px;
 	height: 35px;
 	background: #fff;
 	border: 1px solid #fff;
@@ -130,6 +130,9 @@ a{
 	/* margin-left: 20%; */
 	text-align: center;
 }
+/* .aaa{
+	width: 50%;
+} */
 
 .login input[type=button]:hover{
 	opacity: 0.8;

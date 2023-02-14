@@ -24,6 +24,8 @@ public interface UserRepository extends Repository<User, Integer> {
 
     Optional<User> findByEmail(String email);
 
+    // User findByEmail(String email);
+
     // HttpStatus save(User user);
 
     User save(User user);

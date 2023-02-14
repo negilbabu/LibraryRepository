@@ -16,11 +16,14 @@ date: any;
 var:any;
 stat=0;
 email:any;
+resend=0;
+spin=0;
 //google sign
 title = 'angular-google';
 user:any;
 loggedIn:any;
 idToken:any;
+responsedata: any;
   constructor(private router:Router ,
     private service:UserserviceService,
     private toast : NgToastService,
@@ -84,11 +87,32 @@ idToken:any;
     }
     console.log("body here:",body)
       this.service.googleSignIn(body).subscribe(result=>{           
-        this.toast.success({detail:'User Registration Success',summary:'Please update your profile',duration:5000});      
-      this.router.navigate(['/login'])
+        this.toast.success({detail:'User Registration Success',summary:'Please update your profile',duration:5000});   
+      console.log("result=",result);
+      this.responsedata=result
+        console.log("result=",this.responsedata.role);
+
+        if(this.responsedata.role==2){
+          localStorage.setItem('token',this.responsedata.accessToken.value)        
+          this.toast.info({detail:'Hello User ',summary:'LogIn Successfull',duration:5000});        
+          this.router.navigate(['/homepage'])
+          }
+          
+          
+          else{
+            localStorage.setItem('token',this.responsedata.accessToken.value)         
+            this.toast.info({detail:'Hello Admin : '+this.responsedata.firstName,summary:'LogIn Successfull',duration:5000});
+            this.router.navigate(['/body'])
+
+          }
+        
+      // this.router.navigate(['/login'])
     
       }, (error: any) =>{
-       alert("aaaaaaa aaaa aaa ")
+        if(error.status==409){
+          this.toast.info({ detail: 'User Already Registered', summary: 'Log In', duration: 5000, position: 'tr' })
+          this.router.navigate(['/login'])
+         }
        
          });
 
@@ -103,17 +127,21 @@ console.log("stat=",this.stat)
     if(this.stat==0){
 
    if(this.EmailForm.valid){
-
+this.spin=1;
     // this.var=this.EmailForm.controls['email'].value
 
      this.service.verifyUser(this.EmailForm.value).subscribe(result=>{
        console.log(result)
-       this.stat=1; 
+       this.toast.info({detail:'OTP Sended to provided email',summary:'Please verify the OTP to continue',duration:15000});
+       this.stat=1;
+       this.spin=0;
+       this.resend=0; 
        this.email=this.EmailForm.controls['sentto'].value
        console.log("####",this.email);  
        
        },
      (error: any) =>{
+      this.spin=0;
       if(error.status==409){
        this.toast.error({detail:'User Registration Failed',summary:'Email Already Registered',duration:5000});
        }
@@ -139,7 +167,7 @@ console.log("stat=",this.stat)
         address: this.ObjSampleForm.controls['address'].value,
         dob: this.ObjSampleForm.controls['dob'].value,
         password: this.ObjSampleForm.controls['password'].value,
-        email: "negilbabu001@gmail.com",
+        email: this.email,
         otp:this.ObjSampleForm.controls['otp'].value
       }
       console.log(":::::::::::::::::::",body.email);
@@ -164,6 +192,8 @@ console.log("stat=",this.stat)
              }
              else if (error.status == 504) {
               this.toast.error({ detail: 'Failed', summary: 'OTP EXPIRED', duration: 5000, position: 'tr' })
+              this.stat=0;
+              this.resend=1;
             }
 
      
@@ -191,6 +221,25 @@ console.log("stat=",this.stat)
      this.router.navigate(['/login'])
    }
 
+   resendMail(){
+    this.service.verifyUser(this.EmailForm.value).subscribe(result=>{
+      console.log(result)
+      this.stat=1; 
+      this.resend=0;
+      this.email=this.EmailForm.controls['sentto'].value
+      console.log("####",this.email);  
+      
+      },
+    (error: any) =>{
+     if(error.status==409){
+      this.toast.error({detail:'User Registration Failed',summary:'Email Already Registered',duration:5000});
+      }
+      else if(error.status==400){
+        this.toast.error({detail:'User Registration Failed',summary:'FILL UP ALL FIELDS',duration:5000});
+        }
+
+    });   
+   }
 
 
 

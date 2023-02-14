@@ -127,14 +127,25 @@ public class UserServiceImpl implements UserService {
             } else
                 emailRepository.save(otp2);
 
-            SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
-            simpleMailMessage.setFrom("testnegspam@gmail.com");
-            simpleMailMessage.setTo(form.getSentto());
-            simpleMailMessage.setSubject("Email verification");
-            simpleMailMessage.setText(
-                    "OTP for create account in Library is : " + otp);
-
-            this.mailSender.send(simpleMailMessage);
+try {
+    System.out.println("--------tryyyyyy------------------" );
+    SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
+    simpleMailMessage.setFrom("testnegspam@gmail.com");
+    simpleMailMessage.setTo(form.getSentto());
+    simpleMailMessage.setSubject("Email verification");
+    simpleMailMessage.setText(
+            "OTP for create account in Library is : " + otp);
+                this.mailSender.send(simpleMailMessage); 
+} catch (org.springframework.mail.MailSendException e) {
+    System.out.println("-----------catch---------------" + e);
+    throw badRequestException();
+}
+    
+            
+        //      if (errors.hasErrors()) {
+        //     throw badRequestException();
+        // }
+            
             return new ResponseEntity(null, HttpStatus.ACCEPTED);
 
         } else if (email.getEmail() != null) {
@@ -144,132 +155,6 @@ public class UserServiceImpl implements UserService {
         // return null;
 
     }
-
-    // @Override
-    // public boolean googleSignIn(String idToken) throws GeneralSecurityException, IOException {
-       
-
-    //     var token =idToken;
-
-    //     // Create verifier
-    //     GoogleIdTokenVerifier verifier = new GoogleIdTokenVerifier.Builder(new NetHttpTransport(), new GsonFactory())
-    //             .setAudience(Collections
-    //                     .singletonList("508399831720-cai87nbnl4updp779c21a4br40kqc77s.apps.googleusercontent.com"))
-    //             .build();
-
-    //     // Verify it
-    //     GoogleIdToken idToken1 = verifier.verify(token);
-    //     System.out.println("Email: " + idToken1.getPayload().getEmail());
-    //     System.out.println("Email: " + idToken1.getPayload().getAudience());
-    //     System.out.println("-------------: " + idToken);
-
-
-    //     if (idToken != null) {
-
-    //     System.out.println("Email: " + idToken1.getPayload().getEmail());
-    //     GoogleIdToken.Payload payload = idToken1.getPayload();
-    //     email = payload.getEmail();
-   
-    //     if(userRepository.existsByEmail(email)){
-
-    //       System.out.println("Email alreayd registered: " + email);   
-
-    //     }
-    //     else{
-    //         System.out.println("Email not registered: " + email); 
-    //         String firstName = (String) payload.get("given_name");
-    //         String lastName = (String) payload.get("family_name");
- 
-    //          new UserView(userRepository.save(new User(
-    //             firstName,
-    //             lastName,
-    //             email
-    //         )));
-
-    //     }
-    //     return true;
-    //     }
-
-    //     else{          
-    //         return false;
-    //      }      
-
-    // }
-
-
-
-
-
-
-
-
-
-
-
-    @Override
-    public boolean googleSignIn(googleForm form) throws GeneralSecurityException, IOException {       
-
-        var token = form.getIdToken();
-
-        // Create verifier
-        GoogleIdTokenVerifier verifier = new GoogleIdTokenVerifier.Builder(new NetHttpTransport(), new GsonFactory())
-                .setAudience(Collections
-                        .singletonList("508399831720-cai87nbnl4updp779c21a4br40kqc77s.apps.googleusercontent.com"))
-                .build();
-
-        // Verify it
-        GoogleIdToken idToken = verifier.verify(token);
-
-        if (idToken != null) {
-        GoogleIdToken.Payload payload = idToken.getPayload();
-
-        email = payload.getEmail();
-   
-        if(userRepository.existsByEmail(email)){
-
-          System.out.println("Email alreayd registered: " + email);   
-          throw conflictException(); 
-
-        }
-        else{
-            System.out.println("Email not registered: " + email); 
-            String firstName = (String) payload.get("given_name");
-            String lastName = (String) payload.get("family_name");
- 
-             new UserView(userRepository.save(new User(
-                firstName,
-                lastName,
-                email
-            )));
-
-        }
-
-
-
-
-
-
-
-
-        return true;
-        }
-
-        else{          
-            return false;
-         }      
-
-    }
-
-
-
-
-
-
-
-
-
-
-
 
     @Override
     public UserView register(UserForm form) {
@@ -316,6 +201,144 @@ public class UserServiceImpl implements UserService {
         return new ConflictException("Email id Already Registered");
     }
 
+    
+
+
+    @Override
+    public LoginView googleSignIn1(googleForm form) throws GeneralSecurityException, IOException {       
+
+        var token = form.getIdToken();
+
+        // Create verifier
+        GoogleIdTokenVerifier verifier = new GoogleIdTokenVerifier.Builder(new NetHttpTransport(), new GsonFactory())
+                .setAudience(Collections
+                        .singletonList("508399831720-cai87nbnl4updp779c21a4br40kqc77s.apps.googleusercontent.com"))
+                .build();
+
+        // Verify it
+        GoogleIdToken idToken = verifier.verify(token);
+
+        if (idToken != null) {
+        GoogleIdToken.Payload payload = idToken.getPayload();
+
+        email = payload.getEmail();
+   
+        if(userRepository.existsByEmail(email)){
+            User user = userRepository.findByEmailId(email);
+            System.out.println("Email alreayd registered: " + email);   
+
+            String id = String.format("%010d", user.getUserId());
+            Token accessToken = tokenGenerator.create(PURPOSE_ACCESS_TOKEN, id, securityConfig.getAccessTokenExpiry());
+            Token refreshToken = tokenGenerator.create(PURPOSE_REFRESH_TOKEN, id + user.getPassword(),
+                    securityConfig.getRefreshTokenExpiry());
+            return new LoginView(user, accessToken, refreshToken);
+   
+
+        }
+        else{
+            System.out.println("Email not registered: " + email); 
+           
+            String firstName = (String) payload.get("given_name");
+            String lastName = (String) payload.get("family_name");
+
+ 
+             new UserView(userRepository.save(new User(
+                firstName,
+                lastName,
+                email
+            )));
+            User user = userRepository.findByEmailId(email);
+            String id = String.format("%010d", user.getUserId());
+            Token accessToken = tokenGenerator.create(PURPOSE_ACCESS_TOKEN, id, securityConfig.getAccessTokenExpiry());
+            Token refreshToken = tokenGenerator.create(PURPOSE_REFRESH_TOKEN, id + user.getPassword(),
+                    securityConfig.getRefreshTokenExpiry());
+            return new LoginView(user, accessToken, refreshToken);
+
+        }  
+      
+        }
+
+        else{          
+            throw badRequestException();
+         }
+        // return null;      
+
+    }
+
+
+
+
+
+
+
+
+
+    // @Override
+    // public boolean googleSignIn(googleForm form) throws GeneralSecurityException, IOException {       
+
+    //     var token = form.getIdToken();
+
+    //     // Create verifier
+    //     GoogleIdTokenVerifier verifier = new GoogleIdTokenVerifier.Builder(new NetHttpTransport(), new GsonFactory())
+    //             .setAudience(Collections
+    //                     .singletonList("508399831720-cai87nbnl4updp779c21a4br40kqc77s.apps.googleusercontent.com"))
+    //             .build();
+
+    //     // Verify it
+    //     GoogleIdToken idToken = verifier.verify(token);
+
+    //     if (idToken != null) {
+    //     GoogleIdToken.Payload payload = idToken.getPayload();
+
+    //     email = payload.getEmail();
+   
+    //     if(userRepository.existsByEmail(email)){
+
+    //       System.out.println("Email already registered: " + email);   
+    //       throw conflictException(); 
+
+    //     }
+    //     else{
+    //         System.out.println("Email not registered: " + email); 
+    //         String firstName = (String) payload.get("given_name");
+    //         String lastName = (String) payload.get("family_name");
+ 
+    //          new UserView(userRepository.save(new User(
+    //             firstName,
+    //             lastName,
+    //             email
+    //         )));
+
+    //     }
+
+
+
+
+
+
+
+
+    //     return true;
+    //     }
+
+    //     else{          
+    //         return false;
+    //      }      
+
+    // }
+
+
+
+
+
+
+
+
+
+
+
+
+   
     @Override
     public LoginView login(LoginForm form) throws BadRequestException {
 

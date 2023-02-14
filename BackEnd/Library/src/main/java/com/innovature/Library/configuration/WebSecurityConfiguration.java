@@ -61,6 +61,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers(POST, "/users").anonymous()
                 .antMatchers(POST, "/users/register").anonymous()
                 .antMatchers(POST, "/users/google").anonymous()
+                .antMatchers(POST, "/users/google/signin").anonymous()
                 .antMatchers(OPTIONS, "/login").anonymous()
                 .antMatchers(POST, "/login").anonymous()
                 .antMatchers(POST, "/email/**").anonymous()

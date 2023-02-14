@@ -31,6 +31,7 @@ import com.innovature.Library.form.UserForm;
 import com.innovature.Library.form.googleForm;
 import com.innovature.Library.security.util.SecurityUtil;
 import com.innovature.Library.service.UserService;
+import com.innovature.Library.view.LoginView;
 import com.innovature.Library.view.UserView;
 import com.innovature.Library.form.ResetNewPswd;
 import com.innovature.Library.form.ResetPasswordForm;
@@ -174,12 +175,27 @@ if (!psd.equals(cpsd)) {
 
 
  
-// @PostMapping("/google")
-// public ResponseEntity loginWithGoogle(@Valid   @PathVariable("idToken") String idToken) throws Exception {
+@PostMapping("/google")
+public LoginView loginWithGoogle1(@Valid  @RequestBody googleForm form  ) throws Exception {
 
-// System.out.println("---------------------------------"+idToken);
+   return userService.googleSignIn1(form);
 
-//     boolean result = userService.googleSignIn(idToken);
+
+    // if (result) {
+    //     return new ResponseEntity(null, HttpStatus.ACCEPTED);
+    // } else {
+    //     throw new BadRequestException("Email verification failed");
+  
+    // }       
+}
+
+
+// @PostMapping("/google/signin")
+// public ResponseEntity loginWithGoogle(@Valid @RequestBody googleForm google) throws Exception {
+
+// System.out.println("---------------------------------"+google.getIdToken());
+
+//     boolean result = userService.googleSignIn(google);
 //     if (result) {
 //         return new ResponseEntity(null, HttpStatus.ACCEPTED);
 //     } else {
@@ -187,26 +203,6 @@ if (!psd.equals(cpsd)) {
   
 //     }       
 // }
-
-
-@PostMapping("/google")
-public ResponseEntity loginWithGoogle(@Valid @RequestBody googleForm google) throws Exception {
-
-System.out.println("---------------------------------"+google.getIdToken());
-
-    boolean result = userService.googleSignIn(google);
-    if (result) {
-        return new ResponseEntity(null, HttpStatus.ACCEPTED);
-    } else {
-        throw new BadRequestException("Email verification failed");
-  
-    }
-
-
-
-
-       
-}
 
 
 
