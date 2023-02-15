@@ -18,6 +18,7 @@ export class AddcategoryComponent implements OnInit {
   categoryList: any[];
   categoryId: any;
   categorydata: any;
+  noValue=0;
 
   data: any;
   page: number = 1;
@@ -98,6 +99,13 @@ this.displayStyle = "none"
       this.count = result.totalElements
       this.data = this.result;
       this.categorydata = this.result;
+
+      if (this.result.length == 0) {
+        this.noValue = 1;        
+      }
+      else{
+        this.noValue = 0; 
+      }
     });
 
   }

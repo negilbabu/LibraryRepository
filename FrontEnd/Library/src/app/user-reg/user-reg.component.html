@@ -23,37 +23,44 @@
     <form [formGroup]="EmailForm">
         <div style="width: 180px; margin:0 auto;" class="example-container"><br>
             <div style="width: 50px; margin:0 auto;">
-                
-                <table><tr><td>
-                    <h2 style="padding-top: 13px;">SignUp_with_ </h2>
-                </td>
-                <td>
-                    <asl-google-signin-button *ngIf="!user"></asl-google-signin-button>
-                </td>
-            
-            </tr></table>
-                
-                
-                 
-             
-           </div>
-    <div>
-        <input type="email" class="text-danger1" placeholder="email" formControlName="sentto" name="sentto" maxlength="100" pattern="[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*"
-            required>
-        <span class="text-danger"
-            *ngIf="EmailForm.controls['sentto'].touched && EmailForm.hasError('required','sentto')"><small>Email is required</small>
-        </span>
-        <span class="text-danger" *ngIf=" EmailForm.hasError('pattern','sentto')"><small>Please enter a valid email Id</small>
-        </span>
 
-    </div> </div>
+                <table>
+                    <tr>
+                        <td>
+                            <h2 style="padding-top: 13px;">SignUp_with_ </h2>
+                        </td>
+                        <td>
+                            <asl-google-signin-button *ngIf="!user"></asl-google-signin-button>
+                        </td>
+
+                    </tr>
+                </table>
+
+
+
+
+            </div>
+            <div>
+                <input type="email" class="text-danger1" placeholder="email" formControlName="sentto" name="sentto"
+                    maxlength="100" pattern="[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*"
+                    required>
+                <span class="text-danger"
+                    *ngIf="EmailForm.controls['sentto'].touched && EmailForm.hasError('required','sentto')"><small>Email
+                        is required</small>
+                </span>
+                <span class="text-danger" *ngIf=" EmailForm.hasError('pattern','sentto')"><small>Please enter a valid
+                        email Id</small>
+                </span>
+
+            </div>
+        </div>
     </form>
 
     <form [formGroup]="ObjSampleForm">
 
         <div style="width: 180px; margin:0 auto;" class="example-container"><br>
-        
-           
+
+
             <div>
                 <input type="text" class="text-danger1" placeholder="First Name" formControlName="firstName"
                     name="firstName" maxlength="30" minlength="3" pattern='[a-zA-z]+' required>
@@ -81,8 +88,15 @@
             </div> <br>
 
             <div>
-                <input type="date" class="text-danger1" placeholder="DOB" formControlName="dob" name="dob"
-                    max="{{date | date :'yyyy-MM-dd' }}" required>
+                <input type="text" placeholder="DOB" class="text-danger1"  onfocus="(this.type='date')" id="dob" formControlName="dob" name="dob"
+                max="{{date | date :'yyyy-MM-dd' }}" required />
+               
+               
+               
+                <!-- <input type="date" class="text-danger1" placeholder="DOB" formControlName="dob" name="dob"
+                    max="{{date | date :'yyyy-MM-dd' }}" required> -->
+
+
                 <span class="text-danger"
                     *ngIf="ObjSampleForm.controls['dob'].touched && ObjSampleForm.hasError('required','dob')"><small>Date-of-birth
                         is required</small> </span>
@@ -123,23 +137,29 @@
                 <br><br>
             </div>
             <div class="loader" *ngIf="this.spin==1"></div>
-            <table *ngIf="this.spin==0"><tr><td>
-                <div *ngIf="this.stat==1">
-                    <input type="number" class="text-danger1" placeholder="Please enter OTP sent to registered mail " formControlName="otp" name="otp"
-                        maxlength="6" pattern="[0-9]+">
-           
-                        <span class="text-danger" *ngIf=" ObjSampleForm.hasError('pattern','otp')"><small>Please enter a valid otp </small>
-                    </span>                
-                </div>
-            </td>
-            <td>
-                <button mat-button *ngIf="this.resend==1" (click)="onSubmit()" color="accent" >Resend OTP</button>
-            </td>
-        </tr></table>
-        
-            
-          
-          
+            <table *ngIf="this.spin==0">
+                <tr>
+                    <td>
+                        <div *ngIf="this.stat==1">
+                            <input type="number" class="text-danger1"
+                                placeholder="Please enter OTP sent to registered mail " formControlName="otp" name="otp"
+                                maxlength="6" pattern="[0-9]+">
+
+                            <span class="text-danger" *ngIf=" ObjSampleForm.hasError('pattern','otp')"><small>Please
+                                    enter a valid otp </small>
+                            </span>
+                        </div>
+                    </td>
+                    <td>
+                        <button mat-button *ngIf="this.resend==1" (click)="onSubmit()" color="accent">Resend
+                            OTP</button>
+                    </td>
+                </tr>
+            </table>
+
+
+
+
 
             <div style="padding-top: 3%;" *ngIf="this.spin==0 && this.resend!=1">
                 <button mat-raised-button color="warn" class="b1" type="reset">Clear</button>
