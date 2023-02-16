@@ -87,6 +87,12 @@ export class UserserviceService {
     return this.http.get(this.baseUrl + '/users/admin/viewProfile/')
 
   }
+
+  ////////////////////////////////
+
+  public getUserByNickname(nickname:string): Observable<any> {
+    return this.http.get(this.baseUrl + '/users/getUser/'+nickname)
+  }
   
 }
 

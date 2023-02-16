@@ -63,6 +63,8 @@ import { UserDetailviewComponent } from './user-detailview/user-detailview.compo
 import {MatTableModule} from '@angular/material/table';
 import { PageNotfoundComponent } from './page-notfound/page-notfound.component';
 import { RestpasswordComponent } from './restpassword/restpassword.component';
+import { ChatComponent } from './chat/chat.component';
+// import { ChatMessasageDtoComponent } from './model/chat-messasage-dto/chat-messasage-dto.component';
 // import { ChatMessasageDtoComponent } from './models/chat-messasage-dto/chat-messasage-dto.component';
 
 
@@ -104,6 +106,8 @@ import { RestpasswordComponent } from './restpassword/restpassword.component';
     UserDetailviewComponent,
     PageNotfoundComponent,
     RestpasswordComponent,
+    ChatComponent,
+    // ChatMessasageDtoComponent,
     // ChatMessasageDtoComponent,
 
 

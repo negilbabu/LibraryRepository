@@ -6,9 +6,9 @@ import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBr
 import org.springframework.web.socket.config.annotation.StompEndpointRegistry;
 import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerConfigurer;
 
-// @Configuration
-// @EnableWebSocketMessageBroker
-// public class WebSocketConfiguration implements WebSocketMessageBrokerConfigurer {
+@Configuration
+@EnableWebSocketMessageBroker
+public class WebSocketConfiguration implements WebSocketMessageBrokerConfigurer {
   
 // 	@Override
 //     public void registerStompEndpoints(StompEndpointRegistry registry) {
@@ -24,19 +24,31 @@ import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerCo
 
 // }
 
-@Configuration
-@EnableWebSocketMessageBroker
-public class WebSocketConfiguration implements WebSocketMessageBrokerConfigurer {
-    @Override
-    public void registerStompEndpoints(StompEndpointRegistry registry) {
-        registry.addEndpoint("/ws").setAllowedOriginPatterns("*").withSockJS();
-    }
+// @Configuration
+// @EnableWebSocketMessageBroker
+// public class WebSocketConfiguration implements WebSocketMessageBrokerConfigurer {
+//     @Override
+//     public void registerStompEndpoints(StompEndpointRegistry registry) {
+//         registry.addEndpoint("/ws").setAllowedOriginPatterns("*").withSockJS();
+//     }
 
-    @Override
-    public void configureMessageBroker(MessageBrokerRegistry registry) {
-        registry.setApplicationDestinationPrefixes("/app");
-        registry.enableSimpleBroker("/chatroom","/user");
-        registry.setUserDestinationPrefix("/user");
-    }
+//     @Override
+//     public void configureMessageBroker(MessageBrokerRegistry registry) {
+//         registry.setApplicationDestinationPrefixes("/app");
+//         registry.enableSimpleBroker("/chatroom","/user");
+//         registry.setUserDestinationPrefix("/user");
+//     }
+// }
+
+
+@Override
+public void registerStompEndpoints(StompEndpointRegistry registry) {
+    registry.addEndpoint("/chat").setAllowedOrigins("http://localhost:4200").withSockJS();
+
 }
 
+@Override
+public void configureMessageBroker(MessageBrokerRegistry registry) {
+    registry.setApplicationDestinationPrefixes("/app").enableSimpleBroker("/topic");
+}
+}
