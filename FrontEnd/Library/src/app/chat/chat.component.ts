@@ -71,7 +71,7 @@
 
 import { Component, ElementRef, OnInit, AfterViewChecked} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { FormControl } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Observable,  of } from 'rxjs';
 
@@ -82,25 +82,32 @@ import { UserserviceService } from '../userservice.service';
 // import { Messaggio } from '../model/messaggio';
 // import { User } from '../model/user';
 
-
+import * as Stomp from 'stompjs';
+import * as SockJS from 'sockjs-client';
 
 @Component({
   selector: 'app-chat-',
   templateUrl: './chat.component.html',
   styleUrls: ['./chat.component.css'],
 })
-export class ChatComponent implements OnInit,AfterViewChecked{
-  // url = 'http://localhost:8080';
-  // // otherUser?: User;
-  // // thisUser: User = JSON.parse(sessionStorage.getItem('user')!);
-  // otherUser=7;
-  // thisUser=5;
+export class ChatComponent implements OnInit{
+  url = 'http://localhost:8080';
+  // otherUser?: User;
+  // thisUser: User = JSON.parse(sessionStorage.getItem('user')!);
+  otherUser=7;
+  thisUser=5;
 
-  // channelName?: string;
-  // socket?: WebSocket;
-  // stompClient?: Stomp.Client;
-  // newMessage = new FormControl('');
-  // // messages?: Observable<Array<Messaggio>>;
+  channelName?: string;
+  socket?: WebSocket;
+  stompClient?: Stomp.Client;
+  newMessage = new FormControl('');
+// chatform: FormGroup<any>;
+
+chatform: FormGroup = new FormGroup<any>({
+  message: new FormControl('', [Validators.maxLength(500), Validators.required]),
+
+})
+  // messages?: Observable<Array<Messaggio>>;
 
   constructor(
     private route: ActivatedRoute,
@@ -113,62 +120,62 @@ export class ChatComponent implements OnInit,AfterViewChecked{
     // this.userService.getUserByNickname(this.route.snapshot.paramMap.get('user')!)
     //   .subscribe((data) => {
     //     this.otherUser = data;
-    //     // this.otherUser.propic = "data:image/jpeg;base64,"+ this.otherUser.propic;
-    //     this.connectToChat();
-    //     console.log(this.el)
-    //     this.el.nativeElement.querySelector("#chat").scrollIntoView();
-    //   });
+
+        this.connectToChat();
+      //   console.log(this.el)
+      //   this.el.nativeElement.querySelector("#chat").scrollIntoView();
+      // });
   }
 
-  ngAfterViewChecked(): void {
-    this.scrollDown();
-  }
+  // ngAfterViewChecked(): void {
+  //   this.scrollDown();
+  // }
 
-  scrollDown(){
-    var container = this.el.nativeElement.querySelector("#chat");
-    container.scrollTop = container.scrollHeight;
-  }
+  // scrollDown(){
+  //   var container = this.el.nativeElement.querySelector("#chat");
+  //   container.scrollTop = container.scrollHeight;
+  // }
 
   connectToChat() {
-    // const id1 = this.thisUser;
-    // const nick1 = this.thisUser;
-    // const id2 = this.otherUser;
-    // const nick2 = this.otherUser;
+    const id1 = this.thisUser;
+    const nick1 = this.thisUser;
+    const id2 = this.otherUser;
+    const nick2 = this.otherUser;
 
-    // if (id1 > id2) {
-    //   this.channelName = nick1 + '&' + nick2;
-    // } else {
-    //   this.channelName = nick2 + '&' + nick1;
-    // }
+    if (id1 > id2) {
+      this.channelName = nick1 + '&' + nick2;
+    } else {
+      this.channelName = nick2 + '&' + nick1;
+    }
 
-    // // this.loadChat();                                            //to load previous chat
-    // // console.log('connecting to chat...');
+    // this.loadChat();                                            //to load previous chat
+    console.log('connecting to chat...');
 
-    // this.socket = new SockJS(this.url + '/chat');
-    // this.stompClient = Stomp.over(this.socket);
+    this.socket = new SockJS(this.url + '/chat');
+    this.stompClient = Stomp.over(this.socket);
 
-    // this.stompClient.connect({}, (frame) => {
-    //   //func = what to do when connection is established
-    //   console.log('connected to: ' + frame);
-    //   this.stompClient!.subscribe(
-    //     '/topic/messages/' + this.channelName,
-    //     (response) => {
-    //       //func = what to do when client receives data (messages)
-    //       // this.loadChat();
-    //     }
-    //   );
-    // });
+    this.stompClient.connect({}, (frame) => {
+      //func = what to do when connection is established
+      console.log('connected to: ' + frame);
+      this.stompClient!.subscribe(
+        '/topic/messages/' + this.channelName,
+        (response) => {
+          //func = what to do when client receives data (messages)
+          // this.loadChat();
+        }
+      );
+    });
   }
 
-  sendMsg() {
+  sendMessage() {
     // if (this.newMessage.value !== '') {
-    //   this.stompClient!.send('/app/chat/' + this.channelName,{},
-    //     JSON.stringify({sender: this.thisUser,
-    //       t_stamp: 'to be defined in server',
-    //       content: this.newMessage.value,
-    //     })
-    //   );
-    //   this.newMessage.setValue('');
+      this.stompClient!.send('/app/chat/' + this.channelName,{},
+        JSON.stringify({sender: this.thisUser,t_stamp: 'to be defined in server', content: this.chatform.value.message,
+        })
+      );
+      this.chatform.reset()
+
+      this.newMessage.setValue('');
     // }
   }
 

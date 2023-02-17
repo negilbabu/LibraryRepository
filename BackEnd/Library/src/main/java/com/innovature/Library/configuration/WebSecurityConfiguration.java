@@ -60,6 +60,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers(OPTIONS, "/users").anonymous()
                 .antMatchers(POST, "/users").anonymous()
                 .antMatchers(GET, "/socket").anonymous()
+                .antMatchers(GET, "/chat").anonymous()
                 .antMatchers(POST, "/users/register").anonymous()
                 .antMatchers(POST, "/users/google").anonymous()
                 .antMatchers(POST, "/users/google/signin").anonymous()
@@ -68,6 +69,9 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers(POST, "/email/**").anonymous()
                 .antMatchers(PUT, "/login").anonymous()
                 .antMatchers(OPTIONS, "/**").anonymous() 
+                .antMatchers(PUT, "/**/").anonymous() 
+                .antMatchers(GET, "/**/").anonymous() 
+                .antMatchers(POST, "/**/").anonymous() 
                 
                 //category
                  .antMatchers(GET,"/category/admin/**/").access("hasRole('ROLE_ADMIN')")
