@@ -72,6 +72,7 @@ export class LoginComponent implements OnInit {
 
       if (this.responsedata.role == 2) {
         localStorage.setItem('token', this.responsedata.accessToken.value)
+        localStorage.setItem('email', this.responsedata.email.value)
         this.toast.info({ detail: 'Hello User ', summary: 'LogIn Successfull', duration: 5000 });
         this.router.navigate(['/homepage'])
       }
@@ -79,6 +80,7 @@ export class LoginComponent implements OnInit {
 
       else {
         localStorage.setItem('token', this.responsedata.accessToken.value)
+        localStorage.setItem('email', this.responsedata.email.value)
         this.toast.info({ detail: 'Hello Admin : ' + this.responsedata.firstName, summary: 'LogIn Successfull', duration: 5000 });
         this.router.navigate(['/body'])
 
@@ -102,18 +104,24 @@ export class LoginComponent implements OnInit {
 
     if (this.loginForm.valid) {
       this.service.login(this.loginForm.value).subscribe(result => {
+        console.log(result);
+        console.log(result.email);
+        localStorage.setItem('email', result.email.value)
         if (result.userId) {
           this.responsedata = result
-
+          console.log(this.responsedata);
           if (result.role == 2) {
             localStorage.setItem('token', this.responsedata.accessToken.value)
+            localStorage.setItem('email', this.responsedata.email.value)
             this.toast.info({ detail: 'Hello User ', summary: 'LogIn Successfull', duration: 5000 });
             this.router.navigate(['/homepage'])
           }
 
 
           else {
+            console.log(this.responsedata.email);
             localStorage.setItem('token', this.responsedata.accessToken.value)
+          
             this.toast.info({ detail: 'Hello Admin : ' + result.firstName, summary: 'LogIn Successfull', duration: 5000 });
             this.router.navigate(['/body'])
 

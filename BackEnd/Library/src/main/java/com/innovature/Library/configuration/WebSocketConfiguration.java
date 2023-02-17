@@ -10,19 +10,6 @@ import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerCo
 @EnableWebSocketMessageBroker
 public class WebSocketConfiguration implements WebSocketMessageBrokerConfigurer {
   
-// 	@Override
-//     public void registerStompEndpoints(StompEndpointRegistry registry) {
-//         registry.addEndpoint("/chat").setAllowedOrigins("http://localhost:4200").withSockJS();
-
-//     }
-
-//     @Override
-//     public void configureMessageBroker(MessageBrokerRegistry registry) {
-//         registry.setApplicationDestinationPrefixes("/app").enableSimpleBroker("/topic");
-//     }
-
-
-// }
 
 // @Configuration
 // @EnableWebSocketMessageBroker
@@ -41,14 +28,27 @@ public class WebSocketConfiguration implements WebSocketMessageBrokerConfigurer 
 // }
 
 
+// @Override
+// public void registerStompEndpoints(StompEndpointRegistry registry) {
+//     registry.addEndpoint("/chat").setAllowedOrigins("http://localhost:4200").withSockJS();
+
+// }
+
+// @Override
+// public void configureMessageBroker(MessageBrokerRegistry registry) {
+//     registry.setApplicationDestinationPrefixes("/app").enableSimpleBroker("/topic");
+// }
+
+//feb17
+
 @Override
 public void registerStompEndpoints(StompEndpointRegistry registry) {
-    registry.addEndpoint("/chat").setAllowedOrigins("http://localhost:4200").withSockJS();
-
+    registry.addEndpoint("/socket").setAllowedOrigins("*")
+            .withSockJS();
 }
-
 @Override
 public void configureMessageBroker(MessageBrokerRegistry registry) {
-    registry.setApplicationDestinationPrefixes("/app").enableSimpleBroker("/topic");
+    registry.setApplicationDestinationPrefixes("/app").enableSimpleBroker("/message");
 }
+
 }

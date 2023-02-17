@@ -1,4 +1,8 @@
 import { NgModule } from '@angular/core';
+
+import * as Stomp from 'stompjs';
+import * as SockJS from 'sockjs-client';
+
 import { BrowserModule } from '@angular/platform-browser';
 
 import { SocialLoginModule, SocialAuthServiceConfig } from '@abacritt/angularx-social-login';
@@ -134,7 +138,8 @@ import { ChatComponent } from './chat/chat.component';
     MatListModule,
     MatGridListModule,
     MatTableModule,
-    SocialLoginModule
+    SocialLoginModule,
+    
     
 
   ],

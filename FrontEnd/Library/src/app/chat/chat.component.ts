@@ -58,8 +58,15 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-import * as Stomp from '@stomp/stompjs';
-import * as SockJS from 'sockjs-client';
+// import * as Stomp from '@stomp/stompjs';
+// import * as SockJS from 'sockjs-client';
+
+// import * as Stomp from 'stompjs';
+// import * as SockJS from 'sockjs-client';
+
+// import * as Stomp from 'stompjs';
+// import * as SockJS from 'sockjs-client';
+
 
 
 import { Component, ElementRef, OnInit, AfterViewChecked} from '@angular/core';
@@ -69,10 +76,13 @@ import { HttpClient } from '@angular/common/http';
 import { Observable,  of } from 'rxjs';
 
 
+import { UserserviceService } from '../userservice.service';
+
+
 // import { Messaggio } from '../model/messaggio';
 // import { User } from '../model/user';
 
-import { UserserviceService } from '../userservice.service';
+
 
 @Component({
   selector: 'app-chat-',
@@ -81,26 +91,29 @@ import { UserserviceService } from '../userservice.service';
 })
 export class ChatComponent implements OnInit,AfterViewChecked{
   // url = 'http://localhost:8080';
-  // otherUser?: User;
-  // thisUser: User = JSON.parse(sessionStorage.getItem('user')!);
+  // // otherUser?: User;
+  // // thisUser: User = JSON.parse(sessionStorage.getItem('user')!);
+  // otherUser=7;
+  // thisUser=5;
+
   // channelName?: string;
   // socket?: WebSocket;
   // stompClient?: Stomp.Client;
   // newMessage = new FormControl('');
-  // messages?: Observable<Array<Messaggio>>;
+  // // messages?: Observable<Array<Messaggio>>;
 
-  // constructor(
-  //   private route: ActivatedRoute,
-  //   private userService: UserService,
-  //   private http:HttpClient,
-  //   private el: ElementRef) {}
+  constructor(
+    private route: ActivatedRoute,
+    private userService: UserserviceService,
+    private http:HttpClient,
+    private el: ElementRef) {}
 
 
   ngOnInit(): void {
     // this.userService.getUserByNickname(this.route.snapshot.paramMap.get('user')!)
     //   .subscribe((data) => {
     //     this.otherUser = data;
-    //     this.otherUser.propic = "data:image/jpeg;base64,"+ this.otherUser.propic;
+    //     // this.otherUser.propic = "data:image/jpeg;base64,"+ this.otherUser.propic;
     //     this.connectToChat();
     //     console.log(this.el)
     //     this.el.nativeElement.querySelector("#chat").scrollIntoView();
@@ -108,54 +121,56 @@ export class ChatComponent implements OnInit,AfterViewChecked{
   }
 
   ngAfterViewChecked(): void {
-    // this.scrollDown();
+    this.scrollDown();
   }
 
-  // scrollDown(){
-  //   var container = this.el.nativeElement.querySelector("#chat");
-  //   container.scrollTop = container.scrollHeight;
-  // }
+  scrollDown(){
+    var container = this.el.nativeElement.querySelector("#chat");
+    container.scrollTop = container.scrollHeight;
+  }
 
-  // connectToChat() {
-  //   const id1 = this.thisUser.id!;
-  //   const nick1 = this.thisUser.nickname;
-  //   const id2 = this.otherUser?.id!;
-  //   const nick2 = this.otherUser?.nickname!;
+  connectToChat() {
+    // const id1 = this.thisUser;
+    // const nick1 = this.thisUser;
+    // const id2 = this.otherUser;
+    // const nick2 = this.otherUser;
 
-  //   if (id1 > id2) {
-  //     this.channelName = nick1 + '&' + nick2;
-  //   } else {
-  //     this.channelName = nick2 + '&' + nick1;
-  //   }
-  //   this.loadChat();
-  //   console.log('connecting to chat...');
-  //   this.socket = new SockJS(this.url + '/chat');
-  //   this.stompClient = Stomp.over(this.socket);
+    // if (id1 > id2) {
+    //   this.channelName = nick1 + '&' + nick2;
+    // } else {
+    //   this.channelName = nick2 + '&' + nick1;
+    // }
 
-  //   this.stompClient.connect({}, (frame) => {
-  //     //func = what to do when connection is established
-  //     console.log('connected to: ' + frame);
-  //     this.stompClient!.subscribe(
-  //       '/topic/messages/' + this.channelName,
-  //       (response) => {
-  //         //func = what to do when client receives data (messages)
-  //         this.loadChat();
-  //       }
-  //     );
-  //   });
-  // }
+    // // this.loadChat();                                            //to load previous chat
+    // // console.log('connecting to chat...');
 
-  // sendMsg() {
-  //   if (this.newMessage.value !== '') {
-  //     this.stompClient!.send('/app/chat/' + this.channelName,{},
-  //       JSON.stringify({sender: this.thisUser.nickname,
-  //         t_stamp: 'to be defined in server',
-  //         content: this.newMessage.value,
-  //       })
-  //     );
-  //     this.newMessage.setValue('');
-  //   }
-  // }
+    // this.socket = new SockJS(this.url + '/chat');
+    // this.stompClient = Stomp.over(this.socket);
+
+    // this.stompClient.connect({}, (frame) => {
+    //   //func = what to do when connection is established
+    //   console.log('connected to: ' + frame);
+    //   this.stompClient!.subscribe(
+    //     '/topic/messages/' + this.channelName,
+    //     (response) => {
+    //       //func = what to do when client receives data (messages)
+    //       // this.loadChat();
+    //     }
+    //   );
+    // });
+  }
+
+  sendMsg() {
+    // if (this.newMessage.value !== '') {
+    //   this.stompClient!.send('/app/chat/' + this.channelName,{},
+    //     JSON.stringify({sender: this.thisUser,
+    //       t_stamp: 'to be defined in server',
+    //       content: this.newMessage.value,
+    //     })
+    //   );
+    //   this.newMessage.setValue('');
+    // }
+  }
 
   // loadChat(){
   //   this.messages = this.http.post<Array<Messaggio>>(this.url+'/getMessages' ,  this.channelName);
@@ -167,13 +182,13 @@ export class ChatComponent implements OnInit,AfterViewChecked{
   //   console.log(this.messages);
   // }
 
-  // whenWasItPublished(myTimeStamp: string) {
-  //   const endDate = myTimeStamp.indexOf('-');
-  //   return (
-  //     myTimeStamp.substring(0, endDate) +
-  //     ' at ' +
-  //     myTimeStamp.substring(endDate + 1)
-  //   );
-  // }
+  whenWasItPublished(myTimeStamp: string) {
+    const endDate = myTimeStamp.indexOf('-');
+    return (
+      myTimeStamp.substring(0, endDate) +
+      ' at ' +
+      myTimeStamp.substring(endDate + 1)
+    );
+  }
 
 }
