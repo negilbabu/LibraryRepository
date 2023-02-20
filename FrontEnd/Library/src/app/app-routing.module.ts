@@ -71,7 +71,7 @@ const routes: Routes = [
   {path:'homepage',component:HomepageComponent,canActivate:[HomeguardGuard]},
   {path:'user-detailview/:id',component:UserDetailviewComponent,canActivate: [HomeguardGuard]},
   {path:'restpassword',component:RestpasswordComponent,canActivate: [HomeguardGuard]},
-  {path:'chat',component:ChatComponent,canActivate: [HomeguardGuard]},
+  {path:'chat',component:ChatComponent},
  
  //Wild Card Route for 404 request
  { path: '**', pathMatch: 'full', component: PageNotfoundComponent },

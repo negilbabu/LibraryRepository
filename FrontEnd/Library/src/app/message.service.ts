@@ -7,39 +7,44 @@ import * as Stomp from 'stompjs';
 import * as SockJS from 'sockjs-client';
 
 
+
 @Injectable({
   providedIn: 'root'
 })
 export class MessageService {
-  baseUrl=environment.apiUrl;
 
   constructor() {
-    // this.initializeWebSocketConnection();
-}
-stompClient?: Stomp.Client;
-public msg = [];
-// initializeWebSocketConnection() {
+    this.initializeWebSocketConnection();
+  }
+  // stompClient?: Stomp.Client;
+  private stompClient: any;
+  public msg = [];
 
-//   const serverUrl = environment.apiUrl;
-//   console.log(serverUrl);
+  private initializeWebSocketConnection() {
+    const serverUrl = environment.apiUrl;
+    console.log(serverUrl);
 
+    const ws = new SockJS(serverUrl);
+    console.log("sock js ", ws )
 
-//   const ws = new SockJS(serverUrl);
-//   this.stompClient = Stomp.over(ws);
-//   const that = this;
+    this.stompClient = Stomp.over(ws);
+    const that = this;
+    console.log(" this.stompClient ", this.stompClient )
+    
+    this.stompClient.connect({}, function() {
+      console.log("----:::::::::::------")
+      that.stompClient.subscribe('/message', (message: { body: any; }) => {
+        console.log("----:::::::::::------",message)
+        if (message.body) {
+          // that.msg.push(message.body);
+          console.log("----:::::::::::------",message)
+        }
 
+      });
+    });
+  }
 
-  // tslint:disable-next-line:only-arrow-functions
-//   this.stompClient.connect({}, function(frame) {
-//     this.stompClient!.subscribe('/message', (message) => {
-//       if (message.body) {
-//         that.msg.push(message.body);
-//       }
-//     });
-//   });
-// }
-
-// sendMessage(message) {
-//   this.stompClient.send('/app/send/message' , {}, message);
-// }
+  sendMessage(message: any) {
+    this.stompClient.send('/app/send/message' , {}, message);
+  }
 }

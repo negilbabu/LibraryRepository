@@ -231,6 +231,7 @@ try {
             Token accessToken = tokenGenerator.create(PURPOSE_ACCESS_TOKEN, id, securityConfig.getAccessTokenExpiry());
             Token refreshToken = tokenGenerator.create(PURPOSE_REFRESH_TOKEN, id + user.getPassword(),
                     securityConfig.getRefreshTokenExpiry());
+                 
             return new LoginView(user, accessToken, refreshToken);
    
 

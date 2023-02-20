@@ -12,12 +12,12 @@ export class DemoComponent  {
   title = 'websocket-frontend';
   input:any;
   constructor(public messageService: MessageService) {}
-  // sendMessage() {
-  //   if (this.input) {
-  //     this.messageService.sendMessage(this.input);
-  //     this.input = '';
-  //   }
-  // }
+  sendMessage(message:any) {
+    if (this.input) {
+      this.messageService.sendMessage(this.input);
+      this.input = '';
+    }
+  }
 
   // @HostListener('document:keydown', ['$event'])
   // handleKeyboardEvent(event: KeyboardEvent) {

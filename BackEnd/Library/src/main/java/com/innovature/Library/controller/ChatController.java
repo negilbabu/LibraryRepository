@@ -52,6 +52,7 @@ import com.innovature.Library.repository.ChatDAO;
 import com.innovature.Library.repository.MessageDAO;
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
+// @CrossOrigin("*")
 public class ChatController {
 
 	@Autowired
@@ -63,6 +64,7 @@ public class ChatController {
 
     @MessageMapping("/chat/{to}") //to = nome canale
     public void sendMessage(@DestinationVariable String to , MessageEntity message) {
+		System.out.println("to===="+to);
         System.out.println("handling send message: " + message + " to: " + to);
         message.setChat_id(createAndOrGetChat(to));
         message.setT_stamp(generateTimeStamp());

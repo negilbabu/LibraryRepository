@@ -27,7 +27,7 @@ export class TokenInterceptorService implements HttpInterceptor {
             console.log('UNAUTHORIZED ACCESS------');
             localStorage.clear()
             this.router.navigateByUrl(`/login`); 
-            // errorMsg = `Error: ${error.error.message}`;
+     
             alert("UNAUTHORIZED ACCESS DETECTED :( ")
             return throwError(errorMsg);
 

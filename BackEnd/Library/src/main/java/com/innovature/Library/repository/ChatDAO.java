@@ -13,6 +13,7 @@ public interface ChatDAO extends Repository<ChatEntity, Integer>{
     MessageEntity save(ChatEntity newChat);
 
     ChatEntity findByName(String name);
+    // ChatEntity findByChatId(String chatId);
 
     // List<ChatEntity> findByPartecipant(String user);
 
