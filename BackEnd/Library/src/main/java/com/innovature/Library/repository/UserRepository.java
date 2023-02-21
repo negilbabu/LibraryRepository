@@ -52,4 +52,8 @@ public interface UserRepository extends Repository<User, Integer> {
 
     @Query(value = "SELECT * FROM user WHERE email=?", nativeQuery = true)
     boolean findByEmails(String email);
+
+
+    @Query(value = "select * from user where user_id in(select receiver from msg where receiver=?1  or sender=?1)", nativeQuery = true)
+   Collection <User> findByReceiverId(Integer sender );
 }

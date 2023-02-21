@@ -75,6 +75,8 @@ export class BooksComponent implements OnInit {
 
     this.service.LoadCategory().subscribe((data: any) => {
       this.catdata = data;
+      console.log(data)
+      console.log("ata",this.catdata)
 
     });
   }

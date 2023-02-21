@@ -68,6 +68,7 @@ import {MatTableModule} from '@angular/material/table';
 import { PageNotfoundComponent } from './page-notfound/page-notfound.component';
 import { RestpasswordComponent } from './restpassword/restpassword.component';
 import { ChatComponent } from './chat/chat.component';
+import { ChatsComponent } from './chats/chats.component';
 // import { ChatMessasageDtoComponent } from './model/chat-messasage-dto/chat-messasage-dto.component';
 // import { ChatMessasageDtoComponent } from './models/chat-messasage-dto/chat-messasage-dto.component';
 
@@ -111,6 +112,7 @@ import { ChatComponent } from './chat/chat.component';
     PageNotfoundComponent,
     RestpasswordComponent,
     ChatComponent,
+    ChatsComponent,
     // ChatMessasageDtoComponent,
     // ChatMessasageDtoComponent,
 

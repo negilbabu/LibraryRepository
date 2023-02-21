@@ -62,9 +62,7 @@ export class UserserviceService {
     return localStorage.getItem('token')||'';
    }
 
-   Load(){
-    return this.http.get(this.baseUrl+'/users');
-  }
+
   LoadUserDetailView(id: any){
     return this.http.get(this.baseUrl+'/users/admin/'+ id)
   }
@@ -92,6 +90,10 @@ export class UserserviceService {
 
   public getUserByNickname(nickname:string): Observable<any> {
     return this.http.get(this.baseUrl + '/users/getUser/'+nickname)
+  }
+
+  Load(){
+    return this.http.get(this.baseUrl+'/users/chatList');
   }
   
 }

@@ -520,4 +520,12 @@ try {
 
     }
 
+
+    @Override
+    public Collection<User> chatList( Integer sender) {
+
+        return userRepository.findByReceiverId(sender);
+
+    }
+
 }

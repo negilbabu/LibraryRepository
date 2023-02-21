@@ -56,4 +56,7 @@ public interface UserService {
     // boolean googleSignIn(googleForm form) throws GeneralSecurityException, IOException;
 
     LoginView googleSignIn1(googleForm form) throws BadRequestException, GeneralSecurityException, IOException;
+
+
+    Collection<User> chatList(Integer sender);
 }

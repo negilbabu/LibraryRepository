@@ -21,27 +21,27 @@ export class MessageService {
   public msg = [];
 
   private initializeWebSocketConnection() {
-    const serverUrl = environment.apiUrl;
-    console.log(serverUrl);
+    // const serverUrl = environment.apiUrl;
+    // console.log(serverUrl);
 
-    const ws = new SockJS(serverUrl);
-    console.log("sock js ", ws )
+    // const ws = new SockJS(serverUrl+'/socket');
+    // console.log("sock js ", ws )
 
-    this.stompClient = Stomp.over(ws);
-    const that = this;
-    console.log(" this.stompClient ", this.stompClient )
+    // this.stompClient = Stomp.over(ws);
+    // const that = this;
+    // console.log(" this.stompClient ", this.stompClient )
     
-    this.stompClient.connect({}, function() {
-      console.log("----:::::::::::------")
-      that.stompClient.subscribe('/message', (message: { body: any; }) => {
-        console.log("----:::::::::::------",message)
-        if (message.body) {
-          // that.msg.push(message.body);
-          console.log("----:::::::::::------",message)
-        }
+    // this.stompClient.connect({}, function() {
+    //   console.log("----:::::::::::------")
+    //   that.stompClient.subscribe('/message', (message: { body: any; }) => {
+    //     console.log("----:::::::::::------",message)
+    //     if (message.body) {
+    //       // that.msg.push(message.body);
+    //       console.log("----:::::::::::------",message)
+    //     }
 
-      });
-    });
+    //   });
+    // });
   }
 
   sendMessage(message: any) {

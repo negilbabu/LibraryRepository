@@ -35,6 +35,7 @@ import { UserDetailviewComponent } from './user-detailview/user-detailview.compo
 import { PageNotfoundComponent } from './page-notfound/page-notfound.component';
 import { RestpasswordComponent } from './restpassword/restpassword.component';
 import { ChatComponent } from './chat/chat.component';
+import { ChatsComponent } from './chats/chats.component';
 
 
 const routes: Routes = [
@@ -72,6 +73,7 @@ const routes: Routes = [
   {path:'user-detailview/:id',component:UserDetailviewComponent,canActivate: [HomeguardGuard]},
   {path:'restpassword',component:RestpasswordComponent,canActivate: [HomeguardGuard]},
   {path:'chat',component:ChatComponent},
+  {path:'chats',component:ChatsComponent},
  
  //Wild Card Route for 404 request
  { path: '**', pathMatch: 'full', component: PageNotfoundComponent },

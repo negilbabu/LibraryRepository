@@ -22,6 +22,8 @@ import * as SockJS from 'sockjs-client';
 })
 export class ChatComponent implements OnInit{
 
+
+  userList: any;
   // otherUser?: User;
   // thisUser: User = JSON.parse(sessionStorage.getItem('user')!);
   otherUser=7;
@@ -53,6 +55,7 @@ chatform: FormGroup = new FormGroup<any>({
     //     this.otherUser = data;
 
         this.connectToChat();
+        this.getUserData();
       //   console.log(this.el)
       //   this.el.nativeElement.querySelector("#chat").scrollIntoView();
       // });
@@ -68,39 +71,40 @@ chatform: FormGroup = new FormGroup<any>({
   // }
 
   connectToChat() {
-    const id1 = this.thisUser;
-    const nick1 = this.thisUser;
-    const id2 = this.otherUser;
-    const nick2 = this.otherUser;
-    this.url = 'http://localhost:8080';
-    if (id1 > id2) {
-      this.channelName = nick1 + '&' + nick2;
-    } else {
-      this.channelName = nick2 + '&' + nick1;
-    }
-    // this.loadChat();                                            //to load previous chat
-    // console.log('connecting to chat...');
+    // const id1 = this.thisUser;
+    // const nick1 = this.thisUser;
+    // const id2 = this.otherUser;
+    // const nick2 = this.otherUser;
+    // this.url = 'http://localhost:8082';
+    // if (id1 > id2) {
+    //   this.channelName = nick1 + '&' + nick2;
+    // } else {
+    //   this.channelName = nick2 + '&' + nick1;
+    // }
+    // // this.loadChat();                                            //to load previous chat
+    // // console.log('connecting to chat...');
 
-    this.socket = new SockJS(this.url + '/chat');
-    this.stompClient = Stomp.over(this.socket);
+    // this.socket = new SockJS(this.url + '/chat');
+    // this.stompClient = Stomp.over(this.socket);
 
   
   
-       this.stompClient.connect({}, (frame) => {
-      console.log('--------------------connected' );
-      //func = what to do when connection is established
-      console.log('connected to: ' + frame);
-      this.stompClient!.subscribe('/topic/messages/' + this.channelName,(response) => {
-          //func = what to do when client receives data (messages)
-          // this.loadChat();
+    //    this.stompClient.connect({}, (frame) => {
+    //   console.log('--------------------connected' );
+    //   //func = what to do when connection is established
+    //   console.log('connected to: ' + frame);
+    //   this.stompClient!.subscribe('/topic/messages/' + this.channelName,(response) => {
+    //       //func = what to do when client receives data (messages)
+    //       // this.loadChat();
           
-        }
-      );
-    });
+    //     }
+    //   );
+    // });
   }
 
   sendMessage() {
     // if (this.newMessage.value !== '') {
+
       this.stompClient!.send('/app/chat/' + this.channelName,{},
         JSON.stringify({sender: this.thisUser,t_stamp: 'to be defined in server', content: this.chatform.value.message,
         })
@@ -121,6 +125,23 @@ chatform: FormGroup = new FormGroup<any>({
   //   console.log(this.messages);
   // }
 
+
+  onNoClick(){
+    // this.dialoge.closeAll()
+  }
+  getUserData() {
+    // this.service.userlistChat(localStorage.getItem('user_id')).subscribe({
+    //   next: (response: any) => {
+    //     this.userList = response
+    //     this.count = response.count;
+    //     console.log("res", response);
+    //   },
+    //   error: (error: any) => {
+    //     console.log('Error', error);
+    //     alert('Error');
+    //   },
+    // });
+  }
 
 
 }

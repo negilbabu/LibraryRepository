@@ -18,10 +18,10 @@ public class WebSocketConfiguration implements WebSocketMessageBrokerConfigurer 
 
 // }
 
-// @Override
-//     public void registerStompEndpoints(StompEndpointRegistry registry) {
-//         registry.addEndpoint("/chat").setAllowedOriginPatterns("*").withSockJS();
-//     }
+// // @Override
+// //     public void registerStompEndpoints(StompEndpointRegistry registry) {
+// //         registry.addEndpoint("/chat").setAllowedOriginPatterns("*").withSockJS();
+// //     }
 
 
 // @Override
@@ -29,7 +29,7 @@ public class WebSocketConfiguration implements WebSocketMessageBrokerConfigurer 
 //     registry.setApplicationDestinationPrefixes("/app").enableSimpleBroker("/topic");
 // }
 
-//feb17
+// feb17
 
 @Override
 public void registerStompEndpoints(StompEndpointRegistry registry) {

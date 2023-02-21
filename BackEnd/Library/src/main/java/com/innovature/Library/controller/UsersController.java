@@ -21,11 +21,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 
-import com.google.api.client.http.javanet.NetHttpTransport;
-import com.google.api.client.json.gson.GsonFactory;
+
 import com.innovature.Library.entity.User;
 import com.innovature.Library.exception.BadRequestException;
-import com.innovature.Library.exception.NotAcceptableException;
 import com.innovature.Library.exception.expectationFailedException;
 import com.innovature.Library.form.UserForm;
 import com.innovature.Library.form.googleForm;
@@ -39,24 +37,24 @@ import com.innovature.Library.form.EditProfileForm;
 import com.innovature.Library.form.EmailForm;
 
 
-import org.apache.http.protocol.HTTP;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.password.PasswordEncoder;
+// import org.apache.http.protocol.HTTP;
+// import org.springframework.beans.factory.annotation.Autowired;
+// import org.springframework.beans.factory.annotation.Value;
+// import org.springframework.http.HttpStatus;
+// import org.springframework.http.ResponseEntity;
+// import org.springframework.security.crypto.password.PasswordEncoder;
 
-import com.fasterxml.jackson.core.JsonFactory;
-// import org.springframework.social.facebook.api.Facebook;
-import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
-import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
-import com.google.api.client.http.javanet.NetHttpTransport;
-// import com.google.api.client.json.jackson2.JacksonFactory;
-import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
-import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken.Payload;
-import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
-import com.google.api.client.http.javanet.NetHttpTransport;
-import com.google.api.client.json.gson.GsonFactory;
+// import com.fasterxml.jackson.core.JsonFactory;
+// // import org.springframework.social.facebook.api.Facebook;
+// import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
+// import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
+// import com.google.api.client.http.javanet.NetHttpTransport;
+// // import com.google.api.client.json.jackson2.JacksonFactory;
+// import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
+// import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken.Payload;
+// import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
+// import com.google.api.client.http.javanet.NetHttpTransport;
+// import com.google.api.client.json.gson.GsonFactory;
 
 
 @RestController
@@ -206,7 +204,13 @@ public LoginView loginWithGoogle1(@Valid  @RequestBody googleForm form  ) throws
 
 
 
+@GetMapping("/chatList")
+public Collection<User> chatList(
+    // @PathVariable("receiver") Integer receiver
 
+) {
+    return userService.chatList(SecurityUtil.getCurrentUserId());
+}
 
 
 
