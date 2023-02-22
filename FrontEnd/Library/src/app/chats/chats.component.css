@@ -3,27 +3,31 @@ body{
     margin-top:20px;
 }
 .card {
-    background: #fff;
+    background: rgb(255, 255, 255);
     transition: .5s;
     border: 0;
     margin-bottom: 30px;
-    border-radius: .55rem;
+    /* border-radius: .55rem; */
     position: relative;
     width: 100%;
+    left: 10%;
     box-shadow: 0 1px 2px 0 rgb(0 0 0 / 10%);
 }
 .chat-app .people-list {
     width: 280px;
-    position: absolute;
-    left: 0;
-    top: 0;
+    position: fixed;
+    left: 15%;
+    margin-top: 5%;
     padding: 20px;
-    z-index: 7
+    z-index: 0;
+    overflow-y: scroll;
+
 }
 
 .chat-app .chat {
-    margin-left: 280px;
-    border-left: 1px solid #eaeaea
+   margin-top: 5%;
+    margin-left: 40%;
+    border-left: 1px solid #ffffff
 }
 
 .people-list {
@@ -73,8 +77,9 @@ body{
 }
 
 .chat .chat-header {
+    /* position:fixed; */
     padding: 15px 20px;
-    border-bottom: 2px solid #f4f7f6
+    border-bottom: 2px solid #009362
 }
 
 .chat .chat-header img {
@@ -117,7 +122,7 @@ body{
 
 .chat .chat-history .message-data-time {
     color: #434651;
-    padding-left: 6px
+    padding-left: 0px
 }
 
 .chat .chat-history .message {
@@ -206,7 +211,7 @@ body{
     font-size: 0;
     content: " ";
     clear: both;
-    height: 0
+    height: 0;
 }
 
 @media only screen and (max-width: 767px) {

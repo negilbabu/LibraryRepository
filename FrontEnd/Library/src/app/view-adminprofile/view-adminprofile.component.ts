@@ -37,14 +37,7 @@ export class ViewAdminprofileComponent implements OnInit {
       this.Load();
     }
 
-  
-    Load() {
-      this.service.getAdmin().subscribe((data: any)=>{
-      this.userdata=data;
-      });  }  
-
-
-      EditProfile() {
+    EditProfile() {
 
       this.rslt=2;
  
@@ -63,6 +56,15 @@ export class ViewAdminprofileComponent implements OnInit {
       })
       this.displayStyle = "block";
         }
+
+  
+    Load() {
+      this.service.getAdmin().subscribe((data: any)=>{
+      this.userdata=data;
+      });  }  
+
+
+
 
 
   closePopup() {

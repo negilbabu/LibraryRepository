@@ -120,6 +120,17 @@ public class User {
         return this;
     }
 
+    public User editUser(String firstName, String lastName, Date dob, String address, String phone) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.dob = dob;
+        this.address = address;
+        this.phone = phone;
+        this.role = 2;
+        this.updateDate = new Date();
+        return this;
+    }
+
     public Integer getUserId() {
         return userId;
     }

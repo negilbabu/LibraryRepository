@@ -52,6 +52,10 @@ fine()
 {
   this.router.navigate(['/fine'])
 }
+chat()
+{
+  this.router.navigate(['/chats'])
+}
 profile()
 {
   this.router.navigate(['/view-adminprofile'])

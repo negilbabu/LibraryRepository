@@ -40,6 +40,8 @@ public interface UserRepository extends Repository<User, Integer> {
 
     User findEmailByUserId(Integer userId);
 
+    // Integer findRoleByUserId(Integer userId);
+
     // Email findEmailByUserId(Integer userId);
 
     public boolean existsByEmail(String email);
@@ -53,7 +55,16 @@ public interface UserRepository extends Repository<User, Integer> {
     @Query(value = "SELECT * FROM user WHERE email=?", nativeQuery = true)
     boolean findByEmails(String email);
 
-
-    @Query(value = "select * from user where user_id in(select receiver from msg where receiver=?1  or sender=?1)", nativeQuery = true)
+    //chat/to load the chat list as per msg table for admin
+    @Query(value = "select * from user where user_id in(select distinct sender from msg where receiver=?1 or sender=?1) OR user_id in(select distinct receiver from msg where receiver=?1 or sender=?1)", nativeQuery = true)
    Collection <User> findByReceiverId(Integer sender );
+
+      //chat/to load the chat list as per msg table for users
+      @Query(value = "select * from user where role=1", nativeQuery = true)
+      Collection <User> findByAdmin();
+   
+
+   //select role by userId for chat
+   @Query(value = "SELECT role FROM user WHERE user_id=?", nativeQuery = true)
+   Integer findRoleByUserId(Integer userId);
 }

@@ -10,7 +10,7 @@ import { UserserviceService } from '../userservice.service';
 })
 export class ChatsComponent implements OnInit {
   data1: any;
-  id: any;
+  id=0;
   user: any;
   senderId: any;
   name: any;
@@ -33,22 +33,33 @@ export class ChatsComponent implements OnInit {
 
     })
     chatForm: FormGroup= new FormGroup({
-      message:new FormControl('',[Validators.maxLength(50),Validators.required]),
-      senderId:new FormControl('',[Validators.required]),
-      receiverId:new FormControl('',[Validators.required]),
+      content:new FormControl('',[Validators.maxLength(50),Validators.required]),
+      // senderId:new FormControl('',[Validators.required]),
+      receiver:new FormControl('',[Validators.required]),
     })
   ngOnInit(): void {
 
 this.LoadUser()
+this.CurrentUser();
   }
 
   LoadUser(){
     this.service.Load().subscribe(data=>{
       this.data=data
-      console.log(data);
+      console.log("LoadUser",data);
       console.log(this.data[0].firstName);
       
     })
+  }
+
+  CurrentUser(){
+    this.cht.loadcuruser().subscribe(result=>{
+      this.user=result;
+      console.log("rslt",this.user.role)
+
+    })
+      
+ 
   }
 
 
@@ -62,19 +73,30 @@ this.LoadUser()
       console.log(" chat = ",result);
       console.log(" chat = ",this.data1);
     })
-    this.name=data.firstName;
-    
+    this.name=data.firstName;    
 }
 
 
 chatmsg(){
-  this.chatForm.value.senderId=this.senderId;
-  this.chatForm.value.receiverId=this.id
-  console.log(this.chatForm.value)
+  // this.chatForm.value.senderId=this.senderId;
+  this.chatForm.value.receiver=this.id
+  console.log("form=",this.chatForm.value)
   this.cht.sendchat(this.chatForm.value).subscribe(result=>{
-    console.log(result)
+    console.log("rslt",result)
+    this.chatForm.reset()
+    this.call1(this.id)
   })
-  window.location.reload();
+  // window.location.reload();
+  this.call1(this.id)
+}
+
+call1(id:any){
+      
+  this.cht.LoadChat( this.id).subscribe(result=>{
+    this.data1=result
+
+  })
+   
 }
 
 }

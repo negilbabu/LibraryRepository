@@ -29,6 +29,8 @@ public class MsgServiceImpl implements MsgService {
 
     @Override
     public Collection<Msg> listById(Integer sender,Integer receiver) {
+        System.out.println("-----------------------"+sender);
+        System.out.println("-----------+++++++++++++++++++++++++++++++++++++++++++-----------"+receiver);
         return msgRepository.findBySenderAndReceiver(sender,receiver);
     }
     

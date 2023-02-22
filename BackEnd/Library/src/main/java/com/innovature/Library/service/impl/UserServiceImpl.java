@@ -54,6 +54,8 @@ import com.innovature.Library.service.UserService;
 import com.innovature.Library.view.LoginView;
 import com.innovature.Library.view.UserView;
 
+import ch.qos.logback.core.joran.conditional.ElseAction;
+
 import org.apache.http.protocol.HTTP;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -424,23 +426,35 @@ try {
     public UserView edit(Integer userId, EditProfileForm form) {
 
         User user = userRepository.findById(userId);
-        // System.out.println(user.getEmail());
-        // System.out.println(user.getPassword());
+ System.out.println("user-------------------="+user.getRole());
 
-        user.edit(
-                form.getFirstName(),
-                form.getLastName(),
-                form.getDob(),
-                form.getAddress(),
-                form.getPhone()
-        // user.getEmail(),
-        // form.getEmail(),
-        // form.getRole(),
-        // user.getPassword()
-        // passwordEncoder.encode(form.getPassword())
-        );
-        // System.out.println("-----------------------------------"+user.getPassword());
-        return new UserView(userRepository.save(user));
+ if(user.getRole()==1){
+    user.edit(
+        form.getFirstName(),
+        form.getLastName(),
+        form.getDob(),
+        form.getAddress(),
+        form.getPhone()
+
+);
+
+return new UserView(userRepository.save(user));
+ }
+ else if(user.getRole()==2){
+    user.editUser(
+        form.getFirstName(),
+        form.getLastName(),
+        form.getDob(),
+        form.getAddress(),
+        form.getPhone()
+
+);
+ }
+ else
+return null;
+return null;
+
+
     }
 
     @Override
@@ -523,8 +537,16 @@ try {
 
     @Override
     public Collection<User> chatList( Integer sender) {
-
-        return userRepository.findByReceiverId(sender);
+  
+        Integer role=userRepository.findRoleByUserId(sender); 
+        System.out.println("role="+role);
+        if(role==1){
+            return userRepository.findByReceiverId(sender);
+        }
+        else{
+            return userRepository.findByAdmin();
+        }
+      
 
     }
 

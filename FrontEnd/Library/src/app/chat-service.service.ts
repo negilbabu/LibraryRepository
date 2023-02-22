@@ -18,7 +18,7 @@ export class ChatServiceService {
   }
 
   sendchat(data:any):Observable<any>{
-    return this.http.post(this.baseUrl+'/chat',data)
+    return this.http.post(this.baseUrl+'/msg',data)
   }
 
   LoadChat(data:any):Observable<any>{

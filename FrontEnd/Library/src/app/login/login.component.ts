@@ -63,7 +63,7 @@ export class LoginComponent implements OnInit {
     let body = {
       idToken: user.idToken
     }
-    console.log("body here:", body)
+//token to backend
     this.service.googleSignIn(body).subscribe(result => {
       this.toast.success({ detail: 'User Registration Success', summary: 'Please update your profile', duration: 5000 });
       console.log("result=", result);
