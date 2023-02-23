@@ -177,30 +177,9 @@ if (!psd.equals(cpsd)) {
 public LoginView loginWithGoogle1(@Valid  @RequestBody googleForm form  ) throws Exception {
 
    return userService.googleSignIn1(form);
-
-
-    // if (result) {
-    //     return new ResponseEntity(null, HttpStatus.ACCEPTED);
-    // } else {
-    //     throw new BadRequestException("Email verification failed");
-  
-    // }       
+     
 }
 
-
-// @PostMapping("/google/signin")
-// public ResponseEntity loginWithGoogle(@Valid @RequestBody googleForm google) throws Exception {
-
-// System.out.println("---------------------------------"+google.getIdToken());
-
-//     boolean result = userService.googleSignIn(google);
-//     if (result) {
-//         return new ResponseEntity(null, HttpStatus.ACCEPTED);
-//     } else {
-//         throw new BadRequestException("Email verification failed");
-  
-//     }       
-// }
 
 
 
@@ -211,6 +190,23 @@ public Collection<User> chatList(
 ) {
     return userService.chatList(SecurityUtil.getCurrentUserId());
 }
+
+@GetMapping("/admin/searchUsers")
+public Collection<User> getAllUserBykeyword(
+    @RequestParam(defaultValue = "") String key   
+) {
+    System.out.println("-------------------"+key);
+    return userService.getAllUserBykeyword(key);
+}
+
+// @GetMapping("/admin/searchUsers/111")
+// public ResponseEntity<Page<User>> getAllUserBykeyword2(
+//     @RequestParam(defaultValue = "") String key
+// ){
+//     Page<User> list = userService.getAllUserBykeyword(key);
+//     return new ResponseEntity<Page<User>>(list,new HttpHeaders(),HttpStatus.OK);
+
+// }
 
 
 

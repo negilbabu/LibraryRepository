@@ -59,4 +59,6 @@ public interface UserService {
 
 
     Collection<User> chatList(Integer sender);
+
+    Collection<User> getAllUserBykeyword(String key);
 }

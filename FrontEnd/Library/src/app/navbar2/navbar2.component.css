@@ -12,9 +12,10 @@
     height: 60px;
     width: 101%;
     background-color: #150242;
-    position: relative;
+    position: fixed;
     padding-left: 50%;
     padding-top: 10px;
+    z-index: 1;
   }
   
   .nav > .nav-header {

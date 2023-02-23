@@ -67,4 +67,10 @@ public interface UserRepository extends Repository<User, Integer> {
    //select role by userId for chat
    @Query(value = "SELECT role FROM user WHERE user_id=?", nativeQuery = true)
    Integer findRoleByUserId(Integer userId);
+
+   @Query(value = "Select * from user where first_name like %?1%  order by first_name like ?2% DESC,first_name like %?3 DESC,first_name like %?4% ", nativeQuery = true)
+   public Collection<User> findByKeywords(String keyword, String k, String k1, String k2);
+
+   // ,first_name like %?3 DESC,first_name like %?4% ", nativeQuery = true)
+
 }

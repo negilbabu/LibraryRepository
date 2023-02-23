@@ -96,6 +96,10 @@ export class UserserviceService {
     return this.http.get(this.baseUrl+'/users/chatList');
   }
   
+  searchUser(key:any):Observable<any>{
+    return this.http.get(this.baseUrl+"/users/admin/searchUsers?key="+key);
+
+  }
 }
 
 

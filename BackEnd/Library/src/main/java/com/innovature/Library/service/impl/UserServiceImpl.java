@@ -447,12 +447,12 @@ return new UserView(userRepository.save(user));
         form.getDob(),
         form.getAddress(),
         form.getPhone()
-
 );
+return new UserView(userRepository.save(user));
  }
  else
 return null;
-return null;
+
 
 
     }
@@ -550,4 +550,17 @@ return null;
 
     }
 
+
+    @Override
+    public Collection<User> getAllUserBykeyword(String key) {
+
+
+
+            String k = key;
+            String k1 = key;
+            String k2 = key;
+            Collection<User> pagedResult = userRepository.findByKeywords(key, k, k1, k2);
+            return pagedResult;
+            // return null;
+        }
 }

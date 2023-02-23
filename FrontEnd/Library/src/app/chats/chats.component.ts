@@ -14,6 +14,12 @@ export class ChatsComponent implements OnInit {
   user: any;
   senderId: any;
   name: any;
+
+
+  result: any;
+  count: any;
+  userdata: any;
+  noValue=0;
   send() {
     throw new Error('Method not implemented.');
     }
@@ -29,15 +35,19 @@ export class ChatsComponent implements OnInit {
   constructor(private cht:ChatServiceService,
     private service:UserserviceService
     ) { }
-    searchForm: FormGroup = new FormGroup({
 
+
+    searchForm: FormGroup = new FormGroup({
+      inp: new FormControl()
     })
+
     chatForm: FormGroup= new FormGroup({
       content:new FormControl('',[Validators.maxLength(50),Validators.required]),
-      // senderId:new FormControl('',[Validators.required]),
       receiver:new FormControl('',[Validators.required]),
     })
-  ngOnInit(): void {
+
+
+ ngOnInit(): void {
 
 this.LoadUser()
 this.CurrentUser();
@@ -97,6 +107,28 @@ call1(id:any){
 
   })
    
+}
+
+Search(key:any) {
+  console.log("key-",key);
+  
+  this.service.searchUser(key).subscribe(result => {
+    this.result = result;
+    console.log("user-=",result);  
+     this.data = this.result;
+
+console.log("-----",this.result.length);
+
+    if (this.result.length == 0) {
+      
+      this.noValue = 1; 
+      console.log("---inside if--",this.noValue);       
+    }
+    else{
+      this.noValue = 0; 
+    }
+  });
+
 }
 
 }
