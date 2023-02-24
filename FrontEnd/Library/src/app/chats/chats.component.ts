@@ -85,7 +85,15 @@ this.CurrentUser();
     })
     this.name=data.firstName;    
 }
+clickk(event:any){
+  console.log("hereee");
+  if(event.keyCode===13){
+    console.log("hereee");
+    
+this.chatmsg();
+  }
 
+}
 
 chatmsg(){
   // this.chatForm.value.senderId=this.senderId;

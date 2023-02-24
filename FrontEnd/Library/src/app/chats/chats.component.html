@@ -113,10 +113,19 @@
                     <div class="chat-message clearfix" *ngIf="this.id!=0">
                         <div class="input-group mb-0">
                             <form [formGroup]="chatForm">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text" (click)="chatmsg()"><i class="fa fa-send"></i></span>
-                                </div>
-                                <input type="text" class="form-control" formControlName="content" placeholder="Enter text here...">
+                                <table><tr><td>
+                                    <div class="input-group-prepend">
+                                        <!-- <input type="submit" (click)="chatmsg()" value=""><i class="bi bi-send"></i> -->
+                                        <span class="submit" (click)="chatmsg()"><i class="fa fa-send"></i></span>
+                                    </div>
+                                </td>
+                            <td>
+                                <input type="text" class="form-control" (click)="clickk($event)" formControlName="content" style="width: 150%;" placeholder="Enter text here...">
+                            </td>
+                            </tr></table>
+                              
+
+                               
                             </form>
                         </div>
                     </div>
