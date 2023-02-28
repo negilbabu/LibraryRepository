@@ -143,6 +143,7 @@ import { ChatsComponent } from './chats/chats.component';
     SocialLoginModule,
     
     
+    
 
   ],
   providers: [ {provide:HTTP_INTERCEPTORS,useClass:TokenInterceptorService,multi:true},
