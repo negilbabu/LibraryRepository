@@ -18,7 +18,7 @@ import { BodyComponent } from './body/body.component';
 
 import {MatDialogConfig, MatDialogModule, MAT_DIALOG_DEFAULT_OPTIONS,} from '@angular/material/dialog';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { DatePipe, provideCloudflareLoader } from '@angular/common';
+import { AsyncPipe, DatePipe, provideCloudflareLoader } from '@angular/common';
 import { TokenInterceptorService } from './token-interceptor.service';
 import { HomeguardGuard } from './homeguard.guard';
 import { GuardserviceService } from './guardservice.service';
@@ -72,9 +72,25 @@ import { ChatsComponent } from './chats/chats.component';
 // import { ChatMessasageDtoComponent } from './model/chat-messasage-dto/chat-messasage-dto.component';
 // import { ChatMessasageDtoComponent } from './models/chat-messasage-dto/chat-messasage-dto.component';
 
+// import {AngularFireMessagingModule} from '@angular/fire/messaging'
+// import { AngularFireMessagingModule } from '@angular/fire/messaging';
+// import { AngularFireDatabaseModule } from '@angular/fire/database';
+// import { AngularFireAuthModule } from '@angular/fire/auth';
+// import { AngularFireModule } from '@angular/fire';  
 
+// import { AngularFireModule } from '@angular/fire';
+// import { AngularFireMessagingModule } from '@angular/fire/messaging';
+/////////////////////////////
+// import { AngularFireModule } from "@angular/fire/compat";
+// import { AngularFireAuthModule } from "@angular/fire/compat/auth";
+// import { AngularFireStorageModule } from '@angular/fire/compat/storage';
+// import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
+// import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
+// import { MessagingService } from './messaging.service';
 
+// import { AngularFireMessagingModule } from '@angular/fire/messaging';
 
+// import { AngularFireModule } from '@angular/fire';
 
 @NgModule({
   declarations: [
@@ -122,6 +138,7 @@ import { ChatsComponent } from './chats/chats.component';
   ],
   imports: [
     BrowserModule,
+    
     AppRoutingModule,
     ReactiveFormsModule,
     FormsModule,
@@ -141,8 +158,12 @@ import { ChatsComponent } from './chats/chats.component';
     MatGridListModule,
     MatTableModule,
     SocialLoginModule,
+    // AngularFireDatabaseModule,
+    // AngularFireAuthModule,
+    // AngularFireMessagingModule
     
-    
+    // AngularFireModule.initializeApp(environment.firebase),
+    // AngularFireMessagingModule,
     
 
   ],
@@ -171,7 +192,8 @@ import { ChatsComponent } from './chats/chats.component';
         }
       } as SocialAuthServiceConfig,
     }
-  ]
+  ],
+  // [MessagingService,AsyncPipe]
 ],
   bootstrap: [AppComponent],
   entryComponents:[CategoryComponent,DemoComponent],
