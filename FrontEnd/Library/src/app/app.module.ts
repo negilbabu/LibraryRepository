@@ -92,6 +92,18 @@ import { ChatsComponent } from './chats/chats.component';
 
 // import { AngularFireModule } from '@angular/fire';
 
+
+// import { AngularFireModule } from '@angular/fire';
+// import { AngularFireMessagingModule } from '@angular/fire/messaging';
+
+// import {AngularFireMessagingModule} from '@angular/fire/messaging'
+
+
+
+const firebaseConfig = {
+  // your Firebase config goes here
+};
+
 @NgModule({
   declarations: [
     AppComponent,

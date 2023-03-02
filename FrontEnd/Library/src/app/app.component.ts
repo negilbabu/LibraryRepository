@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 // import { Component } from ‘@angular/core’;
-import { MessagingService } from './messaging.service';
+// import { MessagingService } from './messaging.service';
 
 @Component({
   selector: 'app-root',
@@ -12,7 +12,8 @@ export class AppComponent {
 
   // title = ‘push-notification’;
   message:any;
-  constructor(private messagingService: MessagingService) { }
+  // constructor(private messagingService: MessagingService) { }
+  constructor() { }
 ngOnInit() {
   // this.messagingService.requestPermission()
   // // this.messagingService.receiveMessage()

@@ -45,7 +45,6 @@ export class LoginComponent implements OnInit {
     localStorage.clear();
 
     this.state = this.authService.authState
-    console.log("state:", this.state)
     this.authService.authState.subscribe((user) => {
       this.user = user;
       this.loggedIn = (user != null);
@@ -57,8 +56,6 @@ export class LoginComponent implements OnInit {
 
   googleSign(user: any) {
 
-    console.log("googleSignIn:", user)
-    // this.idToken=user.idToken;
 
     let body = {
       idToken: user.idToken
@@ -66,9 +63,9 @@ export class LoginComponent implements OnInit {
 //token to backend
     this.service.googleSignIn(body).subscribe(result => {
       this.toast.success({ detail: 'User Registration Success', summary: 'Please update your profile', duration: 5000 });
-      console.log("result=", result);
+
       this.responsedata = result
-      console.log("result=", this.responsedata.role);
+
 
       if (this.responsedata.role == 2) {
         localStorage.setItem('token', this.responsedata.accessToken.value)
@@ -104,12 +101,11 @@ export class LoginComponent implements OnInit {
 
     if (this.loginForm.valid) {
       this.service.login(this.loginForm.value).subscribe(result => {
-        console.log(result);
-        console.log(result.email);
+
         localStorage.setItem('email', result.email.value)
         if (result.userId) {
           this.responsedata = result
-          console.log(this.responsedata);
+  
           if (result.role == 2) {
             localStorage.setItem('token', this.responsedata.accessToken.value)
             localStorage.setItem('email', this.responsedata.email.value)
@@ -119,7 +115,7 @@ export class LoginComponent implements OnInit {
 
 
           else {
-            console.log(this.responsedata.email);
+   
             localStorage.setItem('token', this.responsedata.accessToken.value)
           
             this.toast.info({ detail: 'Hello Admin : ' + result.firstName, summary: 'LogIn Successfull', duration: 5000 });

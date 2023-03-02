@@ -22,12 +22,12 @@ export class UserserviceService {
       }
 
   verifyUser(val:any):Observable<any>{
-    console.log("----",val);
+
     
     return this.http.post(this.baseUrl+'/users',val)
   }
   addUser(data:any):Observable<any>{
-  console.log("service email=",data);
+
   
     return this.http.post(this.baseUrl+'/users/register',data)
   }
@@ -35,8 +35,7 @@ export class UserserviceService {
   
 
   googleSignIn(body:any){
-    console.log("------------",body.idToken);
-    
+  
       return this.http.post(this.baseUrl+"/users/google",body)
     }
 
