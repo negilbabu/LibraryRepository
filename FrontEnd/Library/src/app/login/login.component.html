@@ -6,23 +6,62 @@
 <br>
 
 <form [formGroup]="loginForm" class="login">
-    <span><mat-icon style="color:#c99f14">library_books</mat-icon> <Label style="color: #dddbd5">LIB</Label><Label style="color: #c99f14">RARY</Label></span> 
-   
-   <br>
-    <input type="text" placeholder="email" formControlName="email"><br>
-
-    <span class="text-danger"   class="text-danger" *ngIf="loginForm.controls['email'].touched && loginForm.hasError('required','email')"><small>Email is required</small>
-    </span>
+   <mat-icon style="color:#c99f14">library_books</mat-icon> <Label style="color: #dddbd5">LIB</Label><Label style="color: #c99f14">RARY</Label>
+   <table class="bbb">
+<tr>
+    <td>
+        <br><span> <input type="text" placeholder="email" formControlName="email"><br></span>
+        <span class="text-danger"   class="text-danger" *ngIf="loginForm.controls['email'].touched && loginForm.hasError('required','email')"><small>Email is required</small></span>
     
+    </td>
 
-    <input type="password" placeholder="password" formControlName="password"
-        pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"><br>
+</tr>
 
-        <span class="text-danger"   class="text-danger" *ngIf="loginForm.controls['password'].touched && loginForm.hasError('required','password')"><small>password is required<br>use (uppercase ,lowercase and numbers)<br>minimum 8 character</small></span>
-        <span class="text-danger" *ngIf=" loginForm.hasError('pattern','password')"><small>use alphanumeric & special characters &nbsp;</small></span> 
-    <input type="button" value="Login" (click)="login()" >
+    <tr>
+        <td>
+            <span>  <input type="password" placeholder="password" formControlName="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}">
+            </span> <br>
+                    <span class="text-danger"   class="text-danger" *ngIf="loginForm.controls['password'].touched && loginForm.hasError('required','password')"><small>password is required</small></span>
+                   
+        </td>
+    </tr>
+</table>
+<table class="aaa">
+<tr>
+    <td style="width:50px ;">
+       <input type="submit" value="Login" (click)="login()" /> 
+       
+    </td>
 
-    <input type="button" value="Register" routerLink="/user-reg">  
+    <div style="margin-left:90%;margin-top: 40%;">
+       <asl-google-signin-button ></asl-google-signin-button>     
+    </div>
+</tr>
+</table>
+
+
+<table>
+<tr>
+    <td>
+     <input type="button" value="Register" routerLink="/user-reg">
+    </td>
+ 
+<!-- </tr>
+<tr> -->
+    <td style="padding-top: 3%">
+        <a href="forgotpassword"  >Forgot_Password </a>
+    </td>
+</tr>
+
+
+
+   </table>
+
+   
+   
+
+      
+  
     <br><br>
-     <a href="forgotpassword"  >Forgot_Password </a>
+    
 </form>

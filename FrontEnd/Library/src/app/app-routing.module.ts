@@ -17,7 +17,6 @@ import { ViewProfileComponent } from './view-profile/view-profile.component';
 import { FindbyCategoryComponent } from './findby-category/findby-category.component';
 import { RejectrequestComponent } from './rejectrequest/rejectrequest.component';
 import { NotificationComponent } from './notification/notification.component';
-import { BookreturnComponent } from './bookreturn/bookreturn.component';
 import { ViewAdminprofileComponent } from './view-adminprofile/view-adminprofile.component';
 import { ImageuploadComponent } from './imageupload/imageupload.component';
 import { FineComponent } from './fine/fine.component';
@@ -33,6 +32,11 @@ import { Navbar2Component } from './navbar2/navbar2.component';
 import { AdminNavbarComponent } from './admin-navbar/admin-navbar.component';
 import { HomepageComponent } from './homepage/homepage.component';
 import { UserDetailviewComponent } from './user-detailview/user-detailview.component';
+import { PageNotfoundComponent } from './page-notfound/page-notfound.component';
+import { RestpasswordComponent } from './restpassword/restpassword.component';
+import { ChatComponent } from './chat/chat.component';
+import { ChatsComponent } from './chats/chats.component';
+
 
 const routes: Routes = [
   {path: '',redirectTo:'login',pathMatch:'full'},
@@ -51,7 +55,6 @@ const routes: Routes = [
   {path : 'view-profile',component:ViewProfileComponent},
   {path : 'findby-category',component:FindbyCategoryComponent},
   {path : 'notification',component:NotificationComponent},
-  {path : 'bookreturn',component:BookreturnComponent},
   {path : 'view-adminprofile',component:ViewAdminprofileComponent,canActivate: [HomeguardGuard]},
   {path : 'imageupload',component:ImageuploadComponent,canActivate: [HomeguardGuard]},
   {path : 'fine',component:FineComponent,canActivate: [HomeguardGuard]},
@@ -60,14 +63,21 @@ const routes: Routes = [
   {path : 'addcategory',component:AddcategoryComponent,canActivate: [HomeguardGuard]},
   {path:'demo',component:DemoComponent},
   {path:'addbooks',component:AddbooksComponent,canActivate: [HomeguardGuard]},
-  {path:'borrow-detail-view',component:BorrowDetailViewComponent},
+  {path:'borrow-detail-view/:id',component:BorrowDetailViewComponent},
   {path:'forgotpassword',component:ForgotpasswordComponent},
   {path:'sidenav2',component:Sidenav2Component,canActivate: [HomeguardGuard]},
   {path:'navbar2',component:Navbar2Component,canActivate: [HomeguardGuard]},
   {path:'sidenav2',component:Sidenav2Component,canActivate: [HomeguardGuard]},
   {path:'admin-navbar',component:AdminNavbarComponent,canActivate: [HomeguardGuard]},
-  {path:'homepage',component:HomepageComponent,canActivate:[HomeguardGuard]}
-  {path:'user-detailview',component:UserDetailviewComponent,canActivate: [HomeguardGuard]}
+  {path:'homepage',component:HomepageComponent,canActivate:[HomeguardGuard]},
+  {path:'user-detailview/:id',component:UserDetailviewComponent,canActivate: [HomeguardGuard]},
+  {path:'restpassword',component:RestpasswordComponent,canActivate: [HomeguardGuard]},
+  {path:'chat',component:ChatComponent},
+  {path:'chats',component:ChatsComponent},
+ 
+ //Wild Card Route for 404 request
+ { path: '**', pathMatch: 'full', component: PageNotfoundComponent },
+
 ];
 
 @NgModule({

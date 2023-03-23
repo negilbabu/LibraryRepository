@@ -7,7 +7,6 @@ import javax.persistence.Id;
 
 import com.innovature.Library.form.CategoryForm;
 
-
 @Entity
 public class Category {
 
@@ -27,28 +26,23 @@ public class Category {
     private Integer categoryId;
     private String categoryName;
 
-
- 
-    public Category(){}
- 
-    public Category(Integer categoryId){
-        this.categoryId=categoryId;
+    public Category() {
     }
 
-    public Category(Integer categoryId,String categoryName)
-    {
-        this.categoryId=categoryId;
-        this.categoryName=categoryName;
+    public Category(Integer categoryId) {
+        this.categoryId = categoryId;
     }
 
-    public Category(CategoryForm form){
-        this.categoryName=form.getCategoryName();      
+    public Category(Integer categoryId, String categoryName) {
+        this.categoryId = categoryId;
+        this.categoryName = categoryName;
     }
 
 
-
-
-
+    
+    public Category(CategoryForm form) {
+        this.categoryName = form.getCategoryName();
+    }
 
     public Integer getCategoryId() {
         return categoryId;
@@ -65,37 +59,9 @@ public class Category {
     public void setCategoryName(String categoryName) {
         this.categoryName = categoryName;
     }
+
     public Category orElseThrow(Object object) {
         return null;
     }
 
- 
-
-
-
-
-
-
-
-    // @Override
-    // public int hashCode() {
-    //     int hash = 0;
-    //     hash += (CategoryId != null ? CategoryId.hashCode() : 0);
-    //     return hash;
-    // }
-
-    // @Override
-    // public boolean equals(Object object) {
-    //     if (!(object instanceof Category)) {
-    //         return false;
-    //     }
-    //     return Objects.equals(CategoryId, ((Category) object).CategoryId);
-    // }
-
-    // @Override
-    // public String toString() {
-    //     return "com.innovature.Library.entity.Category[ CategoryId=" + CategoryId + " ]";
-    // }
-
-    
 }

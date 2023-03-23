@@ -1,5 +1,13 @@
 import { NgModule } from '@angular/core';
+
+import * as Stomp from 'stompjs';
+import * as SockJS from 'sockjs-client';
+
 import { BrowserModule } from '@angular/platform-browser';
+
+import { SocialLoginModule, SocialAuthServiceConfig } from '@abacritt/angularx-social-login';
+import { GoogleLoginProvider, FacebookLoginProvider} from '@abacritt/angularx-social-login';
+
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -8,10 +16,9 @@ import { LoginComponent } from './login/login.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BodyComponent } from './body/body.component';
 
-//import { ModalComponent } from './modal/modal.component';
 import {MatDialogConfig, MatDialogModule, MAT_DIALOG_DEFAULT_OPTIONS,} from '@angular/material/dialog';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { DatePipe, provideCloudflareLoader } from '@angular/common';
+import { AsyncPipe, DatePipe, provideCloudflareLoader } from '@angular/common';
 import { TokenInterceptorService } from './token-interceptor.service';
 import { HomeguardGuard } from './homeguard.guard';
 import { GuardserviceService } from './guardservice.service';
@@ -29,12 +36,10 @@ import { FindbyCategoryComponent } from './findby-category/findby-category.compo
 import { NgToastModule } from 'ng-angular-popup';
 import { RejectrequestComponent } from './rejectrequest/rejectrequest.component';
 import { NotificationComponent } from './notification/notification.component';
-import { BookreturnComponent } from './bookreturn/bookreturn.component';
 import { ViewAdminprofileComponent } from './view-adminprofile/view-adminprofile.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatGridListModule } from '@angular/material/grid-list';
 
-// import { MatIconModule, MatToolbarModule, MatTooltipModule } from '@angular/material';
 import { MatListModule } from '@angular/material/list';
 import {MatIconModule} from '@angular/material/icon';
 import { ImageuploadComponent } from './imageupload/imageupload.component';
@@ -59,13 +64,45 @@ import { Navbar2Component } from './navbar2/navbar2.component';
 import { AdminNavbarComponent } from './admin-navbar/admin-navbar.component';
 import { HomepageComponent } from './homepage/homepage.component';
 import { UserDetailviewComponent } from './user-detailview/user-detailview.component';
+import {MatTableModule} from '@angular/material/table';
+import { PageNotfoundComponent } from './page-notfound/page-notfound.component';
+import { RestpasswordComponent } from './restpassword/restpassword.component';
+import { ChatComponent } from './chat/chat.component';
+import { ChatsComponent } from './chats/chats.component';
+// import { ChatMessasageDtoComponent } from './model/chat-messasage-dto/chat-messasage-dto.component';
+// import { ChatMessasageDtoComponent } from './models/chat-messasage-dto/chat-messasage-dto.component';
 
-//  import {MatIconModule} from '@angular/material/icon';
-// import { MatToolbarModule } from '@angular/material';
-// import {MatTooltipModule} from '@angular/material/tooltip';
-// import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-// import { ImageUpComponent } from './image-up/image-up.component';
+// import {AngularFireMessagingModule} from '@angular/fire/messaging'
+// import { AngularFireMessagingModule } from '@angular/fire/messaging';
+// import { AngularFireDatabaseModule } from '@angular/fire/database';
+// import { AngularFireAuthModule } from '@angular/fire/auth';
+// import { AngularFireModule } from '@angular/fire';  
 
+// import { AngularFireModule } from '@angular/fire';
+// import { AngularFireMessagingModule } from '@angular/fire/messaging';
+/////////////////////////////
+// import { AngularFireModule } from "@angular/fire/compat";
+// import { AngularFireAuthModule } from "@angular/fire/compat/auth";
+// import { AngularFireStorageModule } from '@angular/fire/compat/storage';
+// import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
+// import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
+// import { MessagingService } from './messaging.service';
+
+// import { AngularFireMessagingModule } from '@angular/fire/messaging';
+
+// import { AngularFireModule } from '@angular/fire';
+
+
+// import { AngularFireModule } from '@angular/fire';
+// import { AngularFireMessagingModule } from '@angular/fire/messaging';
+
+// import {AngularFireMessagingModule} from '@angular/fire/messaging'
+
+
+
+const firebaseConfig = {
+  // your Firebase config goes here
+};
 
 @NgModule({
   declarations: [
@@ -85,7 +122,6 @@ import { UserDetailviewComponent } from './user-detailview/user-detailview.compo
     FindbyCategoryComponent,
     RejectrequestComponent,
     NotificationComponent,
-    BookreturnComponent,
     ViewAdminprofileComponent,
     ImageuploadComponent,
     FineComponent,
@@ -101,14 +137,20 @@ import { UserDetailviewComponent } from './user-detailview/user-detailview.compo
     AdminNavbarComponent,
     HomepageComponent,
     UserDetailviewComponent,
-    // Chart
-    
-  //  ModalComponent
+    PageNotfoundComponent,
+    RestpasswordComponent,
+    ChatComponent,
+    ChatsComponent,
+    // ChatMessasageDtoComponent,
+    // ChatMessasageDtoComponent,
+
+
     
 
   ],
   imports: [
     BrowserModule,
+    
     AppRoutingModule,
     ReactiveFormsModule,
     FormsModule,
@@ -125,18 +167,46 @@ import { UserDetailviewComponent } from './user-detailview/user-detailview.compo
     MatDialogModule,
     MatInputModule,
     MatListModule,
-    MatGridListModule
+    MatGridListModule,
+    MatTableModule,
+    SocialLoginModule,
+    // AngularFireDatabaseModule,
+    // AngularFireAuthModule,
+    // AngularFireMessagingModule
     
-    // Chart
+    // AngularFireModule.initializeApp(environment.firebase),
+    // AngularFireMessagingModule,
     
 
-   ///MatIconModule,
-    // MatToolbarModule,
-    // MatTooltipModule,
-    //BrowserAnimationsModule
   ],
-  // ,{provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: false}}
-  providers: [ {provide:HTTP_INTERCEPTORS,useClass:TokenInterceptorService,multi:true},[HomeguardGuard, GuardserviceService],[DatePipe] ],
+  providers: [ {provide:HTTP_INTERCEPTORS,useClass:TokenInterceptorService,multi:true},
+    [HomeguardGuard, GuardserviceService],
+    [DatePipe],
+    [
+    {
+      provide: 'SocialAuthServiceConfig',
+      useValue: {
+        autoLogin: false,
+        providers: [
+          {
+            id: GoogleLoginProvider.PROVIDER_ID,
+            provider: new GoogleLoginProvider(
+              '508399831720-cai87nbnl4updp779c21a4br40kqc77s.apps.googleusercontent.com'
+            )
+          },
+          {
+            id: FacebookLoginProvider.PROVIDER_ID,
+            provider: new FacebookLoginProvider('clientId')
+          }
+        ],
+        onError: (err) => {
+          console.error(err);
+        }
+      } as SocialAuthServiceConfig,
+    }
+  ],
+  // [MessagingService,AsyncPipe]
+],
   bootstrap: [AppComponent],
   entryComponents:[CategoryComponent,DemoComponent],
 })

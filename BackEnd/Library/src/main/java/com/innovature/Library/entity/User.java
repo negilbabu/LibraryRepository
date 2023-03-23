@@ -1,23 +1,15 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.innovature.Library.entity;
 
 import java.util.Date;
 import java.util.Objects;
 import javax.persistence.Entity;
+import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-/**
- *
- * @author nirmal
- */
 @Entity
 public class User {
 
@@ -31,16 +23,16 @@ public class User {
             this.value = value;
         }
     }
-    public static enum Role{
-    
-        ADMIN((byte)1),
-        USER((byte)2);
 
-        
+    public static enum Role {
+
+        ADMIN((byte) 1),
+        USER((byte) 2);
+
         public final byte value;
-        
-        private Role(byte value){
-        this.value=value;
+
+        private Role(byte value) {
+            this.value = value;
         }
     }
 
@@ -50,12 +42,15 @@ public class User {
     private String firstName;
     private String lastName;
     private String address;
-    
 
     private String phone;
+
+    @Column(unique = true)
     private String email;
+
     private String password;
     private byte status;
+
     private int role;
     @Temporal(TemporalType.DATE)
     private Date dob;
@@ -71,38 +66,67 @@ public class User {
         this.userId = userId;
     }
 
-    public User(String firstName,String lastName,Date dob,String address,String phone,String email, String password) {
+    public User(String firstName, String lastName, Date dob, String address, String phone, String email, String password) {
         this.firstName = firstName;
-        this.lastName=lastName;
-        this.dob=dob;
-        this.address=address;
-        this.phone=phone;
-        this.role=2;
+        this.lastName = lastName;
+        this.dob = dob;
+        this.address = address;
+        this.phone = phone;
+        this.role = 2;
         this.email = email;
         this.password = password;
-        
+
         this.status = Status.ACTIVE.value;
 
         Date dt = new Date();
         this.createDate = dt;
         this.updateDate = dt;
     }
-    
 
-  
-
-  
-
-    public User edit(String firstName,String lastName,Date dob,String address,String phone,String email, String password) {
+    public User(String firstName, String lastName, String email){
         this.firstName = firstName;
-        this.lastName=lastName;
-        this.dob=dob;
-        this.address=address;
-        this.phone=phone;
-        this.role=2;
+        this.lastName = lastName;
+        this.email = email;
+        Date dt = new Date();
+        this.createDate = dt;
+        this.updateDate = dt;
+        this.role = 2;
+        this.status = Status.ACTIVE.value;
+    }
+
+    public User edit(String firstName, String lastName, Date dob, String address, String phone, String email,
+            String password) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.dob = dob;
+        this.address = address;
+        this.phone = phone;
+        this.role = 1;
         this.email = email;
         this.password = password;
 
+        this.updateDate = new Date();
+        return this;
+    }
+
+    public User edit(String firstName, String lastName, Date dob, String address, String phone) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.dob = dob;
+        this.address = address;
+        this.phone = phone;
+        this.role = 1;
+        this.updateDate = new Date();
+        return this;
+    }
+
+    public User editUser(String firstName, String lastName, Date dob, String address, String phone) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.dob = dob;
+        this.address = address;
+        this.phone = phone;
+        this.role = 2;
         this.updateDate = new Date();
         return this;
     }
@@ -114,7 +138,6 @@ public class User {
     public void setUserId(Integer userId) {
         this.userId = userId;
     }
-
 
     public String getEmail() {
         return email;
@@ -132,7 +155,6 @@ public class User {
         this.password = password;
     }
 
-
     public String getFirstName() {
         return firstName;
     }
@@ -149,7 +171,6 @@ public class User {
         this.lastName = lastName;
     }
 
-
     public Date getDob() {
         return dob;
     }
@@ -157,8 +178,6 @@ public class User {
     public void setDob(Date dob) {
         this.dob = dob;
     }
-
-
 
     public String getAddress() {
         return address;
@@ -175,9 +194,6 @@ public class User {
     public void setPhone(String phone) {
         this.phone = phone;
     }
-
-
-
 
     public int getRole() {
         return role;
@@ -210,9 +226,6 @@ public class User {
     public void setUpdateDate(Date updateDate) {
         this.updateDate = updateDate;
     }
-
-
-
 
     @Override
     public int hashCode() {

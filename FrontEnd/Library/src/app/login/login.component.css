@@ -96,10 +96,10 @@ body{
 	margin-top: 10px;
 }
 a{
-	margin-left: 35%;
+	margin-left: 15%;
 }
 .login input[type=button]{
-	width: 350px;
+	width: 220px;
 	height: 35px;
 	background: #fff;
 	border: 1px solid #fff;
@@ -114,6 +114,25 @@ a{
 	/* margin-left: 20%; */
 	text-align: center;
 }
+.login input[type=submit]{
+	width: 220px;
+	height: 35px;
+	background: #fff;
+	border: 1px solid #fff;
+	cursor: pointer;
+	border-radius: 10px;
+	color: #a18d6c;
+	font-family: 'Exo', sans-serif;
+	font-size: 16px;
+	font-weight: 400;
+	padding: 6px;
+	margin-top: 10px;
+	/* margin-left: 20%; */
+	text-align: center;
+}
+/* .aaa{
+	width: 50%;
+} */
 
 .login input[type=button]:hover{
 	opacity: 0.8;

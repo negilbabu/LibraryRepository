@@ -1,17 +1,25 @@
 <app-sidenav></app-sidenav>   
   
   <div class="text-center"> 
-      <form [formGroup]="ObjSampleForm" (ngSubmit)="onSubmit()">
+      <form [formGroup]="ObjSampleForm" >
               
               <div ><br>
                   <label><h2>Reject Request</h2></label><br><br>
 
-                  <div><input style=" text-align: center; width: 350px; height: 175px; margin:0 auto;" type="textarea" class="text-danger1" placeholder="Mention the reason here " formControlName="reason" name="reason"  required></div>
+                  <div><input style=" text-align: center; width: 350px; height: 175px; margin-top:5%;" type="textarea" class="text-danger1" placeholder="Mention the reason here " formControlName="reason" name="reason" maxlength="255" pattern="[a-zA-Z]+" minlength="2"  required></div>
                   <span class="text-danger"   class="text-danger" *ngIf="ObjSampleForm.controls['reason'].touched && ObjSampleForm.hasError('required','reason')"><small>Reason is required</small>
                   </span>
+                  <span class="text-danger"   class="text-danger" *ngIf=" ObjSampleForm.hasError('maxlength','reason')"><small>Max-limit acheived</small>
+                  </span>
+                  <span class="text-danger"   class="text-danger" *ngIf=" ObjSampleForm.hasError('minlength','reason')"><small>Please provide atlest two characters as reason</small>
+                  </span>
+                  <span class="text-danger"   class="text-danger" *ngIf=" ObjSampleForm.hasError('pattern','reason')"><small>Reason must be only characters</small>
+                  </span>
                 <div><br>
-                  <input class="btn" style="width: 120px; ;"   type="submit" name="onSubmit" value="Submit" [disabled]="!ObjSampleForm.valid"><br><br><br>
-
+                 
+                  <button mat-raised-button (click)="closePopup()" color="warn" style="margin-right:3%;">Clear</button>
+                  <button mat-raised-button (click)="onSubmit()" color="primary"  class="mycls">Submit</button>
+                
                 </div>
                 </div>       
             </form>         

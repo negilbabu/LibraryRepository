@@ -30,9 +30,32 @@ if (confirm('Are you sure want to Logout?')) {
 }
 home()
 {
-  this.router.navigate(['/sidenav'])
+  this.router.navigate(['/body'])
 }
-
+category()
+{
+  this.router.navigate(['/addcategory'])
+}
+books()
+{
+  this.router.navigate(['/addbooks'])
+}
+borrow()
+{
+  this.router.navigate(['/borrow'])
+}
+users()
+{
+  this.router.navigate(['/user-details'])
+}
+fine()
+{
+  this.router.navigate(['/fine'])
+}
+chat()
+{
+  this.router.navigate(['/chats'])
+}
 profile()
 {
   this.router.navigate(['/view-adminprofile'])

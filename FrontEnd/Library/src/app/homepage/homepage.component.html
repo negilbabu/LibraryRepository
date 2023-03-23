@@ -1,4 +1,17 @@
 <app-sidenav2></app-sidenav2>
+
+
+<script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async=""></script>
+<script>
+  window.OneSignal = window.OneSignal || [];
+  OneSignal.push(function() {
+    OneSignal.init({
+      appId: "5ff0a8e6-7397-41fd-9019-d007cc66c85d",
+    });
+  });
+</script>
+
+
 <section class="home">
     <img src="../../assets/wp6974333-bookstore-wallpapers.jpg" >
     <div class="homecontent">
@@ -7,3 +20,4 @@
     <a href="booksdisplay" class="btn btn-lg btn-primary">Book now</a>
 </div>
 </section>
+

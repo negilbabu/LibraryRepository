@@ -1,0 +1,15 @@
+
+
+<div class="chat-message clearfix">
+    <div class="input-group mb-0" >
+        <form [formGroup]="chatform">
+
+            <div class="input-group-prepend" style="display:flex">
+                <input type="text" class="form-control" placeholder="Enter text here..."
+                    formControlName="message">
+                <button class="input-group-text" (click)="sendMessage()"><i
+                        class="fa fa-send"></i></button>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,63 +1,14 @@
-<head>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
-  * {
-    box-sizing: border-box;
-  }
-  
-  .menu {
-    float: left;
-    width: 20%;
-    text-align: center;
-  }
-  
-  .menu a {
-    background-color: #e5e5e5;
-    padding: 8px;
-    margin-top: 7px;
-    display: block;
-    width: 100%;
-    color: black;
-  }
-  
-  .main {
-    float: left;
-    width: 60%;
-    padding: 0 20px;
-  }
-  
-  .right {
-    /* background-color: #e5e5e5; */
-    float: right;
-    /* width: 20%; */
-    /* padding: 10px; */
-    margin-right: 7px;
-    /* text-align: center; */
-  }
-  
-  @media only screen and (max-width: 620px) {
-    /* For mobile phones: */
-    .menu, .main {
-      width: 100%;
-    }
-  }
-  </style>
-  </head>
+<!-- <div class="toolbar" role="banner">
+  <img  width="40"  alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg=="/>
+  <span>Spring Angular Web Socket</span>
+</div> -->
 
-
-<ul class="nav-mobile"  > 
-
-
-  <li >
- 
-    <label (click)="dash()"  style="text-align:center;float:center">LIBRARY</label>
-
-<div class="right">
-
-    <button mat-icon-button > <i class="material-icons" style="color:rgb(142, 179, 137);float:right;position:relative; " (click)="profile()"  >account_circle</i></button>                            
-
-    <button mat-icon-button > <i class="material-icons" style="color:rgb(30, 237, 213);float:right;position:re; " (click)="logout()">logout</i></button> <br>                           
-
-</div> 
-  </li>
-  </ul>
+<div class="content" role="main">
+  <input class="form-control" type="text" placeholder="message" [(ngModel)]="input">
+  <button class="btn btn-success" (click)="sendMessage(input)">Send</button>
+  <div class="content">
+    <div *ngFor="let msg of messageService.msg">
+      {{msg}}
+    </div>
+  </div>
+</div>

@@ -14,8 +14,6 @@ public interface BooksRepository extends Repository<Books, Integer> {
    Books save(Books books);
 
    Collection<Books> findAll();
-   // Books findAll(Books books);
-   // Collection<BooksListView> findAll();
 
    Books findByBooksId(Integer booksId);
 
@@ -29,15 +27,10 @@ public interface BooksRepository extends Repository<Books, Integer> {
 
    public Page<Books> findAll(Pageable paging);
 
-
    @Query(value = "select COUNT(books.books_id),category.category_name from books Inner Join category on books.category_id=category.category_id group by books.category_id ", nativeQuery = true)
    public List<Object[]> findCountByCategoryId();
 
-   // @Query(value = "select sum(books_copies)", nativeQuery = true)
-   // List<Object[]> findbyBooksId1();
-
    @Query(value = "Select * from books where  status = 1 AND books_name like %?1% order by books_name like ?2% DESC,books_name like %?3 DESC,books_name like %?4% ", nativeQuery = true)
    public Page<Books> findByKeywords(String keyword, String k, String k1, String k2, Pageable pageable);
-
 
 }

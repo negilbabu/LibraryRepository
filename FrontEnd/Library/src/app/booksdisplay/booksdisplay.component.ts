@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { NgToastService } from 'ng-angular-popup';
 import { BooksService } from '../books.service';
 import { BorrowService } from '../borrow.service';
 import { CategoryService } from '../category.service';
@@ -10,7 +11,7 @@ import { CategoryService } from '../category.service';
   styleUrls: ['./booksdisplay.component.css']
 })
 export class BooksdisplayComponent implements OnInit {
-
+  
 //booksdata:any;
 // categoryList: any[];
 categoryId:any;
@@ -41,7 +42,12 @@ result: any;
   direction=-1;
 
 
-  constructor(private router:Router ,private booksservice:BooksService,private service:CategoryService,private borrowservice:BorrowService) {
+  constructor(private router:Router ,
+    private booksservice:BooksService,
+    private service:CategoryService,
+    private borrowservice:BorrowService,
+    private toast:NgToastService
+    ) {
     // this.booksList=[];
     // this.categoryList=[];
    }
@@ -50,7 +56,7 @@ result: any;
 
 
 this.LoadData();
-this.borrowBlock();
+// this.borrowBlock();
 
 
 
@@ -66,14 +72,14 @@ this.borrowBlock();
   }
 
 
-  borrowBlock(){
-this.borrowservice.borrowBlock().subscribe({    
-  next:(res)=>{
-  this.booksCount=res;
-  // console.log("blk"); 
-  console.log("block rslt=",res); 
-  }})
-}
+//   borrowBlock(){
+// this.borrowservice.borrowBlock().subscribe({    
+//   next:(res)=>{
+//   this.booksCount=res;
+//   // console.log("blk"); 
+//   console.log("block rslt=",res); 
+//   }})
+// }
 
 borrowStockEmpty(){
   
@@ -120,22 +126,36 @@ onTableDataChange(event:any) {
         this.router.navigate(['/booksdisplay'])
       }
       else{
-        if(this.booksCount>=3){
-          alert("you cannot request any book, please return the current in hand books, thank you")
-        }
-        else{
+        // if(this.booksCount>=3){
+        //   alert("you cannot request any book, please return the current in hand books, thank you")
+        // }
+        // else{
       let data=booksId
+      
         this.borrowservice.add(data).subscribe({    
         next:(res)=>{
         this.booksId=res.booksId;
-        console.log(res);   
-        alert("Book request successfull")   
+  
+        this.toast.info({summary:'Booking Successfull',duration:5000});
         this.router.navigate(['/borrowhistory'])
         },
-        error:(msg)=>{}
+        error:(msg)=>{
+
+        if(msg.status==409){
+          this.toast.info({detail:'Booking Failed',summary: 'Selected book already rented to you',duration:5000});
+        }
+        else if(msg.status=400){
+          this.toast.info({detail:'Booking Failed',summary: 'You have already requested this book ',duration:5000});
+        }
+        else if(msg.status=417){
+          this.toast.info({detail:'Booking Failed',summary: 'You have 3 books in hand, please return current books ',duration:5000});
+        }
+ 
+
+        }
       })
       }}
-    }
+    // }
 
 
     home()

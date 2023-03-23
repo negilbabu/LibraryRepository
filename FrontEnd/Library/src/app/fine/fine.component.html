@@ -3,71 +3,9 @@
 
 
 
-<head>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
-  * {
-    box-sizing: border-box;
-  }
-  
-  /* .menu {
-    float: left;
-    width: 20%;
-    text-align: center;
-  }
-  
-  .menu a {
-    background-color: #e5e5e5;
-    padding: 8px;
-    margin-top: 7px;
-    display: block;
-    width: 100%;
-    color: black;
-  }
-  
-  .main {
-    float: left;
-    width: 60%;
-    padding: 0 20px;
-  }
-  
-  .right {
-    background-color: #e5e5e5;
-    float: left;
-    width: 20%;
-    padding: 15px;
-    margin-top: 7px;
-    text-align: center;
-  } */
-  
-  @media only screen and (max-width: 620px) {
-    /* For mobile phones: */
-    .menu, .main, .right {
-      width: 100%;
-    }
-    .right {
-  right: 0;
-  width: 100%;
-  float: left;
-  background-color: rgb(255, 255, 255);
-}
-
-table{
-width: 55%;
-border: none;
-text-align: center;
-position:relative;
-overflow-x: scroll;
-overflow-x: visible;
-font-size: 0.675em;
-/* overflow-x: scroll;
-overflow:visible; */
-}
 
 
-  }
-  </style>
-  </head>
+
 
 
   <div class="right">
@@ -93,7 +31,14 @@ overflow:visible; */
                                   </tr>
                             </thead>
                             <tbody>
-      <tr *ngFor="let borrow of  borrowdata">
+      <tr *ngFor="let borrow of  borrowdata
+      | paginate 
+      : {
+          itemsPerPage: tableSize,
+          currentPage: page,
+          totalItems: count
+        };        
+      ">
 
           <td>{{borrow.user.firstName}}</td>
           <td>{{borrow.books.booksName}}</td>
@@ -103,15 +48,15 @@ overflow:visible; */
           <td>{{borrow.fine}}</td>             
           
       </tr>
-      <tr *ngFor="let borrow of  borrowdata">
-      <td *ngIf="borrow==null">NO RECORDS FOUND</td>
-      </tr>
-
+  
       <label *ngIf="this.data==1">   NO RECORDS FOUND </label>
       
                             </tbody>
                         </table>
-                      
+                        <div class="d-flex justify-content-center" *ngIf="this.data!=1">
+                          <pagination-controls (pageChange)="onTableDataChange(page=$event)">
+                          </pagination-controls>
+                    </div>
                     </div>
              
           

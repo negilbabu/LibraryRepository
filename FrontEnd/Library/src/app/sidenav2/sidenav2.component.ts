@@ -15,7 +15,7 @@ export class Sidenav2Component implements OnInit {
 logout(){
   if (confirm('Are you sure want to Logout?')) {
     localStorage.clear();
-    localStorage.removeItem('token');
+
     this.router.navigate(['/login'])
   } else {
     

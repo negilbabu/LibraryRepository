@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { NgToastService } from 'ng-angular-popup';
 import { BooksService } from '../books.service';
 import { BorrowService } from '../borrow.service';
 
@@ -11,17 +12,20 @@ import { BorrowService } from '../borrow.service';
 })
 export class RejectrequestComponent implements OnInit {
 
+
   borrowList: any[];
   borrowId:any;
 
-  constructor(private router:Router ,private booksService:BooksService,private borrowService:BorrowService) {  
-  // this.booksList=[];
+  constructor(private router:Router ,private booksService:BooksService,private borrowService:BorrowService,private toast : NgToastService) {  
   this.borrowList=[];
  }
  ngOnInit(): void {
 
  
 }
+closePopup() {
+this.ObjSampleForm.reset();
+  }
    
 ObjSampleForm:FormGroup=new FormGroup(
   { 
@@ -36,62 +40,29 @@ onSubmit(){
 }
 
 rejectRequest(borrowId:any){
-  console.log("hi")
-  console.log(borrowId)
+
+  if(this.ObjSampleForm.valid){
+
   let body={
     reason: this.ObjSampleForm.controls['reason'].value
   
     }
-    console.log(body)
-
 
   this.borrowService.updateReject(borrowId, body).subscribe({
     next: (Response: any) => {
-      console.log(Response);
-      alert(" Book Rejected")
+      this.toast.error({detail:' Book Rejected Success',duration:2000});
       window.location.reload()
     },
     error: (Response: any) => {
-      console.log(Response)
-      alert("invalid Borrow details")
+       alert("invalid Borrow details")
     }
   })
   this.router.navigate(['/borrow'])
 
 }
+else{
+  this.toast.error({detail:' Failed',summary:'Invalid Data',duration:2000});
+}
+}
 
-
-
-// update(borrowId:any){
-//   console.log("vjydsvajys")
-//   console.log(borrowId)
-//   let body={
-//     issueDate: this.ObjSampleForm.controls['issueDate'].value,
-//     returnDate: this.ObjSampleForm.controls['returnDate'].value,
-//     dueDate: this.ObjSampleForm.controls['dueDate'].value
-
-//     }
-
-//   console.log(body)
-//   this.borrowService.update(borrowId, body).subscribe({
-//     next: (Response: any) => {
-//       console.log(Response);
-//       alert(" Book approved")
-//       window.location.reload()
-//     },
-//     error: (Response: any) => {
-//       console.log(Response)
-//       alert("invalid Borrow details")
-//     }
-//   })
-//   this.router.navigate(['/borrow'])
-
-//  }
-
- home()
- {
-   this.router.navigate(['/sidenav'])
- }
-
- 
 }

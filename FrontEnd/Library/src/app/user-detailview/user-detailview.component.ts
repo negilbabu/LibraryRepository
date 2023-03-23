@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserserviceService } from '../userservice.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-user-detailview',
@@ -10,41 +11,35 @@ import { UserserviceService } from '../userservice.service';
 export class UserDetailviewComponent implements OnInit {
   
   
-    //booksdata:any;
+
     userdata: any;
-    userList:any[];
-    role: any;
+    id: any;
     
-      constructor(private router:Router ,private service:UserserviceService) {
-        this.userList=[];
+      constructor(private router:Router ,
+        private service:UserserviceService,
+        private route: ActivatedRoute
+        ) {
        }
     
       ngOnInit(): void {    
-        
-        this.LoadUser(this.userdata);
+        this.id = this.route.snapshot.params['id'];
+        this.LoadUser(this.id);
       }
     
 
-LoadUser(userdata:any){
-  this.service.LoadUserDetailView(userdata).subscribe((data)=>{
+LoadUser(id:any){
+  this.service.LoadUserDetailView(id).subscribe((data)=>{
     this.userdata=data;
-    console.log(this.userdata);});
+    ;});
 }
 
 
       Load() {
         this.service.getUser().subscribe((data: any)=>{
         this.userdata=data;
-        sessionStorage.setItem('role',data[0].role)
+ 
         });  }  
     
-    
-        home()
-        {        
-  
-            this.router.navigate(['/sidenav'])
-        
-        }
     
     }
     

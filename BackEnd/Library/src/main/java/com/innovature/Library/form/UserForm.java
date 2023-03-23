@@ -1,23 +1,18 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package com.innovature.Library.form;
 
 import java.util.Date;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 import com.innovature.Library.form.validaton.Password;
 import com.innovature.Library.json.Json.DateFormat;
 
-/**
- *
- * @author nirmal
- */
+
 public class UserForm {
 
     @NotBlank
@@ -29,26 +24,47 @@ public class UserForm {
     private String lastName;
 
     
+    // @NotBlank
     @DateFormat
     private Date dob;
 
     @NotBlank
-    @Size(min = 1)
+    @Size(max = 255)
     private String address;
 
     @NotBlank
-    @Size(min = 5)
+    @Size(min = 10,max = 11)
+    @Pattern(regexp="[0-9]+",message="length must be 10")  
     private String phone;
+
+    private Integer role;
 
     @NotBlank
     @Size(max = 255)
     @Email
     private String email;
+
     @Password
     private String password;
+    
+    @NotNull(message="OTP cannot be null") 
+    private Integer otp;
   
-    //@NotBlank
-    //private int role;
+    public Integer getOtp() {
+        return otp;
+    }
+
+    public void setOtp(Integer otp) {
+        this.otp = otp;
+    }
+
+    public Integer getRole() {
+        return role;
+    }
+
+    public void setRole(Integer role) {
+        this.role = role;
+    }
 
     public String getFirstName() {
         return firstName;
@@ -89,17 +105,7 @@ public class UserForm {
     public void setPhone(String phone) {
         this.phone = phone;
     }
-
-    // public int getRole() {
-    //     return role;
-    // }
-
-    // public void setRole(int role) {
-    //     this.role = role;
-    // }
-
-    
-    
+     
     public String getEmail() {
         return email;
     }

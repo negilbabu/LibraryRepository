@@ -31,7 +31,6 @@ import com.innovature.Library.service.BooksService;
 import com.innovature.Library.util.FileUtil;
 import com.innovature.Library.view.BooksDetailView;
 
-
 @RestController
 @RequestMapping("/books")
 public class BooksController {
@@ -41,8 +40,6 @@ public class BooksController {
 
     @Autowired
     private BooksRepository booksRepository;
-
-
 
     @PostMapping
     public BooksDetailView add(@Valid @RequestBody BooksForm form) {
@@ -56,66 +53,55 @@ public class BooksController {
 
     @GetMapping("user/findByCategory/{categoryId}")
     public Collection<Books> listByCategory(
-        @PathVariable("categoryId") Integer categoryId) 
-        {
+            @PathVariable("categoryId") Integer categoryId) {
         return service.listByCategory(categoryId);
-       }
-    
+    }
 
     @GetMapping("/{booksId}")
     public BooksDetailView list(
-        @PathVariable("booksId") Integer booksId      
-    ) 
-     {
+            @PathVariable("booksId") Integer booksId) {
         return service.list(booksId);
     }
 
-
     @DeleteMapping("/{booksId}")
-    public void deletes(
-            @PathVariable("booksId") Integer booksId) {
+    public void deletes(@PathVariable("booksId") Integer booksId)
+    {
         service.deletes(booksId);
     }
 
     @PutMapping("/{booksId}")
     public BooksDetailView update(
             @PathVariable("booksId") Integer booksId,
-            @Valid @RequestBody BooksForm form
-    ) {
+            @Valid @RequestBody BooksForm form) {
         return service.updates(booksId, form);
     }
 
-
-
     @GetMapping("admin/pagenated/")
-    public ResponseEntity<Page<Books>>getAllBooks(
-                        @RequestParam(defaultValue = "1") Integer pageNo,
-                        @RequestParam(defaultValue = "10") Integer pageSize,
-                        @RequestParam(defaultValue = "auther") String sortBy,
-                        @RequestParam(defaultValue = "1") Integer direction)
-    {
-        Page<Books> list = service.getAllBooks(pageNo-1, pageSize, sortBy,direction);
-        return new ResponseEntity<Page<Books>>(list,new HttpHeaders(),
-        HttpStatus.OK);
+    public ResponseEntity<Page<Books>> getAllBooks(
+            @RequestParam(defaultValue = "1") Integer pageNo,
+            @RequestParam(defaultValue = "10") Integer pageSize,
+            @RequestParam(defaultValue = "auther") String sortBy,
+            @RequestParam(defaultValue = "1") Integer direction) {
+        Page<Books> list = service.getAllBooks(pageNo - 1, pageSize, sortBy, direction);
+        return new ResponseEntity<Page<Books>>(list, new HttpHeaders(),
+                HttpStatus.OK);
 
     }
 
     @GetMapping("user/pagenated/")
-    public ResponseEntity<Page<Books>>getAllBooksforUser(
-                        @RequestParam(defaultValue = "1") Integer pageNo,
-                        @RequestParam(defaultValue = "10") Integer pageSize,
-                        @RequestParam(defaultValue = "auther") String sortBy,
-                        @RequestParam(defaultValue = "1") Integer direction)
-    {
-        Page<Books> list = service.getAllBooks(pageNo-1, pageSize, sortBy,direction);
-        return new ResponseEntity<Page<Books>>(list,new HttpHeaders(),
-        HttpStatus.OK);
-  }
-
+    public ResponseEntity<Page<Books>> getAllBooksforUser(
+            @RequestParam(defaultValue = "1") Integer pageNo,
+            @RequestParam(defaultValue = "10") Integer pageSize,
+            @RequestParam(defaultValue = "auther") String sortBy,
+            @RequestParam(defaultValue = "1") Integer direction) {
+        Page<Books> list = service.getAllBooks(pageNo - 1, pageSize, sortBy, direction);
+        return new ResponseEntity<Page<Books>>(list, new HttpHeaders(),
+                HttpStatus.OK);
+    }
 
     @PostMapping("/save/image/{booksId}")
-    public void saveBookImage(@RequestParam(value="image" )  MultipartFile multipartFile,
-    @PathVariable Integer booksId) throws IOException {
+    public void saveBookImage(@RequestParam(value = "image") MultipartFile multipartFile,
+            @PathVariable Integer booksId) throws IOException {
 
         Books books = booksRepository.findByBooksId(booksId);
 
@@ -127,21 +113,19 @@ public class BooksController {
         FileUtil.saveUserProfile(fileName, multipartFile);
 
     }
-   
+
     @GetMapping("/books/{booksId}")
     public HttpEntity<byte[]> getImagePic(@PathVariable Integer booksId) {
 
         return service.getImagePic(booksId);
     }
 
-
-    //pie
+    // pie
     @GetMapping("admin/pie")
     public List<Object[]> getcountByCategoryId() {
         return service.getBookCountByCategory();
 
     }
-
 
     @GetMapping("/admin/searchBooks")
     public ResponseEntity<Page<Books>> getAllBookStockSearch(
@@ -150,11 +134,10 @@ public class BooksController {
             @RequestParam(defaultValue = "10") Integer pageSize,
             @RequestParam(defaultValue = "books_id") String sortBy,
             @RequestParam(defaultValue = "-1") Integer direction) {
-         Page<Books> list = service.getAllBookStocks(keyword, pageNo - 1, pageSize, sortBy,direction);
+        Page<Books> list = service.getAllBookStocks(keyword, pageNo - 1, pageSize, sortBy, direction);
         return new ResponseEntity<Page<Books>>(list, new HttpHeaders(),
                 HttpStatus.OK);
 
-    }   
+    }
 
-    
 }

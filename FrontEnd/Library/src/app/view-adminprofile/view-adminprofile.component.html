@@ -1,69 +1,13 @@
 <app-sidenav></app-sidenav>   
 
-<head>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
-  * {
-    box-sizing: border-box;
-  }
-  
-  .menu {
-    float: left;
-    width: 20%;
-    text-align: center;
-  }
-  
-  .menu a {
-    background-color: #e5e5e5;
-    padding: 8px;
-    margin-top: 7px;
-    display: block;
-    width: 100%;
-    color: black;
-  }
-  
-  .main {
-    float: left;
-    /* right: 80%; */
-    width: 50%;
-    padding: 0 20px;
-    margin-left: 30%;
-    text-align: center;
-  }
-  .tb{
-    margin-left: 30%;
-  }
-  
-  .right {
-    background-color: #e5e5e5;
-    float: left;
-    width: 20%;
-    padding: 15px;
-    margin-top: 7px;
-    text-align: center;
-  }
- 
-  @media only screen and (max-width: 620px) {
-    /* For mobile phones: */
-    .main {
-      width: 100%;
-      margin-left: 5%;
-    }
-    .tb{
-      margin-left: 15%;
-    }
-  }
-  </style>
-  </head>
-
 
 
 <div class="main">
   <br><br>      <br><br>
-  <h2 style="position:relative; "> <button mat-icon-button > <i class="material-icons" style="color:rgb(111, 191, 201);"  >account_circle</i></button> PROFILE</h2>
+  <h2 style="position:relative; "> <button mat-icon-button (click)="EditProfile()"> <i class="material-icons" style="color:rgb(111, 191, 201);"  >edit</i></button> PROFILE</h2>
 
    <table style="border-collapse: collapse; border: none; " class="tb" >
-    <caption>Profile</caption>
+ 
  <tr> <td>NAME </td><td>:</td><td>{{userdata[0].firstName}} {{userdata.lastName}}</td></tr>
  <tr><td>ADDRESS </td> <td>:</td><td>{{userdata[0].address}}</td></tr>
  <tr> <td>PHONE </td><td>:</td><td>{{userdata[0].phone}}</td></tr>
@@ -71,12 +15,88 @@
  <tr> <td>DOB </td><td>:</td><td>{{userdata[0].dob| date:'dd/MM/yyyy'}}</td></tr>
  <tr> <td>CREATED DATE </td><td>:</td><td>{{userdata[0].createDate| date:'dd/MM/yyyy'}}</td></tr>
  <tr><td>UPDATE DATE </td><td>:</td><td>{{userdata[0].updateDate| date:'dd/MM/yyyy'}}</td></tr>
+ <tr></tr>
                              
    </table>
-
-
+   <div style="margin-top: 5%">
+   <a href="restpassword"  >Change_Password </a></div>
 
   </div>
+
+
+
+  <div class="modal" tabindex="-1" role="dialog" *ngIf=" this.rslt==2" [ngStyle]="{'display':displayStyle}"  style="margin-top: 4%;">
+    <div class="modal-dialog" role="document"  >
+       <div class="modal-content">
+        <div class="modal-header">
+         <h4 class="modal-title" >Edit Profile</h4>
+           </div>
+
+
+        <div class="modal-body">
+          <form [formGroup]="ObjSampleForm" (ngSubmit)="openPopup()">
+
+            <div class="form-group">
+              <label for="exampleInputPassword1">Firstname</label>
+              <input type="text" style="text-align: center;" formControlName="firstName" class="form-control" id="firstName" placeholder="firstName" maxlength="30" minlength="3" pattern='[a-zA-z]+' required>
+              <span class="text-danger"    *ngIf="ObjSampleForm.controls['firstName'].touched && ObjSampleForm.hasError('required','firstName')"><small>First name is required</small>    </span>
+              <span class="text-danger"
+              *ngIf="ObjSampleForm.hasError('pattern','firstName')"><small>Firstname
+                  Should contain uppercase and lowercase only</small></span>
+                  <span class="text-danger"
+                    *ngIf=" ObjSampleForm.hasError('minlength','firstName')"><small>Firstname
+                        must be minimum 3 character</small></span>
+            
+            </div>
+            <div class="form-group">
+              <label for="exampleInputPassword1">Lastname</label>
+              <input type="text" formControlName="lastName" class="form-control" id="lastName" placeholder="lastName" maxlength="30" minlength="2" pattern='[a-zA-z]+' required>
+              <span class="text-danger"    *ngIf="ObjSampleForm.controls['lastName'].touched && ObjSampleForm.hasError('required','lastName')"><small>Lastname is required</small>    </span>
+              <span class="text-danger" *ngIf=" ObjSampleForm.hasError('minlength','lastName')"><small>Lastname must be minimum 2 character</small> </span>
+              <span class="text-danger" *ngIf=" ObjSampleForm.hasError('pattern','lastName')"><small>Lastname should be contain uppercase and lowercase only</small> </span> 
+            
+            </div>
+            <div class="form-group">
+              <label for="exampleInputPassword1">Phone</label>
+              <input type="text" formControlName="phone" class="form-control" id="phone" placeholder="phone" pattern="[0-9]+" maxlength="10" minlength="10" required>
+              <span class="text-danger"    *ngIf="ObjSampleForm.controls['phone'].touched && ObjSampleForm.hasError('required','phone')"><small>Phone no. is required</small>    </span>
+              <span class="text-danger"
+              *ngIf="ObjSampleForm.hasError('minlength','phone')"><small>Phone
+                  number must be 10 digit</small> </span>
+                  <span class="text-danger"
+              *ngIf=" ObjSampleForm.hasError('pattern','phone')"><small>Phone
+                  number must be digits only</small> </span>
+            
+            </div>
+            <div class="form-group">
+              <label for="exampleInputPassword1">Address</label>
+              <input type="text" formControlName="address" class="form-control" id="address"  maxlength="100" placeholder="address" required>
+              <span class="text-danger"    *ngIf="ObjSampleForm.controls['address'].touched && ObjSampleForm.hasError('required','address')"><small>Address is required</small>    </span>
+              <span class="text-danger"
+              *ngIf="ObjSampleForm.hasError('maxlength','address')"><small>Address
+                  must not exceed 100 characters</small></span>
+            </div>
+
+
+            <div class="form-group">
+              <label for="exampleInputPassword1">DOB</label>
+              <input type="date" formControlName="dob" class="form-control" id="dob" placeholder="dob" required>
+              <span class="text-danger"    *ngIf="ObjSampleForm.controls['dob'].touched && ObjSampleForm.hasError('required','dob')"><small>DOB is required</small>    </span>
+            </div>
+        
+            <div class="modal-footer">
+              <div class="modal-footer">
+               <input type="submit" name="SaveData" class="btn btn-primary">
+  
+               <button type="button" class="btn btn-danger" (click)="closePopup()">Close</button>
+
+              </div>            
+            </div>       
+         
+          </form>
+        </div>
+      </div>
+   </div></div>
 
 
 

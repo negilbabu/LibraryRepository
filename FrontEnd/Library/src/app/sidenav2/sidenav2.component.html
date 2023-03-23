@@ -1,35 +1,29 @@
 <app-navbar2></app-navbar2>
 <router-outlet></router-outlet>
 
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        .main-menu {
+            position: fixed;
+
+        }
+    </style>
+</head>
+
 <div class="area"></div>
-<nav class="main-menu" >
+<nav class="main-menu">
     <ul>
         <br><br><br>
         <li>
             <a href="homepage">
-                <i class="fa fa-home fa-2x" ></i>
+                <i class="fa fa-home fa-2x"></i>
                 <span class="nav-text">
                     HOME
                 </span>
             </a>
         </li>
-        <li class="has-subnav">
-            <a href="findby-category">
-                <i class="fa fa-bars fa-2x"></i>
-                <span class="nav-text">
-                    CATEGORY
-                </span>
-            </a>
-        </li>
-      
-        <li>
-            <a href="borrowhistory">
-                <i class="fa fa-refresh fa-2x"></i>
-                <span class="nav-text">
-                    BORROW HISTORY
-                </span>
-            </a>
-        </li>
+        <br>
         <li>
             <a href="booksdisplay">
                 <i class="fa fa-book fa-2x"></i>
@@ -38,6 +32,25 @@
                 </span>
             </a>
         </li>
+        <br>
+        <li class="has-subnav">
+            <a href="findby-category">
+                <i class="fa fa-bars fa-2x"></i>
+                <span class="nav-text">
+                    CATEGORY
+                </span>
+            </a>
+        </li>
+        <br>
+        <li>
+            <a href="borrowhistory">
+                <i class="fa fa-refresh fa-2x"></i>
+                <span class="nav-text">
+                    BORROW HISTORY
+                </span>
+            </a>
+        </li>
+        <br>
         <li>
             <a href="notification">
                 <i class="fa fa-inr fa-2x"></i>
@@ -46,14 +59,22 @@
                 </span><br>
             </a>
         </li>
-
-      
+        <br>
+        <li>
+            <a href="chats">
+                <i class="fa fa-circle fa-2x"></i>
+                <span class="nav-text">
+                    CHAT
+                </span><br>
+            </a>
+        </li>
+        <br>
     </ul>
 
     <ul class="logout">
         <li>
             <a href="#">
-                <!-- <button mat-icon-button> -->
+
                 <i class="fa fa-power-off fa-2x"></i>
                 <span class="nav-text" (click)="logout()">
                     Logout
@@ -62,4 +83,5 @@
             </a>
         </li>
     </ul>
+    <br>
 </nav>

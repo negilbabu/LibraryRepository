@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.innovature.Library.view;
 
 import java.util.Date;
@@ -10,10 +5,6 @@ import java.util.Date;
 import com.innovature.Library.entity.User;
 import com.innovature.Library.json.Json;
 
-/**
- *
- * @author nirmal
- */
 public class UserView {
 
     private final int userId;
@@ -23,7 +14,6 @@ public class UserView {
     private final String phone;
     private final String email;
     private final int role;
-    
 
     private final short status;
     @Json.DateFormat
@@ -36,19 +26,16 @@ public class UserView {
     public UserView(User user) {
         this.userId = user.getUserId();
         this.firstName = user.getFirstName();
-        this.lastName=user.getLastName();
-        this.dob=user.getDob();
-        this.address=user.getAddress();
-        this.phone=user.getPhone();
+        this.lastName = user.getLastName();
+        this.dob = user.getDob();
+        this.address = user.getAddress();
+        this.phone = user.getPhone();
         this.email = user.getEmail();
-        this.role=user.getRole();
+        this.role = user.getRole();
         this.status = user.getStatus();
         this.createDate = user.getCreateDate();
         this.updateDate = user.getUpdateDate();
     }
-
-
- 
 
     public int getRole() {
         return role;
@@ -93,8 +80,5 @@ public class UserView {
     public Date getUpdateDate() {
         return updateDate;
     }
-
-
-
 
 }

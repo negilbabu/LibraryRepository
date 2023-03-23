@@ -203,6 +203,10 @@
     border: 15px solid transparent;
     border-bottom-color: #6573d0;
   }
+
+  input[type=text],input[type=date] {
+    text-align: center;
+      }
   /*** RESPONSIVE ***/
   @media only screen and (max-width: 810px) {
     .card {
@@ -212,3 +216,4 @@
    }
   }
   
+

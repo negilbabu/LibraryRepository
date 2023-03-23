@@ -53,8 +53,18 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .securityContext().and()
                 .anonymous().and()
                 .authorizeRequests()
+
+                // .antMatchers(GET,"/users/admin/**/").access("hasRole('ROLE_ADMIN')")
+                // .antMatchers(GET,"/users/admin/viewProfile").access("hasRole('ROLE_ADMIN')")
+
                 .antMatchers(OPTIONS, "/users").anonymous()
                 .antMatchers(POST, "/users").anonymous()
+                .antMatchers(GET, "/socket").anonymous()
+                .antMatchers(GET, "/chat").anonymous()
+                .antMatchers(POST, "/chat").anonymous()
+                .antMatchers(POST, "/users/register").anonymous()
+                .antMatchers(POST, "/users/google").anonymous()
+                .antMatchers(POST, "/users/google/signin").anonymous()
                 .antMatchers(OPTIONS, "/login").anonymous()
                 .antMatchers(POST, "/login").anonymous()
                 .antMatchers(POST, "/email/**").anonymous()
@@ -62,7 +72,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers(OPTIONS, "/**").anonymous() 
                 
                 //category
-                 .antMatchers(GET,"/category/admin").access("hasRole('ROLE_ADMIN')")
+                 .antMatchers(GET,"/category/admin/**/").access("hasRole('ROLE_ADMIN')")
                  .antMatchers(POST,"/category").access("hasRole('ROLE_ADMIN')")
                  .antMatchers(DELETE,"/category").access("hasRole('ROLE_ADMIN')")
                  .antMatchers(PUT,"/category/{catogoryId}").access("hasRole('ROLE_ADMIN')")
@@ -71,6 +81,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                  .antMatchers(GET,"/books/admin/**/").access("hasRole('ROLE_ADMIN')")
                  .antMatchers(GET,"/books/user/**/").access("hasRole('ROLE_USER')")
                  .antMatchers(POST,"/books").access("hasRole('ROLE_ADMIN')")
+                 .antMatchers(POST,"/books/save/image/{booksId}").access("hasRole('ROLE_ADMIN')")
                  .antMatchers(DELETE,"/books/{booksId}").access("hasRole('ROLE_ADMIN')")
                  .antMatchers(PUT,"/books/{booksId}").access("hasRole('ROLE_ADMIN')")
                 
@@ -80,6 +91,8 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                  .antMatchers(POST,"/borrow/").access("hasRole('ROLE_USER')")
                  .antMatchers(PUT,"/borrow/admin/**").access("hasRole('ROLE_ADMIN')")
 
+                 //user
+                 
 
 
 

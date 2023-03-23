@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { elementAt } from 'rxjs';
 import { BooksService } from '../books.service';
 import { BorrowService } from '../borrow.service';
 
@@ -11,104 +10,88 @@ import { BorrowService } from '../borrow.service';
 })
 export class FineComponent implements OnInit {
 
-
-  borrowList: any[];
   borrowId:any;
   borrowdata:any;
   booksdata:any;
   data:number=1;
+
+
+
+
+page:number=1;
+count: any;
+tableSize: number = 10;
+a:any;
+b:any;
+sort:string="borrow_id";
+len: any;
+result: any;
+booksCount: any;
+direction=-1;
+
     constructor(private router:Router ,private service:BorrowService,private booksService:BooksService) {
  
-      this.borrowList=[];
      }
 
   
     ngOnInit(): void {  
-      sessionStorage.clear()
+
     this.LoadBorrow() 
 
     }
 
 
       LoadBorrow(){
-        this.service.LoadFine().subscribe((data: any)=>{
-        this.borrowdata=data;
-        console.log(data);
-          console.log("9999",data.length)
+        this.service.finePagination(this.page,this.tableSize,this.sort,this.direction).subscribe(result=>{
+          this.result=result.content;
+          this.count=result.totalElements
+          this.data=this.result; 
+          this.borrowdata=this.result;                   
+         
 
-
-
-        if(data.length!==0){
-          this.data=0;
+      //   if(result.length!==0){
+      //     this.data=0;
           
-        }
-        else if(data.length==0){
-        this.data=1;
-       }
+      //   }
+      //   else if(result.length==0){
+      //   this.data=1;
+      //  }
 
+     
       });
-
        
         
   }
-        
 
-      
-      
-      // acceptRequest(borrow:any)
-      // {
-      //   console.log("in borrow");
-      //   console.log(borrow);
-      //   console.log(borrow.borrowId);
-
-      //   sessionStorage.setItem('borrowId',borrow.borrowId)
-      //   this.router.navigate(['/acceptrequest'])
-      // }
-
-
-      // rejectRequest(borrow:any){
-        
-      //   console.log("in borrow");
-      //   console.log(borrow);
-      //   console.log(borrow.borrowId);
-
-      //   sessionStorage.setItem('borrowId',borrow.borrowId)
-      //   this.router.navigate(['/rejectrequest'])
-
-      // }
-
-      // bookReturn(borrow: any) {
-     
-      //   this.service.bookReturn(borrow.borrowId).subscribe({
-      //     next: (Response: any) => {
-      //       console.log(Response);
-      //       alert(" Book Returned")
-      //       window.location.reload()
-      //     },
-      //     error: (Response: any) => {
-      //       console.log(Response)
-      //       alert("invalid Borrow details")
-      //     }
-      //   })
-      //   this.router.navigate(['/borrow'])
-      //   }
-
-
-      //   undo(borrow: any) {
-     
-      //     this.service.undo(borrow.borrowId).subscribe({
-      //       next: (Response: any) => {
-      //         console.log(Response);
-      //         alert(" Book Returned status revoked")
-      //         window.location.reload()
-      //       },
-      //       error: (Response: any) => {
-      //         console.log(Response)
-      //         alert("invalid Borrow details")
-      //       }
-      //     })
-      //     this.router.navigate(['/borrow'])
-      //     }
+  sortfn(a:any){    
+    this.sort=a;      
+    this.page=this.page;
+    this.tableSize;
   
+    if(this.direction==1){
+      this.direction=-1;
+      this.ngOnInit();       
+    }
+  
+    else{
+      this.direction=1;
+    this.ngOnInit(); 
+    }
+    
+  }
+
+  onTableDataChange(event:any) {
+  
+
+    this.service.finePagination(this.page,this.tableSize,this.sort,this.direction).subscribe(result=>{
+      this.result=result.content;
+      this.count=result.totalElements
+      this.data=this.result;   
+      this.borrowdata=this.result;                     
+        })       
+  }
+        
+
+     
   }
   

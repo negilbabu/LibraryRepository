@@ -1,49 +1,32 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+
+import { Component, HostListener } from '@angular/core';
+import { MessageService } from '../message.service';
+// import {MessageService} from './message.service';
 
 @Component({
   selector: 'app-demo',
   templateUrl: './demo.component.html',
   styleUrls: ['./demo.component.css']
 })
-export class DemoComponent implements OnInit {
-  status: any = 0;
-
-  constructor(private router:Router) { }
-
-  ngOnInit(): void {
+export class DemoComponent  {
+  title = 'websocket-frontend';
+  input:any;
+  constructor(public messageService: MessageService) {}
+  sendMessage(message:any) {
+    if (this.input) {
+      this.messageService.sendMessage(this.input);
+      this.input = '';
+    }
   }
 
-
-close()
-{
-  this.status=1
+  // @HostListener('document:keydown', ['$event'])
+  // handleKeyboardEvent(event: KeyboardEvent) {
+  //   if (event.key === 'Enter') {
+  //     this.sendMessage();
+  //   }
+  // }
 }
-
-logout()
-{
-if (confirm('Are you sure want to Logout?')) {
-  localStorage. clear()   
-  this.router.navigate(['/login'])
-} else {
-  
-  this.router.navigate(['/sidenav'])
-} 
-}
-home()
-{
-  this.router.navigate(['/sidenav'])
-}
-
-profile()
-{
-  this.router.navigate(['/view-adminprofile'])
-}
-
-dash()
-{
-  this.router.navigate(['/sidenav'])
-}
+ 
 
 
-}
+

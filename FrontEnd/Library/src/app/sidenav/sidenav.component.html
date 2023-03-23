@@ -2,62 +2,7 @@
 <app-admin-navbar></app-admin-navbar>
 
 
-<head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style>
-    * {
-      box-sizing: border-box;
-    }
-    
-    .menu {
-      float: left;
-      width: 20%;
-      text-align: center;
-    }
-    
-    .menu a {
-      background-color: #e5e5e5;
-      padding: 8px;
-      margin-top: 7px;
-      display: block;
-      width: 100%;
-      color: black;
-    }
-    
-    .main {
-      float: left;
-      width: 60%;
-      padding: 0 20px;
-    }
-    
-    .right {
-      background-color: #e5e5e5;
-      float: left;
-      width: 20%;
-      padding: 15px;
-      margin-top: 7px;
-      text-align: center;
-    }
-    
-    @media only screen and (max-width: 620px) {
-      /* For mobile phones: */
-      .menu, .main, .right {
-        width: 100%;
-      }
-      .nav-text{
-        visibility: hidden;
-      }
-      .main-menu{
-        width:11%;
-      }
 
-      .fa{
-        width: 50%;
-      }
-
-    }
-    </style>
-    </head>
     
     
     <div class="area"></div>
@@ -66,7 +11,7 @@
     <ul>
         <br><br><br>
         <li>
-            <a href="body">
+            <a (click)="home()">
                 <i class="fa fa-home fa-2x"></i>
                 <span class="nav-text">
                     HOME
@@ -75,7 +20,7 @@
         </li>
         <br>
         <li class="has-subnav">
-            <a href="addcategory">
+            <a (click)="category()">
                 <i class="fa fa-bars fa-2x"></i>
                 <span class="nav-text">
                     CATEGORY
@@ -84,7 +29,7 @@
         </li>
         <br>
         <li>
-          <a href="addbooks">
+          <a (click)="books()">
               <i class="fa fa-book fa-2x"></i>
               <span class="nav-text">
                   BOOKS 
@@ -94,7 +39,7 @@
       <br>
 
         <li>
-            <a href="borrow">
+            <a (click)="borrow()">
                 <i class="fa fa-refresh fa-2x"></i>
                 <span class="nav-text">
                     BORROW 
@@ -104,7 +49,7 @@
         <br>
 
         <li>
-            <a href="user-details">
+            <a (click)="users()">
                 <i class="fa fa-user fa-2x"></i>
                 <span class="nav-text">
                      USERS
@@ -114,10 +59,19 @@
         <br>
 
         <li>
-            <a href="fine">
+            <a (click)="fine()">
                 <i class="fa fa-inr fa-2x"></i>
                 <span class="nav-text">
                     FINE
+                </span><br>
+            </a>
+        </li>
+        <br>
+        <li>
+            <a (click)="chat()">
+                <i class="fa fa-circle fa-2x"></i>
+                <span class="nav-text">
+                    CHAT
                 </span><br>
             </a>
         </li>

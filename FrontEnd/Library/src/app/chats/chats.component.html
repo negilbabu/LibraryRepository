@@ -1,0 +1,137 @@
+
+<app-sidenav *ngIf="this.user.role==1"></app-sidenav>
+<app-sidenav2 *ngIf="this.user.role==2"></app-sidenav2>
+
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+
+<div class="container">
+    <div class="row clearfix">
+        <div class="col-lg-12">
+            <div class="card chat-app">
+
+                <div id="plist" class="people-list">
+                   
+                    <!--  -->
+                    <div class="input-group" >
+                        <!-- <div class="input-group-prepend">
+                            <span *ngIf="user.role!=2 " class="input-group-text"><i class="fa fa-search"></i></span>
+                        </div> -->
+
+                        <form [formGroup]="searchForm" *ngIf="this.user.role==1" >
+                       <input type="text" style="width: 230px;" class="form-control" formControlName="inp"
+                          placeholder="Enter User Name to Search " aria-label="Recipient's username" aria-describedby="basic-addon2"
+                          (ngModelChange)="Search(this.searchForm.controls['inp'].value)">
+                        </form>
+                    </div>
+
+                    <!--  -->
+                    <ul class="list-unstyled chat-list mt-2 mb-0">
+                        <label *ngIf="this.noValue==1">No search results found</label>
+                        <li class="clearfix " *ngFor="let item of this.data">
+                            <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="avatar">
+                            <div class="about">
+                                                                                      
+                                <div class="name"  (click)="call(item)">{{item.firstName}}</div>
+                                <div class="status"> <i class="fa fa-circle online"></i> left 1 mins ago </div>
+                           
+                             
+                              
+                            </div>
+                        </li>
+                       
+                    </ul>
+                   
+                </div>
+
+
+
+
+
+                <div class="chat" style="z-index: 1; background-color: rgb(255, 255, 255);" >
+                    <div class="chat-header clearfix" style="position: fixed;margin-top:0.35%;background-color: rgb(254, 253, 255);">
+                        <div class="row">
+                            <div class="col-lg-6" *ngIf="this.id!=0;">
+                                <a href="javascript:void(0);" data-toggle="modal" data-target="#view_info">
+                                    <img src="https://bootdey.com/img/Content/avatar/avatar2.png" alt="avatar">
+                                </a>
+                                <div class="chat-about">
+                                    <h3 class="m-b-0">{{this.name}}</h3>
+                                    <small>Last seen: 2 hours ago</small>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 hidden-sm text-right">
+                                <!-- <a href="javascript:void(0);" class="btn btn-outline-secondary"><i
+                                        class="fa fa-camera"></i></a>
+                                <a href="javascript:void(0);" class="btn btn-outline-primary"><i
+                                        class="fa fa-image"></i></a>
+                                <a href="javascript:void(0);" class="btn btn-outline-info"><i
+                                        class="fa fa-cogs"></i></a>
+                                <a href="javascript:void(0);" class="btn btn-outline-warning"><i
+                                        class="fa fa-question"></i></a> -->
+                            </div>
+                        </div>
+                    </div>
+                   </div>
+                   
+                   <div style="width:80%; margin-left:30%;"> 
+                    <div class="history" >
+                        <ul class="m-b-0">
+                            <li class="clearfix" *ngFor="let chat of data1">
+                                <div class="message-data text-right" *ngIf="user.userId==chat.sender">
+                                    <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="avatar">
+                                    <span class="message-data-time">{{chat.time | date : 'EEEE, MMMM d, HH:mm'}}</span>
+                                    
+                                </div>
+                        
+                                <div class="message my-message" *ngIf="user.userId==chat.sender" >{{chat.content}}.
+                                </div>
+
+
+                               
+                                <div class="message other-message float-right" *ngIf="user.userId!=chat.sender">
+                                    <div class="message-data text-right">
+                                        <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="avatar">
+                                        <span class="message-data-time">{{chat.time | date : 'EEEE, MMMM d, HH:mm'}}</span>
+                                        
+                                    </div>
+                                  
+                                    <div class="message my-message" *ngIf="user.userId!=chat.sender" >{{chat.content}}.
+                                    </div>
+                                 
+                                
+                                
+                                </div> 
+                                
+                            </li>
+                      
+                        </ul>
+                        <div *ngIf="this.id==0">
+                            <label style="color: red;">Please select a chat to start messaging</label>
+                        </div>
+                    </div>
+                   
+                    <div class="chat-message clearfix" *ngIf="this.id!=0">
+                        <div class="input-group mb-0">
+                            <form [formGroup]="chatForm">
+                                <table><tr><td>
+                                    <div class="input-group-prepend">
+                                        <!-- <input type="submit" (click)="chatmsg()" value=""><i class="bi bi-send"></i> -->
+                                        <span class="submit" (click)="chatmsg()"><i class="fa fa-send"></i></span>
+                                    </div>
+                                </td>
+                            <td>
+                                <input type="text" class="form-control" (click)="clickk($event)" formControlName="content" style="width: 150%;" placeholder="Enter text here...">
+                            </td>
+                            </tr></table>
+                              
+
+                               
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<!-- </div> -->

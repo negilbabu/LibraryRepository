@@ -1,3 +1,4 @@
+import { SocialAuthService } from '@abacritt/angularx-social-login';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
@@ -9,7 +10,9 @@ import { Router } from '@angular/router';
 export class AdminNavbarComponent implements OnInit {
 
 
-  constructor(private router:Router) { }
+  constructor(private router:Router,
+    private authService : SocialAuthService
+    ) { }
 
   ngOnInit(): void {
     this.dash();
@@ -18,15 +21,17 @@ export class AdminNavbarComponent implements OnInit {
   profile() {
     this.router.navigate(['/view-adminprofile'])
     }
-    logout() {
+    logout(){
       if (confirm('Are you sure want to Logout?')) {
-        localStorage. clear()   
+        this.authService.signOut();
+        localStorage.clear();
+    
         this.router.navigate(['/login'])
       } else {
         
         this.router.navigate(['/sidenav'])
       } 
-    }
+      } 
     dash() {
 
     }
