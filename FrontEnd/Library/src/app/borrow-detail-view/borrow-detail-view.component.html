@@ -1,16 +1,16 @@
 <app-sidenav></app-sidenav>    
 <div class="text-center"> 
     <form>
-      <div class="card-box">         
+      <div class="card-box" >         
                   <div class="row">
                     <div class="table-responsive"><br>
-                      <h2 style="text-align:center ;">Borrow Details</h2>
+                      <h2 style="text-align:center ;margin-top: 5%;">Borrow Details</h2>
 
- <table align="center"  class=".table-hover"   >
+ <table align="center"  class=".table-hover" >
                            
               <tbody>
         <tr> 
-
+    </tr>
           <tr> <td>NAME </td><td>:</td>         <td>{{this.borrowdata.user.firstName}}</td>
           <tr> <td>BOOK NAME </td><td>:</td>    <td>{{this.borrowdata.books.booksName}}</td>
           <tr> <td>ISSUE DATE </td><td>:</td>   <td>{{this.borrowdata.issueDate| date:'dd/MM/yyyy'}}</td>                 

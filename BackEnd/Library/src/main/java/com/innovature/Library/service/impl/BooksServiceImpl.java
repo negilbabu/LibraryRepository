@@ -1,14 +1,10 @@
 package com.innovature.Library.service.impl;
 
 import java.io.IOException;
-import java.util.ArrayList;
-// import java.net.http.HttpHeaders;
 import java.util.Collection;
 import java.util.List;
 
-//import java.util.ArrayList;
 import javax.transaction.Transactional;
-//import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
@@ -17,8 +13,6 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.view.RedirectView;
-
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -36,7 +30,7 @@ import com.innovature.Library.view.BooksDetailView;
 import com.innovature.Library.util.FileUtil;
 
 @Service
-public class BooksServiceImpl implements BooksService{
+public class BooksServiceImpl implements BooksService {
 
     @Autowired
     private BooksRepository booksRepository;
@@ -45,70 +39,66 @@ public class BooksServiceImpl implements BooksService{
     CategoryRepository catRepo;
 
     @Override
-    public BooksDetailView add(BooksForm form){
-    Category category=catRepo.findByCategoryId(form.getCategoryId());
-    return new BooksDetailView(booksRepository.save(new Books(form,category)));
+    public BooksDetailView add(BooksForm form) {
+        Category category = catRepo.findByCategoryId(form.getCategoryId());
+        return new BooksDetailView(booksRepository.save(new Books(form, category)));
     }
 
-  
     @Override
-    public  Collection<Books> listAll() {
-    return booksRepository.findAll();
-    } 
+    public Collection<Books> listAll() {
+        return booksRepository.findAll();
+    }
 
     @Override
-    public  Collection<Books> listByCategory(Integer categoryId) {
-    return booksRepository.findbyCategoryId(categoryId);
-    } 
-
+    public Collection<Books> listByCategory(Integer categoryId) {
+        return booksRepository.findbyCategoryId(categoryId);
+    }
 
     @Override
     public BooksDetailView list(Integer booksId) {
-        Books books=booksRepository.findByBooksId(booksId);
+        Books books = booksRepository.findByBooksId(booksId);
         return new BooksDetailView(books);
     }
 
-
     @Override
     @Transactional
-    public BooksDetailView updates(Integer booksId, BooksForm form)  {
+    public BooksDetailView updates(Integer booksId, BooksForm form) {
 
-        Category category=catRepo.findByCategoryId(form.getCategoryId());        
-        Books books=booksRepository.findByBooksId(booksId);
+        Category category = catRepo.findByCategoryId(form.getCategoryId());
+        Books books = booksRepository.findByBooksId(booksId);
         books.setCategory(category);
         books.setPublication(form.getPublication());
         books.setBooksName(form.getBooksName());
         books.setAuther(form.getAuther());
         books.setBooksCopies(form.getBooksCopies());
-        // return new BooksDetailView(booksRepository.save(new Books(form,category)));
+
         return new BooksDetailView(books);
     }
 
     @Override
     public void deletes(Integer categoryId) throws NotFoundException {
         booksRepository.delete(
-            booksRepository.findByBooksId(categoryId)
-                    
+                booksRepository.findByBooksId(categoryId)
+
         );
 
     }
 
     @Override
     public HttpEntity<byte[]> getImagePic(Integer booksId) {
-    
+
         String image = booksRepository.findByBooksId(booksId)
                 .getImage();
-    
+
         byte[] file = FileUtil.getImage(image);
-    
+
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.IMAGE_PNG);
         headers.setContentLength(file.length);
-    
+
         return new HttpEntity<>(file, headers);
 
     }
-
 
     @Override
     public RedirectView uploadImage(MultipartFile multipartFile) throws IOException {
@@ -116,69 +106,62 @@ public class BooksServiceImpl implements BooksService{
         return null;
     }
 
-
     @Override
     @Transactional
-    public Page<Books>getAllBooks(Integer pageNo, Integer pageSize, String sortBy,Integer direction){
-  
-        var sortByDescending=Sort.by(sortBy).descending();
-        var sortByAscending=Sort.by(sortBy).ascending();
+    public Page<Books> getAllBooks(Integer pageNo, Integer pageSize, String sortBy, Integer direction) {
 
-        if(direction==1){
+        var sortByDescending = Sort.by(sortBy).descending();
+        var sortByAscending = Sort.by(sortBy).ascending();
+
+        if (direction == 1) {
 
             Pageable paging = PageRequest.of(pageNo, pageSize, sortByDescending);
             Page<Books> pagedResult = booksRepository.findAll(paging);
-            return pagedResult;    
+            return pagedResult;
         }
 
-        else 
-        {
+        else {
             Pageable paging = PageRequest.of(pageNo, pageSize, sortByAscending);
             Page<Books> pagedResult = booksRepository.findAll(paging);
-            return pagedResult; 
+            return pagedResult;
         }
     }
 
-    //pie
+    // pie
     @Override
     public List<Object[]> getBookCountByCategory() {
         return booksRepository.findCountByCategoryId();
     }
-    //book search
+    // book search
 
     @Override
-    public Page<Books> getAllBookStocks(String keyword, Integer pageNo, Integer pageSize, String sortBy,Integer direction) {
+    public Page<Books> getAllBookStocks(String keyword, Integer pageNo, Integer pageSize, String sortBy,
+            Integer direction) {
 
-        var sortByDescending=Sort.by(sortBy).descending();
-        var sortByAscending=Sort.by(sortBy).ascending();
+        var sortByDescending = Sort.by(sortBy).descending();
+        var sortByAscending = Sort.by(sortBy).ascending();
 
-        if(direction==1){
+        if (direction == 1) {
 
             Pageable paging = PageRequest.of(pageNo, pageSize, sortByDescending);
-            System.out.println(keyword);
-        String k = keyword;
-        String k1 = keyword;
-        String k2 = keyword;
-        Page<Books> pagedResult = booksRepository.findByKeywords(keyword, k, k1, k2, paging);
-         return pagedResult;
-        }
 
-        else 
-        {
-            Pageable paging = PageRequest.of(pageNo, pageSize, sortByAscending);
-            System.out.println(keyword);
             String k = keyword;
             String k1 = keyword;
             String k2 = keyword;
             Page<Books> pagedResult = booksRepository.findByKeywords(keyword, k, k1, k2, paging);
-             return pagedResult;
+            return pagedResult;
         }
 
-   
-  
+        else {
+            Pageable paging = PageRequest.of(pageNo, pageSize, sortByAscending);
+
+            String k = keyword;
+            String k1 = keyword;
+            String k2 = keyword;
+            Page<Books> pagedResult = booksRepository.findByKeywords(keyword, k, k1, k2, paging);
+            return pagedResult;
+        }
+
     }
 
 }
-
-
-

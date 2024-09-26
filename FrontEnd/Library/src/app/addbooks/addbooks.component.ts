@@ -213,14 +213,14 @@ selectFile($event:any) {
        if (file) {
          this.currentFile = file;
          this.booksService.uploadCsv(this.currentFile).subscribe(res=>{
-console.log("csv-",res)
+
            if(res!==null){
             this.toast.success({detail:'SUCCESS',summary:'The CSV File upload is successfull',duration:5000});              
           
         setTimeout(() => {
-
+this.Load()
         // window.location.reload()       
-         }, 5000);              
+         }, 3000);              
            }
          },(error: any) =>{
           this.toast.error({detail:'CSV Upload Failed',summary:'Invalid CSV File',duration:5000});

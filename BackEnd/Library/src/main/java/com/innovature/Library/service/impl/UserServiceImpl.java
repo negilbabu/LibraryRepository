@@ -1,21 +1,17 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package com.innovature.Library.service.impl;
 
 import static com.innovature.Library.security.AccessTokenUserDetailsService.PURPOSE_ACCESS_TOKEN;
 
 import java.util.Collection;
 import javax.transaction.Transactional;
-//import javax.validation.Valid;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
+
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.Errors;
@@ -133,11 +129,6 @@ public class UserServiceImpl implements UserService {
         return new BadRequestException("Invalid credentials");
     }
 
-    // @Override
-    // public Collection<User> list() {
-    //     return userRepository.findAll();
-    // }
-
 
 
 
@@ -178,7 +169,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserView edit(Integer userId,UserForm form) {
-       // Integer userId=SecurityUtil.getCurrentUserId();
+
         User user=userRepository.findById(userId);
 
         user.edit(
@@ -195,8 +186,7 @@ public class UserServiceImpl implements UserService {
     }
     @Override
     public Collection<User> viewProfile(Integer userId) {
-        //User user=userRepository.findById(userId);
-     //   return UserView( userRepository.save(user));
+
         return userRepository.findByUserId(userId);
 
     }

@@ -53,6 +53,12 @@ export class BorrowService {
 
   }
 
+
+  finePagination(page:any,tableSize:any,sort:any,direction:any):Observable<any>{
+    return this.http.get(this.baseUrl+"/borrow/admin/fine/?pageNo="+page+"&pageSize="+tableSize+"&sortBy="+sort+"&direction="+direction)
+
+  }
+
   filterBorrowPagination(date1:any,date2:any,page:any,tableSize:any,sort:any,direction:any):Observable<any>{
     console.log(date1,' to ',date2)
     return this.http.get(this.baseUrl+"/borrow/admin/"+date1+"/"+date2+"/?pageNo="+page+"&pageSize="+tableSize+"&sortBy="+sort+"&direction="+direction)
@@ -69,6 +75,11 @@ export class BorrowService {
       return this.http.get(this.baseUrl+"/borrow/user/statusFilter/?pageNo="+page+"&pageSize="+tableSize+"&sortBy="+sort+"&direction="+direction+"&status="+status)
       
     }  
+
+    AdminStatusfilterBorrow(page:any,tableSize:any,sort:any,direction:any,status:any):Observable<any>{
+      return this.http.get(this.baseUrl+"/borrow/admin/statusFilter/?pageNo="+page+"&pageSize="+tableSize+"&sortBy="+sort+"&direction="+direction+"&status="+status)
+      
+    } 
 
   LoadByIssueDate(date1:any,date2:any){
     return this.http.get(this.baseUrl+ "/borrow/loadByIssueDate/"+date1+"/"+date2);

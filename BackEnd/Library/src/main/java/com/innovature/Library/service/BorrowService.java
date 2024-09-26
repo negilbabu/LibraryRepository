@@ -38,6 +38,8 @@ public interface BorrowService {
     List<Borrow> getAllBorrows(Integer pageNo, Integer pageSize, String sortBy);
     Page<Borrow> getAllBorr(Integer pageNo, Integer pageSize, String sortBy,Integer direction);
 
+    Page<Borrow> getAllFine(Integer pageNo, Integer pageSize, String sortBy,Integer direction); //fine
+
     List<Borrow> getAllBorrow(Date date1, Date date2, Integer pageNo, Integer pageSize, String sortBy);
     Page<Borrow> getAllBor(Date date1, Date date2, Integer pageNo, Integer pageSize, String sortBy,Integer direction);
 

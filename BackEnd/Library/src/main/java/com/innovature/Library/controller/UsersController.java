@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package com.innovature.Library.controller;
 
 import java.security.Principal;
@@ -13,29 +9,22 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
-import org.springframework.util.StringUtils;
+
 
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
-// import java.util.Collection;
 import javax.validation.Valid;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-// import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+
 
 import com.innovature.Library.entity.User;
-// import com.innovature.Library.entity.User;
 import com.innovature.Library.form.UserForm;
 import com.innovature.Library.security.util.SecurityUtil;
 import com.innovature.Library.service.UserService;
@@ -91,11 +80,6 @@ public class UsersController {
         userService.deletes(userId);
     }
 
-    // @GetMapping("/{userId}")
-    // public void deletes(
-    //         @PathVariable("userId") Integer userId) {
-    //     userService.deletes(userId);
-    // }
 
 
     @GetMapping("/admin/{userId}")

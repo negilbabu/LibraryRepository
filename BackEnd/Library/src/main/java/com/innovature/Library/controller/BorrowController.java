@@ -69,8 +69,27 @@ public class BorrowController {
         return new ResponseEntity<Page<Borrow>>(list,new HttpHeaders(),
         HttpStatus.OK);
     
+
+
     }
 
+    @GetMapping("/admin/statusFilter/")
+    public ResponseEntity<Page<Borrow>>getAllBorrowByStatus(
+                        @RequestParam(defaultValue = "1") Integer pageNo,
+                        @RequestParam(defaultValue = "5") Integer pageSize,
+                        @RequestParam(defaultValue = "borrowId") String sortBy,
+                        @RequestParam(defaultValue = "1") Integer direction,
+                        @RequestParam(defaultValue = "1") Integer status)
+    {
+        Page<Borrow> list = bService.getAllBorrByStat(pageNo-1, pageSize, sortBy,direction,status);
+        return new ResponseEntity<Page<Borrow>>(list,new HttpHeaders(),
+        HttpStatus.OK);
+    
+
+
+    }
+
+  
 
 //BORROW @ADMIN //pagenated borrow list at admin VIEW borrow single api
 @GetMapping("/admin/pagenated/")
@@ -166,6 +185,20 @@ public ResponseEntity<List<Borrow>> loadByIssueDateUser(
     }
 
 
+    @GetMapping("/admin/fine/")
+public ResponseEntity<Page<Borrow>>listfine(
+                    @RequestParam(defaultValue = "1") Integer pageNo,
+                    @RequestParam(defaultValue = "5") Integer pageSize,
+                    @RequestParam(defaultValue = "borrowId") String sortBy,
+                    @RequestParam(defaultValue = "1") Integer direction)
+{
+    Page<Borrow> list = bService.getAllFine(pageNo-1, pageSize, sortBy,direction);
+    return new ResponseEntity<Page<Borrow>>(list,new HttpHeaders(),
+    HttpStatus.OK);
+
+}
+
+
     @GetMapping("admin/fine")
     public Collection<Borrow> listfine() {
         return bService.fine();
@@ -238,7 +271,7 @@ public ResponseEntity<List<Borrow>> loadByIssueDateUser(
     
 
 
-
+//chart
 @GetMapping("/admin/chart")
     public rentChartView getchart(){
         rentChartView test =borrowServices.getChart();
